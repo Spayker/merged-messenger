@@ -6,12 +6,12 @@
 ## Подготовка рабочей среды
 
 Для установки рабочей среды необходимо установить следующий софт:
-#Android версия: API 21: Android 5.0 (Lollipop) - 71.3% покрытие устройств
-#IDE: Android Studio v3.0.1
-#JDK: openJDK v8.0 или выше
-#SDK: Android SDK (обычно встроен в Android Studio)
-#Сборщик: Gradle
-#Репозитарий: git
+#Android версия: API 21: Android 5.0 (Lollipop) - 71.3% покрытие устройств<br />
+#IDE: Android Studio v3.0.1<br />
+#JDK: openJDK v8.0 или выше<br />
+#SDK: Android SDK (обычно встроен в Android Studio)<br />
+#Сборщик: Gradle<br />
+#Репозитарий: git<br />
 
 ## Сборщик приложения
 
