@@ -1,4 +1,4 @@
-package com.bridge.bridgecom;
+package com.spand.bridgecom;
 
 import org.junit.Test;
 
