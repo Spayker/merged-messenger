@@ -2,7 +2,7 @@ package com.spand.bridgecom.controller;
 
 import com.spand.bridgecom.model.User;
 import com.spand.bridgecom.service.UserService;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/")
 public class UserRestController {
 
-    private static final Logger logger = Logger.getLogger(UserRestController.class);
+    private static final Logger logger = Logger.(UserRestController.class);
  
     @Autowired
     UserService userService;  //Service which will do all data retrieval/manipulation work
