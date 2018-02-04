@@ -19,4 +19,12 @@
     <string name="sing_up_content">Регистрация</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email         completions.     "</string>
     <string name="prompt_password_confirm">Подтвердите Пароль</string>
+    <string name="title_activity_main">Bridge Com</string>
+    <string name="navigation_drawer_open">Открыть</string>
+    <string name="navigation_drawer_close">Закрыть</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_inbox">Входящие</string>
+    <string name="action_my_chats">Мои Чаты</string>
+    <string name="action_create_chat">Новый Чат</string>
+    <string name="action_attach_new_account">Привязать Аккаунт</string>
 </resources>

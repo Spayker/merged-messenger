@@ -39,6 +39,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.WelcomeActivity" />
         </activity>
+        <activity android:name=".activity.MainActivity" />
+        <activity
+            android:name=".activity.setting.SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity android:name=".activity.SettingsActivity"></activity>
     </application>
 
 </manifest>
