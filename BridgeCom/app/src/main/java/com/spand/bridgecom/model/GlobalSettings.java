@@ -23,7 +23,6 @@ public class GlobalSettings {
         public static final String COLUMN_NAME = "NAME";
         public static final String COLUMN_DESCRIPTION = "DESCRIPTION";
         public static final String COLUMN_DEFAULT_VALUE = "DEFAULT_VALUE";
-        public static final String COLUMN_NAME_NULLABLE = null;
     }
 
     static final String SQL_CREATE_GLOBAL_SETTINGS_ENTRY =

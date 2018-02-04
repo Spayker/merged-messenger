@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BridgeCom</string>
+    <string name="title_activity_login">Логин</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Пароль</string>
+    <string name="sing_in_button">Логин</string>
+    <string name="sing_up_button">Регистрация</string>
+    <string name="action_sign_in">Логин</string>
+    <string name="action_sign_in_short">Логин</string>
+    <string name="error_invalid_email">Email введён не верно</string>
+    <string name="error_invalid_password">Пароль слишком короткий</string>
+    <string name="error_incorrect_password">Пароль введён неверно</string>
+    <string name="error_field_required">Обязательное поле</string>
+    <string name="title_activity_register">Регистрация</string>
+    <string name="action_sign_up">Создать</string>
+    <string name="action_sign_up_short">Создать</string>
+    <string name="sing_in_content">Логин</string>
+    <string name="sing_up_content">Регистрация</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email         completions.     "</string>
+    <string name="prompt_password_confirm">Подтвердите Пароль</string>
+</resources>
