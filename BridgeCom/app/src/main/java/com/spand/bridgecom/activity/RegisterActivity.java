@@ -3,6 +3,7 @@ package com.spand.bridgecom.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -216,6 +217,11 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             mRegTask = new UserRegisterTask(name, email, password, passwordConfirm);
             mRegTask.execute((Void) null);
         }
+    }
+
+    public void finishSingUpActivity(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     private boolean isEmailValid(String email) {

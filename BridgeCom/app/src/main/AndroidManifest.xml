@@ -41,9 +41,10 @@
         </activity>
         <activity android:name=".activity.MainActivity" />
         <activity
-            android:name=".activity.setting.SettingsActivity"
+            android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".activity.SettingsActivity"></activity>
+        <activity android:name=".activity.GlobalSettingsActivity" />
+        <activity android:name=".activity.ChannelsSettingActivity"></activity>
     </application>
 
 </manifest>
