@@ -12,6 +12,28 @@
     tools:context="com.spand.bridgecom.activity.SettingsActivity">
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
+            <Button
+                android:id="@+id/global_settings_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="selectGlobalSettings"
+                android:text="@string/action_global_settings" />
+
+            <Button
+                android:id="@+id/channels_setting_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="selectChannelsSetting"
+                android:text="@string/action_channels_setting" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

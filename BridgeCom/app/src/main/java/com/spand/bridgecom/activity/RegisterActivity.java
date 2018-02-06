@@ -67,7 +67,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     private View mProgressView;
     private View mRegisterFormView;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
@@ -88,7 +87,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             }
         });
 
-        mPasswordConfirmView = (EditText) findViewById(R.id.password_confirm);
+        mPasswordConfirmView = findViewById(R.id.password_confirm);
         mPasswordConfirmView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -100,11 +99,11 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             }
         });
 
-        Button mEmailSignUpButton = (Button) findViewById(R.id.email_sign_up_button);
+        Button mEmailSignUpButton = findViewById(R.id.email_sign_up_button);
         mEmailSignUpButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptRegister();
+                finishSingUpActivity(view);
             }
         });
 
@@ -145,7 +144,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     /**
      * Callback received when a permissions request has been completed.
      */
-    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         if (requestCode == REQUEST_READ_CONTACTS) {
@@ -226,12 +224,14 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        //return email.contains("@");
+        return true;
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        //return password.length() > 4;
+        return true;
     }
 
     /**
@@ -270,7 +270,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         }
     }
 
-    @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
                 // Retrieve data rows for the device user's 'profile' contact.
@@ -287,7 +286,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
     }
 
-    @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         List<String> emails = new ArrayList<>();
         cursor.moveToFirst();
@@ -299,7 +297,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         addEmailsToAutoComplete(emails);
     }
 
-    @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
 
     }
@@ -342,7 +339,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             mPasswordConfirm = passwordConfirm;
         }
 
-        @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
@@ -365,7 +361,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             return true;
         }
 
-        @Override
         protected void onPostExecute(final Boolean success) {
             mRegTask = null;
             showProgress(false);
@@ -378,7 +373,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             }
         }
 
-        @Override
         protected void onCancelled() {
             mRegTask = null;
             showProgress(false);

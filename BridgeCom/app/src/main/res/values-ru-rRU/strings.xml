@@ -27,4 +27,21 @@
     <string name="action_my_chats">Мои Чаты</string>
     <string name="action_create_chat">Новый Чат</string>
     <string name="action_attach_new_account">Привязать Аккаунт</string>
+    <string name="title_activity_settings">Настройки</string>
+    <string name="pref_header_general">Общее</string>
+    <string name="pref_title_social_recommendations">Включить рекомендации</string>
+    <string name="pref_description_social_recommendations">Рекомендации контактов с истории чатов</string>
+    <string name="pref_title_display_name">Имя</string>
+    <string name="pref_default_display_name">Джон Смит</string>
+    <string name="pref_title_add_friends_to_messages">Добавить друзей в сообщение</string>
+    <string name="pref_header_data_sync">Данные и Синхронизация</string>
+    <string name="pref_title_vibrate">Вибро</string>
+    <string name="pref_ringtone_silent">Тихо</string>
+    <string name="pref_title_ringtone">Звонок</string>
+    <string name="pref_title_new_message_notifications">Новые напоминания</string>
+    <string name="pref_header_notifications">Напоминания</string>
+    <string name="pref_title_system_sync_settings">настройки синхронизации</string>
+    <string name="pref_title_sync_frequency">Частота синхронизации</string>
+    <string name="action_global_settings">Глобальные Настройки</string>
+    <string name="action_channels_setting">Настройки Каналов Связи</string>
 </resources>

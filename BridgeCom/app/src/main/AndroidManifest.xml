@@ -39,12 +39,32 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.WelcomeActivity" />
         </activity>
-        <activity android:name=".activity.MainActivity" />
+
+        <activity android:name=".activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.WelcomeActivity"/>
+        </activity>
+
         <activity
             android:name=".activity.SettingsActivity"
-            android:label="@string/title_activity_settings" />
-        <activity android:name=".activity.GlobalSettingsActivity" />
-        <activity android:name=".activity.ChannelsSettingActivity"></activity>
+            android:label="@string/title_activity_settings">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity"/>
+        </activity>
+
+        <activity android:name=".activity.GlobalSettingsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.SettingsActivity"/>
+        </activity>
+
+        <activity android:name=".activity.ChannelsSettingActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.SettingsActivity"/>
+        </activity>
     </application>
 
 </manifest>
