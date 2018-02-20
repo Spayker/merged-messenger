@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void singInActivity(View view) {
+    public void clickOnSettingActivity(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
