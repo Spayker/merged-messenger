@@ -53,4 +53,22 @@
     <string name="action_reset_settings">Сброс Настроек</string>
     <string name="action_remove_account">Удалить аккаунт</string>
     <string name="textview_languages">Язык</string>
+    <string name="old_password">Текущий Пароль</string>
+    <string name="new_account_password">Новый Пароль</string>
+    <string name="confirm_password">Подтвердить Пароль</string>
+    <string name="action_save_password">Сохранить</string>
+    <string name="reset_system_settings">Сбросить Системные Настройки?</string>
+    <string name="no_button">Нет</string>
+    <string name="yes_button">Да</string>
+    <string name="remove_account">Вы действительно хотите удалить аккаунт ?</string>
+    <string name="textview_background_color">Цвет Фона</string>
+    <string name="vk">ВК</string>
+    <string name="fb">ФБ</string>
+    <string name="vb">ВБ</string>
+    <string name="wt">Ва</string>
+    <string name="tl">ТЛ</string>
+    <string name="skp">Скп</string>
+    <string name="fontSize">Размер Шрифта</string>
+    <string name="backgroundColor">Цвет Фона</string>
+    <string name="fontColor">Цвет Шрифта</string>
 </resources>

@@ -53,4 +53,22 @@
     <string name="action_reset_settings">Reset Settings</string>
     <string name="action_remove_account">Deactivate Account</string>
     <string name="textview_languages">Language</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_account_password">New Password</string>
+    <string name="confirm_password">Confirm New Password</string>
+    <string name="action_save_password">Save</string>
+    <string name="reset_system_settings">Reset Application Settings?</string>
+    <string name="no_button">No</string>
+    <string name="yes_button">Yes</string>
+    <string name="remove_account">Are You Sure To Remove Account ?</string>
+    <string name="textview_background_color">Background Color</string>
+    <string name="vk">VK</string>
+    <string name="fb">FB</string>
+    <string name="vb">VB</string>
+    <string name="wt">Wt</string>
+    <string name="tl">TL</string>
+    <string name="skp">Skp</string>
+    <string name="fontSize">Font Size</string>
+    <string name="backgroundColor">Background Color</string>
+    <string name="fontColor">Font Color</string>
 </resources>

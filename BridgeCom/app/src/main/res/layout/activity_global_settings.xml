@@ -14,7 +14,6 @@
 
     <Switch
         android:id="@+id/autorun_switch"
-        style="@style/@style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/switch_autorun" />
@@ -35,6 +34,7 @@
         android:id="@+id/change_password_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="selectChangePassword"
         android:text="@string/action_change_password" />
 
     <LinearLayout
@@ -81,12 +81,14 @@
         android:id="@+id/reset_settings_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="selectResetSettings"
         android:text="@string/action_reset_settings" />
 
     <Button
         android:id="@+id/deactivate_account_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="selectDeactivateAccount"
         android:text="Button"
         tools:text="@string/action_remove_account" />
 
