@@ -76,14 +76,36 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.SettingsActivity" />
         </activity>
-
-        <activity android:name=".activity.CertainChannelSettingActivity" >
+        <activity android:name=".activity.CertainChannelSettingActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.ChannelSettingActivity" />
         </activity>
-
-        <activity android:name=".activity.ChannelSettingActivity"></activity>
+        <activity android:name=".activity.ChannelSettingActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
+        <activity android:name=".activity.IncomingMessagesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
+        <activity android:name=".activity.ContactSearchActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.IncomingMessagesActivity" />
+        </activity>
+        <activity android:name=".activity.MainChatActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.IncomingMessagesActivity" />
+        </activity>
+        <activity android:name=".activity.ChannelsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

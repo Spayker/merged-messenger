@@ -23,24 +23,28 @@
                 android:id="@+id/inbox_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="clickOnIncomeActivity"
                 android:text="@string/action_inbox" />
 
             <Button
                 android:id="@+id/my_chats_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="clickOnMyChatsActivity"
                 android:text="@string/action_my_chats" />
 
             <Button
                 android:id="@+id/create_chat_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="clickOnMyChatsActivity"
                 android:text="@string/action_create_chat" />
 
             <Button
                 android:id="@+id/attach_new_account_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="clickOnAttachAccountActivity"
                 android:text="@string/action_attach_new_account" />
 
             <Button

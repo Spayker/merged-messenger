@@ -71,4 +71,17 @@
     <string name="fontSize">Размер Шрифта</string>
     <string name="backgroundColor">Цвет Фона</string>
     <string name="fontColor">Цвет Шрифта</string>
+    <string name="action_contact_1">Контакт 1</string>
+    <string name="action_contact_2">Контакт 2</string>
+    <string name="action_contact_3">Контакт 3</string>
+    <string name="action_search_contact">Поиск Контактов</string>
+    <string name="action_search">Найти</string>
+    <string name="text_view_contact_search">Поиск Контакта</string>
+    <string name="action_type_message">Сообщение...</string>
+    <string name="text_me_message_1">Привет! :)</string>
+    <string name="text_friend_message_1">Здарова :)</string>
+    <string name="text_me_message_2">Что нового?</string>
+    <string name="action_channel_1">Facebook</string>
+    <string name="action_channel_2">Вконтакте</string>
+    <string name="action_channel_3">Телеграм</string>
 </resources>
