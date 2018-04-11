@@ -1,6 +1,7 @@
 package com.spand.bridgecom.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,12 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.spand.bridgecom.R;
+
+import co.chatsdk.core.session.ChatSDK;
+import co.chatsdk.core.session.Configuration;
+import co.chatsdk.firebase.FirebaseModule;
+import co.chatsdk.firebase.file_storage.FirebaseFileStorageModule;
+import co.chatsdk.ui.manager.UserInterfaceModule;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -49,18 +56,41 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
         // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggle();
-            }
-        });
+        mContentView.setOnClickListener(view -> toggle());
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.sing_button).setOnTouchListener(mDelayHideTouchListener);
         findViewById(R.id.sing_up_button).setOnTouchListener(mDelayHideTouchListener);
+
+        //// Init of main modules
+
+        // init of Chat SDK
+        initChatSdk();
+    }
+
+    private void initChatSdk() {
+        Context context = getApplicationContext();
+
+        // Create a new configuration
+        Configuration.Builder builder = new Configuration.Builder(context);
+
+        // Perform any configuration steps (optional)
+        builder.firebaseRootPath("prod");
+
+        builder.facebookLoginEnabled(false);
+        builder.twitterLoginEnabled(false);
+
+        // Initialize the Chat SDK
+        ChatSDK.initialize(builder.build());
+        UserInterfaceModule.activate(context);
+
+        // Activate the FireBase module
+        FirebaseModule.activate();
+
+        // File storage is needed for profile image upload and image messages
+        FirebaseFileStorageModule.activate();
     }
 
     public void singInActivity(View view) {
@@ -88,14 +118,12 @@ public class WelcomeActivity extends AppCompatActivity {
      * system UI. This is to prevent the jarring behavior of controls going away
      * while interacting with activity UI.
      */
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
+    @SuppressLint("ClickableViewAccessibility")
+    private final View.OnTouchListener mDelayHideTouchListener = (view, motionEvent) -> {
             if (AUTO_HIDE) {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
             return false;
-        }
     };
 
     private void toggle() {
@@ -163,12 +191,7 @@ public class WelcomeActivity extends AppCompatActivity {
     };
 
     private final Handler mHideHandler = new Handler();
-    private final Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            hide();
-        }
-    };
+    private final Runnable mHideRunnable = this::hide;
 
     /**
      * Schedules a call to hide() in delay milliseconds, canceling any

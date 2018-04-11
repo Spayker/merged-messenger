@@ -18,6 +18,11 @@ android {
     }
     productFlavors {
     }
+    buildToolsVersion '27.0.3'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -29,4 +34,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'co.chatsdk.chatsdk:chat-sdk-core:4.0.8'
+    implementation 'co.chatsdk.chatsdk:chat-sdk-ui:4.0.8'
+    implementation 'co.chatsdk.chatsdk:chat-sdk-firebase-adapter:4.0.8'
+    implementation 'co.chatsdk.chatsdk:chat-sdk-firebase-file-storage:4.0.8'
 }

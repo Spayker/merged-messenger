@@ -14,8 +14,6 @@ public class CertainChannelSettingActivity extends PreferenceActivity {
 
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-
-            PreferenceScreen screen =
                     getPreferenceManager().createPreferenceScreen(getActivity());
         }
     }
