@@ -31,4 +31,6 @@ Spayker, Andrey
 ## Ссылки
 
 ТЗ: https://docs.google.com/document/d/1TIfASjRgCNQKB2M2u7SWHRlC19clraXQ3Q8c1Ve4U_Y/edit?ts=5a104380# <br />
-Сценарий работы: https://docs.google.com/document/d/1CUAZx6p2-LLXaYxsBlA5QsGbYIlLISNBt6RecBN8Q5I/edit
+Сценарий работы: https://docs.google.com/document/d/1CUAZx6p2-LLXaYxsBlA5QsGbYIlLISNBt6RecBN8Q5I/edit <br />
+ChatSDK: https://github.com/chat-sdk/chat-sdk-android <br />
+FireBase: https://firebase.google.com/ <br />
