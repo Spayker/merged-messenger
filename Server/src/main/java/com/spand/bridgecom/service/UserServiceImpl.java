@@ -8,8 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service("userService")
-@Transactional
+@Service("userServiceImpl")
 public class UserServiceImpl implements UserService{
 
 	@Autowired
@@ -17,6 +16,10 @@ public class UserServiceImpl implements UserService{
 
 	public List<User> findByName(String name) {
 		return userRepository.findByName(name);
+	}
+
+	public User findByLogin(String login) {
+		return userRepository.findByLogin(login);
 	}
 
 	public User findUserById(Long id) {
@@ -34,7 +37,7 @@ public class UserServiceImpl implements UserService{
 	public void updateUser(User user) {
 		User entity = userRepository.findById(user.getId());
 		if(entity!=null){
-			entity.setUsername(user.getUsername());
+			entity.setName(user.getName());
 			entity.setAddress(user.getAddress());
 			entity.setEmail(user.getEmail());
 		}

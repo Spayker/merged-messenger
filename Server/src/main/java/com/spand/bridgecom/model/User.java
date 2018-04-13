@@ -1,63 +1,47 @@
 package com.spand.bridgecom.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Table(name="USER")
-public class User {
+@Data
+public class User extends IdEntity{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter
-	private Long id;
-	
 	@Column(name = "NAME", nullable = false)
-	@Getter
-	@Setter
-	private String username;
+	private String name;
+
+	@Column(name = "LOGIN", nullable = false)
+	private String login;
 	
 	@Column(name = "ADDRESS")
-	@Getter
-	@Setter
 	private String address;
 	
 	@Column(name = "EMAIL", nullable = false)
-	@Getter
-	@Setter
 	private String email;
 	
-	private User(Long id, String username, String address, String email){
-		this.id = id;
-		this.username = username;
+	private User(String name, String login, String address, String email){
+		this.name = name;
+		this.login = login;
 		this.address = address;
 		this.email = email;
 	}
 
+	@Override
+	public boolean equals(Object object) {
+		if (this == object) return true;
+		if (!(object instanceof User)) return false;
+		if (!super.equals(object)) return false;
+		User user = (User) object;
+		return Objects.equals(name, user.name) &&
+				Objects.equals(login, user.login) &&
+				Objects.equals(address, user.address) &&
+				Objects.equals(email, user.email);
+	}
+
+	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = (int) (prime * result + (id ^ (id >>> 32)));
-		return result;
-	}
-
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof User))
-			return false;
-		User other = (User) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
-
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", address=" + address
-				+ ", email=" + email + "]";
+		return Objects.hash(super.hashCode(), name, login, address, email);
 	}
 }
