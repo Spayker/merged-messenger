@@ -1,0 +1,38 @@
+version: '3.3'
+services:
+    config-postgres:
+        restart: always
+        ports:
+          - 5432:5432
+	environment:
+          - "TEST_DB_USER=bridgecom"
+          - "TEST_DB_PASSWORD=dkghrkety_345df"
+          - "TEST_DB_NAME=bridgecomdb"
+          - "TEST_DB_SCHEME=bridgecom"
+          - "POSTGRES_PASSWORD="
+        build: './postgres'
+        networks:
+          - some-inner-network
+    config-app:
+        container_name: app
+        build:
+            context: app
+            dockerfile: Dockerfile
+        image: app:latest
+        ports:
+            - 88:8080
+        depends_on:
+            - "config-postgres"
+        networks:
+            - some-inner-network
+        volumes:
+            - $HOME/.m2/repository:/root/.m2/repository
+            - ./app/target:/app/target
+        logging:
+            driver: json-file
+volumes:
+    some-app-config-repo:
+        external: false
+networks:
+    some-inner-network:
+        driver: bridge
