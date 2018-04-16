@@ -3,7 +3,6 @@ package com.spand.bridgecom.rest.controller;
 import com.spand.bridgecom.model.AppUser;
 import com.spand.bridgecom.rest.model.UserDetails;
 import com.spand.bridgecom.rest.model.UserRequest;
-import com.spand.bridgecom.rest.model.mapper.UserMapper;
 import com.spand.bridgecom.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
