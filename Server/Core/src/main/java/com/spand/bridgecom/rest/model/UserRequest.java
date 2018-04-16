@@ -2,10 +2,14 @@ package com.spand.bridgecom.rest.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
-public class UserDetails {
+@NoArgsConstructor
+@ToString()
+public class UserRequest {
 
     String name;
     String login;

@@ -2,6 +2,8 @@ package com.spand.bridgecom.rest.controller;
 
 import com.spand.bridgecom.model.User;
 import com.spand.bridgecom.rest.model.UserDetails;
+import com.spand.bridgecom.rest.model.UserRequest;
+import com.spand.bridgecom.rest.model.mapper.UserMapper;
 import com.spand.bridgecom.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,29 +12,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-@RestController("/users")
+@RestController
 public class UserRestController {
  
     @Autowired
     UserService userServiceImpl;
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
     @ApiOperation(
             value = "Creates new user in system",
             response = UserDetails.class,
             nickname = "createNewUser"
     )
-    public ResponseEntity<UserDetails> createNewUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
-        //logger.info("Creating User " + user.getUsername());
-        if (userServiceImpl.isUserExist(user.getId(), user.getLogin())) {
-            //logger.info("A User with name " + user.getUsername() + " already exist");
+    public ResponseEntity<UserDetails> createNewUser(@RequestBody UserRequest userRequest) {
+
+        User userToBeSaved = UserMapper.INSTANCE.userRequestToUser(userRequest);
+
+        if (userServiceImpl.isUserExist(userToBeSaved.getLogin())) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
-        userServiceImpl.saveUser(user);
-        ResponseEntity<UserDetails> responseEntity = new ResponseEntity(new UserDetails(), HttpStatus.CREATED);
+        User savedUser = userServiceImpl.saveUser(userToBeSaved);
+        UserDetails userDetails = UserMapper.INSTANCE.userToUserDetails(savedUser);
+        ResponseEntity<UserDetails> responseEntity = new ResponseEntity(userDetails, HttpStatus.CREATED);
         return responseEntity;
     }
-
 
 }

@@ -11,10 +11,10 @@ public interface UserService {
 
 	List<User> findUserByName(String name);
 
-	void saveUser(User user);
+	User saveUser(User user);
 	
 	void updateUser(User user);
 
-	boolean isUserExist(Long id, String username);
+	boolean isUserExist(String username);
 	
 }

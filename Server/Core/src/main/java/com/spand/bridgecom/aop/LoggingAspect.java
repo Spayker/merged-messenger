@@ -3,6 +3,8 @@ package com.spand.bridgecom.aop;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -12,18 +14,26 @@ import java.util.Map;
 @Component
 public class LoggingAspect {
 
-    protected static final Map<String, Integer> accessByNameCounter   = new HashMap<>();
+    private static final Logger LOG = LoggerFactory.getLogger(LoggingAspect.class);
 
-    @Pointcut("(execution(* com.spand.bridgecom.service.UserService.findUserByName(String, ..)) && args(eventName, ..))")
-    private void accessedByName(String eventName) {}
+    @Pointcut("(execution(* com.spand.bridgecom.service.UserService.saveUser(String, ..)) && args(eventName, ..))")
+    private void saveUser(String eventName) {}
 
-    @Before("accessedByName(eventName)")
-    public void countAccessByName(String eventName) {
-        increaseCounter(accessByNameCounter, eventName);
+    @Before("saveUser(eventName)")
+    public void logCreateUser(String eventName) {
+        logAccessEvent(eventName);
     }
 
-    private <K> void increaseCounter(Map<K, Integer> stat, K key) {
-        stat.put(key, stat.getOrDefault(key, 0) + 1);
+    @Pointcut("(execution(* com.spand.bridgecom.service.UserService.findUserByName(String, ..)) && args(eventName, ..))")
+    private void findByName(String eventName) {}
+
+    @Before("findByName(eventName)")
+    public void logAccessByName(String eventName) {
+        logAccessEvent(eventName);
+    }
+
+    private void logAccessEvent(String text) {
+        LOG.info(text);
     }
 
 }

@@ -29,8 +29,8 @@ public class UserServiceImpl implements UserService{
 		return userRepository.findByName(name);
 	}
 
-	public void saveUser(User user) {
-		userRepository.save(user);
+	public User saveUser(User user) {
+		return userRepository.save(user);
 	}
 
 	public void updateUser(User user) {
@@ -42,7 +42,11 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 
-	public boolean isUserExist(Long id, String username) {
+	public boolean isUserExist(String login) {
+		User foundUser = userRepository.findByLogin(login);
+		if(foundUser!=null){
+			return true;
+		}
 		return false;
 	}
 }

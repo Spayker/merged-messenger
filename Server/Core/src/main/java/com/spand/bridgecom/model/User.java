@@ -14,7 +14,7 @@ public class User extends IdEntity{
 	private String address;
 	private String email;
 	
-	private User(String name, String login, String address, String email){
+	public User(String name, String login, String address, String email){
 		this.name = name;
 		this.login = login;
 		this.address = address;
