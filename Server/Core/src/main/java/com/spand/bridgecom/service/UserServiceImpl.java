@@ -1,6 +1,6 @@
 package com.spand.bridgecom.service;
 
-import com.spand.bridgecom.model.User;
+import com.spand.bridgecom.model.AppUser;
 import com.spand.bridgecom.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,38 +13,38 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserRepository userRepository;
 
-	public List<User> findByName(String name) {
+	public List<AppUser> findByName(String name) {
 		return userRepository.findByName(name);
 	}
 
-	public User findByLogin(String login) {
+	public AppUser findByLogin(String login) {
 		return userRepository.findByLogin(login);
 	}
 
-	public User findUserById(Long id) {
+	public AppUser findUserById(Long id) {
 		return userRepository.findById(id);
 	}
 
-	public List<User> findUserByName(String name) {
+	public List<AppUser> findUserByName(String name) {
 		return userRepository.findByName(name);
 	}
 
-	public User saveUser(User user) {
-		return userRepository.save(user);
+	public AppUser saveUser(AppUser appUser) {
+		return userRepository.save(appUser);
 	}
 
-	public void updateUser(User user) {
-		User entity = userRepository.findById(user.getId());
+	public void updateUser(AppUser appUser) {
+		AppUser entity = userRepository.findById(appUser.getId());
 		if(entity!=null){
-			entity.setName(user.getName());
-			entity.setAddress(user.getAddress());
-			entity.setEmail(user.getEmail());
+			entity.setName(appUser.getName());
+			entity.setAddress(appUser.getAddress());
+			entity.setPassword(appUser.getPassword());
 		}
 	}
 
 	public boolean isUserExist(String login) {
-		User foundUser = userRepository.findByLogin(login);
-		if(foundUser!=null){
+		AppUser foundAppUser = userRepository.findByLogin(login);
+		if(foundAppUser !=null){
 			return true;
 		}
 		return false;

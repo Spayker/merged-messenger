@@ -1,6 +1,6 @@
 package com.spand.bridgecom.repository;
 
-import com.spand.bridgecom.model.User;
+import com.spand.bridgecom.model.AppUser;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -8,12 +8,12 @@ import java.util.List;
 /**
  * Created by Spayker on 2/4/2018.
  */
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends CrudRepository<AppUser, Long> {
 
-    User findById(Long id);
+    AppUser findById(Long id);
 
-    List<User> findByName(String name);
+    List<AppUser> findByName(String name);
 
-    User findByLogin(String login);
+    AppUser findByLogin(String login);
 
 }

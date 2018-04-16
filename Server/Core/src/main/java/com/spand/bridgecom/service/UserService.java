@@ -1,19 +1,19 @@
 package com.spand.bridgecom.service;
 
-import com.spand.bridgecom.model.User;
+import com.spand.bridgecom.model.AppUser;
 
 import java.util.List;
 
 
 public interface UserService {
 	
-	User findUserById(Long id);
+	AppUser findUserById(Long id);
 
-	List<User> findUserByName(String name);
+	List<AppUser> findUserByName(String name);
 
-	User saveUser(User user);
+	AppUser saveUser(AppUser appUser);
 	
-	void updateUser(User user);
+	void updateUser(AppUser appUser);
 
 	boolean isUserExist(String username);
 	

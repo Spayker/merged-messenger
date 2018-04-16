@@ -1,6 +1,6 @@
 package com.spand.bridgecom.rest.controller;
 
-import com.spand.bridgecom.model.User;
+import com.spand.bridgecom.model.AppUser;
 import com.spand.bridgecom.rest.model.UserDetails;
 import com.spand.bridgecom.rest.model.UserRequest;
 import com.spand.bridgecom.rest.model.mapper.UserMapper;
@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static com.spand.bridgecom.rest.model.mapper.UserMapper.USER_MAPPER;
 
 @RestController
 public class UserRestController {
@@ -25,14 +27,14 @@ public class UserRestController {
     )
     public ResponseEntity<UserDetails> createNewUser(@RequestBody UserRequest userRequest) {
 
-        User userToBeSaved = UserMapper.INSTANCE.userRequestToUser(userRequest);
+        AppUser appUserToBeSaved = USER_MAPPER.userRequestToUser(userRequest);
 
-        if (userServiceImpl.isUserExist(userToBeSaved.getLogin())) {
+        if (userServiceImpl.isUserExist(appUserToBeSaved.getLogin())) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
-        User savedUser = userServiceImpl.saveUser(userToBeSaved);
-        UserDetails userDetails = UserMapper.INSTANCE.userToUserDetails(savedUser);
+        AppUser savedAppUser = userServiceImpl.saveUser(appUserToBeSaved);
+        UserDetails userDetails = USER_MAPPER.userToUserDetails(savedAppUser);
         ResponseEntity<UserDetails> responseEntity = new ResponseEntity(userDetails, HttpStatus.CREATED);
         return responseEntity;
     }
