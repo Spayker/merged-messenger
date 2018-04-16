@@ -12,27 +12,27 @@ services:
           - "POSTGRES_PASSWORD="
         build: './postgres'
         networks:
-          - some-inner-network
-    config-app:
-        container_name: app
+          - bridgecom-network
+    config-core:
+        container_name: core
         build:
-            context: app
+            context: core
             dockerfile: Dockerfile
-        image: app:latest
+        image: core:latest
         ports:
             - 88:8080
         depends_on:
             - "config-postgres"
         networks:
-            - some-inner-network
+            - bridgecom-network
         volumes:
             - $HOME/.m2/repository:/root/.m2/repository
-            - ./app/target:/app/target
+            - ./core/target:/core/target
         logging:
             driver: json-file
 volumes:
-    some-app-config-repo:
+    bridgecom-config-repo:
         external: false
 networks:
-    some-inner-network:
+    bridgecom-network:
         driver: bridge
