@@ -5,10 +5,10 @@ services:
         ports:
           - 5432:5432
 	environment:
-          - "TEST_DB_USER=bridgecom"
-          - "TEST_DB_PASSWORD=dkghrkety_345df"
-          - "TEST_DB_NAME=bridgecomdb"
-          - "TEST_DB_SCHEME=bridgecom"
+          - "BRIDGECOM_DB_USER=bridgecom"
+          - "BRIDGECOM_DB_PASSWORD=dkghrkety_345df"
+          - "BRIDGECOM_DB_NAME=bridgecomdb"
+          - "BRIDGECOM_DB_SCHEME=bridgecom"
           - "POSTGRES_PASSWORD="
         build: './postgres'
         networks:
