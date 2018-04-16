@@ -9,6 +9,8 @@
     <version>1.0-SNAPSHOT</version>
 	
 	<properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <lombok.version>1.16.20</lombok.version>
         <liquibase.version>3.5.3</liquibase.version>
@@ -121,6 +123,4 @@
             </plugin>
         </plugins>
     </build>
-
-    
 </project>

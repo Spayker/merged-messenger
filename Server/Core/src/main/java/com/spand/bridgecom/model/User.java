@@ -9,16 +9,9 @@ import java.util.Objects;
 @Data
 public class User extends IdEntity{
 
-	@Column(name = "NAME", nullable = false)
 	private String name;
-
-	@Column(name = "LOGIN", nullable = false)
 	private String login;
-	
-	@Column(name = "ADDRESS")
 	private String address;
-	
-	@Column(name = "EMAIL", nullable = false)
 	private String email;
 	
 	private User(String name, String login, String address, String email){

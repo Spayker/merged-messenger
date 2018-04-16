@@ -6,4 +6,22 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
+    <changeSet id="insert_user_1" author="Oleksandr_Kuzmin">
+        <insert tableName="User" >
+            <column name="id" valueNumeric="1"/>
+            <column name="address" value="Bohemia Street"/>
+            <column name="email" value="spykeee@gmail.com"/>
+            <column name="login" value="spayker"/>
+            <column name="name" value="alex"/>
+        </insert>
+
+        <insert tableName="User" >
+            <column name="id" valueNumeric="2"/>
+            <column name="address" value="Summer Spoon Street"/>
+            <column name="email" value="andyguy@gmail.com"/>
+            <column name="login" value="andyguy"/>
+            <column name="name" value="Andrey"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>
