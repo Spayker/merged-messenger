@@ -1,11 +1,14 @@
 package com.spand.bridgecom.rest.model;
 
+import com.spand.bridgecom.model.AppUser;
+
 public class UserRequest {
 
     private String name;
     private String login;
     private String password;
     private String address;
+    private AppUser appUser;
 
     public String getName() {
         return name;

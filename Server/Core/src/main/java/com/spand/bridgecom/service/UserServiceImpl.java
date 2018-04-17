@@ -10,8 +10,12 @@ import java.util.List;
 @Service("userServiceImpl")
 public class UserServiceImpl implements UserService{
 
-	@Autowired
 	private UserRepository userRepository;
+
+    @Autowired
+	private UserServiceImpl(UserRepository userRepository){
+	    this.userRepository = userRepository;
+    }
 
 	public List<AppUser> findByName(String name) {
 		return userRepository.findByName(name);
@@ -44,7 +48,7 @@ public class UserServiceImpl implements UserService{
 
 	public boolean isUserExist(String login) {
 		AppUser foundAppUser = userRepository.findByLogin(login);
-		if(foundAppUser !=null){
+		if(foundAppUser != null){
 			return true;
 		}
 		return false;
