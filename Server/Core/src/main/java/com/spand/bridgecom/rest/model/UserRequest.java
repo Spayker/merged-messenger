@@ -42,4 +42,12 @@ public class UserRequest {
         this.address = address;
     }
 
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
+    }
+
 }

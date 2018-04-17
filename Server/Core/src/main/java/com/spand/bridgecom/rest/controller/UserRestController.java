@@ -1,5 +1,6 @@
 package com.spand.bridgecom.rest.controller;
 
+import com.spand.bridgecom.exception.rest.RestException;
 import com.spand.bridgecom.model.AppUser;
 import com.spand.bridgecom.rest.model.UserDetails;
 import com.spand.bridgecom.rest.model.UserRequest;
@@ -24,45 +25,24 @@ public class UserRestController {
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     @ApiOperation(
-        value = "Creates new user in system",
-        response = UserDetails.class,
-        nickname = "createNewUser"
+        value       = "Creates new user in system",
+        response    = UserDetails.class,
+        nickname    = "createNewUser"
     )
-    public ResponseEntity<UserDetails> createNewUser(@RequestBody UserRequest userRequest) {
-        AppUser appUserToBeSaved = USER_MAPPER.userRequestToUser(userRequest);
-
-        if (userServiceImpl.isUserExist(appUserToBeSaved.getLogin())) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+    public ResponseEntity createNewUser(@RequestBody UserRequest userRequest) {
+        AppUser appUserToBeSaved = userRequest.getAppUser();
+        String login = appUserToBeSaved.getLogin();
+        if (userServiceImpl.isUserExist(login)) {
+            return new ResponseEntity(HttpStatus.CONFLICT);
         }
+        AppUser savedUser = userServiceImpl.saveUser(appUserToBeSaved);
 
-        AppUser savedAppUser = userServiceImpl.saveUser(appUserToBeSaved);
-        UserDetails userDetails = USER_MAPPER.userToUserDetails(savedAppUser);
-        ResponseEntity<UserDetails> responseEntity = new ResponseEntity(userDetails, HttpStatus.CREATED);
-        return responseEntity;
+        if(savedUser == null){
+            UserDetails userDetails = USER_MAPPER.userToUserDetails(appUserToBeSaved);
+            return new ResponseEntity(userDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+        } else {
+            UserDetails userDetails = USER_MAPPER.userToUserDetails(savedUser);
+            return new ResponseEntity(userDetails, HttpStatus.CREATED);
+        }
     }
-
-    @RequestMapping(value = "/users/", method = RequestMethod.GET)
-    @ApiOperation(
-        value = "Login",
-        response = UserDetails.class,
-        nickname = "loginUser"
-    )
-    public ResponseEntity<UserDetails> loginUser(@RequestParam UserRequest userRequest) {
-        ResponseEntity<UserDetails> responseEntity = new ResponseEntity(new Object(), HttpStatus.OK);
-        return responseEntity;
-    }
-
-    @RequestMapping(value = "/users/", method = RequestMethod.DELETE)
-    @ApiOperation(
-        value = "Deactivate",
-        response = UserDetails.class,
-        nickname = "deactivateUser"
-    )
-    public ResponseEntity<UserDetails> deactivateUser(@RequestParam UserRequest userRequest) {
-        ResponseEntity<UserDetails> responseEntity = new ResponseEntity(new Object(), HttpStatus.OK);
-        return responseEntity;
-    }
-
-
-
 }
