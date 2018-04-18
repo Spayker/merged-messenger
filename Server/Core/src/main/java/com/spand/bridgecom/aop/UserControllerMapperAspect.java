@@ -1,18 +1,14 @@
 package com.spand.bridgecom.aop;
 
 import com.spand.bridgecom.model.AppUser;
-import com.spand.bridgecom.rest.model.UserDetails;
 import com.spand.bridgecom.rest.model.UserRequest;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import static com.spand.bridgecom.rest.model.mapper.UserMapper.USER_MAPPER;
 

@@ -1,6 +1,6 @@
 package com.spand.bridgecom.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.Objects;
 
 @Entity
