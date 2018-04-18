@@ -1,11 +1,11 @@
 package com.spand.bridgecom.aop;
 
+import com.spand.bridgecom.exception.aop.MapperAspectException;
 import com.spand.bridgecom.rest.model.UserRequest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -18,24 +18,38 @@ public class UserControllerLoggingAspect {
     private void createNewUser(UserRequest userRequest) {}
 
     @Before("createNewUser(userRequest)")
-    private void logIncomeRestUserEvent(UserRequest userRequest) {
+    private void logIncomeRestUser(UserRequest userRequest) {
         String message = "Received request to create user from login: " + userRequest.getLogin();
-        logUserEvent(message);
+        logInfoMessage(message);
     }
 
     @Around("(execution(public * com.spand.bridgecom.rest.controller.UserRestController.*(..)))")
-    private Object logOutgoingRestUserEvent(ProceedingJoinPoint proceedingJoinPoint){
-        Object value = null;
+    private Object logOutgoingRestUser(ProceedingJoinPoint proceedingJoinPoint){
+        Object value;
         try {
             value = proceedingJoinPoint.proceed();
         } catch (Throwable e) {
-            e.printStackTrace();
+            throw new MapperAspectException(e);
         }
         return value;
     }
 
-    void logUserEvent(String message) {
+    @AfterThrowing(pointcut = "(execution(public * com.spand.bridgecom.rest.controller.UserRestController.*(..)))",
+                    throwing = "ex")
+    public void logException(Exception ex){
+        logErrorMessage(ex.getMessage());
+    }
+
+    void logInfoMessage(String message) {
         LOG.info(message);
+    }
+
+    void logErrorMessage(String message) {
+        LOG.info(message);
+    }
+
+    void logDebugMessage(String message){
+        LOG.debug(message);
     }
 
 }

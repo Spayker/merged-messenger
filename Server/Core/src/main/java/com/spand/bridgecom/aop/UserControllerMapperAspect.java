@@ -27,16 +27,21 @@ public class UserControllerMapperAspect {
         this.userControllerLoggingAspect = userControllerLoggingAspect;
     }
 
-    @Pointcut("(execution(public * com.spand.bridgecom.rest.controller.UserRestController.*(..)) && args(userRequest, ..))")
+    @Pointcut("(execution(public * com.spand.bridgecom.rest.controller.UserRestController.*(..)) " +
+            "&& args(userRequest, ..))")
     private void createNewUser(UserRequest userRequest) {}
 
     @Before("createNewUser(userRequest)")
-    public void logIncomeRestUserEvent(UserRequest userRequest) {
+    public void mapIncomeRestUser(UserRequest userRequest) {
         mapIncomeUserRequest(userRequest);
     }
 
     private void mapIncomeUserRequest(UserRequest userRequest) {
+        userControllerLoggingAspect.logDebugMessage("Going to map next request from user: " + userRequest.getLogin());
         AppUser appUser = USER_MAPPER.userRequestToUser(userRequest);
+        if(appUser == null){
+            userControllerLoggingAspect.logErrorMessage("Request from user: " + userRequest.getLogin() + " was not mapped");
+        }
         userRequest.setAppUser(appUser);
     }
 

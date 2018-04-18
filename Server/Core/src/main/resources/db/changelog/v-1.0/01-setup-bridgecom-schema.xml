@@ -17,6 +17,7 @@
             <column name="password" type="VARCHAR(255)"/>
             <column name="login" type="VARCHAR(255)"/>
             <column name="name" type="VARCHAR(255)"/>
+            <column name="is_active" type="BOOLEAN"/>
         </createTable>
     </changeSet>
 

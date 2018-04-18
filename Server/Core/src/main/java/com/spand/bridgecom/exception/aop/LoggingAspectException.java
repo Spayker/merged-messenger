@@ -20,5 +20,4 @@ public class LoggingAspectException extends BridgeComException {
         super(cause);
     }
 
-
 }

@@ -11,7 +11,11 @@ public interface UserService {
 
 	List<AppUser> findUserByName(String name);
 
+	AppUser findUserByLogin(String login);
+
 	AppUser saveUser(AppUser appUser);
+
+	AppUser deactivateUser(AppUser appUser);
 	
 	void updateUser(AppUser appUser);
 

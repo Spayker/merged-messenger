@@ -6,18 +6,20 @@ import java.util.Objects;
 @Entity
 public class AppUser extends IdEntity{
 
-	private String name;
-	private String login;
-	private String address;
-	private String password;
+	private String 	name;
+	private String 	login;
+	private String 	address;
+	private String 	password;
+	private Boolean isActive;
 
 	public AppUser() {}
 
-	public AppUser(String name, String login, String address, String password){
+	public AppUser(String name, String login, String address, String password, Boolean isActive){
 		this.name = name;
 		this.login = login;
 		this.address = address;
 		this.password = password;
+		this.isActive = isActive;
 	}
 
 	public String getName() {
@@ -52,6 +54,14 @@ public class AppUser extends IdEntity{
 		this.password = password;
 	}
 
+	public Boolean getActive() {
+		return isActive;
+	}
+
+	public void setActive(Boolean active) {
+		isActive = active;
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		if (this == object) return true;
@@ -61,11 +71,12 @@ public class AppUser extends IdEntity{
 		return Objects.equals(name, appUser.name) &&
 				Objects.equals(login, appUser.login) &&
 				Objects.equals(address, appUser.address) &&
-				Objects.equals(password, appUser.password);
+				Objects.equals(password, appUser.password) &&
+				Objects.equals(isActive, appUser.isActive);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(super.hashCode(), name, login, address, password);
+		return Objects.hash(super.hashCode(), name, login, address, password, isActive);
 	}
 }

@@ -25,18 +25,33 @@ public class UserServiceImpl implements UserService{
 		return userRepository.findByLogin(login);
 	}
 
+	@Override
 	public AppUser findUserById(Long id) {
 		return userRepository.findById(id);
 	}
 
+	@Override
 	public List<AppUser> findUserByName(String name) {
 		return userRepository.findByName(name);
 	}
 
+	@Override
+	public AppUser findUserByLogin(String login) {
+		return userRepository.findByLogin(login);
+	}
+
+	@Override
 	public AppUser saveUser(AppUser appUser) {
 		return userRepository.save(appUser);
 	}
 
+	@Override
+	public AppUser deactivateUser(AppUser appUser) {
+    	appUser.setActive(false);
+		return saveUser(appUser);
+	}
+
+	@Override
 	public void updateUser(AppUser appUser) {
 		AppUser entity = userRepository.findById(appUser.getId());
 		if(entity!=null){
@@ -46,6 +61,7 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 
+	@Override
 	public boolean isUserExist(String login) {
 		AppUser foundAppUser = userRepository.findByLogin(login);
 		if(foundAppUser != null){
