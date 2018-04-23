@@ -5,4 +5,4 @@
 
 ## Ссылки
 
-API link: https://msdn.microsoft.com/en-us/skype/skypeuris/skypesdkforandroid
+API link: https://github.com/samczsun/Skype4J
