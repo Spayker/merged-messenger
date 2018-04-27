@@ -1,4 +1,4 @@
-package com.spand.meme.activity;
+package com.spand.meme.activity.setting;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -22,8 +22,5 @@ public class CertainChannelSettingActivity extends PreferenceActivity {
                 .replace(android.R.id.content, new SettingsFragment())
                 .commit();
     }
-
-
-
 
 }

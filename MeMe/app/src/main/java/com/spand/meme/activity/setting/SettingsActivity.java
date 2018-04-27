@@ -1,4 +1,4 @@
-package com.spand.meme.activity;
+package com.spand.meme.activity.setting;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.spand.meme.R;
+import com.spand.meme.activity.setting.ChannelsSettingActivity;
+import com.spand.meme.activity.setting.GlobalSettingsActivity;
 
 public class SettingsActivity extends AppCompatActivity {
 

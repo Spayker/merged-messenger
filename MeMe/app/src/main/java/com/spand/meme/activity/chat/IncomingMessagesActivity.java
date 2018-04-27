@@ -1,4 +1,4 @@
-package com.spand.meme.activity;
+package com.spand.meme.activity.chat;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

@@ -1,4 +1,4 @@
-package com.spand.meme.activity;
+package com.spand.meme.activity.main;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

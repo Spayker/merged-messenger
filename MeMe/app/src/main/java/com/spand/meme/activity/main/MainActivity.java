@@ -1,4 +1,4 @@
-package com.spand.meme.activity;
+package com.spand.meme.activity.main;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.spand.meme.R;
+import com.spand.meme.activity.chat.IncomingMessagesActivity;
+import com.spand.meme.activity.channel.ChannelsActivity;
+import com.spand.meme.activity.setting.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
 

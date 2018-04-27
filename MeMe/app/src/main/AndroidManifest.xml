@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.WelcomeActivity"
+            android:name=".activity.main.WelcomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme">
@@ -26,85 +26,85 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.main.LoginActivity"
             android:label="@string/title_activity_login">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.WelcomeActivity" />
+                android:value=".activity.main.WelcomeActivity" />
         </activity>
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name=".activity.main.RegisterActivity"
             android:label="@string/title_activity_register">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.WelcomeActivity" />
+                android:value=".activity.main.WelcomeActivity" />
         </activity>
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.WelcomeActivity" />
+                android:value=".activity.main.WelcomeActivity" />
         </activity>
         <activity
-            android:name=".activity.SettingsActivity"
+            android:name=".activity.setting.SettingsActivity"
             android:label="@string/title_activity_settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
+                android:value=".activity.main.MainActivity" />
         </activity>
-        <activity android:name=".activity.GlobalSettingsActivity">
+        <activity android:name=".activity.setting.GlobalSettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.SettingsActivity" />
+                android:value=".activity.setting.SettingsActivity" />
         </activity>
-        <activity android:name=".activity.ChangePasswordActivity">
+        <activity android:name=".activity.channel.ChangePasswordActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.GlobalSettingsActivity" />
+                android:value=".activity.setting.GlobalSettingsActivity" />
         </activity>
-        <activity android:name=".activity.ResetSettingsActivity">
+        <activity android:name=".activity.setting.ResetSettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.GlobalSettingsActivity" />
+                android:value=".activity.setting.GlobalSettingsActivity" />
         </activity>
-        <activity android:name=".activity.RemoveAccountActivity">
+        <activity android:name=".activity.setting.RemoveAccountActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.GlobalSettingsActivity" />
+                android:value=".activity.setting.GlobalSettingsActivity" />
         </activity>
-        <activity android:name=".activity.ChannelsSettingActivity">
+        <activity android:name=".activity.setting.ChannelsSettingActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.SettingsActivity" />
+                android:value=".activity.setting.SettingsActivity" />
         </activity>
-        <activity android:name=".activity.CertainChannelSettingActivity">
+        <activity android:name=".activity.setting.CertainChannelSettingActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.ChannelSettingActivity" />
+                android:value=".activity.channel.ChannelSettingActivity" />
         </activity>
-        <activity android:name=".activity.ChannelSettingActivity" >
+        <activity android:name=".activity.channel.ChannelSettingActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
+                android:value=".activity.main.MainActivity" />
         </activity>
-        <activity android:name=".activity.IncomingMessagesActivity">
+        <activity android:name=".activity.chat.IncomingMessagesActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
+                android:value=".activity.main.MainActivity" />
         </activity>
-        <activity android:name=".activity.ContactSearchActivity">
+        <activity android:name=".activity.chat.ContactSearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.IncomingMessagesActivity" />
+                android:value=".activity.chat.IncomingMessagesActivity" />
         </activity>
-        <activity android:name=".activity.MainChatActivity" >
+        <activity android:name=".activity.chat.MainChatActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.IncomingMessagesActivity" />
+                android:value=".activity.chat.IncomingMessagesActivity" />
         </activity>
-        <activity android:name=".activity.ChannelsActivity">
+        <activity android:name=".activity.channel.ChannelsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.MainActivity" />
+                android:value=".activity.main.MainActivity" />
         </activity>
     </application>
 
