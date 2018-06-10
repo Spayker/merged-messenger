@@ -1,4 +1,4 @@
-package com.spand.bridgecom.exception;
+package com.spand.meme.exception;
 
 public class BridgeComException extends RuntimeException {
 

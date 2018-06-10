@@ -1,4 +1,4 @@
-package com.spand.bridgecom.aop;
+package com.spand.meme.aop;
 
 import com.spand.bridgecom.model.AppUser;
 import com.spand.bridgecom.rest.model.UserRequest;

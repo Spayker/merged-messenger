@@ -1,4 +1,4 @@
-package com.spand.bridgecom.model;
+package com.spand.meme.model;
 
 import javax.persistence.Entity;
 import java.util.Objects;

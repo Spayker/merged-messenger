@@ -1,8 +1,8 @@
-package com.spand.bridgecom.rest.model.mapper;
+package com.spand.meme.rest.model.mapper;
 
-import com.spand.bridgecom.model.AppUser;
-import com.spand.bridgecom.rest.model.UserDetails;
-import com.spand.bridgecom.rest.model.UserRequest;
+import com.spand.meme.model.AppUser;
+import com.spand.meme.rest.model.UserDetails;
+import com.spand.meme.rest.model.UserRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

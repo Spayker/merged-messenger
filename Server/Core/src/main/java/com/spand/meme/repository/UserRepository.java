@@ -1,6 +1,6 @@
-package com.spand.bridgecom.repository;
+package com.spand.meme.repository;
 
-import com.spand.bridgecom.model.AppUser;
+import com.spand.meme.model.AppUser;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

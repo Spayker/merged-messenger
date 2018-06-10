@@ -1,6 +1,6 @@
-package com.spand.bridgecom.service;
+package com.spand.meme.service;
 
-import com.spand.bridgecom.model.AppUser;
+import com.spand.meme.model.AppUser;
 
 import java.util.List;
 

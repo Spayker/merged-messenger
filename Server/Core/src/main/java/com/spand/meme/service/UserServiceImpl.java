@@ -1,7 +1,7 @@
-package com.spand.bridgecom.service;
+package com.spand.meme.service;
 
-import com.spand.bridgecom.model.AppUser;
-import com.spand.bridgecom.repository.UserRepository;
+import com.spand.meme.model.AppUser;
+import com.spand.meme.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

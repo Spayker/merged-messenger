@@ -1,14 +1,11 @@
-package com.spand.bridgecom.rest.model;
+package com.spand.meme.rest.model;
 
-import com.spand.bridgecom.model.AppUser;
-
-public class UserRequest {
+public class UserDetails {
 
     private String name;
     private String login;
     private String password;
     private String address;
-    private AppUser appUser;
 
     public String getName() {
         return name;
@@ -40,14 +37,6 @@ public class UserRequest {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public AppUser getAppUser() {
-        return appUser;
-    }
-
-    public void setAppUser(AppUser appUser) {
-        this.appUser = appUser;
     }
 
 }

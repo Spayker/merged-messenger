@@ -5,7 +5,7 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
 
-    <changeSet author="Oleksandr_Kuzmin" id="pre_init_bridgecom_schema_1">
+    <changeSet author="Oleksandr_Kuzmin" id="pre_init_meme_schema_1">
         <sql splitStatements="false">
             DELETE FROM databasechangelog;
         </sql>

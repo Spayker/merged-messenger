@@ -5,14 +5,14 @@ services:
         ports:
           - 5432:5432
 	environment:
-          - "BRIDGECOM_DB_USER=bridgecom"
-          - "BRIDGECOM_DB_PASSWORD=dkghrkety_345df"
-          - "BRIDGECOM_DB_NAME=bridgecomdb"
-          - "BRIDGECOM_DB_SCHEME=bridgecom"
+          - "MEME_DB_USER=meme"
+          - "MEME_DB_PASSWORD=dkghrkety_345df"
+          - "MEME_DB_NAME=memedb"
+          - "MEME_DB_SCHEME=meme"
           - "POSTGRES_PASSWORD="
         build: './postgres'
         networks:
-          - bridgecom-network
+          - meme-network
     config-core:
         container_name: core
         build:
@@ -24,15 +24,15 @@ services:
         depends_on:
             - "config-postgres"
         networks:
-            - bridgecom-network
+            - meme-network
         volumes:
             - $HOME/.m2/repository:/root/.m2/repository
             - ./core/target:/core/target
         logging:
             driver: json-file
 volumes:
-    bridgecom-config-repo:
+    meme-config-repo:
         external: false
 networks:
-    bridgecom-network:
+    meme-network:
         driver: bridge

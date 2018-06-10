@@ -1,4 +1,4 @@
-package com.spand.bridgecom.exception.rest;
+package com.spand.meme.exception.rest;
 
 import com.spand.bridgecom.exception.BridgeComException;
 

@@ -1,4 +1,4 @@
-package com.spand.bridgecom.model;
+package com.spand.meme.model;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

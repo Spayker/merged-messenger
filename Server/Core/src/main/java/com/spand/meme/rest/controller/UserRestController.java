@@ -1,15 +1,15 @@
-package com.spand.bridgecom.rest.controller;
+package com.spand.meme.rest.controller;
 
-import com.spand.bridgecom.model.AppUser;
-import com.spand.bridgecom.rest.model.UserDetails;
-import com.spand.bridgecom.rest.model.UserRequest;
-import com.spand.bridgecom.service.UserService;
+import com.spand.meme.model.AppUser;
+import com.spand.meme.rest.model.UserDetails;
+import com.spand.meme.rest.model.UserRequest;
+import com.spand.meme.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.spand.bridgecom.rest.model.mapper.UserMapper.USER_MAPPER;
+import static com.spand.meme.rest.model.mapper.UserMapper.USER_MAPPER;
 import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
