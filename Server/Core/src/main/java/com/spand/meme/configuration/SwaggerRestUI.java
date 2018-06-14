@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  **/
 @EnableSwagger2
 @Configuration
-@ComponentScan(basePackages = "com.spand.bridgecom")
+@ComponentScan(basePackages = "com.spand.meme")
 public class SwaggerRestUI {
 
     @Value("${swagger.service.basepackage}")

@@ -1,8 +1,8 @@
 package com.spand.meme.exception.aop;
 
-import com.spand.bridgecom.exception.BridgeComException;
+import com.spand.meme.exception.MeMeException;
 
-public class LoggingAspectException extends BridgeComException {
+public class LoggingAspectException extends MeMeException {
 
     public LoggingAspectException() {
         super();

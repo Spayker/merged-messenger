@@ -1,7 +1,7 @@
 package com.spand.meme.aop;
 
-import com.spand.bridgecom.exception.aop.MapperAspectException;
-import com.spand.bridgecom.rest.model.UserRequest;
+import com.spand.meme.exception.aop.MapperAspectException;
+import com.spand.meme.rest.model.UserRequest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -18,7 +18,7 @@ public class UserControllerLoggingAspect {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserControllerLoggingAspect.class);
 
-    @Pointcut("(execution(public * com.spand.bridgecom.rest.controller.UserRestController.*(..)) && args(userRequest, ..))")
+    @Pointcut("(execution(public * com.spand.meme.rest.controller.UserRestController.*(..)) && args(userRequest, ..))")
     private void createNewUser(UserRequest userRequest) {}
 
     @Before("createNewUser(userRequest)")
@@ -27,7 +27,7 @@ public class UserControllerLoggingAspect {
         logInfoMessage(message);
     }
 
-    @Around("(execution(public * com.spand.bridgecom.rest.controller.UserRestController.*(..)))")
+    @Around("(execution(public * com.spand.meme.rest.controller.UserRestController.*(..)))")
     private Object logOutgoingRestUser(ProceedingJoinPoint proceedingJoinPoint){
         Object value;
         try {
@@ -38,7 +38,7 @@ public class UserControllerLoggingAspect {
         return value;
     }
 
-    @AfterThrowing(pointcut = "(execution(public * com.spand.bridgecom.rest.controller.UserRestController.*(..)))",
+    @AfterThrowing(pointcut = "(execution(public * com.spand.meme.rest.controller.UserRestController.*(..)))",
                     throwing = "ex")
     public void logException(Exception ex){
         logErrorMessage(ex.getMessage());

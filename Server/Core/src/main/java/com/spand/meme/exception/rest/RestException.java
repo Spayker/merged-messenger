@@ -1,8 +1,8 @@
 package com.spand.meme.exception.rest;
 
-import com.spand.bridgecom.exception.BridgeComException;
+import com.spand.meme.exception.MeMeException;
 
-public class RestException extends BridgeComException {
+public class RestException extends MeMeException {
 
     public RestException() {
         super();
