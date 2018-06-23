@@ -15,6 +15,7 @@
         <liquibase.version>3.5.3</liquibase.version>
         <liquibase.hibernate.version>3.5</liquibase.hibernate.version>
         <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
+        <lombok.version>1.16.20</lombok.version>
     </properties>
 
     <parent>
@@ -53,6 +54,16 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
@@ -61,6 +72,19 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
+        </dependency>
+
+        <!--H2 Database Engine-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
 
         <!-- Spring Swagger(Fox) dependencies (Rest UI Page) -->
@@ -88,17 +112,20 @@
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
             <version>${liquibase.version}</version>
+            <scope>runtime</scope>
         </dependency>
         <!--Liquibase plugin for maven run-->
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-maven-plugin</artifactId>
             <version>${liquibase.version}</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.liquibase.ext</groupId>
             <artifactId>liquibase-hibernate4</artifactId>
             <version>${liquibase.hibernate.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
@@ -121,15 +148,15 @@
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>${liquibase.version}</version>
                 <configuration>
-                    <propertyFile>src/main/resources/db/liquibase.properties</propertyFile>
-                    <changeLogFile>src/main/resources/db/changeLogFile.xml</changeLogFile>
+                    <propertyFile>src/main/java/resources/db/liquibase.properties</propertyFile>
+                    <changeLogFile>src/main/java/resources/db/changeLogFile.xml</changeLogFile>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
-                <configuration>
+                <!--<configuration>
                     <source>1.8</source>
                     <target>1.8</target>
                     <annotationProcessorPaths>
@@ -139,7 +166,7 @@
                             <version>${org.mapstruct.version}</version>
                         </path>
                     </annotationProcessorPaths>
-                </configuration>
+                </configuration>-->
             </plugin>
         </plugins>
     </build>

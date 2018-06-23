@@ -1,10 +1,16 @@
 package com.spand.meme.model;
 
+import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.Entity;
+import java.util.List;
 import java.util.Objects;
 
+@Data
 @Entity
-public class AppUser extends IdEntity{
+public class AppUser extends IdEntity implements UserDetails {
 
 	private String 	name;
 	private String 	login;
@@ -22,44 +28,13 @@ public class AppUser extends IdEntity{
 		this.isActive = isActive;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
+	public AppUser(Long id, String name, String login, String address, String password, Boolean isActive){
+		setId(id);
 		this.name = name;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
 		this.login = login;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public Boolean getActive() {
-		return isActive;
-	}
-
-	public void setActive(Boolean active) {
-		isActive = active;
+		this.isActive = isActive;
 	}
 
 	@Override
@@ -78,5 +53,35 @@ public class AppUser extends IdEntity{
 	@Override
 	public int hashCode() {
 		return Objects.hash(super.hashCode(), name, login, address, password, isActive);
+	}
+
+	@Override
+	public List<GrantedAuthority> getAuthorities() {
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		return login;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 }

@@ -4,7 +4,7 @@ services:
         restart: always
         ports:
           - 5432:5432
-	environment:
+    environment:
           - "MEME_DB_USER=meme"
           - "MEME_DB_PASSWORD=dkghrkety_345df"
           - "MEME_DB_NAME=memedb"

@@ -1,5 +1,7 @@
 package com.spand.meme.model;
 
+import lombok.Getter;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,10 +11,11 @@ import javax.persistence.MappedSuperclass;
 public abstract class IdEntity {
 
   @Id
+  @Getter
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
 
-  public Long getId() {
-    return id;
+  void setId(Long id){
+    this.id = id;
   }
 }

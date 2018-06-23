@@ -4,7 +4,6 @@ import com.spand.meme.model.AppUser;
 
 import java.util.List;
 
-
 public interface UserService {
 	
 	AppUser findUserById(Long id);
@@ -13,12 +12,14 @@ public interface UserService {
 
 	AppUser findUserByLogin(String login);
 
-	AppUser saveUser(AppUser appUser);
+	AppUser performUserAuthorization(String login, String password);
+
+	AppUser registerNewUser(AppUser appUser);
+
+	AppUser updateUser(AppUser appUser);
 
 	AppUser deactivateUser(AppUser appUser);
-	
-	void updateUser(AppUser appUser);
 
-	boolean isUserExist(String username);
+	AppUser activateUser(AppUser appUser);
 	
 }
