@@ -11,6 +11,7 @@
     <string name="error_invalid_email">Email введён не верно</string>
     <string name="error_invalid_password">Пароль слишком короткий</string>
     <string name="error_incorrect_password">Пароль введён неверно</string>
+    <string name="error_empty_password">пароль не может быть пустым</string>
     <string name="error_field_required">Обязательное поле</string>
     <string name="title_activity_register">Регистрация</string>
     <string name="action_sign_up">Создать</string>

@@ -1,1 +1,1 @@
-include ':app', ':fb', ':vk', ':skype', ':telegram', ':viber', ':wsap'
+include ':app', ':fb', ':vk', ':skype', ':telegram', ':wsap'
