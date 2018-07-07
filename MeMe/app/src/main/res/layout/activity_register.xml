@@ -35,7 +35,7 @@
                 android:layout_height="match_parent">
 
                 <EditText
-                    android:id="@+id/registerName"
+                    android:id="@+id/register_form_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -50,7 +50,7 @@
                 android:layout_height="match_parent">
 
                 <AutoCompleteTextView
-                    android:id="@+id/registerEmail"
+                    android:id="@+id/register_form_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
@@ -65,7 +65,7 @@
                 android:layout_height="match_parent">
 
                 <EditText
-                    android:id="@+id/registerPassword"
+                    android:id="@+id/register_form_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
@@ -83,7 +83,7 @@
                 android:layout_height="match_parent">
 
                 <EditText
-                    android:id="@+id/registerPasswordConfirm"
+                    android:id="@+id/register_form_password_confirm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password_confirm"
@@ -102,7 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:onClick="finishSingUpActivity"
+                android:onClick="onClick"
                 android:text="@string/action_sign_up"
                 android:textStyle="bold" />
 

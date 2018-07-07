@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">meme</string>
+    <string name="app_name">MeMe</string>
 
     <string name="sing_in_button">Sing In</string>
     <string name="sing_up_button">Sing Up</string>
@@ -49,20 +49,28 @@
         based on your message history
     </string>
 
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
+    <string-array name="pref_notification_list">
+        <item>Vibro</item>
+        <item>Melody</item>
+        <item>No</item>
+    </string-array>
 
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
+    <string-array name="pref_language_list">
+        <item>English</item>
+        <item>Russian</item>
     </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
+
+    <string-array name="pref_notification_list_values">
         <item>-1</item>
+        <item>0</item>
+        <item>1</item>
     </string-array>
+
+    <string-array name="pref_language_list_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
 
     <!-- Example settings for Data & Sync -->
     <string name="pref_header_data_sync">Data and sync</string>
@@ -114,10 +122,11 @@
     <string name="switch_tips">Tips</string>
     <string name="switch_autoupdate">Autoupdate</string>
     <string name="action_change_password">Change Password</string>
-    <string name="textview_notification_type">Notification</string>
+    <string name="list_preference_notification_type">Notification</string>
+    <string name="list_preference_language_type">Language</string>
     <string name="textview_melody">Melody</string>
     <string name="action_reset_settings">Reset Settings</string>
-    <string name="action_remove_account">Deactivate Account</string>
+    <string name="action_deactivate_account">Deactivate Account</string>
     <string name="textview_languages">Language</string>
     <string name="old_password">Old Password</string>
     <string name="new_account_password">New Password</string>
@@ -148,7 +157,21 @@
     <string name="text_friend_message_1">Hey m8! :)</string>
     <string name="text_me_message_2">What\'s new?</string>
     <string name="action_channel_1">Facebook</string>
-    <string name="action_channel_2">Vkontakte</string>
+    <string name="action_channel_2">VKontakte</string>
     <string name="action_channel_3">Telegram</string>
+
+    <string name="pref_change_password_button">pref_change_password_button</string>
+    <string name="pref_reset_settings_button">pref_reset_settings_button</string>
+    <string name="pref_deactivate_account_button">pref_deactivate_account_button</string>
+
+    <string name="key_notification_list_preference">key_notification_list_preference</string>
+    <string name="key_language_list_preference">key_language_list_preference</string>
+
+    <string name="key_autorun_switch">key_autorun_switch</string>
+    <string name="key_tips_switch">key_tips_switch</string>
+    <string name="key_autoupdate_switch">key_autoupdate_switch</string>
+
+    <string name="switcher_on">On</string>
+    <string name="switcher_off">Off</string>
 
 </resources>

@@ -49,10 +49,11 @@
     <string name="switch_tips">Tips</string>
     <string name="switch_autoupdate">Autoupdate</string>
     <string name="action_change_password">Change Password</string>
-    <string name="textview_notification_type">Notification</string>
+    <string name="list_preference_notification_type">Notification</string>
+    <string name="list_preference_language_type">Language</string>
     <string name="textview_melody">Melody</string>
     <string name="action_reset_settings">Reset Settings</string>
-    <string name="action_remove_account">Deactivate Account</string>
+    <string name="action_deactivate_account">Deactivate Account</string>
     <string name="textview_languages">Language</string>
     <string name="old_password">Old Password</string>
     <string name="new_account_password">New Password</string>
@@ -85,4 +86,7 @@
     <string name="action_channel_1">Facebook</string>
     <string name="action_channel_2">Vkontakte</string>
     <string name="action_channel_3">Telegram</string>
+
+    <string name="switcher_on">On</string>
+    <string name="switcher_off">Off</string>
 </resources>

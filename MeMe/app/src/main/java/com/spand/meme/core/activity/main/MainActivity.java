@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.spand.meme.R;
+import com.spand.meme.core.activity.settings.SettingsActivity;
 import com.spand.meme.modules.chat.activity.IncomingMessagesActivity;
 import com.spand.meme.core.activity.channel.ChannelsActivity;
-import com.spand.meme.core.activity.settings.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
 

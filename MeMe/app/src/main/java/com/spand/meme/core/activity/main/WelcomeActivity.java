@@ -1,7 +1,6 @@
 package com.spand.meme.core.activity.main;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,15 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
 import com.spand.meme.modules.chat.ChatSDKInitializer;
 
-import co.chatsdk.core.session.ChatSDK;
-import co.chatsdk.core.session.Configuration;
-import co.chatsdk.firebase.FirebaseModule;
-import co.chatsdk.firebase.file_storage.FirebaseFileStorageModule;
-import co.chatsdk.ui.manager.UserInterfaceModule;
+import co.chatsdk.ui.manager.InterfaceManager;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -43,10 +37,7 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     private static final int UI_ANIMATION_DELAY = 300;
 
-    /**
-     * Firebase Auth instance
-    **/
-    private FirebaseAuth mAuth;
+
 
     private View mContentView;
     private View mControlsView;
@@ -72,9 +63,6 @@ public class WelcomeActivity extends AppCompatActivity {
         findViewById(R.id.sing_button).setOnTouchListener(mDelayHideTouchListener);
         findViewById(R.id.sing_up_button).setOnTouchListener(mDelayHideTouchListener);
 
-        // init of Firebase auth
-        mAuth = FirebaseAuth.getInstance();
-
         // init of Chat SDK
         chatSDKInitializer.initChatSdk(getApplicationContext());
     }
@@ -82,6 +70,7 @@ public class WelcomeActivity extends AppCompatActivity {
     public void singInActivity(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+        /*InterfaceManager.shared().a.startLoginActivity(this, true);*/
     }
 
     public void singUpActivity(View view) {

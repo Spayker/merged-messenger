@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.spand.meme.R;
 
-public class RemoveAccountActivity extends AppCompatActivity {
+public class DeactivateAccountActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

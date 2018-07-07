@@ -27,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText mPasswordView;
     private EditText mPasswordConfirmView;
 
-    private static final String TAG = "EmailPassword";
+    private static final String TAG = RegisterActivity.class.getSimpleName();
 
     // Firebase related fields
     private FirebaseAuth mAuth;
@@ -41,10 +41,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_register);
 
         // Views
-        mNameView = findViewById(R.id.registerName);
-        mEmailView = findViewById(R.id.registerEmail);
-        mPasswordView = findViewById(R.id.registerPassword);
-        mPasswordConfirmView = findViewById(R.id.registerPasswordConfirm);
+        mNameView = findViewById(R.id.register_form_name);
+        mEmailView = findViewById(R.id.register_form_email);
+        mPasswordView = findViewById(R.id.register_form_password);
+        mPasswordConfirmView = findViewById(R.id.register_form_password_confirm);
 
         // Buttons
         findViewById(R.id.email_sign_up_button).setOnClickListener(this);
@@ -63,19 +63,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
-        if (user != null) {
-            findViewById(R.id.registerName).setVisibility(View.GONE);
-            findViewById(R.id.registerEmail).setVisibility(View.GONE);
-            findViewById(R.id.registerPassword).setVisibility(View.GONE);
-            findViewById(R.id.registerPasswordConfirm).setVisibility(View.GONE);
+        /*if (user != null) {
+            findViewById(R.id.register_form_name).setVisibility(View.GONE);
+            findViewById(R.id.register_form_email).setVisibility(View.GONE);
+            findViewById(R.id.register_form_password).setVisibility(View.GONE);
+            findViewById(R.id.register_form_password_confirm).setVisibility(View.GONE);
             findViewById(R.id.email_sign_up_button).setVisibility(View.VISIBLE);
         } else {
-            findViewById(R.id.registerName).setVisibility(View.VISIBLE);
-            findViewById(R.id.registerEmail).setVisibility(View.VISIBLE);
-            findViewById(R.id.registerPassword).setVisibility(View.VISIBLE);
-            findViewById(R.id.confirm_password).setVisibility(View.VISIBLE);
+            findViewById(R.id.register_form_name).setVisibility(View.VISIBLE);
+            findViewById(R.id.register_form_email).setVisibility(View.VISIBLE);
+            findViewById(R.id.register_form_password).setVisibility(View.VISIBLE);
+            findViewById(R.id.register_form_password_confirm).setVisibility(View.VISIBLE);
             findViewById(R.id.email_sign_up_button).setVisibility(View.GONE);
-        }
+        }*/
     }
 
 

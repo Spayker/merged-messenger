@@ -54,9 +54,9 @@
         </activity>
 
         <!--Menu of Available Settings in Application Screen-->
-        <activity
-            android:name=".core.activity.settings.SettingsActivity"
-            android:label="@string/title_activity_settings">
+
+        <!--Menu of Global Settings Screen-->
+        <activity android:name=".core.activity.settings.SettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.activity.main.MainActivity" />
@@ -84,7 +84,7 @@
         </activity>
 
         <!--Menu of Account Remove Screen-->
-        <activity android:name=".core.activity.settings.RemoveAccountActivity">
+        <activity android:name=".core.activity.settings.DeactivateAccountActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.activity.settings.GlobalSettingsActivity" />
@@ -138,13 +138,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.activity.main.MainActivity" />
         </activity>
-
-        <!--<activity android:name="co.chatsdk.ui.login.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>-->
 
     </application>
 

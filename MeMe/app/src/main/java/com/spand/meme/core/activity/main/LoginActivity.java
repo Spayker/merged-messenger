@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
 
+import co.chatsdk.ui.manager.BaseInterfaceAdapter;
 import co.chatsdk.ui.manager.InterfaceManager;
 import co.chatsdk.ui.utils.AppBackgroundMonitor;
 
@@ -24,7 +25,7 @@ import co.chatsdk.ui.utils.AppBackgroundMonitor;
  */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private static final String TAG = "EmailPassword";
+    private static final String TAG = LoginActivity.class.getSimpleName();
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -46,8 +47,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Views
         /*mStatusTextView = findViewById(R.id.status);
         mDetailTextView = findViewById(R.id.detail);*/
-        mEmailView = findViewById(R.id.loginEmail);
-        mPasswordView = findViewById(R.id.loginPassword);
+        mEmailView = findViewById(R.id.login_form_email);
+        mPasswordView = findViewById(R.id.login_form_password);
 
         // Buttons
         findViewById(R.id.email_sign_in_button).setOnClickListener(this);
@@ -119,10 +120,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void finishSingInActivity() {
-//        Intent intent = new Intent(this, co.chatsdk.ui.login.LoginActivity.class);
-//        startActivity(intent);
-        AppBackgroundMonitor.shared().setEnabled(true);
-        InterfaceManager.shared().a.startMainActivity(this);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        //InterfaceManager.shared().a.startMainActivity(this);
     }
 
     private void signIn(String email, String password) {
@@ -132,8 +132,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         showProgressDialog();
-
-        // [START sign_in_with_email]
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
@@ -149,15 +147,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 Toast.LENGTH_SHORT).show();
                         updateUI(null);
                     }
-
-                    // [START_EXCLUDE]
-                    /*if (!task.isSuccessful()) {
-                        mStatusTextView.setText(R.string.auth_failed);
-                    }*/
                     hideProgressDialog();
-                    // [END_EXCLUDE]
                 });
-        // [END sign_in_with_email]
     }
 
     private boolean validateForm() {

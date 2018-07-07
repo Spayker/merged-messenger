@@ -26,12 +26,6 @@ public class ChatSDKInitializer {
 
         // Activate the FireBase module
         FirebaseModule.activate();
-
-        // File storage is needed for profile image upload and image messages
-        FirebaseFileStorageModule.activate();
     }
-
-
-
 
 }

@@ -42,18 +42,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
+        <!--<TextView
             android:id="@+id/notification_textView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/textview_notification_type" />
+            android:text="@string/textview_notification_type" />-->
 
-        <Spinner
+        <!--<Spinner
             android:id="@+id/notification_spinner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1" />-->
 
     </LinearLayout>
 
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:onClick="selectDeactivateAccount"
         android:text="Button"
-        tools:text="@string/action_remove_account" />
+        tools:text="@string/action_deactivate_account" />
 
     <LinearLayout
         android:layout_width="match_parent"
