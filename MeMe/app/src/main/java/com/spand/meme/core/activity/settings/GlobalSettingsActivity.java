@@ -45,10 +45,10 @@ public class GlobalSettingsActivity extends AppCompatActivity {
             Boolean booleanValue = (Boolean) newValue;
             preference.setSummary(booleanValue ? switcherOn : switcherOff);
         }
-
         return true;
     };
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // load settings fragment
@@ -80,10 +80,10 @@ public class GlobalSettingsActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_global);
 
-            // gallery EditText change listener
+            // notification preference change listener
             bindGlobalPreferenceToStringValue(findPreference(getString(R.string.key_notification_list_preference)));
 
-            // notification preference change listener
+            // language preference change listener
             bindGlobalPreferenceToStringValue(findPreference(getString(R.string.key_language_list_preference)));
 
             Preference changePasswordButton = findPreference(getString(R.string.pref_change_password_button));

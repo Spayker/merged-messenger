@@ -12,4 +12,7 @@ public class ChannelSettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel_setting);
     }
+
+
+
 }
