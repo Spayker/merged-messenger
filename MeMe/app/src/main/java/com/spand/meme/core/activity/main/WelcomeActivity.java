@@ -37,13 +37,49 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     private static final int UI_ANIMATION_DELAY = 300;
 
-
-
     private View mContentView;
     private View mControlsView;
     private boolean mVisible;
     private ChatSDKInitializer chatSDKInitializer = new ChatSDKInitializer();
 
+    private final Handler mHideHandler = new Handler();
+    private final Runnable mHideRunnable = this::hide;
+
+    private final Runnable mHidePart2Runnable = new Runnable() {
+        @SuppressLint("InlinedApi")
+        @Override
+        public void run() {
+            // Delayed removal of status and navigation bar
+
+            // Note that some of these constants are new as of API 16 (Jelly Bean)
+            // and API 19 (KitKat). It is safe to use them, as they are inlined
+            // at compile-time and do nothing on earlier devices.
+            mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+        }
+    };
+
+    private final Runnable mShowPart2Runnable = new Runnable() {
+        @Override
+        public void run() {
+            // Delayed display of UI elements
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.show();
+            }
+            mControlsView.setVisibility(View.VISIBLE);
+        }
+    };
+
+    /**
+     *  Perform initialization of all fragments of current activity.
+     *  @param savedInstanceState an instance of Bundle instance
+     *                            (A mapping from String keys to various Parcelable values)
+     **/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,17 +103,32 @@ public class WelcomeActivity extends AppCompatActivity {
         chatSDKInitializer.initChatSdk(getApplicationContext());
     }
 
+    /**
+     *  A listener method which starts new activity.
+     *  @param view an instance of View class
+     *              ( represents the basic building block for user interface components )
+     **/
     public void singInActivity(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         /*InterfaceManager.shared().a.startLoginActivity(this, true);*/
     }
 
+    /**
+     *  A listener method which starts new activity.
+     *  @param view an instance of View class
+     *              ( represents the basic building block for user interface components )
+     **/
     public void singUpActivity(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 
+    /**
+     *  Called when activity start-up is complete.
+     *  @param savedInstanceState an instance of Bundle instance
+     *                            (A mapping from String keys to various Parcelable values)
+     **/
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -101,6 +152,9 @@ public class WelcomeActivity extends AppCompatActivity {
             return false;
     };
 
+    /**
+     *  Shows or hides welcome activity depending on mVisible flag.
+     **/
     private void toggle() {
         if (mVisible) {
             hide();
@@ -109,6 +163,9 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *  Hides welcome activity on screen.
+     **/
     private void hide() {
         // Hide UI first
         ActionBar actionBar = getSupportActionBar();
@@ -123,24 +180,9 @@ public class WelcomeActivity extends AppCompatActivity {
         mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
     }
 
-    private final Runnable mHidePart2Runnable = new Runnable() {
-        @SuppressLint("InlinedApi")
-        @Override
-        public void run() {
-            // Delayed removal of status and navigation bar
-
-            // Note that some of these constants are new as of API 16 (Jelly Bean)
-            // and API 19 (KitKat). It is safe to use them, as they are inlined
-            // at compile-time and do nothing on earlier devices.
-            mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        }
-    };
-
+    /**
+     *  Shows welcome activity on screen.
+     **/
     @SuppressLint("InlinedApi")
     private void show() {
         // Show the system bar
@@ -152,21 +194,6 @@ public class WelcomeActivity extends AppCompatActivity {
         mHideHandler.removeCallbacks(mHidePart2Runnable);
         mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
     }
-
-    private final Runnable mShowPart2Runnable = new Runnable() {
-        @Override
-        public void run() {
-            // Delayed display of UI elements
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.show();
-            }
-            mControlsView.setVisibility(View.VISIBLE);
-        }
-    };
-
-    private final Handler mHideHandler = new Handler();
-    private final Runnable mHideRunnable = this::hide;
 
     /**
      * Schedules a call to hide() in delay milliseconds, canceling any

@@ -1,6 +1,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--Background Colour-->
+    <com.rarepebble.colorpicker.ColorPreference
+        android:key="@string/key_certain_channel_background_color"
+        android:title="@string/certain_channel_background_color"
+        android:defaultValue="#000000"/>
 
     <ListPreference
         android:defaultValue="8"
@@ -12,6 +16,10 @@
         android:title="@string/list_preference_font_size" />
 
     <!--Font Colour-->
+    <com.rarepebble.colorpicker.ColorPreference
+        android:key="@string/key_certain_channel_font_color"
+        android:title="@string/certain_channel_font_color"
+        android:defaultValue="#fffefe"/>
 
 
 </PreferenceScreen>

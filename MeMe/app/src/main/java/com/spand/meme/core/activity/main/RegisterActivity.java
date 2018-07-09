@@ -27,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText mPasswordView;
     private EditText mPasswordConfirmView;
 
+    // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = RegisterActivity.class.getSimpleName();
 
     // Firebase related fields
@@ -35,6 +36,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @VisibleForTesting
     private ProgressDialog mProgressDialog;
 
+    /**
+     *  Perform initialization of all fragments of current activity.
+     *  @param savedInstanceState an instance of Bundle instance
+     *                            (A mapping from String keys to various Parcelable values)
+     **/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +59,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mAuth = FirebaseAuth.getInstance();
     }
 
+    /**
+     *  Called after onCreate(Bundle) — or after onRestart() when the activity had been stopped,
+     *  but is now again being displayed to the user. It will be followed by onResume().
+     **/
     @Override
     public void onStart() {
         super.onStart();
@@ -61,6 +71,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         updateUI(currentUser);
     }
 
+    /**
+     *  Updates ui according to registration result.
+     *  @param user an instance of User class (FireBase context)
+     **/
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         /*if (user != null) {
@@ -78,14 +92,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }*/
     }
 
-
+    /**
+     *  Starts main activity of the application.
+     **/
     public void finishSingUpActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-    private void createAccount(String email, String password, String confirmPassword) {
-        Log.d(TAG, "createAccount:" + email);
+    /**
+     *  Performs a Sign Up procedure with FireBase module.
+     *  @param email a String object which will be used by FireBase module during SignUp
+     *  @param password a String object which will be used by FireBase module during SignUp
+     *  @param confirmPassword a String object which will be used during validation form
+     **/
+    private void signUp(String email, String password, String confirmPassword) {
+        Log.d(TAG, "signUp:" + email);
         if (!validateForm()) {
             return;
         }
@@ -119,16 +141,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 });
     }
 
+    /**
+     *  A callback method to be invoked when a view is clicked.
+     *  @param view an instance of View class
+     *              ( class represents the basic building block for user interface components )
+     **/
     @Override
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.email_sign_up_button) {
-            createAccount(mEmailView.getText().toString()
+            signUp(mEmailView.getText().toString()
                     , mPasswordView.getText().toString()
                     , mPasswordConfirmView.getText().toString());
         }
     }
 
+    /**
+     *  Shows progress dialog while backend action is in progress.
+     **/
     public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
@@ -138,16 +168,27 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mProgressDialog.show();
     }
 
+    /**
+     *  Hides progress dialog from screen.
+     **/
     public void hideProgressDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
     }
 
+    /**
+     *  Returns true or false if a password is valid or not.
+     *  @param password a String object which must be validated
+     *  @return a boolean value. Depends on validation result
+     **/
     private boolean isPasswordValid(String password) {
         return (password.length() > 4 && !password.isEmpty());
     }
 
+    /**
+     *  Validates filled values in all fields of current activity on screen.
+     **/
     private boolean validateForm() {
         boolean valid = true;
 

@@ -25,6 +25,7 @@ import co.chatsdk.ui.utils.AppBackgroundMonitor;
  */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
+    // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = LoginActivity.class.getSimpleName();
 
     // UI references.
@@ -39,6 +40,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // Firebase related fields
     private FirebaseAuth mAuth;
 
+    /**
+     *  Perform initialization of all fragments of current activity.
+     *  @param savedInstanceState an instance of Bundle instance
+     *                            (A mapping from String keys to various Parcelable values)
+     **/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +63,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mAuth = FirebaseAuth.getInstance();
     }
 
+    /**
+     *  Called after onCreate(Bundle) — or after onRestart() when the activity had been stopped,
+     *  but is now again being displayed to the user. It will be followed by onResume().
+     **/
     @Override
     public void onStart() {
         super.onStart();
@@ -65,6 +75,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         updateUI(currentUser);
     }
 
+    /**
+     *  Updates ui according to authorization result.
+     *  @param user an instance of User class (FireBase context)
+     **/
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         /*if (user != null) {
@@ -87,7 +101,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }*/
     }
 
-
+    /**
+     *  A callback method to be invoked when a view is clicked.
+     *  @param view an instance of View class
+     *              ( class represents the basic building block for user interface components )
+     **/
     @Override
     public void onClick(View view) {
         int i = view.getId();
@@ -103,6 +121,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }*/
     }
 
+    /**
+     *  Shows progress dialog while backend action is in progress.
+     **/
     public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
@@ -113,18 +134,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mProgressDialog.show();
     }
 
+    /**
+     *  Hides progress dialog from screen.
+     **/
     public void hideProgressDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
     }
 
+    /**
+     *  Starts main activity of the application.
+     **/
     public void finishSingInActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-        //InterfaceManager.shared().a.startMainActivity(this);
     }
 
+    /**
+     *  Performs Sign In operation.
+     *  @param email a String object which will be checked during authorization procedure
+     *  @param password a String object which will be checked during authorization procedure
+     **/
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
         if (!validateForm()) {
@@ -151,6 +182,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 });
     }
 
+    /**
+     *  Performs validation procedure before Sign In operation.
+     **/
     private boolean validateForm() {
         boolean valid = true;
 

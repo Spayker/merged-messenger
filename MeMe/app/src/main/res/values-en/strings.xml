@@ -51,6 +51,8 @@
     <string name="action_change_password">Change Password</string>
     <string name="list_preference_notification_type">Notification</string>
     <string name="list_preference_font_size">Font Size</string>
+    <string name="certain_channel_background_color">Background Color</string>
+    <string name="certain_channel_font_color">Background Color</string>
     <string name="list_preference_language_type">Language</string>
     <string name="textview_melody">Melody</string>
     <string name="action_reset_settings">Reset Settings</string>

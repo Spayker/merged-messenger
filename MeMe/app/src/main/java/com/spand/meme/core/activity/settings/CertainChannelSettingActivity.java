@@ -9,9 +9,23 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.spand.meme.R;
 
+/**
+ *  A class handler is linked to appropriate activity xml file and contains backend logic.
+ **/
 public class CertainChannelSettingActivity extends AppCompatActivity {
 
+    // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = SettingsActivity.class.getSimpleName();
+
+    public static class CertainChannelPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(final Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_certain_channel);
+            // notification preference change listener
+            bindGlobalPreferenceToStringValue(findPreference(getString(R.string.key_font_size_list_preference)));
+        }
+    }
 
     /**
      * A preference value change listener that updates the preference's summary
@@ -34,21 +48,16 @@ public class CertainChannelSettingActivity extends AppCompatActivity {
         return true;
     };
 
+    /**
+     *  Perform initialization of all fragments of current activity.
+     *  @param savedInstanceState an instance of Bundle instance
+     *                            (A mapping from String keys to various Parcelable values)
+     **/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // load settings fragment
         getFragmentManager().beginTransaction().replace(android.R.id.content, new CertainChannelPreferenceFragment()).commit();
-    }
-
-    public static class CertainChannelPreferenceFragment extends PreferenceFragment {
-        @Override
-        public void onCreate(final Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_certain_channel);
-            // notification preference change listener
-            bindGlobalPreferenceToStringValue(findPreference(getString(R.string.key_font_size_list_preference)));
-        }
     }
 
     private static void bindGlobalPreferenceToStringValue(Preference preference) {

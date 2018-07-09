@@ -13,9 +13,13 @@ import android.view.View;
 import com.spand.meme.R;
 import com.spand.meme.core.activity.channel.ChangePasswordActivity;
 
+/**
+ *  A class handler is linked to appropriate activity xml file and contains backend logic.
+ **/
 public class GlobalSettingsActivity extends AppCompatActivity {
 
     private static AppCompatActivity settingsActivityInstance;
+    // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
     private static String switcherOn;
@@ -48,6 +52,11 @@ public class GlobalSettingsActivity extends AppCompatActivity {
         return true;
     };
 
+    /**
+     *  Perform initialization of all fragments of current activity.
+     *  @param savedInstanceState an instance of Bundle instance
+     *                            (A mapping from String keys to various Parcelable values)
+     **/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

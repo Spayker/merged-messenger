@@ -51,6 +51,8 @@
     <string name="action_change_password">Изменить Пароль</string>
     <string name="list_preference_notification_type">Оповещение</string>
     <string name="list_preference_font_size">Размер Шрифта</string>
+    <string name="certain_channel_background_color">Цвет Фона</string>
+    <string name="certain_channel_font_color">Цвет Шрифта</string>
     <string name="list_preference_language_type">Язык</string>
     <string name="textview_melody">Мелодия</string>
     <string name="action_reset_settings">Сброс Настроек</string>

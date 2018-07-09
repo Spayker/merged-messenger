@@ -155,6 +155,8 @@
     <string name="action_change_password">Change Password</string>
     <string name="list_preference_notification_type">Notification</string>
     <string name="list_preference_font_size">Font Size</string>
+    <string name="certain_channel_background_color">Background Color</string>
+    <string name="certain_channel_font_color">Font Color</string>
     <string name="list_preference_language_type">Language</string>
     <string name="textview_melody">Melody</string>
     <string name="action_reset_settings">Reset Settings</string>
@@ -204,6 +206,9 @@
     <string name="key_autoupdate_switch">key_autoupdate_switch</string>
 
     <string name="key_font_size_list_preference">key_font_size_list_preference</string>
+
+<string name="key_certain_channel_background_color">key_certain_channel_background_color</string>
+    <string name="key_certain_channel_font_color">key_certain_channel_font_color</string>
 
 
     <string name="switcher_on">On</string>
