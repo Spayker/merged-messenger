@@ -12,13 +12,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.applozic.mobicomkit.Applozic;
+import com.applozic.mobicomkit.api.account.user.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
-
-import co.chatsdk.ui.manager.BaseInterfaceAdapter;
-import co.chatsdk.ui.manager.InterfaceManager;
-import co.chatsdk.ui.utils.AppBackgroundMonitor;
 
 /**
  * A login screen that offers login via email/password.
@@ -61,6 +59,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // auth init
         mAuth = FirebaseAuth.getInstance();
+
+        //Chat SDK
+        Applozic.init(this, getString(R.string.app_name));
     }
 
     /**
@@ -127,7 +128,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(getString(R.string.loading));
+            mProgressDialog.setMessage(getString(R.string.checking));
             mProgressDialog.setIndeterminate(true);
         }
 
@@ -180,6 +181,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                     hideProgressDialog();
                 });
+
+        User user = new User();
+        user.setUserId("TestUserId");
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setDisplayName("TestDisplayName");
+        user.setContactNumber("TestPhoneNumber");
+        user.setAuthenticationTypeId(User.AuthenticationType.APPLOZIC.getValue());
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.spand.meme.core.activity.settings;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -18,12 +19,17 @@ import com.spand.meme.core.activity.channel.ChangePasswordActivity;
  **/
 public class GlobalSettingsActivity extends AppCompatActivity {
 
+    // tested with android profiler on possible memory leaks. Results shows no leaks at all
+    // static field of activity can be used here
+    @SuppressLint("StaticFieldLeak")
     private static AppCompatActivity settingsActivityInstance;
-    // tag field is used for logging sub system to identify from coming logs were created
-    private static final String TAG = SettingsActivity.class.getSimpleName();
 
+    // secondary fields
     private static String switcherOn;
     private static String switcherOff;
+
+    // tag field is used for logging sub system to identify from coming logs were created
+    private static final String TAG = SettingsActivity.class.getSimpleName();
 
     /**
      * A preference value change listener that updates the preference's summary
@@ -67,23 +73,46 @@ public class GlobalSettingsActivity extends AppCompatActivity {
         switcherOff = getString(R.string.switcher_off);
     }
 
+    /**
+     *  Starts activity of password change.
+     *  @param view an instance of View class
+     *              ( represents the basic building block for user interface components )
+     **/
     public void selectChangePassword(View view) {
         view.getTransitionName();
         Intent intent = new Intent(this, ChangePasswordActivity.class);
         startActivity(intent);
     }
 
+    /**
+     *  Starts activity of reset settings.
+     *  @param view an instance of View class
+     *              ( represents the basic building block for user interface components )
+     **/
     public void selectResetSettings(View view) {
         Intent intent = new Intent(this, ResetSettingsActivity.class);
         startActivity(intent);
     }
 
+    /**
+     *  Starts activity of deactivate account.
+     *  @param view an instance of View class
+     *              ( represents the basic building block for user interface components )
+     **/
     public void selectDeactivateAccount(View view) {
         Intent intent = new Intent(this, DeactivateAccountActivity.class);
         startActivity(intent);
     }
 
+    /**
+     *  A static class which adds preference fragment to current activity.
+     **/
     public static class MainPreferenceFragment extends PreferenceFragment {
+        /**
+         *  Perform initialization of all fragments of current activity.
+         *  @param savedInstanceState an instance of Bundle instance
+         *                            (A mapping from String keys to various Parcelable values)
+         **/
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -145,6 +174,10 @@ public class GlobalSettingsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *  Binds a global preference to String value.
+     *  @param preference is an instance Preference class which will be placed inside of activity
+     **/
     private static void bindGlobalPreferenceToStringValue(Preference preference) {
         preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
             sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
@@ -153,6 +186,10 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                             .getString(preference.getKey(), ""));
     }
 
+    /**
+     *  Binds a global preference to Boolean value.
+     *  @param preference is an instance Preference class which will be placed inside of activity
+     **/
     private static void bindGlobalPreferenceToBooleanValue(Preference preference) {
         preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
         sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,

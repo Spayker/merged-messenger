@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import com.spand.meme.R;
 
+/**
+ *  A class handler is linked to appropriate activity xml file and contains backend logic.
+ **/
 public class ContactSearchActivity extends AppCompatActivity {
 
     /**

@@ -17,7 +17,15 @@ public class CertainChannelSettingActivity extends AppCompatActivity {
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
+    /**
+     *  A static class which adds preference fragment to current activity.
+     **/
     public static class CertainChannelPreferenceFragment extends PreferenceFragment {
+        /**
+         *  Perform initialization of all fragments of current activity.
+         *  @param savedInstanceState an instance of Bundle instance
+         *                            (A mapping from String keys to various Parcelable values)
+         **/
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -60,6 +68,10 @@ public class CertainChannelSettingActivity extends AppCompatActivity {
         getFragmentManager().beginTransaction().replace(android.R.id.content, new CertainChannelPreferenceFragment()).commit();
     }
 
+    /**
+     *  Binds a global preference to String value.
+     *  @param preference is an instance Preference class which will be placed inside of activity
+     **/
     private static void bindGlobalPreferenceToStringValue(Preference preference) {
         preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
         sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,

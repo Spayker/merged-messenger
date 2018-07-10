@@ -8,11 +8,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.applozic.mobicomkit.Applozic;
 import com.spand.meme.R;
-import com.spand.meme.modules.chat.ChatSDKInitializer;
-
-import co.chatsdk.ui.manager.InterfaceManager;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -40,7 +37,6 @@ public class WelcomeActivity extends AppCompatActivity {
     private View mContentView;
     private View mControlsView;
     private boolean mVisible;
-    private ChatSDKInitializer chatSDKInitializer = new ChatSDKInitializer();
 
     private final Handler mHideHandler = new Handler();
     private final Runnable mHideRunnable = this::hide;
@@ -98,9 +94,6 @@ public class WelcomeActivity extends AppCompatActivity {
         // while interacting with the UI.
         findViewById(R.id.sing_button).setOnTouchListener(mDelayHideTouchListener);
         findViewById(R.id.sing_up_button).setOnTouchListener(mDelayHideTouchListener);
-
-        // init of Chat SDK
-        chatSDKInitializer.initChatSdk(getApplicationContext());
     }
 
     /**
@@ -111,7 +104,6 @@ public class WelcomeActivity extends AppCompatActivity {
     public void singInActivity(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-        /*InterfaceManager.shared().a.startLoginActivity(this, true);*/
     }
 
     /**

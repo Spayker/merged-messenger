@@ -92,4 +92,9 @@
 
     <string name="switcher_on">On</string>
     <string name="switcher_off">Off</string>
+    <string name="checking">Checking...</string>
+
+    <!--ChatSDK section begin-->
+    <string name="default_media_location_folder">MeMeCorp</string>
+    <!--ChatSDK section end-->
 </resources>

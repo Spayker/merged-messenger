@@ -1,12 +1,17 @@
 package com.spand.meme.modules.chat.activity;
 
+
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.spand.meme.R;
 
+/**
+ *  A class handler is linked to appropriate activity xml file and contains backend logic.
+ **/
 public class IncomingMessagesActivity extends AppCompatActivity {
 
     /**
@@ -20,17 +25,24 @@ public class IncomingMessagesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_incoming_messages);
     }
 
+    /**
+     *  A listener method which starts new activity.
+     *  @param view an instance of View class
+     *              ( represents the basic building block for user interface components )
+     **/
     public void clickOnSearchContactActivity(View view) {
         Intent intent = new Intent(this, ContactSearchActivity.class);
         startActivity(intent);
     }
 
+    /**
+     *  A listener method which starts new activity.
+     *  @param view an instance of View class
+     *              ( represents the basic building block for user interface components )
+     **/
     public void clickOnSomeContactActivity(View view) {
-        Intent intent = new Intent(this, MainChatActivity.class);
+        Intent intent = new Intent(this, ConversationActivity.class);
         startActivity(intent);
     }
-
-
-
 
 }
