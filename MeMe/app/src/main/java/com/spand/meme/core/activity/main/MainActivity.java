@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.spand.meme.R;
 import com.spand.meme.core.activity.settings.SettingsActivity;
 import com.spand.meme.modules.chat.activity.IncomingMessagesActivity;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
      *              ( represents the basic building block for user interface components )
      **/
     public void clickOnIncomeActivity(View view) {
-        Intent intent = new Intent(this, IncomingMessagesActivity.class);
+        Intent intent = new Intent(this, ConversationActivity.class);
         startActivity(intent);
     }
 
