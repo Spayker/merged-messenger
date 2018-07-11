@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.spand.meme.R;
+import com.spand.meme.vk.activity.LoginActivity;
 
 /**
  *  A class handler is linked to appropriate activity xml file and contains backend logic.
@@ -30,6 +31,16 @@ public class ChannelsSettingActivity extends AppCompatActivity {
      **/
     public void selectChannelSetting(View view) {
         Intent intent = new Intent(this, CertainChannelSettingActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     *  A listener method which starts new activity.
+     *  @param view an instance of View class
+     *              ( represents the basic building block for user interface components )
+     **/
+    public void selectVkChannelSetting(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 }

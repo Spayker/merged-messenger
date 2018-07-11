@@ -82,6 +82,16 @@ dependencies {
     // Google Service Dependencies
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
 
+    // Application Channel Modules
+    implementation project(':fb')
+    implementation project(':gmail')
+    implementation project(':icq')
+    implementation project(':line')
+    implementation project(':linkedin')
+    implementation project(':skype')
+    implementation project(':vk')
+    implementation project(':wechat')
+
     // custom dependencies
     implementation 'com.rarepebble:colorpicker:2.4.0'
 

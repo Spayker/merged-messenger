@@ -24,7 +24,7 @@
         completions."
     </string>
     <string name="title_activity_register">Sign Up</string>
-    <string name="title_activity_main">Bridge Com</string>
+    <string name="title_activity_main">MeMe</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Пароль</string>
+    <string name="action_sign_in">Логин</string>
+    <string name="action_sign_in_short">Логин</string>
+    <string name="checking">Проверка...</string>
+
+
+
+
+
+</resources>
