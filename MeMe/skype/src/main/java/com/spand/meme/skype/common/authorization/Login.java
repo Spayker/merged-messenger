@@ -11,25 +11,26 @@ import com.samczsun.skype4j.exceptions.NotParticipatingException;
 
 public class Login {
 
-    private Skype skype;
     private String username;
     private String password;
+    private Skype skype;
 
-    public Login(String username, String password){
+    public Login(String username, String password) {
         this.skype = new SkypeBuilder(username, password).withAllResources().build();
         this.username = username;
         this.password = password;
     }
 
-    public void performLogin() throws ConnectionException, NotParticipatingException, InvalidCredentialsException {
-        skype.login();
-        skype.getEventDispatcher().registerListener(new Listener() {
-            @EventHandler
-            public void onMessage(MessageReceivedEvent e) {
-                System.out.println("Got message: " + e.getMessage().getContent());
-            }
-        });
-        skype.subscribe();
-    }
+//    public static void main(String[] args) throws ConnectionException, NotParticipatingException, InvalidCredentialsException {
+//        skype = new SkypeBuilder("spykerfun", "159753159753spayker").withAllResources().build();
+//        skype.login();
+//        skype.getEventDispatcher().registerListener(new Listener() {
+//            @EventHandler
+//            public void onMessage(MessageReceivedEvent e) {
+//                System.out.println("Got message: " + e.getMessage().getContent());
+//            }
+//        });
+//        skype.subscribe();
+//    }
 
 }
