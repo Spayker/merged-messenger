@@ -87,7 +87,7 @@
 
         <!--Welcome Screen With SignIn and SignUp buttons-->
         <activity
-            android:name=".core.activity.main.WelcomeActivity"
+            android:name=".core.submodule.ui.activity.main.WelcomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme">
@@ -100,126 +100,126 @@
 
         <!--Login Screen-->
         <activity
-            android:name=".core.activity.main.LoginActivity"
+            android:name=".core.submodule.ui.activity.main.LoginActivity"
             android:label="@string/title_activity_login">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.activity.main.WelcomeActivity" />
+                android:value=".core.submodule.ui.activity.main.WelcomeActivity" />
         </activity>
 
         <!--Register Screen-->
         <activity
-            android:name=".core.activity.main.RegisterActivity"
+            android:name=".core.submodule.ui.activity.main.RegisterActivity"
             android:label="@string/title_activity_register">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.activity.main.WelcomeActivity" />
+                android:value=".core.submodule.ui.activity.main.WelcomeActivity" />
         </activity>
 
         <!--Main Menu Screen-->
-        <activity android:name=".core.activity.main.MainActivity">
+        <activity android:name=".core.submodule.ui.activity.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.activity.main.WelcomeActivity" />
+                android:value=".core.submodule.ui.activity.main.WelcomeActivity" />
         </activity>
 
         <!--Menu of Available Settings in Application Screen-->
 
         <!--Menu of Global Settings Screen-->
-        <activity android:name=".core.activity.settings.SettingsActivity">
+        <activity android:name=".core.submodule.ui.activity.settings.SettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.activity.main.MainActivity" />
+                android:value=".core.submodule.ui.activity.main.MainActivity" />
         </activity>
 
         <!--Menu of Global Settings Screen-->
-        <activity android:name=".core.activity.settings.GlobalSettingsActivity">
+        <activity android:name=".core.submodule.ui.activity.settings.GlobalSettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.activity.settings.SettingsActivity" />
+                android:value=".core.submodule.ui.activity.settings.SettingsActivity" />
         </activity>
 
         <!--Menu of Password change Screen-->
-        <activity android:name=".core.activity.channel.ChangePasswordActivity">
+        <activity android:name=".core.submodule.ui.activity.channel.ChangePasswordActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.activity.settings.GlobalSettingsActivity" />
+                android:value=".core.submodule.ui.activity.settings.GlobalSettingsActivity" />
         </activity>
 
         <!--Menu of Settings Reset screen-->
-        <activity android:name=".core.activity.settings.ResetSettingsActivity">
+        <activity android:name=".core.submodule.ui.activity.settings.ResetSettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.activity.settings.GlobalSettingsActivity" />
+                android:value=".core.submodule.ui.activity.settings.GlobalSettingsActivity" />
         </activity>
 
         <!--Menu of Account Remove Screen-->
-        <activity android:name=".core.activity.settings.DeactivateAccountActivity">
+        <activity android:name=".core.submodule.ui.activity.settings.DeactivateAccountActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.activity.settings.GlobalSettingsActivity" />
+                android:value=".core.submodule.ui.activity.settings.GlobalSettingsActivity" />
         </activity>
 
         <!--Menu of Channel Settings Screen-->
-        <activity android:name=".core.activity.settings.ChannelsSettingActivity">
+        <activity android:name=".core.submodule.ui.activity.settings.ChannelsSettingActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.activity.settings.SettingsActivity" />
+                android:value=".core.submodule.ui.activity.settings.SettingsActivity" />
         </activity>
 
         <!--Menu of Settings for Selected Channel Screen-->
-        <activity android:name=".core.activity.settings.CertainChannelSettingActivity">
+        <activity android:name=".core.submodule.ui.activity.settings.CertainChannelSettingActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.activity.channel.ChannelSettingActivity" />
+                android:value=".core.submodule.ui.activity.channel.ChannelSettingActivity" />
         </activity>
 
         <!--Menu of Common Settings for Chats Screen-->
-        <activity android:name=".core.activity.channel.ChannelSettingActivity" >
+        <activity android:name=".core.submodule.ui.activity.channel.ChannelSettingActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.activity.main.MainActivity" />
+                android:value=".core.submodule.ui.activity.main.MainActivity" />
         </activity>
 
         <!--Menu of Incoming Messages Screen-->
-        <activity android:name=".modules.chat.activity.IncomingMessagesActivity">
+        <activity android:name=".core.submodule.ui.activity.chat.IncomingMessagesActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.activity.main.MainActivity" />
+                android:value=".core.submodule.ui.activity.main.MainActivity" />
         </activity>
 
         <!--Contact Search Screen-->
-        <activity android:name=".modules.chat.activity.ContactSearchActivity">
+        <activity android:name=".core.submodule.ui.activity.chat.ContactSearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".modules.chat.activity.IncomingMessagesActivity" />
+                android:value=".core.submodule.ui.activity.chat.IncomingMessagesActivity" />
         </activity>
 
         <!--Main Chat Screen-->
-        <activity android:name=".modules.chat.activity.MainChatActivity" >
+        <activity android:name=".core.submodule.ui.activity.chat.MainChatActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".modules.chat.activity.IncomingMessagesActivity" />
+                android:value=".core.submodule.ui.activity.chat.IncomingMessagesActivity" />
         </activity>
 
         <!--Menu of channels Screen-->
-        <activity android:name=".core.activity.channel.ChannelsActivity">
+        <activity android:name=".core.submodule.ui.activity.channel.ChannelsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.activity.main.MainActivity" />
+                android:value=".core.submodule.ui.activity.main.MainActivity" />
         </activity>
 
         <!--Chat SDK Activity Sub Section begin-->
         <activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
             android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
             android:label="@string/app_name"
-            android:parentActivityName=".core.activity.main.MainActivity"
+            android:parentActivityName=".core.submodule.ui.activity.main.MainActivity"
             android:theme="@style/ApplozicTheme"
             android:launchMode="singleTask" >
             <!-- Parent activity meta-data to support API level 7+ -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.activity.main.MainActivity" />
+                android:value=".core.submodule.ui.activity.main.MainActivity" />
         </activity>
 
         <activity android:name="com.applozic.mobicomkit.uiwidgets.people.activity.MobiComKitPeopleActivity"

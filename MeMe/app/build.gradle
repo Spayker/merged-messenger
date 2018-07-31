@@ -24,7 +24,7 @@ android {
     productFlavors {
         dev {
             dimension "versionCode"
-            minSdkVersion 24
+            minSdkVersion 26
             resConfigs "en", "xxhdpi"
         }
     }
@@ -83,17 +83,25 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
 
     // Application Channel Modules
+    implementation project(':discord')
     implementation project(':fb')
     implementation project(':gmail')
     implementation project(':icq')
-    implementation project(':line')
+    implementation project(':instagram')
     implementation project(':linkedin')
+    implementation project(':ok')
     implementation project(':skype')
+    implementation project(':telegram')
+    implementation project(':tmblr')
+    implementation project(':tw')
     implementation project(':vk')
-    implementation project(':wechat')
+    implementation project(':youtube')
 
     // custom dependencies
     implementation 'com.rarepebble:colorpicker:2.4.0'
+
+    // rxjava
+    implementation "io.reactivex.rxjava2:rxjava:2.1.5"
 
 }
 

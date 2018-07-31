@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.bridge.linkedin.test", appContext.getPackageName());
+        assertEquals("com.meme.linkedin.test", appContext.getPackageName());
     }
 }

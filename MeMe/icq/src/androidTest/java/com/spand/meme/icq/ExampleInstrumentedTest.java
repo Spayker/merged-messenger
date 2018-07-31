@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.bridge.icq.test", appContext.getPackageName());
+        assertEquals("com.meme.icq.test", appContext.getPackageName());
     }
 }
