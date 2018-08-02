@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         debug {
@@ -32,16 +33,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-    }
-    packagingOptions {
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/ECLIPSE_.SF'
-        exclude 'META-INF/ECLIPSE_.RSA'
     }
 }
 
@@ -73,11 +64,6 @@ dependencies {
     // FireBase module
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-auth:16.0.1'
-
-    // ChatSDK dependencies
-    implementation 'com.applozic.communication.message:mobicomkit:5.8.8'
-    implementation 'com.applozic.communication.uiwidget:mobicomkitui:5.8.8'
-    implementation 'com.applozic.communication.uiwidget:audiovideo:2.1.1'
 
     // Google Service Dependencies
     implementation 'com.google.android.gms:play-services-auth:15.0.1'

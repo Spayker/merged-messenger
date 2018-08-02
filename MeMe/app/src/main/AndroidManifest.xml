@@ -126,17 +126,24 @@
         <!--Menu of Available Settings in Application Screen-->
 
         <!--Menu of Global Settings Screen-->
-        <activity android:name=".core.submodule.ui.activity.settings.SettingsActivity">
+        <!--<activity android:name=".core.submodule.ui.activity.settings.SettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.submodule.ui.activity.main.MainActivity" />
-        </activity>
+        </activity>-->
 
         <!--Menu of Global Settings Screen-->
-        <activity android:name=".core.submodule.ui.activity.settings.GlobalSettingsActivity">
+        <!--<activity android:name=".core.submodule.ui.activity.settings.GlobalSettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.submodule.ui.activity.settings.SettingsActivity" />
+        </activity>-->
+
+        <!--Menu of WebView Screen-->
+        <activity android:name=".core.submodule.ui.activity.webview.WebViewActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".core.submodule.ui.activity.main.MainActivity" />
         </activity>
 
         <!--Menu of Password change Screen-->
@@ -182,41 +189,41 @@
         </activity>
 
         <!--Menu of Incoming Messages Screen-->
-        <activity android:name=".core.submodule.ui.activity.chat.IncomingMessagesActivity">
+        <!--<activity android:name=".core.submodule.ui.activity.chat.IncomingMessagesActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.submodule.ui.activity.main.MainActivity" />
-        </activity>
+        </activity>-->
 
         <!--Contact Search Screen-->
-        <activity android:name=".core.submodule.ui.activity.chat.ContactSearchActivity">
+        <!--<activity android:name=".core.submodule.ui.activity.chat.ContactSearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.submodule.ui.activity.chat.IncomingMessagesActivity" />
-        </activity>
+        </activity>-->
 
         <!--Main Chat Screen-->
-        <activity android:name=".core.submodule.ui.activity.chat.MainChatActivity" >
+        <!--<activity android:name=".core.submodule.ui.activity.chat.MainChatActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.submodule.ui.activity.chat.IncomingMessagesActivity" />
-        </activity>
+        </activity>-->
 
         <!--Menu of channels Screen-->
-        <activity android:name=".core.submodule.ui.activity.channel.ChannelsActivity">
+        <!--<activity android:name=".core.submodule.ui.activity.channel.ChannelsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.submodule.ui.activity.main.MainActivity" />
-        </activity>
+        </activity>-->
 
         <!--Chat SDK Activity Sub Section begin-->
-        <activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
+        <!--<activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
             android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
             android:label="@string/app_name"
             android:parentActivityName=".core.submodule.ui.activity.main.MainActivity"
             android:theme="@style/ApplozicTheme"
             android:launchMode="singleTask" >
-            <!-- Parent activity meta-data to support API level 7+ -->
+            &lt;!&ndash; Parent activity meta-data to support API level 7+ &ndash;&gt;
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.submodule.ui.activity.main.MainActivity" />
@@ -229,7 +236,7 @@
             android:theme="@style/ApplozicTheme"
             android:windowSoftInputMode="adjustResize">
 
-            <!-- Parent activity meta-data to support API level 7+ -->
+            &lt;!&ndash; Parent activity meta-data to support API level 7+ &ndash;&gt;
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity" />
 
@@ -254,7 +261,7 @@
             android:label="Image"
             android:parentActivityName="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
             android:theme="@style/Applozic_FullScreen_Theme">
-            <!-- Parent activity meta-data to support API level 7+ -->
+            &lt;!&ndash; Parent activity meta-data to support API level 7+ &ndash;&gt;
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity" />
@@ -268,9 +275,9 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity" />
-        </activity>
+        </activity>-->
 
-        <activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.ChannelCreateActivity"
+        <!--<activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.ChannelCreateActivity"
             android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
             android:launchMode="singleTop"
             android:parentActivityName="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
@@ -316,7 +323,7 @@
         </activity>
 
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
+            android:theme="@style/Base.Theme.AppCompat"/>-->
         <!--Chat SDK Activity Sub Section end-->
 
 

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.spand.meme.R;
 
 /**
@@ -41,8 +40,7 @@ public class IncomingMessagesActivity extends AppCompatActivity {
      *              ( represents the basic building block for user interface components )
      **/
     public void clickOnSomeContactActivity(View view) {
-        Intent intent = new Intent(this, ConversationActivity.class);
-        startActivity(intent);
+
     }
 
 }

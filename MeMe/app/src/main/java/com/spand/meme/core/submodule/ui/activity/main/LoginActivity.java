@@ -12,8 +12,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.applozic.mobicomkit.Applozic;
-import com.applozic.mobicomkit.api.account.user.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
@@ -59,9 +57,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // auth init
         mAuth = FirebaseAuth.getInstance();
-
-        //Chat SDK
-        Applozic.init(this, getString(R.string.app_name));
     }
 
     /**
@@ -181,14 +176,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                     hideProgressDialog();
                 });
-
-        User user = new User();
-        user.setUserId("TestUserId");
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setDisplayName("TestDisplayName");
-        user.setContactNumber("TestPhoneNumber");
-        user.setAuthenticationTypeId(User.AuthenticationType.APPLOZIC.getValue());
     }
 
     /**

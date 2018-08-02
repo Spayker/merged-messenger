@@ -177,6 +177,15 @@
     <string name="wt">Wt</string>
     <string name="tl">TL</string>
     <string name="skp">Skp</string>
+    <string name="ok">OK</string>
+    <string name="tmb">TMB</string>
+    <string name="dc">DC</string>
+    <string name="yt">YT</string>
+    <string name="ln">LN</string>
+    <string name="tw">TW</string>
+    <string name="icq">ICQ</string>
+    <string name="inst">INST</string>
+    <string name="gmail">GMAIL</string>
     <string name="fontSize">Font Size</string>
     <string name="backgroundColor">Background Color</string>
     <string name="fontColor">Font Color</string>
