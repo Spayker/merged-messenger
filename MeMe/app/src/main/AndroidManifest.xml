@@ -5,15 +5,6 @@
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
-    <!-- ChatSDK section Begin -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <!-- ChatSDK section End -->
 
     <application
         android:allowBackup="true"
@@ -43,47 +34,6 @@
 
         <meta-data android:name="com.package.name"
             android:value="${applicationId}" /> <!-- NOTE: Do NOT change this, it should remain same i.e 'com.package.name' -->
-
-        <service android:name="org.eclipse.paho.android.service.MqttService"/>
-
-        <service android:name="com.applozic.mobicomkit.api.conversation.MessageIntentService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false" />
-
-        <service android:name="com.applozic.mobicomkit.api.conversation.ApplozicIntentService"
-            android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE"/>
-
-        <service android:name="com.applozic.mobicomkit.api.conversation.ApplozicMqttIntentService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false" />
-
-        <service android:name="com.applozic.mobicomkit.api.people.UserIntentService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false" />
-
-        <service android:name="com.applozic.mobicomkit.api.conversation.ConversationIntentService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false" />
-
-        <service android:name="com.applozic.mobicomkit.uiwidgets.people.contact.DeviceContactSyncService"
-            android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-
-        <receiver android:name="com.applozic.mobicomkit.broadcast.TimeChangeBroadcastReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.TIME_SET" />
-                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name="com.applozic.mobicomkit.broadcast.ConnectivityReceiver"
-            android:exported="true" android:enabled="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-        <!-- ChatSDK section End -->
 
         <!--Welcome Screen With SignIn and SignUp buttons-->
         <activity
@@ -123,27 +73,15 @@
                 android:value=".core.submodule.ui.activity.main.WelcomeActivity" />
         </activity>
 
-        <!--Menu of Available Settings in Application Screen-->
-
-        <!--Menu of Global Settings Screen-->
-        <!--<activity android:name=".core.submodule.ui.activity.settings.SettingsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.main.MainActivity" />
-        </activity>-->
-
-        <!--Menu of Global Settings Screen-->
-        <!--<activity android:name=".core.submodule.ui.activity.settings.GlobalSettingsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.settings.SettingsActivity" />
-        </activity>-->
-
         <!--Menu of WebView Screen-->
         <activity android:name=".core.submodule.ui.activity.webview.WebViewActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.submodule.ui.activity.main.MainActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <!--Menu of Password change Screen-->
@@ -166,166 +104,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.submodule.ui.activity.settings.GlobalSettingsActivity" />
         </activity>
-
-        <!--Menu of Channel Settings Screen-->
-        <activity android:name=".core.submodule.ui.activity.settings.ChannelsSettingActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.settings.SettingsActivity" />
-        </activity>
-
-        <!--Menu of Settings for Selected Channel Screen-->
-        <activity android:name=".core.submodule.ui.activity.settings.CertainChannelSettingActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.channel.ChannelSettingActivity" />
-        </activity>
-
-        <!--Menu of Common Settings for Chats Screen-->
-        <activity android:name=".core.submodule.ui.activity.channel.ChannelSettingActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.main.MainActivity" />
-        </activity>
-
-        <!--Menu of Incoming Messages Screen-->
-        <!--<activity android:name=".core.submodule.ui.activity.chat.IncomingMessagesActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.main.MainActivity" />
-        </activity>-->
-
-        <!--Contact Search Screen-->
-        <!--<activity android:name=".core.submodule.ui.activity.chat.ContactSearchActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.chat.IncomingMessagesActivity" />
-        </activity>-->
-
-        <!--Main Chat Screen-->
-        <!--<activity android:name=".core.submodule.ui.activity.chat.MainChatActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.chat.IncomingMessagesActivity" />
-        </activity>-->
-
-        <!--Menu of channels Screen-->
-        <!--<activity android:name=".core.submodule.ui.activity.channel.ChannelsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.main.MainActivity" />
-        </activity>-->
-
-        <!--Chat SDK Activity Sub Section begin-->
-        <!--<activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
-            android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
-            android:label="@string/app_name"
-            android:parentActivityName=".core.submodule.ui.activity.main.MainActivity"
-            android:theme="@style/ApplozicTheme"
-            android:launchMode="singleTask" >
-            &lt;!&ndash; Parent activity meta-data to support API level 7+ &ndash;&gt;
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.main.MainActivity" />
-        </activity>
-
-        <activity android:name="com.applozic.mobicomkit.uiwidgets.people.activity.MobiComKitPeopleActivity"
-            android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
-            android:label="@string/app_name"
-            android:parentActivityName="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
-            android:theme="@style/ApplozicTheme"
-            android:windowSoftInputMode="adjustResize">
-
-            &lt;!&ndash; Parent activity meta-data to support API level 7+ &ndash;&gt;
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="image/*" />
-                <data android:mimeType="audio/*" />
-                <data android:mimeType="video/*" />
-                <data android:mimeType="text/plain"/>
-            </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable_contacts" />
-        </activity>
-
-        <activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.FullScreenImageActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="Image"
-            android:parentActivityName="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
-            android:theme="@style/Applozic_FullScreen_Theme">
-            &lt;!&ndash; Parent activity meta-data to support API level 7+ &ndash;&gt;
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity" />
-        </activity>
-
-        <activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.ContactSelectionActivity"
-            android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
-            android:launchMode="singleTop"
-            android:parentActivityName="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
-            android:theme="@style/ApplozicTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity" />
-        </activity>-->
-
-        <!--<activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.ChannelCreateActivity"
-            android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
-            android:launchMode="singleTop"
-            android:parentActivityName="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
-            android:theme="@style/ApplozicTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity" />
-        </activity>
-
-        <activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.ChannelNameActivity"
-            android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
-            android:launchMode="singleTop"
-            android:parentActivityName="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
-            android:theme="@style/ApplozicTheme">
-        </activity>
-
-        <activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.ChannelInfoActivity"
-            android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
-            android:launchMode="singleTop"
-            android:parentActivityName="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
-            android:theme="@style/ApplozicTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity" />
-        </activity>
-
-        <activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.MobiComAttachmentSelectorActivity"
-            android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
-            android:launchMode="singleTop"
-            android:parentActivityName="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
-            android:theme="@style/ApplozicTheme"
-            android:windowSoftInputMode="stateHidden|adjustResize">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity" />
-        </activity>
-
-        <activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.MobicomLocationActivity"
-            android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
-            android:parentActivityName="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
-            android:theme="@style/ApplozicTheme"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
-
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>-->
-        <!--Chat SDK Activity Sub Section end-->
-
 
     </application>
 

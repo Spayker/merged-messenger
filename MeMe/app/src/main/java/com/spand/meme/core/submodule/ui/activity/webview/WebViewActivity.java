@@ -1,6 +1,7 @@
 package com.spand.meme.core.submodule.ui.activity.webview;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.CookieManager;
 import android.webkit.WebSettings;
@@ -9,6 +10,8 @@ import android.webkit.WebViewClient;
 
 import com.spand.meme.R;
 
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.HOME_URL;
+
 public class WebViewActivity extends Activity {
 
     private WebView mWebView;
@@ -16,7 +19,7 @@ public class WebViewActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_webview);
 
         mWebView = findViewById(R.id.activity_main_webview);
 
@@ -25,10 +28,11 @@ public class WebViewActivity extends Activity {
 
         // Enable Javascript
         WebSettings webSettings = mWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+        //webSettings.setJavaScriptEnabled(true);
 
         // REMOTE RESOURCE
-        mWebView.loadUrl("https://www.facebook.com/messages/t/");
+        Intent webViewIntent = getIntent();
+        mWebView.loadUrl(webViewIntent.getStringExtra(HOME_URL));
         mWebView.setWebViewClient(new CustomWebViewClient());
         mWebView.getSettings()
                 .setUserAgentString("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36");

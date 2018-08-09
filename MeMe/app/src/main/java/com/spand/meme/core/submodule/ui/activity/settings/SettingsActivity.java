@@ -33,15 +33,5 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /**
-     *  A listener method which starts new activity.
-     *  @param view an instance of View class
-     *              ( represents the basic building block for user interface components )
-     **/
-    public void selectChannelsSetting(View view) {
-        Intent intent = new Intent(this, ChannelsSettingActivity.class);
-        startActivity(intent);
-    }
-
 
 }

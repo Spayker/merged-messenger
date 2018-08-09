@@ -1,1 +1,1 @@
-include ':app', ':fb', ':vk', ':skype', ':linkedin', ':gmail', ':icq', ':ok', ':tw', ':tmblr', ':discord', ':youtube', ':instagram', ':telegram'
+include ':app'
