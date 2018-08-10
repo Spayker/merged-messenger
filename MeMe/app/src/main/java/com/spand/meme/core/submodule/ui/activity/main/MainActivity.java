@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private final String ICQ_HOME_URL = "https://web.icq.com/";
     private final String SKYPE_HOME_URL = "https://web.skype.com/en/";
     private final String GMAIL_HOME_URL = "www.gmail.com";
+    private final String MAIL_RU_HOME_URL = "https://mail.ru/";
 
     /**
      *  Perform initialization of all fragments of current activity.
@@ -180,6 +181,17 @@ public class MainActivity extends AppCompatActivity {
     public void clickOnGmailActivity(View view) {
         Intent intent = new Intent(this, WebViewActivity.class);
         intent.putExtra(HOME_URL, GMAIL_HOME_URL);
+        startActivity(intent);
+    }
+
+    /**
+     *  A listener method which starts new activity for Gmail.
+     *  @param view an instance of View class
+     *              ( represents the basic building block for user interface components )
+     **/
+    public void clickOnMailRuActivity(View view) {
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra(HOME_URL, MAIL_RU_HOME_URL);
         startActivity(intent);
     }
 

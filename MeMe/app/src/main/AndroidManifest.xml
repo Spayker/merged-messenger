@@ -8,19 +8,11 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <!-- ChatSDK section Begin -->
-        <meta-data android:name="com.applozic.application.key"
-            android:value="meme3d89e298d0d156a84470ad166c" /> <!-- Applozic Application Key -->
-
-        <meta-data android:name="com.applozic.mobicomkit.notification.smallIcon"
-            android:resource="@mipmap/ic_launcher_round" /> <!-- Launcher white Icon -->
-
         <meta-data android:name="main_folder_name"
             android:value="@string/default_media_location_folder" /> <!-- Attachment Folder Name -->
 
