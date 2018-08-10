@@ -121,6 +121,9 @@ public class GlobalSettingsActivity extends AppCompatActivity {
             // notification preference change listener
             bindGlobalPreferenceToStringValue(findPreference(getString(R.string.key_notification_list_preference)));
 
+            // melody preference change listener
+            bindGlobalPreferenceToStringValue(findPreference(getString(R.string.key_melody_list_preference)));
+
             // language preference change listener
             bindGlobalPreferenceToStringValue(findPreference(getString(R.string.key_language_list_preference)));
 
@@ -145,30 +148,6 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                 //code for what you want it to do
                 Intent intent = new Intent(settingsActivityInstance, DeactivateAccountActivity.class);
                 startActivity(intent);
-                return true;
-            });
-
-            Preference autoRunSwitcher  = findPreference(getString(R.string.key_autorun_switch));
-            bindGlobalPreferenceToBooleanValue(autoRunSwitcher);
-            autoRunSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                boolean switched = ((SwitchPreference) preference).isChecked();
-                preference.setSummary(!switched ? switcherOn : switcherOff);
-                return true;
-            });
-
-            Preference tipsSwitcher  = findPreference(getString(R.string.key_tips_switch));
-            bindGlobalPreferenceToBooleanValue(tipsSwitcher);
-            tipsSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                boolean switched = ((SwitchPreference) preference).isChecked();
-                preference.setSummary(!switched ? switcherOn : switcherOff);
-                return true;
-            });
-
-            Preference autoUpdateSwitcher  = findPreference(getString(R.string.key_autoupdate_switch));
-            bindGlobalPreferenceToBooleanValue(autoUpdateSwitcher);
-            autoUpdateSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                boolean switched = ((SwitchPreference) preference).isChecked();
-                preference.setSummary(!switched ? switcherOn : switcherOff);
                 return true;
             });
         }

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.spand.meme.R;
+import com.spand.meme.core.submodule.ui.activity.settings.GlobalSettingsActivity;
 import com.spand.meme.core.submodule.ui.activity.webview.WebViewActivity;
 
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.HOME_URL;
@@ -45,11 +46,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        ActionBar mainActivityToolbar = getSupportActionBar();
-
-//        Toolbar mainActivityToolbar = findViewById(R.id.main_activity_toolbar);
-//        setSupportActionBar(mainActivityToolbar);
     }
 
     /**
@@ -67,10 +63,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
+            case R.id.action_settings: {
+                Intent intent = new Intent(this, GlobalSettingsActivity.class);
+                startActivity(intent);
                 return true;
-
+            }
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
