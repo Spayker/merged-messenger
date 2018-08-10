@@ -63,6 +63,12 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <CheckBox
+                android:text="@string/remember_me"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/login_form_rememberMe" />
+
             <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"

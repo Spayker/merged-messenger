@@ -4,6 +4,7 @@
     <string name="title_activity_login">Логин</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Пароль</string>
+    <string name="remember_me">Запомнить Меня</string>
     <string name="sing_in_button">Логин</string>
     <string name="sing_up_button">Регистрация</string>
     <string name="action_sign_in">Логин</string>

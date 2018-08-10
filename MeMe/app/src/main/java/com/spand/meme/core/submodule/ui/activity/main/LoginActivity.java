@@ -1,14 +1,20 @@
 package com.spand.meme.core.submodule.ui.activity.main;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,7 +25,8 @@ import com.spand.meme.R;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher,
+        CompoundButton.OnCheckedChangeListener{
 
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = LoginActivity.class.getSimpleName();
@@ -27,8 +34,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
+    private CheckBox mRememberMeView;
     private View mProgressView;
     private View mLoginFormView;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    private static final String PREF_NAME = "prefs";
+    private static final String KEY_REMEMBER = "remember";
+    private static final String KEY_USERNAME = "username";
+    private static final String KEY_PASS = "password";
 
     @VisibleForTesting
     private ProgressDialog mProgressDialog;
@@ -46,11 +61,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
         // Views
         /*mStatusTextView = findViewById(R.id.status);
         mDetailTextView = findViewById(R.id.detail);*/
         mEmailView = findViewById(R.id.login_form_email);
         mPasswordView = findViewById(R.id.login_form_password);
+        mRememberMeView = findViewById(R.id.login_form_rememberMe);
+
+        if(sharedPreferences.getBoolean(KEY_REMEMBER, false))
+            mRememberMeView.setChecked(true);
+        else
+            mRememberMeView.setChecked(false);
+
+        mEmailView.setText(sharedPreferences.getString(KEY_USERNAME,""));
+        mPasswordView.setText(sharedPreferences.getString(KEY_PASS,""));
+
+        mEmailView.addTextChangedListener(this);
+        mPasswordView.addTextChangedListener(this);
+        mRememberMeView.setOnCheckedChangeListener(this);
 
         // Buttons
         findViewById(R.id.email_sign_in_button).setOnClickListener(this);
@@ -117,6 +148,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }*/
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+    @Override
+    public void afterTextChanged(Editable s) {}
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        managePrefs();
+    }
+
     /**
      *  Shows progress dialog while backend action is in progress.
      **/
@@ -178,6 +220,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 });
     }
 
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        managePrefs();
+    }
+
     /**
      *  Performs validation procedure before Sign In operation.
      **/
@@ -200,6 +247,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             mPasswordView.setError(null);
         }
         return valid;
+    }
+
+    private void managePrefs(){
+        if(mRememberMeView.isChecked()){
+            editor.putString(KEY_USERNAME, mEmailView.getText().toString().trim());
+            editor.putString(KEY_PASS, mPasswordView.getText().toString().trim());
+            editor.putBoolean(KEY_REMEMBER, true);
+            editor.apply();
+        }else{
+            editor.putBoolean(KEY_REMEMBER, false);
+            editor.remove(KEY_PASS);//editor.putString(KEY_PASS,"");
+            editor.remove(KEY_USERNAME);//editor.putString(KEY_USERNAME, "");
+            editor.apply();
+        }
     }
 }
 
