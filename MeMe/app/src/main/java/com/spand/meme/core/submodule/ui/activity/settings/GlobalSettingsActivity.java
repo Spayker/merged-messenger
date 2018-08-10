@@ -29,7 +29,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
     private static String switcherOff;
 
     // tag field is used for logging sub system to identify from coming logs were created
-    private static final String TAG = SettingsActivity.class.getSimpleName();
+    private static final String TAG = GlobalSettingsActivity.class.getSimpleName();
 
     /**
      * A preference value change listener that updates the preference's summary

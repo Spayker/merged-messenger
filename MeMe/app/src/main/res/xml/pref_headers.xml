@@ -13,6 +13,11 @@
         android:title="@string/pref_header_notifications" />
 
     <header
+        android:fragment="com.spand.meme.core.submodule.ui.activity.settings.SettingsActivity$MelodyPreferenceFragment"
+        android:icon="@drawable/ic_audiotrack_light"
+        android:title="@string/pref_header_melodies" />
+
+    <header
         android:fragment="com.spand.meme.core.submodule.ui.activity.settings.SettingsActivity$DataSyncPreferenceFragment"
         android:icon="@drawable/ic_sync_black_24dp"
         android:title="@string/pref_header_data_sync" />
