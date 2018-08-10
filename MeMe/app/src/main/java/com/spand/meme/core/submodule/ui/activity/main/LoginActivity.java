@@ -38,8 +38,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private View mProgressView;
     private View mLoginFormView;
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     private static final String PREF_NAME = "prefs";
     private static final String KEY_REMEMBER = "remember";
     private static final String KEY_USERNAME = "username";
