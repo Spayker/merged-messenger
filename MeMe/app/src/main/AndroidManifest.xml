@@ -77,6 +77,13 @@
             </intent-filter>
         </activity>
 
+        <!--Menu of Global Settings Screen-->
+        <activity android:name=".core.submodule.ui.activity.settings.GlobalSettingsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".core.submodule.ui.activity.main.MainActivity" />
+        </activity>
+
         <!--Menu of Password change Screen-->
         <activity android:name=".core.submodule.ui.activity.channel.ChangePasswordActivity">
             <meta-data
