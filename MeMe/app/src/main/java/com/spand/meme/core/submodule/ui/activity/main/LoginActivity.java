@@ -22,6 +22,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
 
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.KEY_OLD_CHANGE_PASS;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.KEY_PASS;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.KEY_REMEMBER;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.KEY_USERNAME;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.PREF_NAME;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -35,16 +41,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private CheckBox mRememberMeView;
-    private View mProgressView;
-    private View mLoginFormView;
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private static final String PREF_NAME = "prefs";
-    private static final String KEY_REMEMBER = "remember";
-    private static final String KEY_USERNAME = "username";
-    private static final String KEY_PASS = "password";
-    private static final String KEY_OLD_CHANGE_PASS = "oldChangePassword";
 
     @VisibleForTesting
     private ProgressDialog mProgressDialog;

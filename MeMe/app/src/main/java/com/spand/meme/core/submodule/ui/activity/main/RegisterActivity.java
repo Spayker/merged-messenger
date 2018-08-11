@@ -66,30 +66,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+        updateUI();
     }
 
     /**
      *  Updates ui according to registration result.
-     *  @param user an instance of User class (FireBase context)
      **/
-    private void updateUI(FirebaseUser user) {
+    private void updateUI() {
         hideProgressDialog();
-        /*if (user != null) {
-            findViewById(R.id.register_form_name).setVisibility(View.GONE);
-            findViewById(R.id.register_form_email).setVisibility(View.GONE);
-            findViewById(R.id.register_form_password).setVisibility(View.GONE);
-            findViewById(R.id.register_form_password_confirm).setVisibility(View.GONE);
-            findViewById(R.id.email_sign_up_button).setVisibility(View.VISIBLE);
-        } else {
-            findViewById(R.id.register_form_name).setVisibility(View.VISIBLE);
-            findViewById(R.id.register_form_email).setVisibility(View.VISIBLE);
-            findViewById(R.id.register_form_password).setVisibility(View.VISIBLE);
-            findViewById(R.id.register_form_password_confirm).setVisibility(View.VISIBLE);
-            findViewById(R.id.email_sign_up_button).setVisibility(View.GONE);
-        }*/
     }
 
     /**
@@ -127,15 +111,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "createUserWithEmail:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        updateUI(user);
+                        updateUI();
                         finishSingUpActivity();
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
                         Toast.makeText(RegisterActivity.this, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show();
-                        updateUI(null);
+                        updateUI();
                     }
                     hideProgressDialog();
                 });

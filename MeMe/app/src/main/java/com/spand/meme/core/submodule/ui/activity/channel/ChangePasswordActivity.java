@@ -8,6 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
 import com.spand.meme.core.submodule.ui.activity.ActivityUtils;
 
@@ -65,7 +69,36 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         } else {
             editor.putString(KEY_OLD_CHANGE_PASS, mNewPasswordView.getText().toString().trim());
             editor.apply();
+            reauthoriseUser();
         }
+    }
+
+    private void reauthoriseUser() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String newPassword = mNewPasswordView.getText().toString().trim();
+        String oldPassword = mOldPasswordView.getText().toString().trim();
+
+        // Get auth credentials from the user for re-authentication. The example below shows
+        // email and password credentials but there are multiple possible providers,
+        // such as GoogleAuthProvider or FacebookAuthProvider.
+        AuthCredential credential = EmailAuthProvider
+                .getCredential(user.getEmail(), oldPassword);
+
+        // Prompt the user to re-provide their sign-in credentials
+        user.reauthenticate(credential)
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    user.updatePassword(newPassword).addOnCompleteListener(task1 -> {
+                        if (task1.isSuccessful()) {
+                            Log.d(TAG, "Password updated");
+                        } else {
+                            Log.d(TAG, "Error password not updated");
+                        }
+                    });
+                } else {
+                    Log.d(TAG, "Error auth failed");
+                }
+            });
     }
 
     /**
