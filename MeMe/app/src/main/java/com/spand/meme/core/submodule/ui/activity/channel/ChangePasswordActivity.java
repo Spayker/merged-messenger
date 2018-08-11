@@ -1,6 +1,7 @@
 package com.spand.meme.core.submodule.ui.activity.channel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
 import com.spand.meme.core.submodule.ui.activity.ActivityUtils;
+import com.spand.meme.core.submodule.ui.activity.settings.GlobalSettingsActivity;
 
 /**
  * A class handler is linked to appropriate activity xml file and contains backend logic.
@@ -91,6 +93,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                     user.updatePassword(newPassword).addOnCompleteListener(task1 -> {
                         if (task1.isSuccessful()) {
                             Log.d(TAG,  getString(R.string.password_updated));
+                            finishChangePasswordActivity();
                         } else {
                             Log.d(TAG, getString(R.string.error_password_not_updated));
                         }
@@ -149,5 +152,13 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         }
         Log.d(TAG, getString(R.string.password_has_been_validated));
         return true;
+    }
+
+    /**
+     *  Return to settings activity of the application.
+     **/
+    public void finishChangePasswordActivity() {
+        Intent intent = new Intent(this, GlobalSettingsActivity.class);
+        startActivity(intent);
     }
 }

@@ -2,9 +2,7 @@ package com.spand.meme.core.submodule.ui.activity.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,26 +13,25 @@ import com.spand.meme.core.submodule.ui.activity.settings.GlobalSettingsActivity
 import com.spand.meme.core.submodule.ui.activity.webview.WebViewActivity;
 
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.DISCORD_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.FB_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.GMAIL_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.ICQ_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.INSTAGRAM_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.LINKEDIN_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.MAIL_RU_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.ODNOKLASNIKI_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.SKYPE_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.TELEGRAM_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.TUMBLR_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.TWITTER_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.VK_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.YOUTUBE_HOME_URL;
 
 /**
  * A class handler is linked to appropriate activity xml file and contains backend logic.
  **/
 public class MainActivity extends AppCompatActivity {
-
-    private final String VK_HOME_URL = "http://vk.com";
-    private final String FB_HOME_URL = "https://www.facebook.com/";
-    private final String INSTAGRAM_HOME_URL = "https://www.instagram.com/";
-    private final String TELEGRAM_HOME_URL = "https://web.telegram.org/#/login";
-    private final String ODNOKLASNIKI_HOME_URL = "https://ok.ru/";
-    private final String TUMBLR_HOME_URL = "https://www.tumblr.com/login";
-    private final String DISCORD_HOME_URL = "https://discordapp.com/login";
-    private final String YOUTUBE_HOME_URL = "https://www.youtube.com/";
-    private final String LINKEDIN_HOME_URL = "https://www.linkedin.com/";
-    private final String TWITTER_HOME_URL = "https://twitter.com/";
-    private final String ICQ_HOME_URL = "https://web.icq.com/";
-    private final String SKYPE_HOME_URL = "https://web.skype.com/en/";
-    private final String GMAIL_HOME_URL = "www.gmail.com";
-    private final String MAIL_RU_HOME_URL = "https://mail.ru/";
 
     /**
      * Perform initialization of all fragments of current activity.
