@@ -227,7 +227,6 @@
     <string name="default_media_location_folder">MeMeCorp</string>
     <!--ChatSDK section end-->
 
-
     <!--Error Messages section begin-->
     <string name="old_password_empty">old password is empty</string>
     <string name="new_password_empty">new password is empty</string>
@@ -236,5 +235,14 @@
     <string name="new_and_confirm_passwords_are_different">New and Confirm passwords are different</string>
     <string name="old_and_new_passwords_are_same">Old and New passwords are same</string>
     <!--Error Messages section end-->
+
+    <!--Logging Messages section begin-->
+    <string name="sign_in">signIn:</string>
+    <string name="sign_in_with_email_success">signInWithEmail: success</string>
+    <string name="sign_in_with_email_failure">signInWithEmail: failure</string>
+    <string name="authentication_failed">Authentication Failed</string>
+    <string name="field_required">required</string>
+    <!--Logging Messages section end-->
+
 
 </resources>

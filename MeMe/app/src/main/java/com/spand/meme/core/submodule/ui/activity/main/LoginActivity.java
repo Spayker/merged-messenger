@@ -65,8 +65,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editor = sharedPreferences.edit();
 
         // Views
-        /*mStatusTextView = findViewById(R.id.status);
-        mDetailTextView = findViewById(R.id.detail);*/
         mEmailView = findViewById(R.id.login_form_email);
         mPasswordView = findViewById(R.id.login_form_password);
         mRememberMeView = findViewById(R.id.login_form_rememberMe);
@@ -116,16 +114,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         int i = view.getId();
-        /*if (i == R.id.email_create_account_button) {
-            createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
-        } else */
         if (i == R.id.email_sign_in_button) {
             signIn(mEmailView.getText().toString(), mPasswordView.getText().toString());
-        }/* else if (i == R.id.sign_out_button) {
-            signOut();
-        } else if (i == R.id.verify_email_button) {
-            sendEmailVerification();
-        }*/
+        }
     }
 
     @Override
@@ -175,7 +166,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      *  @param password a String object which will be checked during authorization procedure
      **/
     private void signIn(String email, String password) {
-        Log.d(TAG, "signIn:" + email);
+        Log.d(TAG, getString(R.string.sign_in) + email);
         if (!validateForm()) {
             return;
         }
@@ -185,13 +176,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithEmail:success");
+                        Log.d(TAG, getString(R.string.sign_in_with_email_success));
                         updateUI();
                         finishSingInActivity();
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithEmail:failure", task.getException());
-                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                        Log.w(TAG, getString(R.string.sign_in_with_email_failure), task.getException());
+                        Toast.makeText(LoginActivity.this, getString(R.string.authentication_failed),
                                 Toast.LENGTH_SHORT).show();
                         updateUI();
                     }
@@ -212,7 +203,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         String email = mEmailView.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError("Required.");
+            mEmailView.setError(getString(R.string.authentication_failed));
             valid = false;
         } else {
             mEmailView.setError(null);
@@ -220,7 +211,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         String password = mPasswordView.getText().toString();
         if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError("Required.");
+            mPasswordView.setError(getString(R.string.authentication_failed));
             valid = false;
         } else {
             mPasswordView.setError(null);
