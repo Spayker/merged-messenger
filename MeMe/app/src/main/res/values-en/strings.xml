@@ -116,9 +116,12 @@
     <!--Error Messages section end-->
 
     <!--Logging Messages section begin-->
+    <string name="sign_up">signUp:</string>
     <string name="sign_in">signIn:</string>
     <string name="sign_in_with_email_success">signInWithEmail: success</string>
+    <string name="create_user_with_email_success">createUserWithEmail: success</string>
     <string name="sign_in_with_email_failure">signInWithEmail: failure</string>
+    <string name="create_user_with_email_failure">createUserWithEmail: failure</string>
     <string name="authentication_failed">Authentication Failed</string>
     <string name="field_required">required</string>
     <!--Logging Messages section end-->

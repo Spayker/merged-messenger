@@ -203,7 +203,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         String email = mEmailView.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.authentication_failed));
+            mEmailView.setError(getString(R.string.field_required));
             valid = false;
         } else {
             mEmailView.setError(null);
@@ -211,7 +211,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         String password = mPasswordView.getText().toString();
         if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.authentication_failed));
+            mPasswordView.setError(getString(R.string.field_required));
             valid = false;
         } else {
             mPasswordView.setError(null);
