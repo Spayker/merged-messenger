@@ -16,7 +16,6 @@ public final class ActivityUtils {
                 });
         AlertDialog alert = builder.create();
         alert.show();
-
     }
 
 }

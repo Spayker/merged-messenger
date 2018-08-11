@@ -166,7 +166,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      *  @param password a String object which will be checked during authorization procedure
      **/
     private void signIn(String email, String password) {
-        Log.d(TAG, getString(R.string.sign_in) + email);
+        Log.d(TAG, getString(R.string.log_sign_in) + email);
         if (!validateForm()) {
             return;
         }
@@ -176,13 +176,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, getString(R.string.sign_in_with_email_success));
+                        Log.d(TAG, getString(R.string.log_sign_in_with_email_success));
                         updateUI();
                         finishSingInActivity();
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w(TAG, getString(R.string.sign_in_with_email_failure), task.getException());
-                        Toast.makeText(LoginActivity.this, getString(R.string.authentication_failed),
+                        Log.w(TAG, getString(R.string.log_sign_in_with_email_failure), task.getException());
+                        Toast.makeText(LoginActivity.this, getString(R.string.error_auth_failed),
                                 Toast.LENGTH_SHORT).show();
                         updateUI();
                     }

@@ -234,22 +234,23 @@
     <string name="old_password_is_different">old password is different</string>
     <string name="new_and_confirm_passwords_are_different">New and Confirm passwords are different</string>
     <string name="old_and_new_passwords_are_same">Old and New passwords are same</string>
+    <string name="field_required">required</string>
+    <string name="error_auth_failed">Authentication Failed</string>
+    <string name="password_updated">Password Updated</string>
     <!--Error Messages section end-->
 
     <!--Logging Messages section begin-->
-    <string name="sign_up">signUp:</string>
-    <string name="sign_in">signIn:</string>
-    <string name="sign_in_with_email_success">signInWithEmail: success</string>
-    <string name="create_user_with_email_success">createUserWithEmail: success</string>
-    <string name="sign_in_with_email_failure">signInWithEmail: failure</string>
-    <string name="create_user_with_email_failure">createUserWithEmail: failure</string>
-    <string name="authentication_failed">Authentication Failed</string>
-    <string name="field_required">required</string>
-    <string name="new_password_can_not_be_set">new password can not be set</string>
-    <string name="password_updated">Password Updated</string>
-    <string name="error_password_not_updated">Error password not updated</string>
-    <string name="error_auth_failed">error_auth_failed</string>
-    <string name="password_has_been_validated">password has been validated</string>
+    <string name="log_sign_up">signUp:</string>
+    <string name="log_sign_in">signIn:</string>
+    <string name="log_sign_in_with_email_success">signInWithEmail: success</string>
+    <string name="log_create_user_with_email_success">createUserWithEmail: success</string>
+    <string name="log_sign_in_with_email_failure">signInWithEmail: failure</string>
+    <string name="log_create_user_with_email_failure">createUserWithEmail: failure</string>
+    <string name="log_authentication_failed">Authentication Failed</string>
+    <string name="log_new_password_can_not_be_set">new password can not be set</string>
+    <string name="log_password_updated">password updated</string>
+    <string name="log_error_password_not_updated">Error password not updated</string>
+    <string name="log_password_has_been_validated">password has been validated</string>
     <!--Logging Messages section end-->
 
 

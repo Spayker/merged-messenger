@@ -91,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      *  @param confirmPassword a String object which will be used during validation form
      **/
     private void signUp(String email, String password, String confirmPassword) {
-        Log.d(TAG, getString(R.string.sign_up) + email);
+        Log.d(TAG, getString(R.string.log_sign_up) + email);
         if (!validateForm()) {
             return;
         }
@@ -110,13 +110,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, getString(R.string.create_user_with_email_success));
+                        Log.d(TAG, getString(R.string.log_create_user_with_email_success));
                         updateUI();
                         finishSingUpActivity();
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w(TAG, getString(R.string.create_user_with_email_failure), task.getException());
-                        Toast.makeText(RegisterActivity.this, getString(R.string.authentication_failed),
+                        Log.w(TAG, getString(R.string.log_create_user_with_email_failure), task.getException());
+                        Toast.makeText(RegisterActivity.this, getString(R.string.error_auth_failed),
                                 Toast.LENGTH_SHORT).show();
                         updateUI();
                     }
