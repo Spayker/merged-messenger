@@ -112,11 +112,11 @@
     <!--ChatSDK section end-->
 
     <!--Error Messages section begin-->
-    <string name="old_password_empty">old password is empty</string>
-    <string name="old_password_set_wrong">old password is set wrong</string>
-    <string name="new_password_empty">new password is empty</string>
-    <string name="new_confirm_password_empty">new confirm password is empty</string>
-    <string name="new_password_and_confirm_password_not_equal">new password and new confirm password are not equal</string>
-    <string name="old_and_new_passwords_are_equal">old and new password can not be equal</string>
+    <string name="old_password_empty">Старый пароль пустой</string>
+    <string name="new_password_empty">Новый пароль пустой</string>
+    <string name="new_confirm_password_empty">Подтверждающий пароль пустой</string>
+    <string name="old_password_is_different">Старый пароль не совпадает</string>
+    <string name="new_and_confirm_passwords_are_different">Новый и Подтверждающий пароли разные</string>
+    <string name="old_and_new_passwords_are_same">Старый и Новый пароли одинаковы</string>
     <!--Error Messages section end-->
 </resources>

@@ -232,7 +232,6 @@
     <string name="old_password_empty">old password is empty</string>
     <string name="new_password_empty">new password is empty</string>
     <string name="new_confirm_password_empty">new confirm password is empty</string>
-
     <string name="old_password_is_different">old password is different</string>
     <string name="new_and_confirm_passwords_are_different">New and Confirm passwords are different</string>
     <string name="old_and_new_passwords_are_same">Old and New passwords are same</string>
