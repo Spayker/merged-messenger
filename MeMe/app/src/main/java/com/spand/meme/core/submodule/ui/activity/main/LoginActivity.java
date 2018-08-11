@@ -257,8 +257,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             editor.apply();
         }else{
             editor.putBoolean(KEY_REMEMBER, false);
-            editor.remove(KEY_PASS);//editor.putString(KEY_PASS,"");
-            editor.remove(KEY_USERNAME);//editor.putString(KEY_USERNAME, "");
+            editor.remove(KEY_PASS);
+            editor.remove(KEY_USERNAME);
             editor.apply();
         }
     }
