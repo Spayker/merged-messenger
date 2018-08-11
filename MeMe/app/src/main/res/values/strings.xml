@@ -245,6 +245,11 @@
     <string name="create_user_with_email_failure">createUserWithEmail: failure</string>
     <string name="authentication_failed">Authentication Failed</string>
     <string name="field_required">required</string>
+    <string name="new_password_can_not_be_set">new password can not be set</string>
+    <string name="password_updated">Password Updated</string>
+    <string name="error_password_not_updated">Error password not updated</string>
+    <string name="error_auth_failed">error_auth_failed</string>
+    <string name="password_has_been_validated">password has been validated</string>
     <!--Logging Messages section end-->
 
 
