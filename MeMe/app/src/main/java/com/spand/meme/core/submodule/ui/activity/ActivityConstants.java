@@ -4,6 +4,4 @@ public interface ActivityConstants {
 
     String HOME_URL = "homeUrl";
 
-
-
 }

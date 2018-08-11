@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String KEY_REMEMBER = "remember";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASS = "password";
+    private static final String KEY_OLD_CHANGE_PASS = "oldChangePassword";
 
     @VisibleForTesting
     private ProgressDialog mProgressDialog;
@@ -97,35 +98,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+        updateUI();
     }
 
     /**
      *  Updates ui according to authorization result.
-     *  @param user an instance of User class (FireBase context)
      **/
-    private void updateUI(FirebaseUser user) {
+    private void updateUI() {
         hideProgressDialog();
-        /*if (user != null) {
-            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt,
-                    user.getEmail(), user.isEmailVerified()));
-            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
-
-            findViewById(R.id.email_password_buttons).setVisibility(View.GONE);
-            findViewById(R.id.email_password_fields).setVisibility(View.GONE);
-            findViewById(R.id.signed_in_buttons).setVisibility(View.VISIBLE);
-
-            findViewById(R.id.verify_email_button).setEnabled(!user.isEmailVerified());
-        } else {
-            mStatusTextView.setText(R.string.signed_out);
-            mDetailTextView.setText(null);
-
-            findViewById(R.id.email_password_buttons).setVisibility(View.VISIBLE);
-            findViewById(R.id.email_password_fields).setVisibility(View.VISIBLE);
-            findViewById(R.id.signed_in_buttons).setVisibility(View.GONE);
-        }*/
+        managePrefs();
     }
 
     /**
@@ -206,15 +187,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        //updateUI(user);
+                        updateUI();
                         finishSingInActivity();
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
                         Toast.makeText(LoginActivity.this, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show();
-                        updateUI(null);
+                        updateUI();
                     }
                     hideProgressDialog();
                 });
@@ -250,6 +230,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void managePrefs(){
+        editor.putString(KEY_OLD_CHANGE_PASS, mPasswordView.getText().toString().trim());
         if(mRememberMeView.isChecked()){
             editor.putString(KEY_USERNAME, mEmailView.getText().toString().trim());
             editor.putString(KEY_PASS, mPasswordView.getText().toString().trim());

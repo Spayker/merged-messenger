@@ -1,17 +1,15 @@
 package com.spand.meme.core.submodule.ui.activity.channel;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import com.spand.meme.R;
+import com.spand.meme.core.submodule.ui.activity.ActivityUtils;
 
 /**
  * A class handler is linked to appropriate activity xml file and contains backend logic.
@@ -28,11 +26,8 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
     private EditText mNewPasswordView;
     private EditText mNewPasswordConfirmView;
 
-    @VisibleForTesting
-    private ProgressDialog mProgressDialog;
-
     private static final String PREF_NAME = "prefs";
-    private static final String KEY_PASS = "password";
+    private static final String KEY_OLD_CHANGE_PASS = "oldChangePassword";
 
     /**
      * Perform initialization of all fragments of current activity.
@@ -62,15 +57,15 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
     }
 
     private void updatePassword() {
-        showProgressDialog();
+
         String password = mNewPasswordView.getText().toString().trim();
-        if (isPasswordValid(password)) {
-            editor.putString(KEY_PASS, mNewPasswordView.getText().toString().trim());
-            editor.apply();
-        } else {
+        if (!isPasswordValid(password)) {
             Log.d(TAG, "new password can not be set");
+            return;
+        } else {
+            editor.putString(KEY_OLD_CHANGE_PASS, mNewPasswordView.getText().toString().trim());
+            editor.apply();
         }
-        hideProgressDialog();
     }
 
     /**
@@ -80,64 +75,52 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
      * @return a boolean value. Depends on validation result
      **/
     private boolean isPasswordValid(String newPassword) {
-        String actualSavedPassword = sharedPreferences.getString(KEY_PASS, "");
+        String actualSavedPassword = sharedPreferences.getString(KEY_OLD_CHANGE_PASS, "");
         String oldPassword = mOldPasswordView.getText().toString().trim();
         String newConfirmPassword = mNewPasswordConfirmView.getText().toString().trim();
 
         if (oldPassword.isEmpty()) {
-            mOldPasswordView.setError(Resources.getSystem().getString(R.string.old_password_empty));
-            Log.i(TAG, "old password is empty");
+            String message = getString(R.string.old_password_empty);
+            mOldPasswordView.setError(message);
+            Log.i(TAG, message);
             return false;
         }
 
-        if (actualSavedPassword.equals(oldPassword)) {
-            Log.i(TAG, "old password is set wrong");
+        if (!actualSavedPassword.equals(oldPassword)) {
+            String message = getString(R.string.old_password_is_different);
+            Log.i(TAG, message);
+            ActivityUtils.invokeOkAlertMessage(this, message);
             return false;
         }
 
         if (newPassword.isEmpty()) {
-            mNewPasswordView.setError(Resources.getSystem().getString(R.string.old_password_empty));
-            Log.i(TAG, "new password is empty");
+            String message = getString(R.string.new_password_empty);
+            mNewPasswordView.setError(message);
+            Log.i(TAG, message);
             return false;
         }
 
         if (newConfirmPassword.isEmpty()) {
-            mNewPasswordConfirmView.setError(Resources.getSystem().getString(R.string.old_password_empty));
-            Log.i(TAG, "new confirm password is empty");
+            String message = getString(R.string.new_confirm_password_empty);
+            mNewPasswordConfirmView.setError(message);
+            Log.i(TAG, message);
             return false;
         }
 
         if (!newPassword.equals(newConfirmPassword)) {
-            Log.i(TAG, "new password and new confirm password are not equal");
+            String message = getString(R.string.new_and_confirm_passwords_are_different);
+            Log.i(TAG, message);
+            ActivityUtils.invokeOkAlertMessage(this, message);
             return false;
         }
 
         if (oldPassword.equals(newPassword)) {
-            Log.i(TAG, "old and new password can not be equal");
+            String message = getString(R.string.old_and_new_passwords_are_same);
+            Log.i(TAG, message);
+            ActivityUtils.invokeOkAlertMessage(this, message);
             return false;
         }
 
         return true;
-    }
-
-    /**
-     *  Shows progress dialog while backend action is in progress.
-     **/
-    public void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(getString(R.string.checking));
-            mProgressDialog.setIndeterminate(true);
-        }
-        mProgressDialog.show();
-    }
-
-    /**
-     *  Hides progress dialog from screen.
-     **/
-    public void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
     }
 }
