@@ -59,7 +59,7 @@ public class ResetSettingsActivity extends AppCompatActivity implements View.OnC
         Log.d(TAG, getString(R.string.log_settings_dropped_successfully));
     }
 
-    public void onNoClick(){
+    public void onNoClick(View view){
         finish();
     }
 
