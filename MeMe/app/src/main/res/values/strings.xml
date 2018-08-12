@@ -251,6 +251,7 @@
     <string name="log_password_updated">password updated</string>
     <string name="log_error_password_not_updated">Error password not updated</string>
     <string name="log_password_has_been_validated">password has been validated</string>
+    <string name="log_error_auth_failed">Authentication Failed</string>
     <!--Logging Messages section end-->
 
 
