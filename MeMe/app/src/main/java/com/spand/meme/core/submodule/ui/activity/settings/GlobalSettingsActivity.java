@@ -100,7 +100,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
      *              ( represents the basic building block for user interface components )
      **/
     public void selectDeactivateAccount(View view) {
-        Intent intent = new Intent(this, DeactivateAccountActivity.class);
+        Intent intent = new Intent(this, RemoveAccountActivity.class);
         startActivity(intent);
     }
 
@@ -146,7 +146,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
             Preference deactivateAccountButton = findPreference(getString(R.string.pref_deactivate_account_button));
             deactivateAccountButton.setOnPreferenceClickListener(preference -> {
                 //code for what you want it to do
-                Intent intent = new Intent(settingsActivityInstance, DeactivateAccountActivity.class);
+                Intent intent = new Intent(settingsActivityInstance, RemoveAccountActivity.class);
                 startActivity(intent);
                 return true;
             });

@@ -139,6 +139,7 @@
     <string name="log_password_has_been_validated">password has been validated</string>
     <string name="log_error_auth_failed">authentication failed</string>
     <string name="log_remove_account">removing account: </string>
+    <string name="log_remove_account_successful">removing account successful</string>
     <!--Logging Messages section end-->
 
 </resources>
