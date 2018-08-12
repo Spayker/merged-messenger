@@ -17,6 +17,7 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
+import com.spand.meme.core.submodule.ui.activity.ActivityUtils;
 
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_OLD_CHANGE_PASS;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_PASS;
@@ -105,16 +106,23 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
      * Performs validation procedure before Sign In operation.
      **/
     private boolean validateForm() {
-        boolean valid = true;
 
+        String actualSavedPassword = sharedPreferences.getString(KEY_OLD_CHANGE_PASS, "");
         String password = mPasswordView.getText().toString();
+
         if (TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.field_required));
-            valid = false;
-        } else {
-            mPasswordView.setError(null);
+            return false;
         }
-        return valid;
+
+        if (actualSavedPassword.equals(password)) {
+            return true;
+        } else {
+            String message = getString(R.string.old_password_is_different);
+            ActivityUtils.invokeOkAlertMessage(this, message);
+        }
+
+        return false;
     }
 
     private void dropPrefs() {
