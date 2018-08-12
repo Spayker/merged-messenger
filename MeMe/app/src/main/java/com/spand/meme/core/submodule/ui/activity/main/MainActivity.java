@@ -12,21 +12,21 @@ import com.spand.meme.R;
 import com.spand.meme.core.submodule.ui.activity.settings.GlobalSettingsActivity;
 import com.spand.meme.core.submodule.ui.activity.webview.WebViewActivity;
 
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.DISCORD_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.FB_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.GMAIL_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.DISCORD_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.FB_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.GMAIL_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.ICQ_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.INSTAGRAM_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.LINKEDIN_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.MAIL_RU_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.ODNOKLASNIKI_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.SKYPE_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.TELEGRAM_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.TUMBLR_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.TWITTER_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.VK_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.YOUTUBE_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.ICQ_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.INSTAGRAM_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.LINKEDIN_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.MAIL_RU_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.ODNOKLASNIKI_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.SKYPE_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TELEGRAM_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TUMBLR_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TWITTER_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.VK_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.YOUTUBE_HOME_URL;
 
 /**
  * A class handler is linked to appropriate activity xml file and contains backend logic.

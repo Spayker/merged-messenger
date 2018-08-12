@@ -248,12 +248,13 @@
     <string name="log_create_user_with_email_success">createUserWithEmail: success</string>
     <string name="log_sign_in_with_email_failure">signInWithEmail: failure</string>
     <string name="log_create_user_with_email_failure">createUserWithEmail: failure</string>
-    <string name="log_authentication_failed">Authentication Failed</string>
+    <string name="log_authentication_failed">authentication failed</string>
     <string name="log_new_password_can_not_be_set">new password can not be set</string>
     <string name="log_password_updated">password updated</string>
-    <string name="log_error_password_not_updated">Error password not updated</string>
+    <string name="log_error_password_not_updated">error password not updated</string>
     <string name="log_password_has_been_validated">password has been validated</string>
-    <string name="log_error_auth_failed">Authentication Failed</string>
+    <string name="log_error_auth_failed">authentication failed</string>
+    <string name="log_remove_account">removing account: </string>
     <!--Logging Messages section end-->
 
 

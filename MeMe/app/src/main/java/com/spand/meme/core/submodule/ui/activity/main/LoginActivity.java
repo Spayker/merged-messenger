@@ -19,14 +19,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
 
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.KEY_OLD_CHANGE_PASS;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.KEY_PASS;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.KEY_REMEMBER;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.KEY_USERNAME;
-import static com.spand.meme.core.submodule.ui.activity.main.RegistrationUtils.PREF_NAME;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_OLD_CHANGE_PASS;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_PASS;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_REMEMBER;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_USERNAME;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.PREF_NAME;
 
 /**
  * A login screen that offers login via email/password.
