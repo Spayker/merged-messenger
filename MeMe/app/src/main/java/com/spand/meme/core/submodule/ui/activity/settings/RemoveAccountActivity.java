@@ -1,5 +1,6 @@
 package com.spand.meme.core.submodule.ui.activity.settings;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_OL
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_PASS;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_REMEMBER;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_USERNAME;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.PREF_NAME;
 
 /**
  * A class handler is linked to appropriate activity xml file and contains backend logic.
@@ -33,6 +35,7 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
 
     private EditText mPasswordView;
 
+    private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
     // Firebase related fields
@@ -56,6 +59,9 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
 
         // auth init
         mAuth = FirebaseAuth.getInstance();
+
+        sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
     }
 
     @Override
@@ -64,7 +70,7 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        dropPrefs();
+
     }
 
     @Override
@@ -81,7 +87,7 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        dropPrefs();
+
     }
 
     public void removeAccount(String currentPassword) {
@@ -103,6 +109,7 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
                         .addOnCompleteListener(task1 -> {
                             if (task1.isSuccessful()) {
                                 Log.d(TAG, getString(R.string.log_remove_account_successful));
+                                dropPrefs();
                             }
                         }));
     }
