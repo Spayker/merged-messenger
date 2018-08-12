@@ -135,6 +135,7 @@
     <string name="log_error_auth_failed">authentication failed</string>
     <string name="log_remove_account">removing account: </string>
     <string name="log_remove_account_successful">removing account successful</string>
+    <string name="log_settings_dropped_successfully">user settings are dropped successfully</string>
     <!--Logging Messages section end-->
 
 </resources>

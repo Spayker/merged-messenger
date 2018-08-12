@@ -1,4 +1,4 @@
-package com.spand.meme.core.submodule.ui.activity.channel;
+package com.spand.meme.core.submodule.ui.activity.settings;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
 import com.spand.meme.core.submodule.ui.activity.ActivityUtils;
-import com.spand.meme.core.submodule.ui.activity.settings.GlobalSettingsActivity;
 
 /**
  * A class handler is linked to appropriate activity xml file and contains backend logic.

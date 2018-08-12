@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.spand.meme.R;
-import com.spand.meme.core.submodule.ui.activity.channel.ChangePasswordActivity;
 
 /**
  *  A class handler is linked to appropriate activity xml file and contains backend logic.
@@ -74,37 +73,6 @@ public class GlobalSettingsActivity extends AppCompatActivity {
     }
 
     /**
-     *  Starts activity of password change.
-     *  @param view an instance of View class
-     *              ( represents the basic building block for user interface components )
-     **/
-    public void selectChangePassword(View view) {
-        view.getTransitionName();
-        Intent intent = new Intent(this, ChangePasswordActivity.class);
-        startActivity(intent);
-    }
-
-    /**
-     *  Starts activity of reset settings.
-     *  @param view an instance of View class
-     *              ( represents the basic building block for user interface components )
-     **/
-    public void selectResetSettings(View view) {
-        Intent intent = new Intent(this, ResetSettingsActivity.class);
-        startActivity(intent);
-    }
-
-    /**
-     *  Starts activity of deactivate account.
-     *  @param view an instance of View class
-     *              ( represents the basic building block for user interface components )
-     **/
-    public void selectDeactivateAccount(View view) {
-        Intent intent = new Intent(this, RemoveAccountActivity.class);
-        startActivity(intent);
-    }
-
-    /**
      *  A static class which adds preference fragment to current activity.
      **/
     public static class MainPreferenceFragment extends PreferenceFragment {
@@ -163,18 +131,6 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                     PreferenceManager
                             .getDefaultSharedPreferences(preference.getContext())
                             .getString(preference.getKey(), ""));
-    }
-
-    /**
-     *  Binds a global preference to Boolean value.
-     *  @param preference is an instance Preference class which will be placed inside of activity
-     **/
-    private static void bindGlobalPreferenceToBooleanValue(Preference preference) {
-        preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
-        sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
-                PreferenceManager
-                        .getDefaultSharedPreferences(preference.getContext())
-                        .getBoolean(preference.getKey(), true));
     }
 
 }

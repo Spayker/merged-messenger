@@ -27,7 +27,7 @@ import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.PREF_N
 /**
  * A class handler is linked to appropriate activity xml file and contains backend logic.
  **/
-public class RemoveAccountActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher,
+public class RemoveAccountActivity extends AppCompatActivity implements View.OnClickListener,
         CompoundButton.OnCheckedChangeListener {
 
     // tag field is used for logging sub system to identify from coming logs were created
@@ -65,22 +65,9 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
     }
 
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-    }
-
-    @Override
     public void onClick(View view) {
         int i = view.getId();
-        if (i == R.id.email_sign_in_button) {
+        if (i == R.id.confirm_remove_account_button) {
             removeAccount(mPasswordView.getText().toString());
         }
     }
