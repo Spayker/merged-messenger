@@ -99,7 +99,7 @@
         </activity>
 
         <!--Menu of Account Remove Screen-->
-        <activity android:name=".core.submodule.ui.activity.settings.DeactivateAccountActivity">
+        <activity android:name=".core.submodule.ui.activity.settings.RemoveAccountActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.submodule.ui.activity.settings.GlobalSettingsActivity" />
