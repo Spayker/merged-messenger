@@ -22,7 +22,7 @@
             android:id="@+id/remove_account_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/remove_account"
+            android:text="@string/remove_account_action"
             android:textAlignment="center" />
 
         <android.support.design.widget.TextInputLayout
