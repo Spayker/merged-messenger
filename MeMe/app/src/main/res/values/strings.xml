@@ -207,14 +207,20 @@
     <string name="key_melody_list_preference">key_melody_list_preference</string>
     <string name="key_language_list_preference">key_language_list_preference</string>
 
-    <string name="key_autorun_switch">key_autorun_switch</string>
-    <string name="key_tips_switch">key_tips_switch</string>
-    <string name="key_autoupdate_switch">key_autoupdate_switch</string>
-
-    <string name="key_font_size_list_preference">key_font_size_list_preference</string>
-    <string name="key_certain_channel_background_color">key_certain_channel_background_color</string>
-    <string name="key_certain_channel_font_color">key_certain_channel_font_color</string>
-
+    <string name="key_facebook_switcher">key_facebook_switcher</string>
+    <string name="key_linkedin_switcher">key_linkedin_switcher</string>
+    <string name="key_vkontakte_switcher">key_vkontakte_switcher</string>
+    <string name="key_twitter_switcher">key_twitter_switcher</string>
+    <string name="key_tumblr_switcher">key_tumblr_switcher</string>
+    <string name="key_instagram_switcher">key_instagram_switcher</string>
+    <string name="key_odnoklassniki_switcher">key_odnoklassniki_switcher</string>
+    <string name="key_telegram_switcher">key_telegram_switcher</string>
+    <string name="key_discord_switcher">key_discord_switcher</string>
+    <string name="key_skype_switcher">key_skype_switcher</string>
+    <string name="key_icq_switcher">key_icq_switcher</string>
+    <string name="key_gmail_switcher">key_gmail_switcher</string>
+    <string name="key_mailru_switcher">key_mailru_switcher</string>
+    <string name="key_youtube_switcher">key_youtube_switcher</string>
 
     <string name="switcher_on">On</string>
     <string name="switcher_off">Off</string>

@@ -1,4 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/key_facebook_switcher"
+        android:summary="@string/switcher_on"
+        android:title="@string/fb" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/key_linkedin_switcher"
+        android:summary="@string/switcher_on"
+        android:title="@string/ln" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/key_vkontakte_switcher"
+        android:summary="@string/switcher_on"
+        android:title="@string/vk" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/key_twitter_switcher"
+        android:summary="@string/switcher_on"
+        android:title="@string/tw" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/key_tumblr_switcher"
+        android:summary="@string/switcher_on"
+        android:title="@string/tmb" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/key_instagram_switcher"
+        android:summary="@string/switcher_on"
+        android:title="@string/inst" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/key_odnoklassniki_switcher"
+        android:summary="@string/switcher_on"
+        android:title="@string/ok" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/key_telegram_switcher"
+        android:summary="@string/switcher_on"
+        android:title="@string/tl" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/key_discord_switcher"
+        android:summary="@string/switcher_on"
+        android:title="@string/dc" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/key_skype_switcher"
+        android:summary="@string/switcher_on"
+        android:title="@string/skp" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/key_icq_switcher"
+        android:summary="@string/switcher_on"
+        android:title="@string/icq" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/key_gmail_switcher"
+        android:summary="@string/switcher_on"
+        android:title="@string/gmail" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/key_mailru_switcher"
+        android:summary="@string/switcher_on"
+        android:title="@string/mailru" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/key_youtube_switcher"
+        android:summary="@string/switcher_on"
+        android:title="@string/yt" />
+
 </PreferenceScreen>
