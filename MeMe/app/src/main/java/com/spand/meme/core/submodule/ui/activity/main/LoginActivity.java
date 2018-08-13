@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.spand.meme.R;
+import com.spand.meme.core.submodule.database.FireBaseDBInitializer;
 
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_OLD_CHANGE_PASS;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_PASS;
@@ -85,6 +86,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // auth init
         mAuth = FirebaseAuth.getInstance();
+
+        // db init
+        FireBaseDBInitializer.init();
     }
 
     /**
@@ -155,6 +159,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      *  Starts main activity of the application.
      **/
     public void finishSingInActivity() {
+        // db init
+        FireBaseDBInitializer.init();
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

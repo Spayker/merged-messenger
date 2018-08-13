@@ -90,6 +90,8 @@
     <string name="switcher_off">Off</string>
     <string name="checking">Checking...</string>
 
+    <string name="logged_as">Logged As: </string>
+
     <string-array name="pref_notification_list_values">
         <item>-1</item>
         <item>0</item>

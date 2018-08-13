@@ -7,7 +7,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.spand.meme.R;
 import com.spand.meme.core.submodule.ui.activity.settings.EditChannelsActivity;
 import com.spand.meme.core.submodule.ui.activity.settings.GlobalSettingsActivity;
@@ -44,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // auth init
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        setTitle(getString(R.string.logged_as) + mAuth.getCurrentUser().getDisplayName());
     }
 
     /**

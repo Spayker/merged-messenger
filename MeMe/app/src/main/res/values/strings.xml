@@ -226,6 +226,8 @@
     <string name="switcher_off">Off</string>
     <string name="checking">Checking...</string>
 
+    <string name="logged_as">Logged As: </string>
+
     <!--ChatSDK section begin-->
     <string name="default_media_location_folder">MeMeCorp</string>
     <!--ChatSDK section end-->

@@ -3,6 +3,7 @@ package com.spand.meme.core.submodule.ui.activity.main;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -12,9 +13,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.spand.meme.R;
+import com.spand.meme.core.submodule.database.FireBaseDBInitializer;
 
 /**
  * A Register screen that offers a registration procedure via email/password.
@@ -80,6 +85,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      *  Starts main activity of the application.
      **/
     public void finishSingUpActivity() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(mNameView.getText().toString()).build();
+            user.updateProfile(profileUpdates);
+        }
+
+        // db init
+        FireBaseDBInitializer.init();
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
