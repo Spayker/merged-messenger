@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         // auth init
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        setTitle(getString(R.string.logged_as) + mAuth.getCurrentUser().getDisplayName());
+        setTitle(getString(R.string.logged_as) + " " + mAuth.getCurrentUser().getDisplayName());
     }
 
     /**
