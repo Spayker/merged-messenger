@@ -69,9 +69,113 @@ public class EditChannelsActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_global);
 
-            Preference autoRunSwitcher  = findPreference(getString(R.string.key_autorun_switch));
-            bindGlobalPreferenceToBooleanValue(autoRunSwitcher);
-            autoRunSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+            Preference facebookSwitcher  = findPreference(getString(R.string.key_facebook_switcher));
+            bindGlobalPreferenceToBooleanValue(facebookSwitcher);
+            facebookSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean switched = ((SwitchPreference) preference).isChecked();
+                preference.setSummary(!switched ? switcherOn : switcherOff);
+                return true;
+            });
+
+            Preference linkedinSwitcher  = findPreference(getString(R.string.key_linkedin_switcher));
+            bindGlobalPreferenceToBooleanValue(linkedinSwitcher);
+            linkedinSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean switched = ((SwitchPreference) preference).isChecked();
+                preference.setSummary(!switched ? switcherOn : switcherOff);
+                return true;
+            });
+
+            Preference vkontakteSwitcher  = findPreference(getString(R.string.key_vkontakte_switcher));
+            bindGlobalPreferenceToBooleanValue(vkontakteSwitcher);
+            vkontakteSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean switched = ((SwitchPreference) preference).isChecked();
+                preference.setSummary(!switched ? switcherOn : switcherOff);
+                return true;
+            });
+
+            Preference twitterSwitcher  = findPreference(getString(R.string.key_twitter_switcher));
+            bindGlobalPreferenceToBooleanValue(twitterSwitcher);
+            twitterSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean switched = ((SwitchPreference) preference).isChecked();
+                preference.setSummary(!switched ? switcherOn : switcherOff);
+                return true;
+            });
+
+            Preference tumblrSwitcher  = findPreference(getString(R.string.key_tumblr_switcher));
+            bindGlobalPreferenceToBooleanValue(tumblrSwitcher);
+            tumblrSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean switched = ((SwitchPreference) preference).isChecked();
+                preference.setSummary(!switched ? switcherOn : switcherOff);
+                return true;
+            });
+
+            Preference instagramSwitcher  = findPreference(getString(R.string.key_instagram_switcher));
+            bindGlobalPreferenceToBooleanValue(instagramSwitcher);
+            instagramSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean switched = ((SwitchPreference) preference).isChecked();
+                preference.setSummary(!switched ? switcherOn : switcherOff);
+                return true;
+            });
+
+            Preference okSwitcher  = findPreference(getString(R.string.key_odnoklassniki_switcher));
+            bindGlobalPreferenceToBooleanValue(okSwitcher);
+            okSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean switched = ((SwitchPreference) preference).isChecked();
+                preference.setSummary(!switched ? switcherOn : switcherOff);
+                return true;
+            });
+
+            Preference telegramSwitcher  = findPreference(getString(R.string.key_telegram_switcher));
+            bindGlobalPreferenceToBooleanValue(telegramSwitcher);
+            telegramSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean switched = ((SwitchPreference) preference).isChecked();
+                preference.setSummary(!switched ? switcherOn : switcherOff);
+                return true;
+            });
+
+            Preference discordSwitcher  = findPreference(getString(R.string.key_discord_switcher));
+            bindGlobalPreferenceToBooleanValue(discordSwitcher);
+            discordSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean switched = ((SwitchPreference) preference).isChecked();
+                preference.setSummary(!switched ? switcherOn : switcherOff);
+                return true;
+            });
+
+            Preference skypeSwitcher  = findPreference(getString(R.string.key_skype_switcher));
+            bindGlobalPreferenceToBooleanValue(skypeSwitcher);
+            skypeSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean switched = ((SwitchPreference) preference).isChecked();
+                preference.setSummary(!switched ? switcherOn : switcherOff);
+                return true;
+            });
+
+            Preference icqSwitcher  = findPreference(getString(R.string.key_icq_switcher));
+            bindGlobalPreferenceToBooleanValue(icqSwitcher);
+            icqSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean switched = ((SwitchPreference) preference).isChecked();
+                preference.setSummary(!switched ? switcherOn : switcherOff);
+                return true;
+            });
+
+            Preference gmailSwitcher  = findPreference(getString(R.string.key_gmail_switcher));
+            bindGlobalPreferenceToBooleanValue(gmailSwitcher);
+            gmailSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean switched = ((SwitchPreference) preference).isChecked();
+                preference.setSummary(!switched ? switcherOn : switcherOff);
+                return true;
+            });
+
+            Preference mailruSwitcher  = findPreference(getString(R.string.key_mailru_switcher));
+            bindGlobalPreferenceToBooleanValue(mailruSwitcher);
+            mailruSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean switched = ((SwitchPreference) preference).isChecked();
+                preference.setSummary(!switched ? switcherOn : switcherOff);
+                return true;
+            });
+
+            Preference youtubeSwitcher  = findPreference(getString(R.string.key_youtube_switcher));
+            bindGlobalPreferenceToBooleanValue(youtubeSwitcher);
+            youtubeSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
                 boolean switched = ((SwitchPreference) preference).isChecked();
                 preference.setSummary(!switched ? switcherOn : switcherOff);
                 return true;

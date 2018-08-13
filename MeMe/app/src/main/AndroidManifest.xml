@@ -84,6 +84,13 @@
                 android:value=".core.submodule.ui.activity.main.MainActivity" />
         </activity>
 
+        <!--Menu of Channel Settings Screen-->
+        <activity android:name=".core.submodule.ui.activity.settings.EditChannelsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".core.submodule.ui.activity.main.MainActivity" />
+        </activity>
+
         <!--Menu of Password change Screen-->
         <activity android:name=".core.submodule.ui.activity.settings.ChangePasswordActivity">
             <meta-data
