@@ -1,22 +1,15 @@
 package com.spand.meme.core.submodule.ui.activity.settings;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.support.v7.app.AppCompatActivity;
-import android.preference.Preference;
 
 import com.spand.meme.R;
 
 public class EditChannelsActivity extends AppCompatActivity {
-
-    // tested with android profiler on possible memory leaks. Results shows no leaks at all
-    // static field of activity can be used here
-    @SuppressLint("StaticFieldLeak")
-    private static AppCompatActivity channelSettingsActivityInstance;
-
 
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = EditChannelsActivity.class.getSimpleName();
@@ -50,7 +43,6 @@ public class EditChannelsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // load settings fragment
         getFragmentManager().beginTransaction().replace(android.R.id.content, new ChannelSettingsPreferenceFragment()).commit();
-        channelSettingsActivityInstance = this;
         switcherOn = getString(R.string.switcher_on);
         switcherOff = getString(R.string.switcher_off);
     }
@@ -67,7 +59,7 @@ public class EditChannelsActivity extends AppCompatActivity {
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_global);
+            addPreferencesFromResource(R.xml.pref_edit_channels);
 
             Preference facebookSwitcher  = findPreference(getString(R.string.key_facebook_switcher));
             bindGlobalPreferenceToBooleanValue(facebookSwitcher);
