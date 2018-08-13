@@ -23,10 +23,6 @@ public class GlobalSettingsActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     private static AppCompatActivity settingsActivityInstance;
 
-    // secondary fields
-    private static String switcherOn;
-    private static String switcherOff;
-
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = GlobalSettingsActivity.class.getSimpleName();
 
@@ -48,11 +44,6 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                     index >= 0
                             ? listPreference.getEntries()[index]
                             : null);
-        } else if (preference instanceof SwitchPreference){
-            // For all other preferences, set the summary to the value's
-            // simple string representation.
-            Boolean booleanValue = (Boolean) newValue;
-            preference.setSummary(booleanValue ? switcherOn : switcherOff);
         }
         return true;
     };
@@ -68,8 +59,6 @@ public class GlobalSettingsActivity extends AppCompatActivity {
         // load settings fragment
         getFragmentManager().beginTransaction().replace(android.R.id.content, new MainPreferenceFragment()).commit();
         settingsActivityInstance = this;
-        switcherOn = getString(R.string.switcher_on);
-        switcherOff = getString(R.string.switcher_off);
     }
 
     /**

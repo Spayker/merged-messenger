@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.spand.meme.R;
+import com.spand.meme.core.submodule.ui.activity.settings.EditChannelsActivity;
 import com.spand.meme.core.submodule.ui.activity.settings.GlobalSettingsActivity;
 import com.spand.meme.core.submodule.ui.activity.webview.WebViewActivity;
 
@@ -240,5 +241,12 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(HOME_URL, MAIL_RU_HOME_URL);
         startActivity(intent);
     }
+
+    public void clickOnEditChannels(View view){
+        Intent intent = new Intent(this, EditChannelsActivity.class);
+        startActivity(intent);
+    }
+
+
 
 }
