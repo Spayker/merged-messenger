@@ -90,6 +90,9 @@
     <string name="checking">Проверка...</string>
 
     <string name="logged_as">Юзер:</string>
+    <string name="social_net_group">Социальные Сети</string>
+    <string name="chat_group">Чаты</string>
+    <string name="mail_group">Почтовые Службы</string>
 
     <string-array name="pref_notification_list">
         <item>Вибро</item>

@@ -226,7 +226,10 @@
     <string name="switcher_off">Off</string>
     <string name="checking">Checking...</string>
 
-    <string name="logged_as">Logged As: </string>
+    <string name="logged_as">Logged As:</string>
+    <string name="social_net_group">Social Networks</string>
+    <string name="chat_group">Chats</string>
+    <string name="mail_group">Email Services</string>
 
     <!--ChatSDK section begin-->
     <string name="default_media_location_folder">MeMeCorp</string>
