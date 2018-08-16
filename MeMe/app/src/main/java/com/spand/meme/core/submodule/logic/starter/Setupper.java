@@ -7,6 +7,7 @@ import com.spand.meme.R;
 import com.spand.meme.core.submodule.data.memory.channel.Channel;
 import com.spand.meme.core.submodule.data.memory.channel.ChannelManager;
 
+import java.util.List;
 import java.util.Set;
 
 import static com.spand.meme.core.submodule.data.memory.channel.ChannelManager.createNewChannel;
@@ -67,7 +68,7 @@ public class Setupper implements Starter{
 
     private static int initSocialGroupChannels(SharedPreferences sharedPreferences, AppCompatActivity mainActivity) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        Set<Channel> channels = ChannelManager.getInstance().getChannels();
+        List<Channel> channels = ChannelManager.getInstance().getChannels();
 
         Channel facebookChannel = createNewChannel(mainActivity.getString(R.string.fb), SOCIAL, FB_ICON_NAME, true);
         channels.add(facebookChannel);
@@ -103,7 +104,7 @@ public class Setupper implements Starter{
 
     private static int initChatGroupChannels(SharedPreferences sharedPreferences, AppCompatActivity mainActivity) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        Set<Channel> channels = ChannelManager.getInstance().getChannels();
+        List<Channel> channels = ChannelManager.getInstance().getChannels();
 
         Channel telegramChannel = createNewChannel(mainActivity.getString(R.string.tl), CHAT, TL_ICON_NAME, false);
         channels.add(telegramChannel);
@@ -131,7 +132,7 @@ public class Setupper implements Starter{
 
     private static int initEmailGroupChannels(SharedPreferences sharedPreferences, AppCompatActivity mainActivity) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        Set<Channel> channels = ChannelManager.getInstance().getChannels();
+        List<Channel> channels = ChannelManager.getInstance().getChannels();
 
         Channel gmailChannel = createNewChannel(mainActivity.getString(R.string.gmail), EMAIL, GM_ICON_NAME, true);
         channels.add(gmailChannel);

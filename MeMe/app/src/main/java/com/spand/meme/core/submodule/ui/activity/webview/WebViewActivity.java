@@ -29,6 +29,8 @@ public class WebViewActivity extends Activity {
         // Enable Javascript
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setDomStorageEnabled(true);
 
         // REMOTE RESOURCE
         Intent webViewIntent = getIntent();

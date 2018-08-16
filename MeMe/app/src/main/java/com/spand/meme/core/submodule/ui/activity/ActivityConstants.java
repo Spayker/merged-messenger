@@ -5,7 +5,7 @@ public interface ActivityConstants {
     //// CHANNEL RELATED
     // WEB URL RELATED CONSTANTS
     String HOME_URL = "homeUrl";
-    String VK_HOME_URL = "http://vk.com";
+    String VK_HOME_URL = "http://m.vk.com";
     String FB_HOME_URL = "https://www.facebook.com/";
     String INSTAGRAM_HOME_URL = "https://www.instagram.com/";
     String TELEGRAM_HOME_URL = "https://web.telegram.org/#/login";
@@ -15,9 +15,9 @@ public interface ActivityConstants {
     String YOUTUBE_HOME_URL = "https://www.youtube.com/";
     String LINKEDIN_HOME_URL = "https://www.linkedin.com/";
     String TWITTER_HOME_URL = "https://twitter.com/";
-    String ICQ_HOME_URL = "https://web.icq.com/";
+    String ICQ_HOME_URL = "https://web.icq.com";
     String SKYPE_HOME_URL = "https://web.skype.com/en/";
-    String GMAIL_HOME_URL = "www.gmail.com";
+    String GMAIL_HOME_URL = "https://mail.google.com/mail/u/0/#inbox";
     String MAIL_RU_HOME_URL = "https://mail.ru/";
 
     // CHANNEL ICON PATHS

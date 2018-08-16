@@ -1,24 +1,24 @@
 package com.spand.meme.core.submodule.data.memory.channel;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChannelManager {
 
     private static ChannelManager channelManager;
-    private static Set<Channel> channels;
+    private static List<Channel> channels;
 
     private ChannelManager() { }
 
-    private ChannelManager(Set<Channel> channels) {
+    private ChannelManager(List<Channel> channels) {
         this.channels = channels;
     }
 
-    public Set<Channel> getChannels() {
+    public List<Channel> getChannels() {
         return channels;
     }
 
-    public static ChannelManager createChannelManager(Set<Channel> channels){
+    public static ChannelManager createChannelManager(List<Channel> channels){
         if(channelManager == null) {
             channelManager = new ChannelManager(channels);
         }
@@ -33,8 +33,8 @@ public class ChannelManager {
         return new Channel(name, type, iconPath, active);
     }
 
-    public static Set<Channel> getActiveChannels(TYPE type) {
-        Set<Channel> chns = new HashSet<>();
+    public static List<Channel> getActiveChannels(TYPE type) {
+        List<Channel> chns = new ArrayList<>();
         for (Channel chn : channelManager.getChannels()) {
             if(chn.getType().equals(type) && chn.getActive()){
                 chns.add(chn);

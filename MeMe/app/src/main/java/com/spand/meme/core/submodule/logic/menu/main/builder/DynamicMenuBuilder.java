@@ -19,6 +19,7 @@ import com.spand.meme.core.submodule.data.memory.channel.Channel;
 import com.spand.meme.core.submodule.data.memory.channel.ChannelManager;
 import com.spand.meme.core.submodule.data.memory.channel.TYPE;
 
+import java.util.List;
 import java.util.Set;
 
 import static com.spand.meme.core.submodule.data.memory.channel.TYPE.CHAT;
@@ -43,15 +44,14 @@ public class DynamicMenuBuilder implements MainMenuBuilder {
         final String loggedAs = mainActivity.getString(R.string.logged_as);
         mainActivity.setTitle(loggedAs + SPACE_CHARACTER + mAuth.getCurrentUser().getDisplayName());
 
-        RelativeLayout mainRelativeLayout = null;//mainActivity.findViewById(R.id.main_relative_layout);
+        //RelativeLayout mainRelativeLayout = mainActivity.findViewById(R.id.main_relative_layout);
 
         int activatedSocialGroupAmount = sharedPreferences.getInt(KEY_ACTIVATED_SOCIAL_NET_AMOUNT, 0);
-        if (activatedSocialGroupAmount > 0) {
-            LinearLayout buttonLayout = createSocialGroupCategory(mainRelativeLayout);
-            createChannelButtons(SOCIAL, buttonLayout);
-        }
+//        if (activatedSocialGroupAmount > 0) {
+//            createSocialGroupCategory(mainRelativeLayout, activatedSocialGroupAmount);
+//        }
 
-        int activatedChatGroupAmount = sharedPreferences.getInt(KEY_ACTIVATED_CHAT_AMOUNT, 0);
+        /*int activatedChatGroupAmount = sharedPreferences.getInt(KEY_ACTIVATED_CHAT_AMOUNT, 0);
         if (activatedChatGroupAmount > 0) {
             LinearLayout buttonLayout = createChatGroupCategory(mainRelativeLayout);
             createChannelButtons(CHAT, buttonLayout);
@@ -61,15 +61,24 @@ public class DynamicMenuBuilder implements MainMenuBuilder {
         if (activatedEmailGroupAmount > 0) {
             LinearLayout buttonLayout = createEmailGroupCategory(mainRelativeLayout);
             createChannelButtons(EMAIL, buttonLayout);
-        }
+        }*/
     }
 
-    private void createChannelButtons(TYPE type, LinearLayout buttonLayout) {
-        Set<Channel> activeChannels = ChannelManager.getActiveChannels(type);
+    private int createChannelButtons(TYPE type, LinearLayout buttonLayout, int buttonAmount) {
+        List<Channel> activeChannels = ChannelManager.getActiveChannels(type);
+        int i=0;
+        final int ROW_LIMIT = 4;
+
+
+
         for (Channel activeChannel : activeChannels) {
-            Button button = createChannelButton(activeChannel.getName());
-            buttonLayout.addView(button);
+            if(i < ROW_LIMIT){
+                Button button = createChannelButton(activeChannel.getName());
+                buttonLayout.addView(button);
+                i++;
+            } else break;
         }
+        return 0;
     }
 
     private Button createChannelButton(String name) {
@@ -77,7 +86,7 @@ public class DynamicMenuBuilder implements MainMenuBuilder {
         channelButton.setText(name);
         channelButton.setLayoutParams(new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT, .0f));
+                ViewGroup.LayoutParams.WRAP_CONTENT));
         channelButton.setBackgroundColor(Color.TRANSPARENT);
         Drawable icon = getButtonIcon(name);
         channelButton.setCompoundDrawablesWithIntrinsicBounds( null, icon, null, null );
@@ -133,57 +142,59 @@ public class DynamicMenuBuilder implements MainMenuBuilder {
         return null;
     }
 
-    private LinearLayout createSocialGroupCategory(RelativeLayout mainRelativeLayout) {
+    private void createSocialGroupCategory(RelativeLayout mainRelativeLayout, int activatedSocialGroupAmount) {
         LinearLayout socialGroupVerticalLayout = new LinearLayout(mainActivity);
         String socialGroupVerticalLayoutText = mainActivity.getString(R.string.main_social_group_container);
         socialGroupVerticalLayout.setTag(socialGroupVerticalLayoutText);
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
         );
         layoutParams.setLayoutDirection(LinearLayout.VERTICAL);
+        layoutParams.gravity = Gravity.START|Gravity.CENTER_VERTICAL;
         socialGroupVerticalLayout.setLayoutParams(layoutParams);
-        socialGroupVerticalLayout.setPadding(5, 5, 5, 5);
+        socialGroupVerticalLayout.setPadding(5, 50, 5, 5);
 
         TextView mainSocialCategoryTextView = new TextView(mainActivity);
         mainSocialCategoryTextView.setTag(R.string.main_social_category_textView);
-        mainSocialCategoryTextView.setId(View.generateViewId());
         mainSocialCategoryTextView.setText(R.string.social_net_group);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams.MATCH_PARENT);
         mainSocialCategoryTextView.setLayoutParams(params);
+        mainRelativeLayout.addView(mainSocialCategoryTextView);
+        if(activatedSocialGroupAmount > 4){
+            for (int i = 1; i <= activatedSocialGroupAmount/4+1; i++) {
+                LinearLayout firstSocialHorizontalLayout = new LinearLayout(mainActivity);
 
-        LinearLayout mainSocialCategoryVerticalLayout = new LinearLayout(mainActivity);
-        String mainSocialCategoryVerticalLayoutText = mainActivity.getString(R.string.main_social_category_vertical_layout);
-        mainSocialCategoryVerticalLayout.setTag(mainSocialCategoryVerticalLayoutText);
-        mainSocialCategoryVerticalLayout.setId(View.generateViewId());
-        LinearLayout.LayoutParams mainSocialCategoryVerticalLayoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        mainSocialCategoryVerticalLayoutParams.setLayoutDirection(LinearLayout.VERTICAL);
-        mainSocialCategoryVerticalLayoutParams.gravity = Gravity.TOP|Gravity.LEFT|Gravity.CENTER_VERTICAL;
-        mainSocialCategoryVerticalLayout.setLayoutParams(mainSocialCategoryVerticalLayoutParams);
-        mainSocialCategoryVerticalLayout.setPadding(0, 10, 0, 0);
+                LinearLayout.LayoutParams firstSocialHorizontalLayoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
 
-        LinearLayout firstSocialHorizontalLayout = new LinearLayout(mainActivity);
-        String firstSocialHorizontalLayoutText = mainActivity.getString(R.string.first_social_horizontal_layout);
-        firstSocialHorizontalLayout.setTag(firstSocialHorizontalLayoutText);
-        LinearLayout.LayoutParams firstSocialHorizontalLayoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        firstSocialHorizontalLayoutParams.setLayoutDirection(LinearLayout.HORIZONTAL);
-        firstSocialHorizontalLayoutParams.gravity = Gravity.START;
-        firstSocialHorizontalLayout.setLayoutParams(firstSocialHorizontalLayoutParams);
+                firstSocialHorizontalLayoutParams.gravity = Gravity.TOP|Gravity.START;
+                firstSocialHorizontalLayout.setLayoutParams(firstSocialHorizontalLayoutParams);
+                firstSocialHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        mainSocialCategoryVerticalLayout.addView(firstSocialHorizontalLayout);
-        //socialGroupVerticalLayout.addView(mainSocialCategoryTextView);
-        socialGroupVerticalLayout.addView(mainSocialCategoryVerticalLayout);
+                createChannelButtons(SOCIAL, firstSocialHorizontalLayout, activatedSocialGroupAmount%4);
+                socialGroupVerticalLayout.addView(firstSocialHorizontalLayout);
+            }
+        } else {
+            LinearLayout firstSocialHorizontalLayout = new LinearLayout(mainActivity);
+            String firstSocialHorizontalLayoutText = mainActivity.getString(R.string.first_social_horizontal_layout);
+            firstSocialHorizontalLayout.setTag(firstSocialHorizontalLayoutText);
+            LinearLayout.LayoutParams firstSocialHorizontalLayoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            firstSocialHorizontalLayoutParams.gravity = Gravity.TOP|Gravity.START;
+            firstSocialHorizontalLayout.setLayoutParams(firstSocialHorizontalLayoutParams);
+            firstSocialHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+            socialGroupVerticalLayout.addView(firstSocialHorizontalLayout);
+        }
+
         mainRelativeLayout.addView(socialGroupVerticalLayout);
-        return firstSocialHorizontalLayout;
     }
 
     private LinearLayout createChatGroupCategory(RelativeLayout mainRelativeLayout) {
