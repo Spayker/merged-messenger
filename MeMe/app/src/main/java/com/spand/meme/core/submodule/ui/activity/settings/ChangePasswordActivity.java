@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
 import com.spand.meme.core.submodule.ui.activity.ActivityUtils;
 
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.EMPTY_STRING;
+
 /**
  * A class handler is linked to appropriate activity xml file and contains backend logic.
  **/
@@ -111,7 +113,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
      * @return a boolean value. Depends on validation result
      **/
     private boolean isPasswordValid(String newPassword) {
-        String actualSavedPassword = sharedPreferences.getString(KEY_OLD_CHANGE_PASS, "");
+        String actualSavedPassword = sharedPreferences.getString(KEY_OLD_CHANGE_PASS, EMPTY_STRING);
         String oldPassword = mOldPasswordView.getText().toString().trim();
         String newConfirmPassword = mNewPasswordConfirmView.getText().toString().trim();
 

@@ -27,8 +27,8 @@ public class WebViewActivity extends Activity {
         mWebView.setWebViewClient(new WebViewClient());
 
         // Enable Javascript
-        // WebSettings webSettings = mWebView.getSettings();
-        // webSettings.setJavaScriptEnabled(true);
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
 
         // REMOTE RESOURCE
         Intent webViewIntent = getIntent();

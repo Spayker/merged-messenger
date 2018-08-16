@@ -13,6 +13,8 @@ import android.view.View;
 
 import com.spand.meme.R;
 
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.EMPTY_STRING;
+
 /**
  *  A class handler is linked to appropriate activity xml file and contains backend logic.
  **/
@@ -119,7 +121,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
             sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
                     PreferenceManager
                             .getDefaultSharedPreferences(preference.getContext())
-                            .getString(preference.getKey(), ""));
+                            .getString(preference.getKey(), EMPTY_STRING));
     }
 
 }

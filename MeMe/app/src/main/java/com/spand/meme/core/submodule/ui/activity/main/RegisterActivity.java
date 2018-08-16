@@ -1,9 +1,10 @@
 package com.spand.meme.core.submodule.ui.activity.main;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -13,13 +14,15 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.spand.meme.R;
-import com.spand.meme.core.submodule.database.FireBaseDBInitializer;
+import com.spand.meme.core.submodule.data.database.FireBaseDBInitializer;
+
+import static com.spand.meme.core.submodule.logic.starter.Starter.REGISTRATOR;
+import static com.spand.meme.core.submodule.logic.starter.Starter.START_TYPE;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.PREF_NAME;
 
 /**
  * A Register screen that offers a registration procedure via email/password.
@@ -37,6 +40,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     // Firebase related fields
     private FirebaseAuth mAuth;
+
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     @VisibleForTesting
     private ProgressDialog mProgressDialog;
@@ -62,6 +68,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         // auth init
         mAuth = FirebaseAuth.getInstance();
+
+        sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
     }
 
     /**
@@ -84,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     /**
      *  Starts main activity of the application.
      **/
-    public void finishSingUpActivity() {
+    public void finishSingUpActivity() throws Exception {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
@@ -96,6 +105,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         FireBaseDBInitializer.init();
 
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(START_TYPE, REGISTRATOR);
         startActivity(intent);
     }
 
@@ -105,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      *  @param password a String object which will be used by FireBase module during SignUp
      *  @param confirmPassword a String object which will be used during validation form
      **/
-    private void signUp(String email, String password, String confirmPassword) {
+    private void signUp(String email, String password, String confirmPassword) throws Exception {
         Log.d(TAG, getString(R.string.log_sign_up) + email);
         if (!validateForm()) {
             return;
@@ -127,7 +137,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, getString(R.string.log_create_user_with_email_success));
                         updateUI();
-                        finishSingUpActivity();
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, getString(R.string.log_create_user_with_email_failure), task.getException());
@@ -137,6 +146,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     }
                     hideProgressDialog();
                 });
+        finishSingUpActivity();
     }
 
     /**
@@ -148,9 +158,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.email_sign_up_button) {
-            signUp(mEmailView.getText().toString()
-                    , mPasswordView.getText().toString()
-                    , mPasswordConfirmView.getText().toString());
+            try {
+                signUp(mEmailView.getText().toString()
+                        , mPasswordView.getText().toString()
+                        , mPasswordConfirmView.getText().toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

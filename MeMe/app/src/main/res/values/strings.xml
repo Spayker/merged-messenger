@@ -9,6 +9,7 @@
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
+    <string name="prompt_name">Name</string>
     <string name="prompt_password">Password</string>
     <string name="remember_me">Remember Me</string>
     <string name="prompt_password_confirm">Confirm Password (optional)</string>
@@ -224,16 +225,27 @@
 
     <string name="switcher_on">On</string>
     <string name="switcher_off">Off</string>
-    <string name="checking">Checking...</string>
+    <string name="checking">Checking…</string>
 
     <string name="logged_as">Logged As:</string>
     <string name="social_net_group">Social Networks</string>
     <string name="chat_group">Chats</string>
     <string name="mail_group">Email Services</string>
 
-    <!--ChatSDK section begin-->
-    <string name="default_media_location_folder">MeMeCorp</string>
-    <!--ChatSDK section end-->
+    <string name="main_social_group_container">main_social_group_container</string>
+    <string name="main_chat_group_container">main_chat_group_container</string>
+    <string name="main_email_group_container">main_email_group_container</string>
+    <string name="main_social_category_textView">main_social_category_textView</string>
+    <string name="main_chat_category_textView">main_chat_category_textView</string>
+    <string name="main_email_category_textView">main_email_category_textView</string>
+    <string name="main_social_category_vertical_layout">main_social_category_vertical_layout</string>
+    <string name="main_chat_category_vertical_layout">main_chat_category_vertical_layout</string>
+    <string name="main_email_category_vertical_layout">main_email_category_vertical_layout</string>
+
+    <string name="first_social_horizontal_layout">first_social_horizontal_layout</string>
+    <string name="first_chat_horizontal_layout">first_chat_horizontal_layout</string>
+    <string name="first_email_horizontal_layout">first_email_horizontal_layout</string>
+
 
     <!--Error Messages section begin-->
     <string name="old_password_empty">old password is empty</string>

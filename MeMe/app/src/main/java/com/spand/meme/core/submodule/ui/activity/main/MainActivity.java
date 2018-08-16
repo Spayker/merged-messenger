@@ -1,21 +1,32 @@
 package com.spand.meme.core.submodule.ui.activity.main;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
+import android.widget.LinearLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.spand.meme.R;
+import com.spand.meme.core.submodule.logic.menu.main.builder.DynamicMenuBuilder;
+import com.spand.meme.core.submodule.logic.menu.main.builder.MainMenuBuilder;
+import com.spand.meme.core.submodule.logic.starter.Loginner;
+import com.spand.meme.core.submodule.logic.starter.Setupper;
+import com.spand.meme.core.submodule.logic.starter.Starter;
 import com.spand.meme.core.submodule.ui.activity.settings.EditChannelsActivity;
 import com.spand.meme.core.submodule.ui.activity.settings.GlobalSettingsActivity;
 import com.spand.meme.core.submodule.ui.activity.webview.WebViewActivity;
 
+import static com.spand.meme.core.submodule.logic.starter.Starter.LOGINNER;
+import static com.spand.meme.core.submodule.logic.starter.Starter.REGISTRATOR;
+import static com.spand.meme.core.submodule.logic.starter.Starter.START_TYPE;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.DISCORD_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.EMPTY_STRING;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.FB_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.GMAIL_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.HOME_URL;
@@ -24,7 +35,9 @@ import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.INSTAG
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.LINKEDIN_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.MAIL_RU_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.ODNOKLASNIKI_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.PREF_NAME;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.SKYPE_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.SPACE_CHARACTER;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TELEGRAM_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TUMBLR_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TWITTER_HOME_URL;
@@ -47,9 +60,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // auth init
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        setTitle(getString(R.string.logged_as) + " " + mAuth.getCurrentUser().getDisplayName());
+        // default settings init
+        Intent intent = getIntent();
+        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+//        switch (intent.getStringExtra(START_TYPE)){
+//            case LOGINNER: {
+//                Starter loginner = new Loginner();
+//                loginner.initApplication(sharedPreferences, intent);
+//            }
+//            case REGISTRATOR: {
+                Starter setupper = new Setupper();
+                setupper.initApplication(sharedPreferences, this);
+//            }
+//        }
+
+//        MainMenuBuilder menuBuilder = new DynamicMenuBuilder(this);
+//        menuBuilder.build(sharedPreferences);
     }
 
     /**

@@ -20,8 +20,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.spand.meme.R;
-import com.spand.meme.core.submodule.database.FireBaseDBInitializer;
+import com.spand.meme.core.submodule.data.database.FireBaseDBInitializer;
 
+import static com.spand.meme.core.submodule.logic.starter.Starter.LOGINNER;
+import static com.spand.meme.core.submodule.logic.starter.Starter.START_TYPE;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.EMPTY_STRING;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_OLD_CHANGE_PASS;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_PASS;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_REMEMBER;
@@ -74,8 +77,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         else
             mRememberMeView.setChecked(false);
 
-        mEmailView.setText(sharedPreferences.getString(KEY_USERNAME,""));
-        mPasswordView.setText(sharedPreferences.getString(KEY_PASS,""));
+        mEmailView.setText(sharedPreferences.getString(KEY_USERNAME,EMPTY_STRING));
+        mPasswordView.setText(sharedPreferences.getString(KEY_PASS,EMPTY_STRING));
 
         mEmailView.addTextChangedListener(this);
         mPasswordView.addTextChangedListener(this);
@@ -163,6 +166,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FireBaseDBInitializer.init();
 
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(START_TYPE, LOGINNER);
         startActivity(intent);
     }
 
@@ -231,13 +235,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             editor.putString(KEY_USERNAME, mEmailView.getText().toString().trim());
             editor.putString(KEY_PASS, mPasswordView.getText().toString().trim());
             editor.putBoolean(KEY_REMEMBER, true);
-            editor.apply();
         }else{
             editor.putBoolean(KEY_REMEMBER, false);
             editor.remove(KEY_PASS);
             editor.remove(KEY_USERNAME);
-            editor.apply();
         }
+        editor.apply();
     }
 }
 

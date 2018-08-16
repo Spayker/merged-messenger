@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
 import com.spand.meme.core.submodule.ui.activity.ActivityUtils;
 
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.EMPTY_STRING;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_OLD_CHANGE_PASS;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_PASS;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_REMEMBER;
@@ -107,7 +108,7 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
      **/
     private boolean validateForm() {
 
-        String actualSavedPassword = sharedPreferences.getString(KEY_OLD_CHANGE_PASS, "");
+        String actualSavedPassword = sharedPreferences.getString(KEY_OLD_CHANGE_PASS, EMPTY_STRING);
         String password = mPasswordView.getText().toString();
 
         if (TextUtils.isEmpty(password)) {

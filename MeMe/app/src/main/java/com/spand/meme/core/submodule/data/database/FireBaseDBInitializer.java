@@ -1,4 +1,4 @@
-package com.spand.meme.core.submodule.database;
+package com.spand.meme.core.submodule.data.database;
 
 import android.support.annotation.NonNull;
 
@@ -9,7 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
-public class FireBaseDBInitializer {
+public final class FireBaseDBInitializer {
 
     // since I can connect from multiple devices, we store each connection instance separately
     // any time that connectionsRef's value is null (i.e. has no children) I am offline
