@@ -62,20 +62,20 @@ public class MainActivity extends AppCompatActivity {
 
         // default settings init
         Intent intent = getIntent();
-        //SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 //        switch (intent.getStringExtra(START_TYPE)){
 //            case LOGINNER: {
 //                Starter loginner = new Loginner();
 //                loginner.initApplication(sharedPreferences, intent);
 //            }
 //            case REGISTRATOR: {
-//                Starter setupper = new Setupper();
-//                setupper.initApplication(sharedPreferences, this);
+                Starter setupper = new Setupper();
+                setupper.initApplication(sharedPreferences, this);
 //            }
 //        }
 
-//        MainMenuBuilder menuBuilder = new DynamicMenuBuilder(this);
-//        menuBuilder.build(sharedPreferences);
+        MainMenuBuilder menuBuilder = new DynamicMenuBuilder(this);
+        menuBuilder.build(sharedPreferences);
     }
 
     /**

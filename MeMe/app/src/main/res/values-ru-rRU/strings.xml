@@ -20,7 +20,6 @@
     <string name="action_sign_up_short">Создать</string>
     <string name="sing_in_content">Логин</string>
     <string name="sing_up_content">Регистрация</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email         completions.     "</string>
     <string name="prompt_password_confirm">Подтвердите Пароль</string>
     <string name="title_activity_main">MeMe</string>
     <string name="navigation_drawer_open">Открыть</string>

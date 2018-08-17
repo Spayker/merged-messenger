@@ -1,289 +1,28 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="fill_vertical|center"
-    android:orientation="vertical"
-    android:padding="5dp"
-    tools:context=".core.submodule.ui.activity.main.MainActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_relative_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <ScrollView
-        android:id="@+id/main_scroll_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:scrollbarStyle="outsideOverlay">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <GridLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:alignmentMode="alignBounds"
-            android:columnCount="3"
-            android:orientation="horizontal"
-            android:rowCount="5"
-            tools:context=".core.submodule.ui.activity.main.MainActivity">
-
-            <Button
-                android:id="@+id/vk_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="0"
-                android:layout_margin="0dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_row="0"
-                android:background="@null"
-                android:drawableTop="@mipmap/vk"
-                android:elevation="0dp"
-                android:onClick="clickOnVKActivity"
-                android:text="@string/vk" />
-
-            <Button
-                android:id="@+id/fb_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="1"
-                android:layout_margin="0dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_row="0"
-                android:background="@null"
-                android:drawableTop="@mipmap/fb"
-                android:onClick="clickOnFBActivity"
-                android:text="@string/fb" />
-
-            <Button
-                android:id="@+id/tl_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="2"
-                android:layout_margin="0dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_row="0"
-                android:background="@null"
-                android:drawableTop="@mipmap/telegram"
-                android:onClick="clickOnTLActivity"
-                android:text="@string/tl" />
-
-            <Button
-                android:id="@+id/ok_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="0"
-                android:layout_margin="0dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_row="1"
-                android:background="@null"
-                android:drawableTop="@mipmap/ok"
-                android:onClick="clickOnOKActivity"
-                android:text="@string/ok" />
-
-            <Button
-                android:id="@+id/yt_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="0"
-                android:layout_margin="0dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_row="2"
-                android:background="@null"
-                android:drawableTop="@mipmap/youtube"
-                android:onClick="clickOnYTActivity"
-                android:text="@string/yt" />
-
-            <Button
-                android:id="@+id/ln_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="1"
-                android:layout_margin="0dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_row="2"
-                android:background="@null"
-                android:drawableTop="@mipmap/in"
-                android:onClick="clickOnLNActivity"
-                android:text="@string/ln" />
-
-            <Button
-                android:id="@+id/tw_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="2"
-                android:layout_margin="0dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_row="2"
-                android:background="@null"
-                android:drawableTop="@mipmap/twitter"
-                android:onClick="clickOnTWActivity"
-                android:text="@string/tw" />
-
-            <Button
-                android:id="@+id/icq_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="0"
-                android:layout_margin="0dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_row="3"
-                android:background="@null"
-                android:drawableTop="@mipmap/icq"
-                android:onClick="clickOnICQActivity"
-                android:text="@string/icq" />
-
-            <Button
-                android:id="@+id/inst_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="1"
-                android:layout_margin="0dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_row="3"
-                android:background="@null"
-                android:drawableTop="@mipmap/instagram"
-                android:onClick="clickOnInstActivity"
-                android:text="@string/inst" />
-
-            <Button
-                android:id="@+id/skp_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="2"
-                android:layout_margin="0dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_row="3"
-                android:background="@null"
-                android:drawableTop="@mipmap/skype"
-                android:onClick="clickOnSkpActivity"
-                android:text="@string/skp" />
-
-            <Button
-                android:id="@+id/gmail_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="0"
-                android:layout_margin="0dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_row="4"
-                android:background="@null"
-                android:drawableTop="@mipmap/gmail"
-                android:onClick="clickOnGmailActivity"
-                android:text="@string/gmail" />
-
-            <Button
-                android:id="@+id/mailru_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="2"
-                android:layout_margin="0dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_row="4"
-                android:background="@null"
-                android:drawableTop="@mipmap/mail_ru"
-                android:onClick="clickOnMailRuActivity"
-                android:text="@string/mailru" />
-
-            <Button
-                android:id="@+id/tmb_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="1"
-                android:layout_margin="0dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_row="1"
-                android:background="@null"
-                android:drawableTop="@mipmap/tumblr"
-                android:onClick="clickOnTmbActivity"
-                android:text="@string/tmb" />
-
-            <Button
-                android:id="@+id/dc_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="2"
-                android:layout_margin="0dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_row="1"
-                android:background="@null"
-                android:drawableTop="@mipmap/discord"
-                android:onClick="clickOnDCActivity"
-                android:text="@string/dc" />
-
-        </GridLayout>
+        <LinearLayout
+            android:id="@+id/main_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|start"
+            android:orientation="vertical" />
     </ScrollView>
 
     <LinearLayout
         android:id="@+id/linear"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:gravity="bottom|right"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <ImageButton
             android:id="@+id/add_new_channel_button"
@@ -295,4 +34,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

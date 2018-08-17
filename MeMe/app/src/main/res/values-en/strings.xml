@@ -20,7 +20,6 @@
     <string name="action_sign_up_short">Sign up</string>
     <string name="sing_in_content">Sing in</string>
     <string name="sing_up_content">Sing up</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email         completions.     "</string>
     <string name="prompt_password_confirm">Confirm Password (optional)</string>
     <string name="title_activity_main">MeMe</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

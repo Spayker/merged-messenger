@@ -29,8 +29,8 @@ public class ChannelManager {
         return channelManager;
     }
 
-    public static Channel createNewChannel(String name, TYPE type, String iconPath, Boolean active){
-        return new Channel(name, type, iconPath, active);
+    public static Channel createNewChannel(String name, TYPE type, String iconPath, String homeUrl, Boolean active){
+        return new Channel(name, type, iconPath, homeUrl, active);
     }
 
     public static List<Channel> getActiveChannels(TYPE type) {

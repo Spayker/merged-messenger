@@ -2,11 +2,6 @@ package com.spand.meme.core.submodule.logic.starter;
 
 public interface SettingsConstants {
 
-    String KEY_ACTIVATED_SOCIAL_NET_AMOUNT = "activatedSocialNetAmount";
-    String KEY_ACTIVATED_CHAT_AMOUNT = "activatedChatAmount";
-    String KEY_ACTIVATED_EMAIL_AMOUNT = "activatedEmailAmount";
-
-
     String KEY_FACEBOOK         = "facebook";
     String KEY_VKONTAKTE        = "vkontakte";
     String KEY_TWITTER          = "twitter";
