@@ -10,6 +10,20 @@ import com.spand.meme.core.submodule.data.memory.channel.ChannelManager;
 import java.util.List;
 
 import static com.spand.meme.core.submodule.data.memory.channel.ChannelManager.createNewChannel;
+import static com.spand.meme.core.submodule.data.memory.channel.ICON.DC;
+import static com.spand.meme.core.submodule.data.memory.channel.ICON.FB;
+import static com.spand.meme.core.submodule.data.memory.channel.ICON.GM;
+import static com.spand.meme.core.submodule.data.memory.channel.ICON.ICQ;
+import static com.spand.meme.core.submodule.data.memory.channel.ICON.IN;
+import static com.spand.meme.core.submodule.data.memory.channel.ICON.LN;
+import static com.spand.meme.core.submodule.data.memory.channel.ICON.MAIL_RU;
+import static com.spand.meme.core.submodule.data.memory.channel.ICON.OK;
+import static com.spand.meme.core.submodule.data.memory.channel.ICON.SK;
+import static com.spand.meme.core.submodule.data.memory.channel.ICON.TL;
+import static com.spand.meme.core.submodule.data.memory.channel.ICON.TUM;
+import static com.spand.meme.core.submodule.data.memory.channel.ICON.TW;
+import static com.spand.meme.core.submodule.data.memory.channel.ICON.VK;
+import static com.spand.meme.core.submodule.data.memory.channel.ICON.YT;
 import static com.spand.meme.core.submodule.data.memory.channel.TYPE.CHAT;
 import static com.spand.meme.core.submodule.data.memory.channel.TYPE.EMAIL;
 import static com.spand.meme.core.submodule.data.memory.channel.TYPE.SOCIAL;
@@ -73,31 +87,31 @@ public class Setupper implements Starter {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = ChannelManager.getInstance().getChannels();
 
-        Channel facebookChannel = createNewChannel(mainActivity.getString(R.string.fb), SOCIAL, FB_ICON_NAME, FB_HOME_URL, true);
+        Channel facebookChannel = createNewChannel(mainActivity.getString(R.string.fb), SOCIAL, FB, FB_HOME_URL, true);
         channels.add(facebookChannel);
         editor.putBoolean(KEY_FACEBOOK, facebookChannel.getActive());
 
-        Channel vkontakteChannel = createNewChannel(mainActivity.getString(R.string.vk), SOCIAL, VK_ICON_NAME, VK_HOME_URL, true);
+        Channel vkontakteChannel = createNewChannel(mainActivity.getString(R.string.vk), SOCIAL, VK, VK_HOME_URL, true);
         channels.add(vkontakteChannel);
         editor.putBoolean(KEY_VKONTAKTE, vkontakteChannel.getActive());
 
-        Channel twitterChannel = createNewChannel(mainActivity.getString(R.string.tw), SOCIAL, TW_ICON_NAME, LINKEDIN_HOME_URL, true);
+        Channel twitterChannel = createNewChannel(mainActivity.getString(R.string.tw), SOCIAL, TW, LINKEDIN_HOME_URL, true);
         channels.add(twitterChannel);
         editor.putBoolean(KEY_TWITTER, twitterChannel.getActive());
 
-        Channel instagramChannel = createNewChannel(mainActivity.getString(R.string.inst), SOCIAL, IN_ICON_NAME, INSTAGRAM_HOME_URL, true);
+        Channel instagramChannel = createNewChannel(mainActivity.getString(R.string.inst), SOCIAL, IN, INSTAGRAM_HOME_URL, true);
         channels.add(instagramChannel);
         editor.putBoolean(KEY_INSTAGRAM, instagramChannel.getActive());
 
-        Channel okChannel = createNewChannel(mainActivity.getString(R.string.ok), SOCIAL, OK_ICON_NAME, ODNOKLASNIKI_HOME_URL, false);
+        Channel okChannel = createNewChannel(mainActivity.getString(R.string.ok), SOCIAL, OK, ODNOKLASNIKI_HOME_URL, false);
         channels.add(okChannel);
         editor.putBoolean(KEY_ODNOKLASSNIKI, okChannel.getActive());
 
-        Channel youtubeChannel = createNewChannel(mainActivity.getString(R.string.yt), SOCIAL, YOU_ICON_NAME, YOUTUBE_HOME_URL, true);
+        Channel youtubeChannel = createNewChannel(mainActivity.getString(R.string.yt), SOCIAL, YT, YOUTUBE_HOME_URL, true);
         channels.add(youtubeChannel);
         editor.putBoolean(KEY_YOUTUBE, youtubeChannel.getActive());
 
-        Channel linkedinChannel = createNewChannel(mainActivity.getString(R.string.ln), SOCIAL, LN_ICON_NAME, LINKEDIN_HOME_URL,true);
+        Channel linkedinChannel = createNewChannel(mainActivity.getString(R.string.ln), SOCIAL, LN, LINKEDIN_HOME_URL,true);
         channels.add(linkedinChannel);
         editor.putBoolean(KEY_LINKED_IN, linkedinChannel.getActive());
 
@@ -109,23 +123,23 @@ public class Setupper implements Starter {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = ChannelManager.getInstance().getChannels();
 
-        Channel telegramChannel = createNewChannel(mainActivity.getString(R.string.tl), CHAT, TL_ICON_NAME, TELEGRAM_HOME_URL,false);
+        Channel telegramChannel = createNewChannel(mainActivity.getString(R.string.tl), CHAT, TL, TELEGRAM_HOME_URL,false);
         channels.add(telegramChannel);
         editor.putBoolean(KEY_TELEGRAM, telegramChannel.getActive());
 
-        Channel tumblChannel = createNewChannel(mainActivity.getString(R.string.tmb), CHAT, TUM_ICON_NAME, TUMBLR_HOME_URL,true);
+        Channel tumblChannel = createNewChannel(mainActivity.getString(R.string.tmb), CHAT, TUM, TUMBLR_HOME_URL,true);
         channels.add(tumblChannel);
         editor.putBoolean(KEY_TUMBLR, tumblChannel.getActive());
 
-        Channel skypeChannel = createNewChannel(mainActivity.getString(R.string.skp), CHAT, SKP_ICON_NAME, SKYPE_HOME_URL,true);
+        Channel skypeChannel = createNewChannel(mainActivity.getString(R.string.skp), CHAT, SK, SKYPE_HOME_URL,true);
         channels.add(skypeChannel);
         editor.putBoolean(KEY_SKYPE, skypeChannel.getActive());
 
-        Channel icqChannel = createNewChannel(mainActivity.getString(R.string.icq), CHAT, ICQ_ICON_NAME, ICQ_HOME_URL,false);
+        Channel icqChannel = createNewChannel(mainActivity.getString(R.string.icq), CHAT, ICQ, ICQ_HOME_URL,false);
         channels.add(icqChannel);
         editor.putBoolean(KEY_ICQ, icqChannel.getActive());
 
-        Channel discordChannel = createNewChannel(mainActivity.getString(R.string.dc), CHAT, DIS_ICON_NAME, DISCORD_HOME_URL,false);
+        Channel discordChannel = createNewChannel(mainActivity.getString(R.string.dc), CHAT, DC, DISCORD_HOME_URL,false);
         channels.add(discordChannel);
         editor.putBoolean(KEY_DISCORD, discordChannel.getActive());
 
@@ -137,11 +151,11 @@ public class Setupper implements Starter {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = ChannelManager.getInstance().getChannels();
 
-        Channel gmailChannel = createNewChannel(mainActivity.getString(R.string.gmail), EMAIL, GM_ICON_NAME, GMAIL_HOME_URL, true);
+        Channel gmailChannel = createNewChannel(mainActivity.getString(R.string.gmail), EMAIL, GM, GMAIL_HOME_URL, true);
         channels.add(gmailChannel);
         editor.putBoolean(KEY_GMAIL, gmailChannel.getActive());
 
-        Channel mailruChannel = createNewChannel(mainActivity.getString(R.string.mailru), EMAIL, MAIL_RU_ICON_NAME, MAIL_RU_HOME_URL, false);
+        Channel mailruChannel = createNewChannel(mainActivity.getString(R.string.mailru), EMAIL, MAIL_RU, MAIL_RU_HOME_URL, false);
         channels.add(mailruChannel);
         editor.putBoolean(KEY_MAIL_RU, mailruChannel.getActive());
         editor.apply();
