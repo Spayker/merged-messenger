@@ -10,7 +10,11 @@ import android.preference.SwitchPreference;
 import android.support.v7.app.AppCompatActivity;
 
 import com.spand.meme.R;
+import com.spand.meme.core.submodule.data.memory.channel.Channel;
+import com.spand.meme.core.submodule.logic.menu.main.builder.DynamicMenuBuilder;
 
+import static com.spand.meme.core.submodule.data.memory.channel.ChannelManager.getChannelByName;
+import static com.spand.meme.core.submodule.logic.menu.main.builder.DynamicMenuBuilder.getMenuBuilder;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.PREF_NAME;
 import static com.spand.meme.core.submodule.logic.starter.SettingsConstants.KEY_DISCORD;
 import static com.spand.meme.core.submodule.logic.starter.SettingsConstants.KEY_FACEBOOK;
@@ -87,11 +91,7 @@ public class EditChannelsActivity extends AppCompatActivity {
             facebookSwitcher.setChecked(sharedPreferences.getBoolean(KEY_FACEBOOK, false));
             bindGlobalPreferenceToBooleanValue(facebookSwitcher);
             facebookSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                SwitchPreference switchPreference = ((SwitchPreference) preference);
-
-                boolean switched = switchPreference.isChecked();
-                preference.setSummary(!switched ? switcherOn : switcherOff);
-                // handle
+                handleSwitcherChange(facebookSwitcher, KEY_FACEBOOK);
                 return true;
             });
 
@@ -99,9 +99,7 @@ public class EditChannelsActivity extends AppCompatActivity {
             linkedinSwitcher.setChecked(sharedPreferences.getBoolean(KEY_LINKED_IN, false));
             bindGlobalPreferenceToBooleanValue(linkedinSwitcher);
             linkedinSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                SwitchPreference switchPreference = ((SwitchPreference) preference);
-                boolean switched = switchPreference.isChecked();
-                preference.setSummary(!switched ? switcherOn : switcherOff);
+                handleSwitcherChange(linkedinSwitcher, KEY_LINKED_IN);
                 return true;
             });
 
@@ -109,9 +107,7 @@ public class EditChannelsActivity extends AppCompatActivity {
             vkontakteSwitcher.setChecked(sharedPreferences.getBoolean(KEY_VKONTAKTE, false));
             bindGlobalPreferenceToBooleanValue(vkontakteSwitcher);
             vkontakteSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                SwitchPreference switchPreference = ((SwitchPreference) preference);
-                boolean switched = switchPreference.isChecked();
-                preference.setSummary(!switched ? switcherOn : switcherOff);
+                handleSwitcherChange(vkontakteSwitcher, KEY_VKONTAKTE);
                 return true;
             });
 
@@ -119,9 +115,7 @@ public class EditChannelsActivity extends AppCompatActivity {
             twitterSwitcher.setChecked(sharedPreferences.getBoolean(KEY_TWITTER, false));
             bindGlobalPreferenceToBooleanValue(twitterSwitcher);
             twitterSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                SwitchPreference switchPreference = ((SwitchPreference) preference);
-                boolean switched = switchPreference.isChecked();
-                preference.setSummary(!switched ? switcherOn : switcherOff);
+                handleSwitcherChange(twitterSwitcher, KEY_TWITTER);
                 return true;
             });
 
@@ -129,9 +123,7 @@ public class EditChannelsActivity extends AppCompatActivity {
             tumblrSwitcher.setChecked(sharedPreferences.getBoolean(KEY_TUMBLR, false));
             bindGlobalPreferenceToBooleanValue(tumblrSwitcher);
             tumblrSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                SwitchPreference switchPreference = ((SwitchPreference) preference);
-                boolean switched = switchPreference.isChecked();
-                preference.setSummary(!switched ? switcherOn : switcherOff);
+                handleSwitcherChange(tumblrSwitcher, KEY_TUMBLR);
                 return true;
             });
 
@@ -139,9 +131,7 @@ public class EditChannelsActivity extends AppCompatActivity {
             instagramSwitcher.setChecked(sharedPreferences.getBoolean(KEY_INSTAGRAM, false));
             bindGlobalPreferenceToBooleanValue(instagramSwitcher);
             instagramSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                SwitchPreference switchPreference = ((SwitchPreference) preference);
-                boolean switched = switchPreference.isChecked();
-                preference.setSummary(!switched ? switcherOn : switcherOff);
+                handleSwitcherChange(instagramSwitcher, KEY_INSTAGRAM);
                 return true;
             });
 
@@ -149,9 +139,7 @@ public class EditChannelsActivity extends AppCompatActivity {
             okSwitcher.setChecked(sharedPreferences.getBoolean(KEY_ODNOKLASSNIKI, false));
             bindGlobalPreferenceToBooleanValue(okSwitcher);
             okSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                SwitchPreference switchPreference = ((SwitchPreference) preference);
-                boolean switched = switchPreference.isChecked();
-                preference.setSummary(!switched ? switcherOn : switcherOff);
+                handleSwitcherChange(okSwitcher, KEY_ODNOKLASSNIKI);
                 return true;
             });
 
@@ -159,9 +147,7 @@ public class EditChannelsActivity extends AppCompatActivity {
             telegramSwitcher.setChecked(sharedPreferences.getBoolean(KEY_TELEGRAM, false));
             bindGlobalPreferenceToBooleanValue(telegramSwitcher);
             telegramSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                SwitchPreference switchPreference = ((SwitchPreference) preference);
-                boolean switched = switchPreference.isChecked();
-                preference.setSummary(!switched ? switcherOn : switcherOff);
+                handleSwitcherChange(telegramSwitcher, KEY_TELEGRAM);
                 return true;
             });
 
@@ -169,9 +155,7 @@ public class EditChannelsActivity extends AppCompatActivity {
             discordSwitcher.setChecked(sharedPreferences.getBoolean(KEY_DISCORD, false));
             bindGlobalPreferenceToBooleanValue(discordSwitcher);
             discordSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                SwitchPreference switchPreference = ((SwitchPreference) preference);
-                boolean switched = switchPreference.isChecked();
-                preference.setSummary(!switched ? switcherOn : switcherOff);
+                handleSwitcherChange(discordSwitcher, KEY_DISCORD);
                 return true;
             });
 
@@ -179,9 +163,7 @@ public class EditChannelsActivity extends AppCompatActivity {
             skypeSwitcher.setChecked(sharedPreferences.getBoolean(KEY_SKYPE, false));
             bindGlobalPreferenceToBooleanValue(skypeSwitcher);
             skypeSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                SwitchPreference switchPreference = ((SwitchPreference) preference);
-                boolean switched = switchPreference.isChecked();
-                preference.setSummary(!switched ? switcherOn : switcherOff);
+                handleSwitcherChange(skypeSwitcher, KEY_SKYPE);
                 return true;
             });
 
@@ -189,9 +171,7 @@ public class EditChannelsActivity extends AppCompatActivity {
             icqSwitcher.setChecked(sharedPreferences.getBoolean(KEY_ICQ, false));
             bindGlobalPreferenceToBooleanValue(icqSwitcher);
             icqSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                SwitchPreference switchPreference = ((SwitchPreference) preference);
-                boolean switched = switchPreference.isChecked();
-                preference.setSummary(!switched ? switcherOn : switcherOff);
+                handleSwitcherChange(icqSwitcher, KEY_ICQ);
                 return true;
             });
 
@@ -199,9 +179,7 @@ public class EditChannelsActivity extends AppCompatActivity {
             gmailSwitcher.setChecked(sharedPreferences.getBoolean(KEY_GMAIL, false));
             bindGlobalPreferenceToBooleanValue(gmailSwitcher);
             gmailSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                SwitchPreference switchPreference = ((SwitchPreference) preference);
-                boolean switched = switchPreference.isChecked();
-                preference.setSummary(!switched ? switcherOn : switcherOff);
+                handleSwitcherChange(gmailSwitcher, KEY_GMAIL);
                 return true;
             });
 
@@ -209,9 +187,7 @@ public class EditChannelsActivity extends AppCompatActivity {
             mailruSwitcher.setChecked(sharedPreferences.getBoolean(KEY_MAIL_RU, false));
             bindGlobalPreferenceToBooleanValue(mailruSwitcher);
             mailruSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                SwitchPreference switchPreference = ((SwitchPreference) preference);
-                boolean switched = switchPreference.isChecked();
-                preference.setSummary(!switched ? switcherOn : switcherOff);
+                handleSwitcherChange(mailruSwitcher, KEY_MAIL_RU);
                 return true;
             });
 
@@ -219,11 +195,19 @@ public class EditChannelsActivity extends AppCompatActivity {
             youtubeSwitcher.setChecked(sharedPreferences.getBoolean(KEY_YOUTUBE, false));
             bindGlobalPreferenceToBooleanValue(youtubeSwitcher);
             youtubeSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                SwitchPreference switchPreference = ((SwitchPreference) preference);
-                boolean switched = switchPreference.isChecked();
-                preference.setSummary(!switched ? switcherOn : switcherOff);
+                handleSwitcherChange(youtubeSwitcher, KEY_YOUTUBE);
                 return true;
             });
+        }
+
+        private void handleSwitcherChange(SwitchPreference preference, String key){
+            boolean switched = !preference.isChecked();
+            preference.setSummary(switched ? switcherOn : switcherOff);
+            Channel channel = getChannelByName(preference.getTitle().toString());
+            channel.setActive(switched);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(key, switched);
+            editor.apply();
         }
     }
 
@@ -238,5 +222,14 @@ public class EditChannelsActivity extends AppCompatActivity {
                         .getDefaultSharedPreferences(preference.getContext())
                         .getBoolean(preference.getKey(), false));
     }
+
+    @Override
+    public void onBackPressed() {
+        DynamicMenuBuilder menuBuilder = getMenuBuilder();
+        menuBuilder.rebuild(sharedPreferences);
+        super.onBackPressed();
+    }
+
+
 
 }

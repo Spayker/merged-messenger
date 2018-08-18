@@ -22,6 +22,7 @@ import com.spand.meme.core.submodule.ui.activity.settings.EditChannelsActivity;
 import com.spand.meme.core.submodule.ui.activity.settings.GlobalSettingsActivity;
 import com.spand.meme.core.submodule.ui.activity.webview.WebViewActivity;
 
+import static com.spand.meme.core.submodule.logic.starter.Setupper.createSetupper;
 import static com.spand.meme.core.submodule.logic.starter.Starter.LOGINNER;
 import static com.spand.meme.core.submodule.logic.starter.Starter.REGISTRATOR;
 import static com.spand.meme.core.submodule.logic.starter.Starter.START_TYPE;
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 //                loginner.initApplication(sharedPreferences, intent);
 //            }
 //            case REGISTRATOR: {
-                Starter setupper = new Setupper();
+                Starter setupper = createSetupper();
                 setupper.initApplication(sharedPreferences, this);
 //            }
 //        }

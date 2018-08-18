@@ -8,7 +8,8 @@ public final class Channel {
     private String homeUrl;
     private ICON icon;
 
-    private Channel() { }
+    private Channel() {
+    }
 
     Channel(String name, TYPE type, ICON icon, String homeUrl, Boolean active) {
         this.name = name;
@@ -36,5 +37,9 @@ public final class Channel {
 
     public Boolean getActive() {
         return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

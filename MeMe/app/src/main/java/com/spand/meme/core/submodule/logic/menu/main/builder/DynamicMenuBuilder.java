@@ -2,7 +2,6 @@ package com.spand.meme.core.submodule.logic.menu.main.builder;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -29,17 +28,20 @@ import static com.spand.meme.core.submodule.data.memory.channel.TYPE.EMAIL;
 import static com.spand.meme.core.submodule.data.memory.channel.TYPE.SOCIAL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.SPACE_CHARACTER;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.VK_HOME_URL;
 
 public class DynamicMenuBuilder implements MainMenuBuilder {
 
-    private final AppCompatActivity MAIN_ACTIVITY;
+    private AppCompatActivity MAIN_ACTIVITY;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private static DynamicMenuBuilder instance;
 
     private final int BUTTON_LIMIT_IN_ROW = 4;
 
+    private DynamicMenuBuilder(){}
+
     public DynamicMenuBuilder(AppCompatActivity mainActivity) {
         MAIN_ACTIVITY = mainActivity;
+        instance = this;
     }
 
     @Override
@@ -63,6 +65,11 @@ public class DynamicMenuBuilder implements MainMenuBuilder {
         if (activatedEmailGroupAmount > 0) {
             createEmailGroupCategory(mainLinearLayout, activatedEmailGroupAmount);
         }
+
+    }
+
+    public void rebuild(SharedPreferences sharedPreferences) {
+        build(sharedPreferences);
     }
 
     private int createChannelButtons(TYPE type, LinearLayout buttonLayout, int lastIndex) {
@@ -73,7 +80,7 @@ public class DynamicMenuBuilder implements MainMenuBuilder {
             buttonLayout.addView(button);
             lastIndex++;
         }
-        return lastIndex;
+        return  lastIndex;
     }
 
     private Button createChannelButton(Channel channel) {
@@ -93,6 +100,7 @@ public class DynamicMenuBuilder implements MainMenuBuilder {
     }
 
     private void createSocialGroupCategory(LinearLayout mainLinearLayout, int activatedSocialGroupAmount) {
+        mainLinearLayout.removeAllViews();
         LinearLayout socialGroupVerticalLayout = new LinearLayout(MAIN_ACTIVITY);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
         layoutParams.setLayoutDirection(LinearLayout.VERTICAL);
@@ -223,5 +231,9 @@ public class DynamicMenuBuilder implements MainMenuBuilder {
             emailGroupVerticalLayout.addView(firstEmailHorizontalLayout);
             mainLinearLayout.addView(emailGroupVerticalLayout);
         }
+    }
+
+    public static DynamicMenuBuilder getMenuBuilder() {
+        return instance;
     }
 }

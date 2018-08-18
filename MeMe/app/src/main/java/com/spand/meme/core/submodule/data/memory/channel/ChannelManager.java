@@ -43,4 +43,13 @@ public class ChannelManager {
         }
         return channels;
     }
+
+    public static Channel getChannelByName(String name){
+        for (Channel chn : channelManager.getChannels()) {
+            if (chn.getName().equals(name)) {
+                return chn;
+            }
+        }
+        return null;
+    }
 }

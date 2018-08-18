@@ -42,34 +42,31 @@ import static com.spand.meme.core.submodule.logic.starter.SettingsConstants.KEY_
 import static com.spand.meme.core.submodule.logic.starter.SettingsConstants.KEY_VKONTAKTE;
 import static com.spand.meme.core.submodule.logic.starter.SettingsConstants.KEY_YOUTUBE;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.DISCORD_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.DIS_ICON_NAME;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.FB_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.FB_ICON_NAME;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.GMAIL_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.GM_ICON_NAME;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.ICQ_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.ICQ_ICON_NAME;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.INSTAGRAM_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.IN_ICON_NAME;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.LINKEDIN_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.LN_ICON_NAME;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.MAIL_RU_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.MAIL_RU_ICON_NAME;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.ODNOKLASNIKI_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.OK_ICON_NAME;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.SKP_ICON_NAME;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.SKYPE_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TELEGRAM_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TL_ICON_NAME;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TUMBLR_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TUM_ICON_NAME;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TW_ICON_NAME;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.VK_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.VK_ICON_NAME;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.YOUTUBE_HOME_URL;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.YOU_ICON_NAME;
 
 public class Setupper implements Starter {
+
+    private static Setupper instance;
+
+    private Setupper(){}
+
+    public static Setupper createSetupper(){
+        if(instance == null){
+            instance = new Setupper();
+        }
+        return instance;
+    }
 
     @Override
     public Boolean initApplication(SharedPreferences sharedPreferences, AppCompatActivity mainActivity) {
@@ -84,39 +81,42 @@ public class Setupper implements Starter {
     }
 
     private static Boolean initSocialGroupChannels(SharedPreferences sharedPreferences, AppCompatActivity mainActivity) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = ChannelManager.getInstance().getChannels();
+        if(channels.isEmpty()){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        Channel facebookChannel = createNewChannel(mainActivity.getString(R.string.fb), SOCIAL, FB, FB_HOME_URL, true);
-        channels.add(facebookChannel);
-        editor.putBoolean(KEY_FACEBOOK, facebookChannel.getActive());
+            Channel facebookChannel = createNewChannel(mainActivity.getString(R.string.fb), SOCIAL, FB, FB_HOME_URL, true);
+            channels.add(facebookChannel);
+            editor.putBoolean(KEY_FACEBOOK, facebookChannel.getActive());
 
-        Channel vkontakteChannel = createNewChannel(mainActivity.getString(R.string.vk), SOCIAL, VK, VK_HOME_URL, true);
-        channels.add(vkontakteChannel);
-        editor.putBoolean(KEY_VKONTAKTE, vkontakteChannel.getActive());
+            Channel vkontakteChannel = createNewChannel(mainActivity.getString(R.string.vk), SOCIAL, VK, VK_HOME_URL, true);
+            channels.add(vkontakteChannel);
+            editor.putBoolean(KEY_VKONTAKTE, vkontakteChannel.getActive());
 
-        Channel twitterChannel = createNewChannel(mainActivity.getString(R.string.tw), SOCIAL, TW, LINKEDIN_HOME_URL, true);
-        channels.add(twitterChannel);
-        editor.putBoolean(KEY_TWITTER, twitterChannel.getActive());
+            Channel twitterChannel = createNewChannel(mainActivity.getString(R.string.tw), SOCIAL, TW, LINKEDIN_HOME_URL, true);
+            channels.add(twitterChannel);
+            editor.putBoolean(KEY_TWITTER, twitterChannel.getActive());
 
-        Channel instagramChannel = createNewChannel(mainActivity.getString(R.string.inst), SOCIAL, IN, INSTAGRAM_HOME_URL, true);
-        channels.add(instagramChannel);
-        editor.putBoolean(KEY_INSTAGRAM, instagramChannel.getActive());
+            Channel instagramChannel = createNewChannel(mainActivity.getString(R.string.inst), SOCIAL, IN, INSTAGRAM_HOME_URL, true);
+            channels.add(instagramChannel);
+            editor.putBoolean(KEY_INSTAGRAM, instagramChannel.getActive());
 
-        Channel okChannel = createNewChannel(mainActivity.getString(R.string.ok), SOCIAL, OK, ODNOKLASNIKI_HOME_URL, false);
-        channels.add(okChannel);
-        editor.putBoolean(KEY_ODNOKLASSNIKI, okChannel.getActive());
+            Channel okChannel = createNewChannel(mainActivity.getString(R.string.ok), SOCIAL, OK, ODNOKLASNIKI_HOME_URL, false);
+            channels.add(okChannel);
+            editor.putBoolean(KEY_ODNOKLASSNIKI, okChannel.getActive());
 
-        Channel youtubeChannel = createNewChannel(mainActivity.getString(R.string.yt), SOCIAL, YT, YOUTUBE_HOME_URL, true);
-        channels.add(youtubeChannel);
-        editor.putBoolean(KEY_YOUTUBE, youtubeChannel.getActive());
+            Channel youtubeChannel = createNewChannel(mainActivity.getString(R.string.yt), SOCIAL, YT, YOUTUBE_HOME_URL, true);
+            channels.add(youtubeChannel);
+            editor.putBoolean(KEY_YOUTUBE, youtubeChannel.getActive());
 
-        Channel linkedinChannel = createNewChannel(mainActivity.getString(R.string.ln), SOCIAL, LN, LINKEDIN_HOME_URL,true);
-        channels.add(linkedinChannel);
-        editor.putBoolean(KEY_LINKED_IN, linkedinChannel.getActive());
+            Channel linkedinChannel = createNewChannel(mainActivity.getString(R.string.ln), SOCIAL, LN, LINKEDIN_HOME_URL,true);
+            channels.add(linkedinChannel);
+            editor.putBoolean(KEY_LINKED_IN, linkedinChannel.getActive());
 
-        editor.apply();
-        return true;
+            editor.apply();
+            return true;
+        }
+        return false;
     }
 
     private static Boolean initChatGroupChannels(SharedPreferences sharedPreferences, AppCompatActivity mainActivity) {
