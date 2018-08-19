@@ -17,7 +17,7 @@ public interface ActivityConstants {
     String TWITTER_HOME_URL = "https://twitter.com/";
     String ICQ_HOME_URL = "https://web.icq.com";
     String SKYPE_HOME_URL = "https://web.skype.com/en/";
-    String GMAIL_HOME_URL = "https://mail.google.com/mail/u/0/#inbox";
+    String GMAIL_HOME_URL = "https://accounts.google.com/signin/v2/identifier?service=mail&passive=true&rm=false&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&ss=1&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin";
     String MAIL_RU_HOME_URL = "https://mail.ru/";
 
     // CHANNEL ICON PATHS

@@ -125,6 +125,8 @@
     <string name="password_updated">Пароль Обновлен</string>
     <!--Error Messages section end-->
 
+    <string name="loading_video">Загрузка…</string>
+
     <!--Logging Messages section begin-->
     <string name="log_sign_up">signUp:</string>
     <string name="log_sign_in">signIn:</string>

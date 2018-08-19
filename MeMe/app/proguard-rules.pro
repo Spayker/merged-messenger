@@ -20,14 +20,8 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-#keep json classes
--keepclassmembernames class * extends com.applozic.mobicommons.json.JsonMarker {
- !static !transient <fields>;
-}
+-keepclassmembers class com.spand.meme.core.submodule.ui.activity.webview.CustomWebView$JavascriptInterface { public *; }
 
--keepclassmembernames class * extends com.applozic.mobicommons.json.JsonParcelableMarker {
- !static !transient <fields>;
-}
  #GSON Config
 -keepattributes Signature
 -keep class sun.misc.Unsafe { *; }
