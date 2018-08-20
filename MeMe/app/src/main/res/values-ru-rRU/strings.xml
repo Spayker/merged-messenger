@@ -93,6 +93,9 @@
     <string name="chat_group">Чаты</string>
     <string name="mail_group">Почтовые Службы</string>
 
+    <string name="accept_terms">Согласен</string>
+    <string name="decline_terms">Не согласен</string>
+
     <string-array name="pref_notification_list">
         <item>Вибро</item>
         <item>Рингтон</item>

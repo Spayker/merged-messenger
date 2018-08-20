@@ -94,6 +94,9 @@
     <string name="chat_group">Chats</string>
     <string name="mail_group">Email Services</string>
 
+    <string name="accept_terms">Accept</string>
+    <string name="decline_terms">Decline</string>
+
     <string name="loading_video">Loading…</string>
 
     <string-array name="pref_notification_list_values">

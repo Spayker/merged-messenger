@@ -21,22 +21,6 @@ public interface ActivityConstants {
 
     String MAIL_RU_HOME_URL = "https://mail.ru/";
 
-    // CHANNEL ICON PATHS
-    String FB_ICON_NAME = "fb";
-    String VK_ICON_NAME = "vk";
-    String OK_ICON_NAME = "ok";
-    String LN_ICON_NAME = "in";
-    String IN_ICON_NAME = "instagram";
-    String TW_ICON_NAME = "twitter";
-    String SKP_ICON_NAME = "skype";
-    String ICQ_ICON_NAME = "icq";
-    String DIS_ICON_NAME = "discord";
-    String TUM_ICON_NAME = "tumblr";
-    String YOU_ICON_NAME = "youtube";
-    String TL_ICON_NAME = "telegram";
-    String GM_ICON_NAME = "gmail";
-    String MAIL_RU_ICON_NAME = "mail_ru";
-
     //// SETTINGS RELATED CONSTANTS
     String PREF_NAME = "prefs";
     String KEY_REMEMBER = "remember";
