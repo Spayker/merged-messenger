@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -14,6 +15,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -146,6 +149,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     }
                     hideProgressDialog();
                 });
+
         finishSingUpActivity();
     }
 
@@ -208,24 +212,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.field_required));
             valid = false;
-        } else {
-            mEmailView.setError(null);
+        } else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            mEmailView.setError(getString(R.string.error_invalid_email));
+            valid = false;
         }
 
         String password = mPasswordView.getText().toString();
         if (TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.field_required));
             valid = false;
-        } else {
-            mPasswordView.setError(null);
         }
 
         String confirmPassword = mPasswordConfirmView.getText().toString();
         if (TextUtils.isEmpty(confirmPassword)) {
             mPasswordView.setError(getString(R.string.field_required));
             valid = false;
-        } else {
-            mPasswordView.setError(null);
         }
 
         return valid;

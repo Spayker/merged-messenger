@@ -5,7 +5,7 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_name">Имя</string>
     <string name="prompt_password">Пароль</string>
-    <string name="remember_me">Запомнить Меня</string>
+    <string name="remember_me">Оставаться в системе</string>
     <string name="sing_in_button">Логин</string>
     <string name="sing_up_button">Регистрация</string>
     <string name="action_sign_in">Логин</string>
@@ -18,7 +18,7 @@
     <string name="title_activity_register">Регистрация</string>
     <string name="action_sign_up">Создать</string>
     <string name="action_sign_up_short">Создать</string>
-    <string name="sing_in_content">Логин</string>
+    <string name="sing_in_content">Вход</string>
     <string name="sing_up_content">Регистрация</string>
     <string name="prompt_password_confirm">Подтвердите Пароль</string>
     <string name="title_activity_main">MeMe</string>

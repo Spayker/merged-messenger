@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -51,6 +52,8 @@ import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.YOUTUB
  **/
 public class MainActivity extends AppCompatActivity {
 
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
     /**
      * Perform initialization of all fragments of current activity.
      *
@@ -61,25 +64,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle(mAuth.getCurrentUser().getDisplayName());
 
         // default settings init
         Intent intent = getIntent();
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         String startTypeKey = intent.getStringExtra(START_TYPE);
-        if(startTypeKey != null){
-            switch (startTypeKey){
+        if (startTypeKey != null) {
+            switch (startTypeKey) {
                 case REGISTRATOR: {
-                    Starter setupper = createSetupper();
-                    setupper.initApplication(sharedPreferences, this);
+                    createSetupper().initApplication(sharedPreferences, this);
                 }
                 default: {
-                    Starter loginner = createLoginner();
-                    loginner.initApplication(sharedPreferences, this);
+                    createLoginner().initApplication(sharedPreferences, this);
                 }
             }
         } else {
-            Starter loginner = createLoginner();
-            loginner.initApplication(sharedPreferences, this);
+            createLoginner().initApplication(sharedPreferences, this);
         }
 
         MainMenuBuilder menuBuilder = new DynamicMenuBuilder(this);
@@ -89,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Initialize the contents of the Activity's standard options menu.  You
      * should place your menu items in to <var>menu</var>.
-     *
      **/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -106,19 +106,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item);
-
+            case android.R.id.home: {
+                FirebaseAuth.getInstance().signOut();
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            }
         }
+        return false;
     }
 
-    public void clickOnEditChannels(View view){
+    public void clickOnEditChannels(View view) {
         Intent intent = new Intent(this, EditChannelsActivity.class);
         startActivity(intent);
     }
-
-
-
 }

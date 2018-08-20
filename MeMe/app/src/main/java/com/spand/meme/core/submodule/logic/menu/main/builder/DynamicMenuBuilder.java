@@ -32,7 +32,7 @@ import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.HOME_U
 public class DynamicMenuBuilder implements MainMenuBuilder {
 
     private AppCompatActivity mainActivity;
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
     @SuppressLint("StaticFieldLeak")
     private static DynamicMenuBuilder instance;
 
@@ -47,7 +47,6 @@ public class DynamicMenuBuilder implements MainMenuBuilder {
 
     @Override
     public void build(SharedPreferences sharedPreferences) {
-        mainActivity.setTitle(mAuth.getCurrentUser().getDisplayName());
 
         LinearLayout mainLinearLayout = mainActivity.findViewById(R.id.main_linear_layout);
         mainLinearLayout.removeAllViews();
