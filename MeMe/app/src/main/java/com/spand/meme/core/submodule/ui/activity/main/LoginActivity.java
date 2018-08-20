@@ -19,12 +19,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
 import com.spand.meme.core.submodule.data.database.FireBaseDBInitializer;
 
 import static com.spand.meme.core.submodule.logic.starter.Starter.LOGINNER;
 import static com.spand.meme.core.submodule.logic.starter.Starter.START_TYPE;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.EMPTY_STRING;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_AUTO_LOGIN;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_OLD_CHANGE_PASS;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_PASS;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_REMEMBER;
@@ -44,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private CheckBox mRememberMeView;
+    private CheckBox mAutoLoginView;
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -71,11 +74,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mEmailView = findViewById(R.id.login_form_email);
         mPasswordView = findViewById(R.id.login_form_password);
         mRememberMeView = findViewById(R.id.login_form_rememberMe);
+        mAutoLoginView = findViewById(R.id.login_form_autologin);
 
         if(sharedPreferences.getBoolean(KEY_REMEMBER, false))
             mRememberMeView.setChecked(true);
         else
             mRememberMeView.setChecked(false);
+
+        if(sharedPreferences.getBoolean(KEY_AUTO_LOGIN, false))
+            mAutoLoginView.setChecked(true);
+        else
+            mAutoLoginView.setChecked(false);
 
         mEmailView.setText(sharedPreferences.getString(KEY_USERNAME,EMPTY_STRING));
         mPasswordView.setText(sharedPreferences.getString(KEY_PASS,EMPTY_STRING));
@@ -83,6 +92,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mEmailView.addTextChangedListener(this);
         mPasswordView.addTextChangedListener(this);
         mRememberMeView.setOnCheckedChangeListener(this);
+        mAutoLoginView.setOnCheckedChangeListener(this);
 
         // Buttons
         findViewById(R.id.email_sign_in_button).setOnClickListener(this);
@@ -93,12 +103,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // db init
         FireBaseDBInitializer.init();
 
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() != null) {
-            // User is signed in (getCurrentUser() will be null if not signed in)
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null && mAutoLoginView.isChecked()){
+            signIn(mEmailView.getText().toString(), mPasswordView.getText().toString());
         }
     }
 
@@ -247,8 +255,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             editor.remove(KEY_PASS);
             editor.remove(KEY_USERNAME);
         }
+
+        if(mRememberMeView.isChecked()){
+            editor.putBoolean(KEY_AUTO_LOGIN, true);
+        }else{
+            editor.putBoolean(KEY_AUTO_LOGIN, false);
+        }
+
         editor.apply();
         editor.commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        startActivity(intent);
+    }
+
 }
 

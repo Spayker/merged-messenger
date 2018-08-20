@@ -6,7 +6,8 @@
     <string name="prompt_name">Имя</string>
     <string name="prompt_password">Пароль</string>
     <string name="remember_me">Оставаться в системе</string>
-    <string name="sing_in_button">Логин</string>
+    <string name="auto_login">Авто Вход</string>
+    <string name="sing_in_button">Вход</string>
     <string name="sing_up_button">Регистрация</string>
     <string name="action_sign_in">Логин</string>
     <string name="action_sign_in_short">Логин</string>

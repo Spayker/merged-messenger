@@ -13,6 +13,7 @@ public interface Starter {
     String START_TYPE = "startType";
     String LOGINNER = "loginner";
     String REGISTRATOR = "registrator";
+    String USERNAME = "username";
 
     Boolean initApplication(SharedPreferences sharedPreferences, AppCompatActivity mainActivity);
 

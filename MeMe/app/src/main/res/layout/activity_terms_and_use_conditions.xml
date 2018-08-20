@@ -24,6 +24,8 @@
                 android:layout_height="match_parent"
                 android:ems="10"
                 android:inputType="text|textMultiLine"
+                android:selectAllOnFocus="false"
+                android:singleLine="false"
                 android:text="@string/test" />
         </LinearLayout>
     </ScrollView>

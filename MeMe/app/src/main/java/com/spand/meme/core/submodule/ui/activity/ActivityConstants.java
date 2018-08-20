@@ -24,6 +24,7 @@ public interface ActivityConstants {
     //// SETTINGS RELATED CONSTANTS
     String PREF_NAME = "prefs";
     String KEY_REMEMBER = "remember";
+    String KEY_AUTO_LOGIN = "remember";
     String KEY_USERNAME = "username";
     String KEY_PASS = "password";
     String KEY_OLD_CHANGE_PASS = "oldChangePassword";

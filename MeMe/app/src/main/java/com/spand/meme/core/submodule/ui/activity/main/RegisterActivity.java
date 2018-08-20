@@ -25,6 +25,7 @@ import com.spand.meme.core.submodule.data.database.FireBaseDBInitializer;
 
 import static com.spand.meme.core.submodule.logic.starter.Starter.REGISTRATOR;
 import static com.spand.meme.core.submodule.logic.starter.Starter.START_TYPE;
+import static com.spand.meme.core.submodule.logic.starter.Starter.USERNAME;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.PREF_NAME;
 
 /**
@@ -96,7 +97,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     /**
      *  Starts main activity of the application.
      **/
-    public void finishSingUpActivity() throws Exception {
+    public void finishSingUpActivity() {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
@@ -109,6 +110,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(START_TYPE, REGISTRATOR);
+        intent.putExtra(USERNAME, mNameView.getText().toString());
         startActivity(intent);
     }
 
@@ -140,6 +142,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, getString(R.string.log_create_user_with_email_success));
                         updateUI();
+                        finishSingUpActivity();
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, getString(R.string.log_create_user_with_email_failure), task.getException());
@@ -149,8 +152,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     }
                     hideProgressDialog();
                 });
-
-        finishSingUpActivity();
     }
 
     /**

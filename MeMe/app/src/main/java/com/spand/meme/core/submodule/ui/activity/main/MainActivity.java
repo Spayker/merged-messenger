@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -12,7 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
 import com.spand.meme.core.submodule.logic.menu.main.builder.DynamicMenuBuilder;
 import com.spand.meme.core.submodule.logic.menu.main.builder.MainMenuBuilder;
@@ -28,6 +32,7 @@ import static com.spand.meme.core.submodule.logic.starter.Setupper.createSetuppe
 import static com.spand.meme.core.submodule.logic.starter.Starter.LOGINNER;
 import static com.spand.meme.core.submodule.logic.starter.Starter.REGISTRATOR;
 import static com.spand.meme.core.submodule.logic.starter.Starter.START_TYPE;
+import static com.spand.meme.core.submodule.logic.starter.Starter.USERNAME;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.DISCORD_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.EMPTY_STRING;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.FB_HOME_URL;
@@ -52,8 +57,6 @@ import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.YOUTUB
  **/
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
     /**
      * Perform initialization of all fragments of current activity.
      *
@@ -64,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle(mAuth.getCurrentUser().getDisplayName());
 
         // default settings init
         Intent intent = getIntent();
@@ -74,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
             switch (startTypeKey) {
                 case REGISTRATOR: {
                     createSetupper().initApplication(sharedPreferences, this);
+                    String username = intent.getStringExtra(USERNAME);
+                    setTitle(username);
+                    break;
                 }
                 default: {
                     createLoginner().initApplication(sharedPreferences, this);
@@ -83,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
             createLoginner().initApplication(sharedPreferences, this);
         }
 
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            setTitle(currentUser.getDisplayName());
+        }
         MainMenuBuilder menuBuilder = new DynamicMenuBuilder(this);
         menuBuilder.build(sharedPreferences);
     }
@@ -106,9 +116,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
-            case android.R.id.home: {
-                FirebaseAuth.getInstance().signOut();
-                NavUtils.navigateUpFromSameTask(this);
+            case R.id.home: {
+                performSignOut();
                 return true;
             }
         }
@@ -117,6 +126,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickOnEditChannels(View view) {
         Intent intent = new Intent(this, EditChannelsActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        performSignOut();
+    }
+
+    private void performSignOut(){
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 }
