@@ -54,6 +54,7 @@ import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.ODNOKL
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.SKYPE_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TELEGRAM_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TUMBLR_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TWITTER_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.VK_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.YOUTUBE_HOME_URL;
 
@@ -106,7 +107,7 @@ public class Setupper implements Starter {
             channels.add(vkontakteChannel);
             editor.putBoolean(KEY_VKONTAKTE, vkontakteChannel.getActive());
 
-            Channel twitterChannel = createNewChannel(mainActivity.getString(R.string.tw), SOCIAL, TW, LINKEDIN_HOME_URL,
+            Channel twitterChannel = createNewChannel(mainActivity.getString(R.string.tw), SOCIAL, TW, TWITTER_HOME_URL,
                     !isChannelExcluded(excludedChannels, KEY_TWITTER));
             channels.add(twitterChannel);
             editor.putBoolean(KEY_TWITTER, twitterChannel.getActive());

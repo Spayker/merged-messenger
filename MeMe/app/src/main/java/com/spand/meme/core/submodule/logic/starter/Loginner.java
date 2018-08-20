@@ -54,6 +54,7 @@ import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.ODNOKL
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.SKYPE_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TELEGRAM_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TUMBLR_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TWITTER_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.VK_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.YOUTUBE_HOME_URL;
 
@@ -107,7 +108,7 @@ public class Loginner implements Starter {
             channels.add(vkontakteChannel);
 
             Channel twitterChannel = createNewChannel(mainActivity.getString(R.string.tw),
-                    SOCIAL, TW, LINKEDIN_HOME_URL,
+                    SOCIAL, TW, TWITTER_HOME_URL,
                     sharedPreferences.getBoolean(KEY_TWITTER, false));
             channels.add(twitterChannel);
 
