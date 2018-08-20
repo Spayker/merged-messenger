@@ -22,6 +22,7 @@ import com.spand.meme.core.submodule.ui.activity.settings.EditChannelsActivity;
 import com.spand.meme.core.submodule.ui.activity.settings.GlobalSettingsActivity;
 import com.spand.meme.core.submodule.ui.activity.webview.WebViewActivity;
 
+import static com.spand.meme.core.submodule.logic.starter.Loginner.createLoginner;
 import static com.spand.meme.core.submodule.logic.starter.Setupper.createSetupper;
 import static com.spand.meme.core.submodule.logic.starter.Starter.LOGINNER;
 import static com.spand.meme.core.submodule.logic.starter.Starter.REGISTRATOR;
@@ -64,16 +65,22 @@ public class MainActivity extends AppCompatActivity {
         // default settings init
         Intent intent = getIntent();
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-//        switch (intent.getStringExtra(START_TYPE)){
-//            case LOGINNER: {
-//                Starter loginner = new Loginner();
-//                loginner.initApplication(sharedPreferences, intent);
-//            }
-//            case REGISTRATOR: {
-                Starter setupper = createSetupper();
-                setupper.initApplication(sharedPreferences, this);
-//            }
-//        }
+        String startTypeKey = intent.getStringExtra(START_TYPE);
+        if(startTypeKey != null){
+            switch (startTypeKey){
+                case REGISTRATOR: {
+                    Starter setupper = createSetupper();
+                    setupper.initApplication(sharedPreferences, this);
+                }
+                default: {
+                    Starter loginner = createLoginner();
+                    loginner.initApplication(sharedPreferences, this);
+                }
+            }
+        } else {
+            Starter loginner = createLoginner();
+            loginner.initApplication(sharedPreferences, this);
+        }
 
         MainMenuBuilder menuBuilder = new DynamicMenuBuilder(this);
         menuBuilder.build(sharedPreferences);
@@ -105,174 +112,6 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
-    }
-
-    /**
-     * A listener method which starts new activity for Vkontakte.
-     *
-     * @param view an instance of View class
-     *             ( represents the basic building block for user interface components )
-     **/
-    public void clickOnVKActivity(View view) {
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra(HOME_URL, VK_HOME_URL);
-        startActivity(intent);
-    }
-
-    /**
-     * A listener method which starts new activity for Facebook.
-     *
-     * @param view an instance of View class
-     *             ( represents the basic building block for user interface components )
-     **/
-    public void clickOnFBActivity(View view) {
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra(HOME_URL, FB_HOME_URL);
-        startActivity(intent);
-    }
-
-    /**
-     * A listener method which starts new activity for Instagram.
-     *
-     * @param view an instance of View class
-     *             ( represents the basic building block for user interface components )
-     **/
-    public void clickOnInstActivity(View view) {
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra(HOME_URL, INSTAGRAM_HOME_URL);
-        startActivity(intent);
-    }
-
-    /**
-     * A listener method which starts new activity for Telegram.
-     *
-     * @param view an instance of View class
-     *             ( represents the basic building block for user interface components )
-     **/
-    public void clickOnTLActivity(View view) {
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra(HOME_URL, TELEGRAM_HOME_URL);
-        startActivity(intent);
-    }
-
-    /**
-     * A listener method which starts new activity for Odnoklasniki.
-     *
-     * @param view an instance of View class
-     *             ( represents the basic building block for user interface components )
-     **/
-    public void clickOnOKActivity(View view) {
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra(HOME_URL, ODNOKLASNIKI_HOME_URL);
-        startActivity(intent);
-    }
-
-    /**
-     * A listener method which starts new activity for Tumblr.
-     *
-     * @param view an instance of View class
-     *             ( represents the basic building block for user interface components )
-     **/
-    public void clickOnTmbActivity(View view) {
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra(HOME_URL, TUMBLR_HOME_URL);
-        startActivity(intent);
-    }
-
-    /**
-     * A listener method which starts new activity for Discord.
-     *
-     * @param view an instance of View class
-     *             ( represents the basic building block for user interface components )
-     **/
-    public void clickOnDCActivity(View view) {
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra(HOME_URL, DISCORD_HOME_URL);
-        startActivity(intent);
-    }
-
-    /**
-     * A listener method which starts new activity for Youtube.
-     *
-     * @param view an instance of View class
-     *             ( represents the basic building block for user interface components )
-     **/
-    public void clickOnYTActivity(View view) {
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra(HOME_URL, YOUTUBE_HOME_URL);
-        startActivity(intent);
-    }
-
-    /**
-     * A listener method which starts new activity for LinkedIn.
-     *
-     * @param view an instance of View class
-     *             ( represents the basic building block for user interface components )
-     **/
-    public void clickOnLNActivity(View view) {
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra(HOME_URL, LINKEDIN_HOME_URL);
-        startActivity(intent);
-    }
-
-    /**
-     * A listener method which starts new activity for Twitter.
-     *
-     * @param view an instance of View class
-     *             ( represents the basic building block for user interface components )
-     **/
-    public void clickOnTWActivity(View view) {
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra(HOME_URL, TWITTER_HOME_URL);
-        startActivity(intent);
-    }
-
-    /**
-     * A listener method which starts new activity for ICQ.
-     *
-     * @param view an instance of View class
-     *             ( represents the basic building block for user interface components )
-     **/
-    public void clickOnICQActivity(View view) {
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra(HOME_URL, ICQ_HOME_URL);
-        startActivity(intent);
-    }
-
-    /**
-     * A listener method which starts new activity for Skype.
-     *
-     * @param view an instance of View class
-     *             ( represents the basic building block for user interface components )
-     **/
-    public void clickOnSkpActivity(View view) {
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra(HOME_URL, SKYPE_HOME_URL);
-        startActivity(intent);
-    }
-
-    /**
-     * A listener method which starts new activity for Gmail.
-     *
-     * @param view an instance of View class
-     *             ( represents the basic building block for user interface components )
-     **/
-    public void clickOnGmailActivity(View view) {
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra(HOME_URL, GMAIL_HOME_URL);
-        startActivity(intent);
-    }
-
-    /**
-     * A listener method which starts new activity for Gmail.
-     *
-     * @param view an instance of View class
-     *             ( represents the basic building block for user interface components )
-     **/
-    public void clickOnMailRuActivity(View view) {
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra(HOME_URL, MAIL_RU_HOME_URL);
-        startActivity(intent);
     }
 
     public void clickOnEditChannels(View view){

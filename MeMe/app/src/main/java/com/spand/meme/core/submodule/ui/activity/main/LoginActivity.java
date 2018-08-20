@@ -166,7 +166,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FireBaseDBInitializer.init();
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(START_TYPE, LOGINNER);
         startActivity(intent);
     }
 
@@ -241,6 +240,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             editor.remove(KEY_USERNAME);
         }
         editor.apply();
+        editor.commit();
     }
 }
 

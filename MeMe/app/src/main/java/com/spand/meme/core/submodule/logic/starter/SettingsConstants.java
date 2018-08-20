@@ -17,4 +17,8 @@ public interface SettingsConstants {
     String KEY_LINKED_IN        = "linkedin";
     String KEY_YOUTUBE          = "youtube";
 
+    // Language Codes
+    String RU = "ru";
+    String EN = "en";
+
 }

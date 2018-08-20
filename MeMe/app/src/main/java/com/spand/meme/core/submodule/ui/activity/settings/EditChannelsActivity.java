@@ -208,6 +208,7 @@ public class EditChannelsActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(key, switched);
             editor.apply();
+            editor.commit();
         }
     }
 

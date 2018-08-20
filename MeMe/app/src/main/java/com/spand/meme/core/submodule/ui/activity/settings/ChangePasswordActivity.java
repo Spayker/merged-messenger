@@ -72,6 +72,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         } else {
             editor.putString(KEY_OLD_CHANGE_PASS, mNewPasswordView.getText().toString().trim());
             editor.apply();
+            editor.commit();
             reauthoriseUser();
         }
     }

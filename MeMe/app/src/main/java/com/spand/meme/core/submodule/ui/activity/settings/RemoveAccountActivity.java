@@ -132,5 +132,6 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
         editor.putString(KEY_PASS, null);
         editor.putBoolean(KEY_REMEMBER, false);
         editor.apply();
+        editor.commit();
     }
 }

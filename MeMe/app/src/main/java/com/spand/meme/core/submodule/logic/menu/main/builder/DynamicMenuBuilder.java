@@ -46,8 +46,7 @@ public class DynamicMenuBuilder implements MainMenuBuilder {
 
     @Override
     public void build(SharedPreferences sharedPreferences) {
-        final String loggedAs = MAIN_ACTIVITY.getString(R.string.logged_as);
-        MAIN_ACTIVITY.setTitle(loggedAs + SPACE_CHARACTER + mAuth.getCurrentUser().getDisplayName());
+        MAIN_ACTIVITY.setTitle(mAuth.getCurrentUser().getDisplayName());
 
         LinearLayout mainLinearLayout = MAIN_ACTIVITY.findViewById(R.id.main_linear_layout);
 

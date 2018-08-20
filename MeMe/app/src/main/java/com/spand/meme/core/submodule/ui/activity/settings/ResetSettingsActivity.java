@@ -56,6 +56,7 @@ public class ResetSettingsActivity extends AppCompatActivity implements View.OnC
         editor.putString(KEY_PASS, null);
         editor.putBoolean(KEY_REMEMBER, false);
         editor.apply();
+        editor.commit();
         Log.d(TAG, getString(R.string.log_settings_dropped_successfully));
     }
 

@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.spand.meme.R;
+
+import static com.spand.meme.core.submodule.logic.starter.Starter.LOGINNER;
+import static com.spand.meme.core.submodule.logic.starter.Starter.START_TYPE;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -23,6 +27,15 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        if (auth.getCurrentUser() != null) {
+            // User is signed in (getCurrentUser() will be null if not signed in)
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     /**
