@@ -32,9 +32,10 @@
         android:key="@string/pref_reset_settings_button"
         android:summary="@string/action_change_password"/>
 
-    <Preference android:title="@string/action_deactivate_account"
+    <Preference
         android:key="@string/pref_deactivate_account_button"
-        android:summary="@string/action_change_password"/>
+        android:summary="@string/action_deactivate_account"
+        android:title="@string/action_deactivate_account" />
 
     <ListPreference
         android:defaultValue="0"

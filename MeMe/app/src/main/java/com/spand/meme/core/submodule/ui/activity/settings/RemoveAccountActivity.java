@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.ValueCallback;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
@@ -101,8 +103,6 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
                             .addOnCompleteListener(task1 -> {
                                 if (task1.isSuccessful()) {
                                     Log.d(TAG, getString(R.string.log_remove_account_successful));
-                                    dropPrefs();
-                                    ActivityUtils.invokeOkAlertMessage(this, getString(R.string.password_updated));
                                     finishRemoveAccountActivity();
                                 }
                             }));
@@ -132,6 +132,22 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
         return false;
     }
 
+    /**
+     *  Return to settings activity of the application.
+     **/
+    public void finishRemoveAccountActivity() {
+        cleanWebViewCookies();
+        dropPrefs();
+        ActivityUtils.invokeOkAlertMessage(this, getString(R.string.password_updated));
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        startActivity(intent);
+    }
+
+    private void cleanWebViewCookies() {
+        android.webkit.CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.removeAllCookies(aBoolean -> Log.d(TAG, "Cookie removed: " + aBoolean));
+    }
+
     private void dropPrefs() {
         editor.putString(KEY_OLD_CHANGE_PASS, null);
         editor.putString(KEY_USERNAME, null);
@@ -139,13 +155,5 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
         editor.putBoolean(KEY_REMEMBER, false);
         editor.apply();
         editor.commit();
-    }
-
-    /**
-     *  Return to settings activity of the application.
-     **/
-    public void finishRemoveAccountActivity() {
-        Intent intent = new Intent(this, WelcomeActivity.class);
-        startActivity(intent);
     }
 }

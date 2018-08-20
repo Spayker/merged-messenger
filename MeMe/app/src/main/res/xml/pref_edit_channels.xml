@@ -7,37 +7,44 @@
             android:defaultValue="true"
             android:key="@string/key_facebook_switcher"
             android:summary="@string/switcher_on"
-            android:title="@string/fb" />
+            android:title="@string/fb"
+            android:icon="@mipmap/fb"/>
         <SwitchPreference
             android:defaultValue="true"
             android:key="@string/key_linkedin_switcher"
             android:summary="@string/switcher_on"
-            android:title="@string/ln" />
+            android:title="@string/ln"
+            android:icon="@mipmap/in"/>
         <SwitchPreference
             android:defaultValue="true"
             android:key="@string/key_vkontakte_switcher"
             android:summary="@string/switcher_on"
-            android:title="@string/vk" />
+            android:title="@string/vk"
+            android:icon="@mipmap/vk"/>
         <SwitchPreference
             android:defaultValue="true"
             android:key="@string/key_twitter_switcher"
             android:summary="@string/switcher_on"
-            android:title="@string/tw" />
+            android:title="@string/tw"
+            android:icon="@mipmap/twitter"/>
         <SwitchPreference
             android:defaultValue="true"
             android:key="@string/key_instagram_switcher"
             android:summary="@string/switcher_on"
-            android:title="@string/inst" />
+            android:title="@string/inst"
+            android:icon="@mipmap/instagram"/>
         <SwitchPreference
             android:defaultValue="true"
             android:key="@string/key_odnoklassniki_switcher"
             android:summary="@string/switcher_on"
-            android:title="@string/ok" />
+            android:title="@string/ok"
+            android:icon="@mipmap/ok"/>
         <SwitchPreference
             android:defaultValue="true"
             android:key="@string/key_youtube_switcher"
             android:summary="@string/switcher_on"
-            android:title="@string/yt" />
+            android:title="@string/yt"
+            android:icon="@mipmap/youtube"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/chat_group">
@@ -46,27 +53,32 @@
             android:defaultValue="true"
             android:key="@string/key_skype_switcher"
             android:summary="@string/switcher_on"
-            android:title="@string/skp" />
+            android:title="@string/skp"
+            android:icon="@mipmap/skype"/>
         <SwitchPreference
             android:defaultValue="true"
             android:key="@string/key_tumblr_switcher"
             android:summary="@string/switcher_on"
-            android:title="@string/tmb" />
+            android:title="@string/tmb"
+            android:icon="@mipmap/tumblr"/>
         <SwitchPreference
             android:defaultValue="true"
             android:key="@string/key_discord_switcher"
             android:summary="@string/switcher_on"
-            android:title="@string/dc" />
+            android:title="@string/dc"
+            android:icon="@mipmap/discord"/>
         <SwitchPreference
             android:defaultValue="true"
             android:key="@string/key_telegram_switcher"
             android:summary="@string/switcher_on"
-            android:title="@string/tl" />
+            android:title="@string/tl"
+            android:icon="@mipmap/telegram"/>
         <SwitchPreference
             android:defaultValue="true"
             android:key="@string/key_icq_switcher"
             android:summary="@string/switcher_on"
-            android:title="@string/icq" />
+            android:title="@string/icq"
+            android:icon="@mipmap/icq"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/mail_group">
@@ -75,12 +87,14 @@
             android:defaultValue="true"
             android:key="@string/key_gmail_switcher"
             android:summary="@string/switcher_on"
-            android:title="@string/gmail" />
+            android:title="@string/gmail"
+            android:icon="@mipmap/gmail"/>
         <SwitchPreference
             android:defaultValue="true"
             android:key="@string/key_mailru_switcher"
             android:summary="@string/switcher_on"
-            android:title="@string/mailru" />
+            android:title="@string/mailru"
+            android:icon="@mipmap/mail_ru"/>
     </PreferenceCategory>
 
 </PreferenceScreen>
