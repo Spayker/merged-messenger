@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">meme</string>
+    <string name="app_name">MeMe</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_name">Name</string>
     <string name="title_activity_login">Sign In</string>

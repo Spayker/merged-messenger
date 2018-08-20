@@ -1,6 +1,7 @@
 package com.spand.meme.core.submodule.ui.activity.settings;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
 import com.spand.meme.core.submodule.ui.activity.ActivityUtils;
+import com.spand.meme.core.submodule.ui.activity.main.WelcomeActivity;
 
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.EMPTY_STRING;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_OLD_CHANGE_PASS;
@@ -80,27 +82,31 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
     }
 
     public void removeAccount(String currentPassword) {
-        Log.d(TAG, getString(R.string.log_remove_account) + mAuth.getCurrentUser().getEmail());
-        if (!validateForm()) {
-            return;
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            Log.d(TAG, getString(R.string.log_remove_account) + currentUser.getEmail());
+            if (!validateForm()) {
+                return;
+            }
+
+            // Get auth credentials from the user for re-authentication. The example below shows
+            // email and password credentials but there are multiple possible providers,
+            // such as GoogleAuthProvider or FacebookAuthProvider.
+            AuthCredential credential = EmailAuthProvider
+                    .getCredential(currentUser.getEmail(), currentPassword);
+
+            // Prompt the user to re-provide their sign-in credentials
+            currentUser.reauthenticate(credential)
+                    .addOnCompleteListener(task -> currentUser.delete()
+                            .addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()) {
+                                    Log.d(TAG, getString(R.string.log_remove_account_successful));
+                                    dropPrefs();
+                                    ActivityUtils.invokeOkAlertMessage(this, getString(R.string.password_updated));
+                                    finishRemoveAccountActivity();
+                                }
+                            }));
         }
-        FirebaseUser user = mAuth.getCurrentUser();
-
-        // Get auth credentials from the user for re-authentication. The example below shows
-        // email and password credentials but there are multiple possible providers,
-        // such as GoogleAuthProvider or FacebookAuthProvider.
-        AuthCredential credential = EmailAuthProvider
-                .getCredential(user.getEmail(), currentPassword);
-
-        // Prompt the user to re-provide their sign-in credentials
-        user.reauthenticate(credential)
-                .addOnCompleteListener(task -> user.delete()
-                        .addOnCompleteListener(task1 -> {
-                            if (task1.isSuccessful()) {
-                                Log.d(TAG, getString(R.string.log_remove_account_successful));
-                                dropPrefs();
-                            }
-                        }));
     }
 
     /**
@@ -133,5 +139,13 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
         editor.putBoolean(KEY_REMEMBER, false);
         editor.apply();
         editor.commit();
+    }
+
+    /**
+     *  Return to settings activity of the application.
+     **/
+    public void finishRemoveAccountActivity() {
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        startActivity(intent);
     }
 }
