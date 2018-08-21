@@ -65,7 +65,8 @@
         </activity>
 
         <!--Menu of WebView Screen-->
-        <activity android:name=".core.submodule.ui.activity.webview.WebViewActivity">
+        <activity android:name=".core.submodule.ui.activity.webview.WebViewActivity"
+                  android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.submodule.ui.activity.main.MainActivity" />

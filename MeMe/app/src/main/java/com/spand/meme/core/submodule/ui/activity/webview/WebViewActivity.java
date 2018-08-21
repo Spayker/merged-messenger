@@ -3,6 +3,7 @@ package com.spand.meme.core.submodule.ui.activity.webview;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,13 @@ import android.webkit.WebViewClient;
 import com.spand.meme.R;
 
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.SHALL_LOAD_URL;
 
 public class WebViewActivity extends Activity {
 
     private CustomWebView mWebView;
     private CustomChromeWebClient webChromeClient;
+    private boolean shallLoadPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +74,7 @@ public class WebViewActivity extends Activity {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setSupportZoom(true);
-        webSettings.setBuiltInZoomControls(false);
+        webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
         webSettings.setDomStorageEnabled(true);
         webSettings.setLoadWithOverviewMode(true);
@@ -83,7 +86,9 @@ public class WebViewActivity extends Activity {
 
         // REMOTE RESOURCE
         Intent webViewIntent = getIntent();
-        mWebView.loadUrl(webViewIntent.getStringExtra(HOME_URL));
+        if(webViewIntent.getBooleanExtra(SHALL_LOAD_URL, false)){
+            mWebView.loadUrl(webViewIntent.getStringExtra(HOME_URL));
+        }
         mWebView.getSettings()
                 .setUserAgentString("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36");
 
@@ -100,6 +105,12 @@ public class WebViewActivity extends Activity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        shallLoadPage = false;
     }
 
     private class InsideWebViewClient extends WebViewClient {

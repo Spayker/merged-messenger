@@ -28,6 +28,7 @@ import static com.spand.meme.core.submodule.data.memory.channel.TYPE.CHAT;
 import static com.spand.meme.core.submodule.data.memory.channel.TYPE.EMAIL;
 import static com.spand.meme.core.submodule.data.memory.channel.TYPE.SOCIAL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.SHALL_LOAD_URL;
 
 public class DynamicMenuBuilder implements MainMenuBuilder {
 
@@ -96,6 +97,7 @@ public class DynamicMenuBuilder implements MainMenuBuilder {
         channelButton.setOnClickListener(view -> {
             Intent intent = new Intent(mainActivity, WebViewActivity.class);
             intent.putExtra(HOME_URL, channel.getHomeUrl());
+            intent.putExtra(SHALL_LOAD_URL, true);
             mainActivity.startActivity(intent);
         });
         return channelButton;

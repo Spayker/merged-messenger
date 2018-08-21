@@ -5,6 +5,7 @@ public interface ActivityConstants {
     //// CHANNEL RELATED
     // WEB URL RELATED CONSTANTS
     String HOME_URL = "homeUrl";
+    String SHALL_LOAD_URL = "shallLoadUrl";
     String VK_HOME_URL = "http://m.vk.com";
     String FB_HOME_URL = "https://www.facebook.com/";
     String INSTAGRAM_HOME_URL = "https://www.instagram.com/";
