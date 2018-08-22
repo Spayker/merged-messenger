@@ -3,6 +3,8 @@ package com.spand.meme.core.submodule.ui.activity.main;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
@@ -11,7 +13,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -57,6 +61,10 @@ import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.YOUTUB
  **/
 public class MainActivity extends AppCompatActivity {
 
+    private final static int SUCCESS_EXIT_CODE = 1;
+
+    private TextView mAppVersionView;
+
     /**
      * Perform initialization of all fragments of current activity.
      *
@@ -82,17 +90,32 @@ public class MainActivity extends AppCompatActivity {
                 }
                 default: {
                     createLoginner().initApplication(sharedPreferences, this);
+                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                    if(currentUser != null){
+                        setTitle(currentUser.getDisplayName());
+                    }
                 }
             }
         } else {
             createLoginner().initApplication(sharedPreferences, this);
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if(currentUser != null){
+                setTitle(currentUser.getDisplayName());
+            }
         }
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            setTitle(currentUser.getDisplayName());
+        mAppVersionView =  findViewById(R.id.app_build_version);
+        try {
+            PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+            String version = pInfo.versionName;
+            mAppVersionView.setText("MeMe v" + version);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
         }
+
+
         MainMenuBuilder menuBuilder = new DynamicMenuBuilder(this);
         menuBuilder.build(sharedPreferences);
     }
@@ -116,12 +139,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
-            case R.id.home: {
+            default: {
                 performSignOut();
                 return true;
             }
         }
-        return false;
+    }
+
+    public void clickOnExit(View view) {
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(SUCCESS_EXIT_CODE);
     }
 
     public void clickOnEditChannels(View view) {

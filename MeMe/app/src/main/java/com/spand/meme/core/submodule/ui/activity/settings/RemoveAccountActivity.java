@@ -5,13 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
-import android.webkit.ValueCallback;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
@@ -27,7 +24,7 @@ import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.EMPTY_
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_OLD_CHANGE_PASS;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_PASS;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_REMEMBER;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_USERNAME;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_USER_EMAIL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.PREF_NAME;
 
 /**
@@ -150,7 +147,7 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
 
     private void dropPrefs() {
         editor.putString(KEY_OLD_CHANGE_PASS, null);
-        editor.putString(KEY_USERNAME, null);
+        editor.putString(KEY_USER_EMAIL, null);
         editor.putString(KEY_PASS, null);
         editor.putBoolean(KEY_REMEMBER, false);
         editor.apply();

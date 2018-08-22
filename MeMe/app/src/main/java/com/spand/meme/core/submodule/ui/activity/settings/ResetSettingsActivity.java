@@ -11,7 +11,7 @@ import com.spand.meme.R;
 
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_PASS;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_REMEMBER;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_USERNAME;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_USER_EMAIL;
 
 /**
  *  A class handler is linked to appropriate activity xml file and contains backend logic.
@@ -52,7 +52,7 @@ public class ResetSettingsActivity extends AppCompatActivity implements View.OnC
 
     private void resetSettings(){
         editor.putString(KEY_OLD_CHANGE_PASS, null);
-        editor.putString(KEY_USERNAME, null);
+        editor.putString(KEY_USER_EMAIL, null);
         editor.putString(KEY_PASS, null);
         editor.putBoolean(KEY_REMEMBER, false);
         editor.apply();

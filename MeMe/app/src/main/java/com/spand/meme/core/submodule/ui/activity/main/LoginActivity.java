@@ -19,18 +19,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
 import com.spand.meme.core.submodule.data.database.FireBaseDBInitializer;
 
-import static com.spand.meme.core.submodule.logic.starter.Starter.LOGINNER;
-import static com.spand.meme.core.submodule.logic.starter.Starter.START_TYPE;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.EMPTY_STRING;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_AUTO_LOGIN;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_OLD_CHANGE_PASS;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_PASS;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_REMEMBER;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_USERNAME;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_USER_EMAIL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.PREF_NAME;
 
 /**
@@ -86,7 +83,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         else
             mAutoLoginView.setChecked(false);
 
-        mEmailView.setText(sharedPreferences.getString(KEY_USERNAME,EMPTY_STRING));
+        mEmailView.setText(sharedPreferences.getString(KEY_USER_EMAIL,EMPTY_STRING));
         mPasswordView.setText(sharedPreferences.getString(KEY_PASS,EMPTY_STRING));
 
         mEmailView.addTextChangedListener(this);
@@ -102,12 +99,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // db init
         FireBaseDBInitializer.init();
-
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null && mAutoLoginView.isChecked()){
-            signIn(mEmailView.getText().toString(), mPasswordView.getText().toString());
-        }
     }
 
     /**
@@ -247,16 +238,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void managePrefs(){
         editor.putString(KEY_OLD_CHANGE_PASS, mPasswordView.getText().toString().trim());
         if(mRememberMeView.isChecked()){
-            editor.putString(KEY_USERNAME, mEmailView.getText().toString().trim());
+            editor.putString(KEY_USER_EMAIL, mEmailView.getText().toString().trim());
             editor.putString(KEY_PASS, mPasswordView.getText().toString().trim());
             editor.putBoolean(KEY_REMEMBER, true);
         }else{
             editor.putBoolean(KEY_REMEMBER, false);
             editor.remove(KEY_PASS);
-            editor.remove(KEY_USERNAME);
+            editor.remove(KEY_USER_EMAIL);
         }
 
-        if(mRememberMeView.isChecked()){
+        if(mAutoLoginView.isChecked()){
             editor.putBoolean(KEY_AUTO_LOGIN, true);
         }else{
             editor.putBoolean(KEY_AUTO_LOGIN, false);

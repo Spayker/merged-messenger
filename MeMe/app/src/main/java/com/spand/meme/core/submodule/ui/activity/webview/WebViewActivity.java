@@ -15,14 +15,16 @@ import android.webkit.WebViewClient;
 
 import com.spand.meme.R;
 
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.DISCORD_ACTIVITY_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.ICQ_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.SHALL_LOAD_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TELEGRAM_HOME_URL;
 
 public class WebViewActivity extends Activity {
 
     private CustomWebView mWebView;
     private CustomChromeWebClient webChromeClient;
-    private boolean shallLoadPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,17 +102,25 @@ public class WebViewActivity extends Activity {
     // Prevent the back-button from closing the app
     @Override
     public void onBackPressed() {
-        if (mWebView.canGoBack()) {
+        String currentUrl = mWebView.getUrl();
+        if (mWebView.canGoBack() &&
+                !currentUrl.contains(ICQ_HOME_URL) &&
+                !currentUrl.contains(TELEGRAM_HOME_URL) &&
+                !currentUrl.contains(DISCORD_ACTIVITY_URL)) {
             mWebView.goBack();
         } else {
             super.onBackPressed();
         }
+        mWebView.removeAllViews();
+        mWebView.clearHistory();
+        mWebView.onPause();
+        mWebView.removeAllViews();
+        mWebView.destroyDrawingCache();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        shallLoadPage = false;
     }
 
     private class InsideWebViewClient extends WebViewClient {
@@ -122,6 +132,5 @@ public class WebViewActivity extends Activity {
             return true;
         }
     }
-
 
 }

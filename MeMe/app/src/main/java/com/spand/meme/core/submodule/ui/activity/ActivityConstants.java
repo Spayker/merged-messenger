@@ -13,6 +13,7 @@ public interface ActivityConstants {
     String ODNOKLASNIKI_HOME_URL = "https://ok.ru/";
     String TUMBLR_HOME_URL = "https://www.tumblr.com/login";
     String DISCORD_HOME_URL = "https://discordapp.com/login";
+    String DISCORD_ACTIVITY_URL = "https://discordapp.com/activity";
     String YOUTUBE_HOME_URL = "https://www.youtube.com/";
     String LINKEDIN_HOME_URL = "https://www.linkedin.com/";
     String TWITTER_HOME_URL = "https://twitter.com/";
@@ -26,7 +27,7 @@ public interface ActivityConstants {
     String PREF_NAME = "prefs";
     String KEY_REMEMBER = "remember";
     String KEY_AUTO_LOGIN = "remember";
-    String KEY_USERNAME = "username";
+    String KEY_USER_EMAIL = "userEmail";
     String KEY_PASS = "password";
     String KEY_OLD_CHANGE_PASS = "oldChangePassword";
 

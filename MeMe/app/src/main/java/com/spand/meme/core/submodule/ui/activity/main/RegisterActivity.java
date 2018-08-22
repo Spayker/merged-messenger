@@ -26,6 +26,11 @@ import com.spand.meme.core.submodule.data.database.FireBaseDBInitializer;
 import static com.spand.meme.core.submodule.logic.starter.Starter.REGISTRATOR;
 import static com.spand.meme.core.submodule.logic.starter.Starter.START_TYPE;
 import static com.spand.meme.core.submodule.logic.starter.Starter.USERNAME;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_AUTO_LOGIN;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_OLD_CHANGE_PASS;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_PASS;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_REMEMBER;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_USER_EMAIL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.PREF_NAME;
 
 /**
@@ -107,6 +112,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         // db init
         FireBaseDBInitializer.init();
+
+        managePrefs();
 
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(START_TYPE, REGISTRATOR);
@@ -231,5 +238,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
 
         return valid;
+    }
+
+    private void managePrefs(){
+        editor.putString(KEY_OLD_CHANGE_PASS, mPasswordView.getText().toString().trim());
+        editor.putString(KEY_USER_EMAIL, mEmailView.getText().toString().trim());
+        editor.putString(KEY_PASS, mPasswordView.getText().toString().trim());
+        editor.apply();
+        editor.commit();
     }
 }
