@@ -20,6 +20,7 @@ import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.HOME_U
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.ICQ_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.SHALL_LOAD_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TELEGRAM_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TUMBLR_HOME_URL;
 
 public class WebViewActivity extends Activity {
 
@@ -88,14 +89,16 @@ public class WebViewActivity extends Activity {
 
         // REMOTE RESOURCE
         Intent webViewIntent = getIntent();
+        String loadUrl = webViewIntent.getStringExtra(HOME_URL);
         if(webViewIntent.getBooleanExtra(SHALL_LOAD_URL, false)){
-            mWebView.loadUrl(webViewIntent.getStringExtra(HOME_URL));
+            mWebView.loadUrl(loadUrl);
         }
-        mWebView.getSettings()
-                .setUserAgentString("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36");
 
-        mWebView.getSettings().setLoadWithOverviewMode(true);
-        mWebView.getSettings().setUseWideViewPort(true);
+        if(!loadUrl.contains(TUMBLR_HOME_URL)) {
+            mWebView.getSettings()
+                    .setUserAgentString("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36");
+        }
+
         CookieManager.getInstance().setAcceptThirdPartyCookies(mWebView, true);
     }
 

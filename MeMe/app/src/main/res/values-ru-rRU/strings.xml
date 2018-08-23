@@ -59,7 +59,7 @@
     <string name="list_preference_language_type">Язык</string>
     <string name="textview_melody">Мелодия</string>
     <string name="action_reset_settings">Сброс Настроек</string>
-    <string name="action_deactivate_account">Отключить аккаунт</string>
+    <string name="action_remove_account">Удалить Аккаунт</string>
     <string name="textview_languages">Язык</string>
     <string name="old_password">Старый Пароль</string>
     <string name="current_password">Текущий Пароль</string>

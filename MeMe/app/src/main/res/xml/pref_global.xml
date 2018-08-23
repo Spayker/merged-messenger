@@ -34,7 +34,7 @@
 
     <Preference
         android:key="@string/pref_deactivate_account_button"
-        android:title="@string/action_deactivate_account" />
+        android:title="@string/action_remove_account" />
 
     <ListPreference
         android:defaultValue="0"

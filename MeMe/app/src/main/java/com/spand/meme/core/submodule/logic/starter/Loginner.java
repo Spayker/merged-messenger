@@ -62,8 +62,7 @@ public class Loginner implements Starter {
 
     private static Loginner instance;
 
-    private Loginner() {
-    }
+    private Loginner() { }
 
     public static Loginner createLoginner() {
         if (instance == null) {

@@ -58,7 +58,7 @@
     <string name="list_preference_language_type">Language</string>
     <string name="textview_melody">Melody</string>
     <string name="action_reset_settings">Reset Settings</string>
-    <string name="action_deactivate_account">Deactivate Account</string>
+    <string name="action_remove_account">Remove Account</string>
     <string name="textview_languages">Language</string>
     <string name="old_password">Old Password</string>
     <string name="current_password">Current Password</string>
