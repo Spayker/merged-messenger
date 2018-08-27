@@ -2,6 +2,7 @@ package com.spand.meme.core.submodule.ui.activity.settings;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 
 import com.spand.meme.R;
 
@@ -29,6 +31,8 @@ public class GlobalSettingsActivity extends AppCompatActivity {
     // static field of activity can be used here
     @SuppressLint("StaticFieldLeak")
     private static AppCompatActivity settingsActivityInstance;
+
+    private final static int MELODY_NOTIFICATION_INDEX = 1;
 
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = GlobalSettingsActivity.class.getSimpleName();
@@ -85,38 +89,16 @@ public class GlobalSettingsActivity extends AppCompatActivity {
             addPreferencesFromResource(R.xml.pref_global);
 
             // notification preference change listener
-            bindGlobalPreferenceToStringValue(findPreference(getString(R.string.key_notification_list_preference)));
+            ListPreference notificationPreference = (ListPreference) findPreference(getString(R.string.key_notification_list_preference));
+            initNotificationPreference(notificationPreference);
 
             // melody preference change listener
-            RingtoneManager manager = new RingtoneManager(settingsActivityInstance);
-            manager.setType(RingtoneManager.TYPE_RINGTONE);
-            Cursor cursor = manager.getCursor();
-
-            Map<String, String> mapItems = new HashMap<>();
-            while (cursor.moveToNext()) {
-                String notificationTitle = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
-                String notificationUri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
-                mapItems.put(notificationTitle, notificationUri);
-            }
-            CharSequence[] melodyEntries = mapItems.keySet().toArray(new CharSequence[mapItems.size()]);
-            CharSequence[] melodyValues = mapItems.values().toArray(new CharSequence[mapItems.size()]);
             ListPreference melodyPreference = (ListPreference) findPreference(getString(R.string.key_melody_list_preference));
-            melodyPreference.setEntries(melodyEntries);
-            melodyPreference.setEntryValues(melodyValues);
-            melodyPreference.setValueIndex(0);
-            bindGlobalPreferenceToStringValue(melodyPreference);
+            initMelodyPreference(melodyPreference, notificationPreference);
 
             // language preference change listener
             ListPreference languagePreference = (ListPreference) findPreference(getString(R.string.key_language_list_preference));
-            String language = Locale.getDefault().getDisplayLanguage();
-            String[] languageListArray = getResources().getStringArray(R.array.pref_language_list);
-            for (int i = 0; i < languageListArray.length; i++) {
-                if(languageListArray[i].equalsIgnoreCase(language)){
-                    languagePreference.setValueIndex(i);
-                    break;
-                }
-            }
-            bindGlobalPreferenceToStringValue(languagePreference);
+            initLanguagePreference(languagePreference);
 
             Preference changePasswordButton = findPreference(getString(R.string.pref_change_password_button));
             changePasswordButton.setOnPreferenceClickListener(preference -> {
@@ -142,6 +124,94 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                 return true;
             });
         }
+
+        private void initNotificationPreference(ListPreference notificationPreference) {
+            notificationPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                String stringValue = newValue.toString();
+                ListPreference listPreference = (ListPreference) preference;
+                int index = listPreference.findIndexOfValue(stringValue);
+                preference.setSummary(
+                        index >= 0
+                                ? listPreference.getEntries()[index]
+                                : null);
+                ListPreference melodyPreference = (ListPreference) findPreference(getString(R.string.key_melody_list_preference));
+                if (index == MELODY_NOTIFICATION_INDEX) {
+                    melodyPreference.setEnabled(true);
+                } else {
+                    melodyPreference.setEnabled(false);
+                }
+                return true;
+            });
+            setOnPreferenceChange(notificationPreference);
+        }
+
+        private void initMelodyPreference(ListPreference melodyPreference, ListPreference notificationPreference) {
+            RingtoneManager manager = new RingtoneManager(settingsActivityInstance);
+            manager.setType(RingtoneManager.TYPE_RINGTONE);
+            Cursor cursor = manager.getCursor();
+
+            Map<String, String> mapItems = new HashMap<>();
+            while (cursor.moveToNext()) {
+                String notificationTitle = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
+                String notificationUri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                mapItems.put(notificationTitle, notificationUri);
+            }
+            CharSequence[] melodyEntries = mapItems.keySet().toArray(new CharSequence[mapItems.size()]);
+            CharSequence[] melodyValues = mapItems.values().toArray(new CharSequence[mapItems.size()]);
+            melodyPreference.setEntries(melodyEntries);
+            melodyPreference.setEntryValues(melodyValues);
+            melodyPreference.setValueIndex(0);
+            melodyPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                String stringValue = newValue.toString();
+                ListPreference listPreference = (ListPreference) preference;
+                int index = listPreference.findIndexOfValue(stringValue);
+
+                preference.setSummary(
+                        index >= 0
+                                ? listPreference.getEntries()[index]
+                                : null);
+                return true;
+            });
+            setOnPreferenceChange(melodyPreference);
+
+            Integer currentValueIndex = notificationPreference.findIndexOfValue(notificationPreference.getValue());
+            if (currentValueIndex.equals(MELODY_NOTIFICATION_INDEX)) {
+                melodyPreference.setEnabled(true);
+            } else {
+                melodyPreference.setEnabled(false);
+            }
+        }
+
+        private void initLanguagePreference(ListPreference languagePreference) {
+            String language = Locale.getDefault().getDisplayLanguage();
+            String[] languageListArray = getResources().getStringArray(R.array.pref_language_list);
+            for (int i = 0; i < languageListArray.length; i++) {
+                if (languageListArray[i].equalsIgnoreCase(language)) {
+                    languagePreference.setValueIndex(i);
+                    break;
+                }
+            }
+            languagePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+
+                Resources res = getResources();
+                DisplayMetrics dm = res.getDisplayMetrics();
+                android.content.res.Configuration conf = res.getConfiguration();
+
+                conf.setLocale(new Locale(languageListArray[Integer.valueOf((String) newValue)]));
+                res.updateConfiguration(conf, dm);
+
+                String stringValue = newValue.toString();
+                ListPreference listPreference = (ListPreference) preference;
+                int index = listPreference.findIndexOfValue(stringValue);
+
+                preference.setSummary(
+                        index >= 0
+                                ? listPreference.getEntries()[index]
+                                : null);
+                return true;
+            });
+            setOnPreferenceChange(languagePreference);
+        }
     }
 
     /**
@@ -149,7 +219,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
      *
      * @param preference is an instance Preference class which will be placed inside of activity
      **/
-    private static void bindGlobalPreferenceToStringValue(Preference preference) {
+    private static void setOnPreferenceChange(Preference preference) {
         preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
         sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
                 PreferenceManager
