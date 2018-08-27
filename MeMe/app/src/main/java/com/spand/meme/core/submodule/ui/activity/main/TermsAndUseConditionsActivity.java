@@ -17,7 +17,6 @@ public class TermsAndUseConditionsActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_terms_and_use_conditions);
-
     }
 
     public void clickOnAccept(View view) {
@@ -26,6 +25,6 @@ public class TermsAndUseConditionsActivity extends AppCompatActivity{
     }
 
     public void clickOnDecline(View view) {
-        finish();
+        onBackPressed();
     }
 }

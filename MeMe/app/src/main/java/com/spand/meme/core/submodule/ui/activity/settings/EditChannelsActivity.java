@@ -15,6 +15,7 @@ import com.spand.meme.core.submodule.logic.menu.main.builder.DynamicMenuBuilder;
 
 import static com.spand.meme.core.submodule.data.memory.channel.ChannelManager.getChannelByName;
 import static com.spand.meme.core.submodule.logic.menu.main.builder.DynamicMenuBuilder.getMenuBuilder;
+import static com.spand.meme.core.submodule.logic.starter.SettingsConstants.KEY_SLACK;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.PREF_NAME;
 import static com.spand.meme.core.submodule.logic.starter.SettingsConstants.KEY_DISCORD;
 import static com.spand.meme.core.submodule.logic.starter.SettingsConstants.KEY_FACEBOOK;
@@ -175,6 +176,14 @@ public class EditChannelsActivity extends AppCompatActivity {
                 return true;
             });
 
+            SwitchPreference slackSwitcher  = (SwitchPreference) findPreference(getString(R.string.key_slack_switcher));
+            slackSwitcher.setChecked(sharedPreferences.getBoolean(KEY_SLACK, false));
+            bindGlobalPreferenceToBooleanValue(slackSwitcher);
+            slackSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                handleSwitcherChange(slackSwitcher, KEY_SLACK);
+                return true;
+            });
+
             SwitchPreference gmailSwitcher  = (SwitchPreference) findPreference(getString(R.string.key_gmail_switcher));
             gmailSwitcher.setChecked(sharedPreferences.getBoolean(KEY_GMAIL, false));
             bindGlobalPreferenceToBooleanValue(gmailSwitcher);
@@ -230,7 +239,5 @@ public class EditChannelsActivity extends AppCompatActivity {
         menuBuilder.rebuild(sharedPreferences);
         super.onBackPressed();
     }
-
-
 
 }

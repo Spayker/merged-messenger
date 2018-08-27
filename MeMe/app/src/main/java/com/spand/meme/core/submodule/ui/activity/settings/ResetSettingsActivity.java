@@ -6,9 +6,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.spand.meme.R;
+import com.spand.meme.core.submodule.ui.activity.main.LoginActivity;
 
+import static com.spand.meme.core.submodule.logic.starter.Setupper.createSetupper;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_AUTO_LOGIN;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_PASS;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_REMEMBER;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_USER_EMAIL;
@@ -55,9 +59,14 @@ public class ResetSettingsActivity extends AppCompatActivity implements View.OnC
         editor.putString(KEY_USER_EMAIL, null);
         editor.putString(KEY_PASS, null);
         editor.putBoolean(KEY_REMEMBER, false);
+        editor.putBoolean(KEY_AUTO_LOGIN, false);
         editor.apply();
         editor.commit();
+        createSetupper().initApplication(sharedPreferences, this);
         Log.d(TAG, getString(R.string.log_settings_dropped_successfully));
+        finish();
+        Toast.makeText(ResetSettingsActivity.this, getString(R.string.reset_system_settings),
+                Toast.LENGTH_SHORT).show();
     }
 
     public void onNoClick(View view){

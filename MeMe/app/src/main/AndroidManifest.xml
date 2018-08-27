@@ -5,6 +5,7 @@
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -48,13 +49,22 @@
                 android:value=".core.submodule.ui.activity.main.WelcomeActivity" />
         </activity>
 
+        <!--Terms Of Use Screen-->
+        <activity
+            android:name=".core.submodule.ui.activity.main.TermsAndUseConditionsActivity"
+            android:label="@string/title_activity_terms">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".core.submodule.ui.activity.main.WelcomeActivity" />
+        </activity>
+
         <!--Register Screen-->
         <activity
             android:name=".core.submodule.ui.activity.main.RegisterActivity"
             android:label="@string/title_activity_register">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.main.WelcomeActivity" />
+                android:value=".core.submodule.ui.activity.main.TermsAndUseConditionsActivity" />
         </activity>
 
         <!--Main Menu Screen-->

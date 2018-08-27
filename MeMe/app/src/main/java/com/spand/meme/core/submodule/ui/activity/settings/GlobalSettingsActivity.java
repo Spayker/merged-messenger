@@ -2,6 +2,9 @@ package com.spand.meme.core.submodule.ui.activity.settings;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -11,10 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.spand.meme.R;
 
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.EMPTY_STRING;
 
 /**
- *  A class handler is linked to appropriate activity xml file and contains backend logic.
+ * A class handler is linked to appropriate activity xml file and contains backend logic.
  **/
 public class GlobalSettingsActivity extends AppCompatActivity {
 
@@ -49,9 +56,10 @@ public class GlobalSettingsActivity extends AppCompatActivity {
     };
 
     /**
-     *  Perform initialization of all fragments of current activity.
-     *  @param savedInstanceState an instance of Bundle instance
-     *                            (A mapping from String keys to various Parcelable values)
+     * Perform initialization of all fragments of current activity.
+     *
+     * @param savedInstanceState an instance of Bundle instance
+     *                           (A mapping from String keys to various Parcelable values)
      **/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +70,14 @@ public class GlobalSettingsActivity extends AppCompatActivity {
     }
 
     /**
-     *  A static class which adds preference fragment to current activity.
+     * A static class which adds preference fragment to current activity.
      **/
     public static class MainPreferenceFragment extends PreferenceFragment {
         /**
-         *  Perform initialization of all fragments of current activity.
-         *  @param savedInstanceState an instance of Bundle instance
-         *                            (A mapping from String keys to various Parcelable values)
+         * Perform initialization of all fragments of current activity.
+         *
+         * @param savedInstanceState an instance of Bundle instance
+         *                           (A mapping from String keys to various Parcelable values)
          **/
         @Override
         public void onCreate(final Bundle savedInstanceState) {
@@ -79,10 +88,35 @@ public class GlobalSettingsActivity extends AppCompatActivity {
             bindGlobalPreferenceToStringValue(findPreference(getString(R.string.key_notification_list_preference)));
 
             // melody preference change listener
-            bindGlobalPreferenceToStringValue(findPreference(getString(R.string.key_melody_list_preference)));
+            RingtoneManager manager = new RingtoneManager(settingsActivityInstance);
+            manager.setType(RingtoneManager.TYPE_RINGTONE);
+            Cursor cursor = manager.getCursor();
+
+            Map<String, String> mapItems = new HashMap<>();
+            while (cursor.moveToNext()) {
+                String notificationTitle = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
+                String notificationUri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                mapItems.put(notificationTitle, notificationUri);
+            }
+            CharSequence[] melodyEntries = mapItems.keySet().toArray(new CharSequence[mapItems.size()]);
+            CharSequence[] melodyValues = mapItems.values().toArray(new CharSequence[mapItems.size()]);
+            ListPreference melodyPreference = (ListPreference) findPreference(getString(R.string.key_melody_list_preference));
+            melodyPreference.setEntries(melodyEntries);
+            melodyPreference.setEntryValues(melodyValues);
+            melodyPreference.setValueIndex(0);
+            bindGlobalPreferenceToStringValue(melodyPreference);
 
             // language preference change listener
-            bindGlobalPreferenceToStringValue(findPreference(getString(R.string.key_language_list_preference)));
+            ListPreference languagePreference = (ListPreference) findPreference(getString(R.string.key_language_list_preference));
+            String language = Locale.getDefault().getDisplayLanguage();
+            String[] languageListArray = getResources().getStringArray(R.array.pref_language_list);
+            for (int i = 0; i < languageListArray.length; i++) {
+                if(languageListArray[i].equalsIgnoreCase(language)){
+                    languagePreference.setValueIndex(i);
+                    break;
+                }
+            }
+            bindGlobalPreferenceToStringValue(languagePreference);
 
             Preference changePasswordButton = findPreference(getString(R.string.pref_change_password_button));
             changePasswordButton.setOnPreferenceClickListener(preference -> {
@@ -100,8 +134,8 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                 return true;
             });
 
-            Preference deactivateAccountButton = findPreference(getString(R.string.pref_deactivate_account_button));
-            deactivateAccountButton.setOnPreferenceClickListener(preference -> {
+            Preference removeAccountButton = findPreference(getString(R.string.pref_remove_account_button));
+            removeAccountButton.setOnPreferenceClickListener(preference -> {
                 //code for what you want it to do
                 Intent intent = new Intent(settingsActivityInstance, RemoveAccountActivity.class);
                 startActivity(intent);
@@ -111,15 +145,16 @@ public class GlobalSettingsActivity extends AppCompatActivity {
     }
 
     /**
-     *  Binds a global preference to String value.
-     *  @param preference is an instance Preference class which will be placed inside of activity
+     * Binds a global preference to String value.
+     *
+     * @param preference is an instance Preference class which will be placed inside of activity
      **/
     private static void bindGlobalPreferenceToStringValue(Preference preference) {
         preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
-            sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
-                    PreferenceManager
-                            .getDefaultSharedPreferences(preference.getContext())
-                            .getString(preference.getKey(), EMPTY_STRING));
+        sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
+                PreferenceManager
+                        .getDefaultSharedPreferences(preference.getContext())
+                        .getString(preference.getKey(), EMPTY_STRING));
     }
 
 }

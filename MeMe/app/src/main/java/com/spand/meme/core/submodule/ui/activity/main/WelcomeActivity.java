@@ -82,18 +82,7 @@ public class WelcomeActivity extends AppCompatActivity {
      *             ( represents the basic building block for user interface components )
      **/
     public void singUpActivity(View view) {
-        Intent intent = new Intent(this, RegisterActivity.class);
+        Intent intent = new Intent(this, TermsAndUseConditionsActivity.class);
         startActivity(intent);
-    }
-
-    /**
-     * Called when activity start-up is complete.
-     *
-     * @param savedInstanceState an instance of Bundle instance
-     *                           (A mapping from String keys to various Parcelable values)
-     **/
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
     }
 }

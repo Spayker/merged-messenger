@@ -12,6 +12,7 @@ public interface ActivityConstants {
     String TELEGRAM_HOME_URL = "https://web.telegram.org";
     String ODNOKLASNIKI_HOME_URL = "https://ok.ru/";
     String TUMBLR_HOME_URL = "https://www.tumblr.com/login";
+    String SLACK_HOME_URL = "https://m.slack.com/";
     String DISCORD_HOME_URL = "https://discordapp.com/login";
     String DISCORD_ACTIVITY_URL = "https://discordapp.com/activity";
     String YOUTUBE_HOME_URL = "https://www.youtube.com/";

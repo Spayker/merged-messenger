@@ -79,6 +79,14 @@
             android:summary="@string/switcher_on"
             android:title="@string/icq"
             android:icon="@mipmap/icq"/>
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/key_slack_switcher"
+            android:summary="@string/switcher_on"
+            android:title="@string/slack"
+            android:icon="@mipmap/slack"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/mail_group">

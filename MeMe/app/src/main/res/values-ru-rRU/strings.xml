@@ -17,6 +17,7 @@
     <string name="error_empty_password">пароль не может быть пустым</string>
     <string name="error_field_required">Обязательное поле</string>
     <string name="title_activity_register">Регистрация</string>
+    <string name="title_activity_terms">Пользовательское Соглашение</string>
     <string name="action_sign_up">Создать</string>
     <string name="action_sign_up_short">Создать</string>
     <string name="sing_in_content">Вход</string>
@@ -67,6 +68,7 @@
     <string name="confirm_password">Подтвердить Пароль</string>
     <string name="action_save_password">Сохранить</string>
     <string name="reset_system_settings">Сбросить Системные Настройки?</string>
+    <string name="reset_system_successful">Reset Application Success</string>
     <string name="no_button">Нет</string>
     <string name="yes_button">Да</string>
     <string name="confirm_button">Подтвердить</string>
@@ -83,6 +85,7 @@
     <string name="ln">LinkedIn</string>
     <string name="tw">Twitter</string>
     <string name="icq">ICQ</string>
+    <string name="slack">Slack</string>
     <string name="inst">Instagram</string>
     <string name="gmail">Gmail</string>
     <string name="mailru">Mail.ru</string>
@@ -109,8 +112,6 @@
         <item>1</item>
     </string-array>
 
-    <string-array name="pref_melody_list_values">
-    </string-array>
 
     <!--ChatSDK section begin-->
     <string name="default_media_location_folder">MeMeCorp</string>

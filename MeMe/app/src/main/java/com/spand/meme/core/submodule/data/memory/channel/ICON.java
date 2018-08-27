@@ -14,6 +14,7 @@ public enum ICON {
     SK(R.mipmap.skype),
     ICQ(R.mipmap.icq),
     DC(R.mipmap.discord),
+    SL(R.mipmap.slack),
     TUM(R.mipmap.tumblr),
     YT(R.mipmap.youtube),
     GM(R.mipmap.gmail),

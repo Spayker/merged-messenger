@@ -10,6 +10,7 @@ public interface SettingsConstants {
     String KEY_TELEGRAM         = "telegram";
     String KEY_SKYPE            = "skype";
     String KEY_DISCORD          = "discord";
+    String KEY_SLACK            = "slack";
     String KEY_ICQ              = "icq";
     String KEY_ODNOKLASSNIKI    = "odnoklassniki";
     String KEY_GMAIL            = "gmail";

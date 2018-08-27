@@ -20,6 +20,7 @@ import static com.spand.meme.core.submodule.data.memory.channel.ICON.LN;
 import static com.spand.meme.core.submodule.data.memory.channel.ICON.MAIL_RU;
 import static com.spand.meme.core.submodule.data.memory.channel.ICON.OK;
 import static com.spand.meme.core.submodule.data.memory.channel.ICON.SK;
+import static com.spand.meme.core.submodule.data.memory.channel.ICON.SL;
 import static com.spand.meme.core.submodule.data.memory.channel.ICON.TL;
 import static com.spand.meme.core.submodule.data.memory.channel.ICON.TUM;
 import static com.spand.meme.core.submodule.data.memory.channel.ICON.TW;
@@ -37,6 +38,7 @@ import static com.spand.meme.core.submodule.logic.starter.SettingsConstants.KEY_
 import static com.spand.meme.core.submodule.logic.starter.SettingsConstants.KEY_MAIL_RU;
 import static com.spand.meme.core.submodule.logic.starter.SettingsConstants.KEY_ODNOKLASSNIKI;
 import static com.spand.meme.core.submodule.logic.starter.SettingsConstants.KEY_SKYPE;
+import static com.spand.meme.core.submodule.logic.starter.SettingsConstants.KEY_SLACK;
 import static com.spand.meme.core.submodule.logic.starter.SettingsConstants.KEY_TELEGRAM;
 import static com.spand.meme.core.submodule.logic.starter.SettingsConstants.KEY_TUMBLR;
 import static com.spand.meme.core.submodule.logic.starter.SettingsConstants.KEY_TWITTER;
@@ -52,6 +54,7 @@ import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.LINKED
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.MAIL_RU_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.ODNOKLASNIKI_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.SKYPE_HOME_URL;
+import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.SLACK_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TELEGRAM_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TUMBLR_HOME_URL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TWITTER_HOME_URL;
@@ -168,6 +171,12 @@ public class Setupper implements Starter {
                 !isChannelExcluded(excludedChannels, KEY_DISCORD));
         channels.add(discordChannel);
         editor.putBoolean(KEY_DISCORD, discordChannel.getActive());
+
+        Channel slackChannel = createNewChannel(mainActivity.getString(R.string.slack), CHAT, SL, SLACK_HOME_URL,
+                !isChannelExcluded(excludedChannels, KEY_SLACK));
+        channels.add(slackChannel);
+        editor.putBoolean(KEY_SLACK, slackChannel.getActive());
+
         editor.apply();
         editor.commit();
         return true;
