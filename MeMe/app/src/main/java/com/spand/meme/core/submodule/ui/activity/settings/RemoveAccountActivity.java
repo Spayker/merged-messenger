@@ -34,7 +34,7 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
         CompoundButton.OnCheckedChangeListener {
 
     // tag field is used for logging sub system to identify from coming logs were created
-    private static final String TAG = ResetSettingsActivity.class.getSimpleName();
+    private static final String TAG = RemoveAccountActivity.class.getSimpleName();
 
     private EditText mPasswordView;
 

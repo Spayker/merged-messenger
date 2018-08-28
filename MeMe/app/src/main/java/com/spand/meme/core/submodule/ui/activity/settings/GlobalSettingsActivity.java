@@ -108,14 +108,6 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                 return true;
             });
 
-            Preference resetSettingsButton = findPreference(getString(R.string.pref_reset_settings_button));
-            resetSettingsButton.setOnPreferenceClickListener(preference -> {
-                //code for what you want it to do
-                Intent intent = new Intent(settingsActivityInstance, ResetSettingsActivity.class);
-                startActivity(intent);
-                return true;
-            });
-
             Preference removeAccountButton = findPreference(getString(R.string.pref_remove_account_button));
             removeAccountButton.setOnPreferenceClickListener(preference -> {
                 //code for what you want it to do
@@ -142,7 +134,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                 }
                 return true;
             });
-            setOnPreferenceChange(notificationPreference);
+            setNewValueOnPreferenceChange(notificationPreference);
         }
 
         private void initMelodyPreference(ListPreference melodyPreference, ListPreference notificationPreference) {
@@ -172,7 +164,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                                 : null);
                 return true;
             });
-            setOnPreferenceChange(melodyPreference);
+            setNewValueOnPreferenceChange(melodyPreference);
 
             Integer currentValueIndex = notificationPreference.findIndexOfValue(notificationPreference.getValue());
             if (currentValueIndex.equals(MELODY_NOTIFICATION_INDEX)) {
@@ -210,7 +202,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                                 : null);
                 return true;
             });
-            setOnPreferenceChange(languagePreference);
+            setNewValueOnPreferenceChange(languagePreference);
         }
     }
 
@@ -219,8 +211,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
      *
      * @param preference is an instance Preference class which will be placed inside of activity
      **/
-    private static void setOnPreferenceChange(Preference preference) {
-        preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
+    private static void setNewValueOnPreferenceChange(Preference preference) {
         sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
                 PreferenceManager
                         .getDefaultSharedPreferences(preference.getContext())

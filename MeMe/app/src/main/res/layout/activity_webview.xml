@@ -13,6 +13,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:onClick="clickOnBackToMainMenu"
+        android:src="@mipmap/back"
         app:backgroundTint="@android:color/holo_green_dark" />
 
     <!-- View that will be hidden when video goes fullscreen -->

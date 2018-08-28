@@ -23,10 +23,6 @@
         android:title="@string/list_preference_melody_type" />
 
     <Preference
-        android:key="@string/pref_reset_settings_button"
-        android:title="@string/action_reset_settings" />
-
-    <Preference
         android:key="@string/pref_remove_account_button"
         android:title="@string/action_remove_account" />
 

@@ -103,13 +103,6 @@
                 android:value=".core.submodule.ui.activity.settings.GlobalSettingsActivity" />
         </activity>
 
-        <!--Menu of Settings Reset screen-->
-        <activity android:name=".core.submodule.ui.activity.settings.ResetSettingsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.settings.GlobalSettingsActivity" />
-        </activity>
-
         <!--Menu of Account Remove Screen-->
         <activity android:name=".core.submodule.ui.activity.settings.RemoveAccountActivity">
             <meta-data

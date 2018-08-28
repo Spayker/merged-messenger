@@ -25,7 +25,6 @@ import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.TUMBLR
 public class WebViewActivity extends Activity {
 
     private CustomWebView mWebView;
-    private CustomChromeWebClient webChromeClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +32,14 @@ public class WebViewActivity extends Activity {
         setContentView(R.layout.activity_webview);
 
         mWebView = findViewById(R.id.webView);
+        View mBackButton = findViewById(R.id.backToMainMenu);
 
         // Initialize the VideoEnabledWebChromeClient and set event handlers
         View nonVideoLayout = findViewById(R.id.nonVideoLayout); // Your own view, read class comments
         ViewGroup videoLayout = findViewById(R.id.videoLayout); // Your own view, read class comments
 
         View loadingView = getLayoutInflater().inflate(R.layout.view_loading_video, null); // Your own view, read class comments
-        webChromeClient = new CustomChromeWebClient(nonVideoLayout, videoLayout, loadingView, mWebView) // See all available constructors...
+        CustomChromeWebClient webChromeClient = new CustomChromeWebClient(nonVideoLayout, videoLayout, loadingView, mWebView) // See all available constructors...
         {
             // Subscribe to standard events, such as onProgressChanged()...
             @Override
@@ -55,12 +55,14 @@ public class WebViewActivity extends Activity {
                 attrs.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
                 getWindow().setAttributes(attrs);
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+                mBackButton.setVisibility(View.INVISIBLE);
             } else {
                 WindowManager.LayoutParams attrs = getWindow().getAttributes();
                 attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
                 attrs.flags &= ~WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
                 getWindow().setAttributes(attrs);
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+                mBackButton.setVisibility(View.VISIBLE);
             }
         });
 
