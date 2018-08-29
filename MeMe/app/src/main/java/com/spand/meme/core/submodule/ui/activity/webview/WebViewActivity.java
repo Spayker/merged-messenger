@@ -97,8 +97,8 @@ public class WebViewActivity extends Activity {
             mWebView.getSettings()
                     .setUserAgentString("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36");
         }
-
-        CookieManager.getInstance().setAcceptThirdPartyCookies(mWebView, true);
+        // in order to support sdk from v16
+        //CookieManager.getInstance().setAcceptThirdPartyCookies(mWebView, true);
     }
 
     // Prevent the back-button from closing the app

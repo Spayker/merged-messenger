@@ -4,10 +4,10 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId 'com.spand.meme'
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 27
-        versionCode 15
-        versionName "0.2.5"
+        versionCode 17
+        versionName "0.2.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -25,7 +25,7 @@ android {
     productFlavors {
         dev {
             dimension "versionCode"
-            minSdkVersion 21
+            minSdkVersion 16
         }
     }
     buildToolsVersion '27.0.3'

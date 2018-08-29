@@ -106,7 +106,8 @@ public class DynamicMenuBuilder implements MainMenuBuilder {
     private void createGroupCategory(LinearLayout mainLinearLayout, int activatedGroupAmount, int groupNameResId, TYPE type){
         LinearLayout firstGroupVerticalLayout = new LinearLayout(mainActivity);
         LinearLayout.LayoutParams firstLayoutParams = new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
-        firstLayoutParams.setLayoutDirection(LinearLayout.VERTICAL);
+        // in order to support sdk from v16
+        //firstLayoutParams.setLayoutDirection(LinearLayout.VERTICAL);
         firstLayoutParams.gravity = Gravity.START|Gravity.CENTER_VERTICAL;
         firstGroupVerticalLayout.setLayoutParams(firstLayoutParams);
         firstGroupVerticalLayout.setPadding(5, 5, 5, 5);

@@ -142,7 +142,8 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
 
     private void cleanWebViewCookies() {
         android.webkit.CookieManager cookieManager = CookieManager.getInstance();
-        cookieManager.removeAllCookies(aBoolean -> Log.d(TAG, "Cookie removed: " + aBoolean));
+        // in order to support sdk from v16
+        //cookieManager.removeAllCookies(aBoolean -> Log.d(TAG, "Cookie removed: " + aBoolean));
     }
 
     private void dropPrefs() {
