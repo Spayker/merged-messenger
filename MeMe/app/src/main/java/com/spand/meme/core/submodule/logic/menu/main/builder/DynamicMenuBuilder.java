@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.spand.meme.R;
 import com.spand.meme.core.submodule.data.memory.channel.Channel;
 import com.spand.meme.core.submodule.data.memory.channel.ChannelManager;
@@ -53,19 +52,19 @@ public class DynamicMenuBuilder implements MainMenuBuilder {
         mainLinearLayout.removeAllViews();
         int activatedSocialGroupAmount = ChannelManager.getActiveChannels(SOCIAL).size();
         if (activatedSocialGroupAmount > 0) {
-            int groupNameResourceId = R.string.social_net_group;
+            int groupNameResourceId = R.string.main_menu_social_net_group;
             createGroupCategory(mainLinearLayout, activatedSocialGroupAmount, groupNameResourceId, SOCIAL);
         }
 
         int activatedChatGroupAmount = ChannelManager.getActiveChannels(CHAT).size();
         if (activatedChatGroupAmount > 0) {
-            int groupNameResourceId = R.string.chat_group;
+            int groupNameResourceId = R.string.main_menu_chat_group;
             createGroupCategory(mainLinearLayout, activatedChatGroupAmount, groupNameResourceId, CHAT);
         }
 
         int activatedEmailGroupAmount = ChannelManager.getActiveChannels(EMAIL).size();
         if (activatedEmailGroupAmount > 0) {
-            int groupNameResourceId = R.string.mail_group;
+            int groupNameResourceId = R.string.main_menu_mail_group;
             createGroupCategory(mainLinearLayout, activatedEmailGroupAmount, groupNameResourceId, EMAIL);
         }
 

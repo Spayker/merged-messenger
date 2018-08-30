@@ -37,9 +37,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:hint="@string/current_password"
+                android:hint="@string/change_password_current_password"
                 android:imeActionId="6"
-                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeActionLabel="@string/login_action_sign_in_short"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="onClick"
-            android:text="@string/confirm_button" />
+            android:text="@string/remove_account_confirm_button" />
 
     </LinearLayout>
 

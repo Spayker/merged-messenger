@@ -43,7 +43,7 @@
         <!--Login Screen-->
         <activity
             android:name=".core.submodule.ui.activity.main.LoginActivity"
-            android:label="@string/title_activity_login">
+            android:label="@string/login_title_activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.submodule.ui.activity.main.WelcomeActivity" />
@@ -52,7 +52,7 @@
         <!--Terms Of Use Screen-->
         <activity
             android:name=".core.submodule.ui.activity.main.TermsAndUseConditionsActivity"
-            android:label="@string/title_activity_terms">
+            android:label="@string/terms_title_activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.submodule.ui.activity.main.WelcomeActivity" />
@@ -61,7 +61,7 @@
         <!--Register Screen-->
         <activity
             android:name=".core.submodule.ui.activity.main.RegisterActivity"
-            android:label="@string/title_activity_register">
+            android:label="@string/register_title_activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.submodule.ui.activity.main.TermsAndUseConditionsActivity" />

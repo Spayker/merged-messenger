@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(getString(R.string.checking));
+            mProgressDialog.setMessage(getString(R.string.login_checking));
             mProgressDialog.setIndeterminate(true);
         }
 
@@ -187,7 +187,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * @param password a String object which will be checked during authorization procedure
      **/
     private void signIn(String email, String password) {
-        Log.d(TAG, getString(R.string.log_sign_in) + email);
+        Log.d(TAG, getString(R.string.login_log_sign_in) + email);
         if (!validateForm()) {
             return;
         }
@@ -197,13 +197,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, getString(R.string.log_sign_in_with_email_success));
+                        Log.d(TAG, getString(R.string.login_log_sign_in_with_email_success));
                         updateUI();
                         finishSingInActivity();
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w(TAG, getString(R.string.log_sign_in_with_email_failure), task.getException());
-                        Toast.makeText(LoginActivity.this, getString(R.string.error_auth_failed),
+                        Log.w(TAG, getString(R.string.login_log_sign_in_with_email_failure), task.getException());
+                        Toast.makeText(LoginActivity.this, getString(R.string.login_error_auth_failed),
                                 Toast.LENGTH_SHORT).show();
                         updateUI();
                     }
@@ -224,7 +224,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         String email = mEmailView.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.field_required));
+            mEmailView.setError(getString(R.string.login_field_required));
             valid = false;
         } else {
             mEmailView.setError(null);
@@ -232,7 +232,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         String password = mPasswordView.getText().toString();
         if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.field_required));
+            mPasswordView.setError(getString(R.string.login_field_required));
             valid = false;
         } else {
             mPasswordView.setError(null);

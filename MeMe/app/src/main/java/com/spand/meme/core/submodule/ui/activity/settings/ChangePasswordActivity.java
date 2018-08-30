@@ -67,7 +67,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
 
         String password = mNewPasswordView.getText().toString().trim();
         if (!isPasswordValid(password)) {
-            Log.d(TAG, getString(R.string.log_new_password_can_not_be_set));
+            Log.d(TAG, getString(R.string.change_password_log_new_password_can_not_be_set));
             return;
         } else {
             editor.putString(KEY_OLD_CHANGE_PASS, mNewPasswordView.getText().toString().trim());
@@ -94,15 +94,15 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                 if (task.isSuccessful()) {
                     user.updatePassword(newPassword).addOnCompleteListener(task1 -> {
                         if (task1.isSuccessful()) {
-                            Log.d(TAG,  getString(R.string.log_password_updated));
-                            ActivityUtils.invokeOkAlertMessage(this, getString(R.string.password_updated));
+                            Log.d(TAG,  getString(R.string.change_password_log_password_updated));
+                            ActivityUtils.invokeOkAlertMessage(this, getString(R.string.change_password_updated));
                             finishChangePasswordActivity();
                         } else {
-                            Log.d(TAG, getString(R.string.log_error_password_not_updated));
+                            Log.d(TAG, getString(R.string.change_password_log_error_password_not_updated));
                         }
                     });
                 } else {
-                    Log.d(TAG, getString(R.string.log_error_auth_failed));
+                    Log.d(TAG, getString(R.string.change_password_log_error_auth_failed));
                 }
             });
     }
@@ -119,41 +119,41 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         String newConfirmPassword = mNewPasswordConfirmView.getText().toString().trim();
 
         if (oldPassword.isEmpty()) {
-            String message = getString(R.string.old_password_empty);
+            String message = getString(R.string.change_password_old_password_empty);
             mOldPasswordView.setError(message);
             return false;
         }
 
         if (!actualSavedPassword.equals(oldPassword)) {
-            String message = getString(R.string.old_password_is_different);
+            String message = getString(R.string.change_password_old_password_is_different);
             ActivityUtils.invokeOkAlertMessage(this, message);
             return false;
         }
 
         if (newPassword.isEmpty()) {
-            String message = getString(R.string.new_password_empty);
+            String message = getString(R.string.change_password_new_password_empty);
             mNewPasswordView.setError(message);
             return false;
         }
 
         if (newConfirmPassword.isEmpty()) {
-            String message = getString(R.string.new_confirm_password_empty);
+            String message = getString(R.string.change_password_new_confirm_password_empty);
             mNewPasswordConfirmView.setError(message);
             return false;
         }
 
         if (!newPassword.equals(newConfirmPassword)) {
-            String message = getString(R.string.new_and_confirm_passwords_are_different);
+            String message = getString(R.string.change_password_new_and_confirm_passwords_are_different);
             ActivityUtils.invokeOkAlertMessage(this, message);
             return false;
         }
 
         if (oldPassword.equals(newPassword)) {
-            String message = getString(R.string.old_and_new_passwords_are_same);
+            String message = getString(R.string.change_password_old_and_new_passwords_are_same);
             ActivityUtils.invokeOkAlertMessage(this, message);
             return false;
         }
-        Log.d(TAG, getString(R.string.log_password_has_been_validated));
+        Log.d(TAG, getString(R.string.change_password_log_password_has_been_validated));
         return true;
     }
 

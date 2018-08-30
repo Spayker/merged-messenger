@@ -27,7 +27,7 @@
                 android:inputType="none"
                 android:selectAllOnFocus="false"
                 android:singleLine="false"
-                android:text="@string/test" />
+                android:text="@string/terms_agreement" />
         </LinearLayout>
     </ScrollView>
 
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
             android:onClick="clickOnAccept"
-            android:text="@string/accept_terms"
+            android:text="@string/terms_accept_terms"
             android:textAlignment="center" />
 
         <Button
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
             android:onClick="clickOnDecline"
-            android:text="@string/decline_terms"
+            android:text="@string/terms_decline_terms"
             android:textAlignment="center" />
 
     </LinearLayout>

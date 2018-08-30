@@ -83,7 +83,7 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
     public void removeAccount(String currentPassword) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            Log.d(TAG, getString(R.string.log_remove_account) + currentUser.getEmail());
+            Log.d(TAG, getString(R.string.remove_account_log_remove_account) + currentUser.getEmail());
             if (!validateForm()) {
                 return;
             }
@@ -99,7 +99,7 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
                     .addOnCompleteListener(task -> currentUser.delete()
                             .addOnCompleteListener(task1 -> {
                                 if (task1.isSuccessful()) {
-                                    Log.d(TAG, getString(R.string.log_remove_account_successful));
+                                    Log.d(TAG, getString(R.string.remove_account_log_remove_account_successful));
                                     finishRemoveAccountActivity();
                                 }
                             }));
@@ -115,14 +115,14 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
         String password = mPasswordView.getText().toString();
 
         if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.field_required));
+            mPasswordView.setError(getString(R.string.remove_account_field_required));
             return false;
         }
 
         if (actualSavedPassword.equals(password)) {
             return true;
         } else {
-            String message = getString(R.string.old_password_is_different);
+            String message = getString(R.string.remove_account_old_password_is_different);
             ActivityUtils.invokeOkAlertMessage(this, message);
         }
 
@@ -135,7 +135,7 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
     public void finishRemoveAccountActivity() {
         cleanWebViewCookies();
         dropPrefs();
-        ActivityUtils.invokeOkAlertMessage(this, getString(R.string.password_updated));
+        ActivityUtils.invokeOkAlertMessage(this, getString(R.string.remove_account_finished));
         Intent intent = new Intent(this, WelcomeActivity.class);
         startActivity(intent);
     }

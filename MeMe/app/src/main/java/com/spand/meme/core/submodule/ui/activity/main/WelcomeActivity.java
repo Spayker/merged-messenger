@@ -50,13 +50,13 @@ public class WelcomeActivity extends AppCompatActivity {
                         .addOnCompleteListener(this, task -> {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, getString(R.string.log_sign_in_with_email_success));
+                                Log.d(TAG, getString(R.string.login_log_sign_in_with_email_success));
                                 Intent intent = new Intent(this, MainActivity.class);
                                 startActivity(intent);
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Log.w(TAG, getString(R.string.log_sign_in_with_email_failure), task.getException());
-                                Toast.makeText(WelcomeActivity.this, getString(R.string.error_auth_failed),
+                                Log.w(TAG, getString(R.string.login_log_sign_in_with_email_failure), task.getException());
+                                Toast.makeText(WelcomeActivity.this, getString(R.string.welcome_error_auth_failed),
                                         Toast.LENGTH_SHORT).show();
                             }
                         });

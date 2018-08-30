@@ -2,19 +2,17 @@ package com.spand.meme.core.submodule.ui.activity.settings;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 
 import com.spand.meme.R;
+import com.spand.meme.core.submodule.logic.menu.settings.LocaleHelper;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -89,18 +87,18 @@ public class GlobalSettingsActivity extends AppCompatActivity {
             addPreferencesFromResource(R.xml.pref_global);
 
             // notification preference change listener
-            ListPreference notificationPreference = (ListPreference) findPreference(getString(R.string.key_notification_list_preference));
+            ListPreference notificationPreference = (ListPreference) findPreference(getString(R.string.global_settings_key_notification_list_preference));
             initNotificationPreference(notificationPreference);
 
             // melody preference change listener
-            ListPreference melodyPreference = (ListPreference) findPreference(getString(R.string.key_melody_list_preference));
+            ListPreference melodyPreference = (ListPreference) findPreference(getString(R.string.global_settings_key_melody_list_preference));
             initMelodyPreference(melodyPreference, notificationPreference);
 
             // language preference change listener
-            ListPreference languagePreference = (ListPreference) findPreference(getString(R.string.key_language_list_preference));
+            ListPreference languagePreference = (ListPreference) findPreference(getString(R.string.global_settings_key_language_list_preference));
             initLanguagePreference(languagePreference);
 
-            Preference changePasswordButton = findPreference(getString(R.string.pref_change_password_button));
+            Preference changePasswordButton = findPreference(getString(R.string.global_settings_pref_change_password_button));
             changePasswordButton.setOnPreferenceClickListener(preference -> {
                 //code for what you want it to do
                 Intent intent = new Intent(settingsActivityInstance, ChangePasswordActivity.class);
@@ -108,7 +106,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                 return true;
             });
 
-            Preference removeAccountButton = findPreference(getString(R.string.pref_remove_account_button));
+            Preference removeAccountButton = findPreference(getString(R.string.global_settings_pref_remove_account_button));
             removeAccountButton.setOnPreferenceClickListener(preference -> {
                 //code for what you want it to do
                 Intent intent = new Intent(settingsActivityInstance, RemoveAccountActivity.class);
@@ -126,7 +124,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                         index >= 0
                                 ? listPreference.getEntries()[index]
                                 : null);
-                ListPreference melodyPreference = (ListPreference) findPreference(getString(R.string.key_melody_list_preference));
+                ListPreference melodyPreference = (ListPreference) findPreference(getString(R.string.global_settings_key_melody_list_preference));
                 if (index == MELODY_NOTIFICATION_INDEX) {
                     melodyPreference.setEnabled(true);
                 } else {
@@ -176,7 +174,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
 
         private void initLanguagePreference(ListPreference languagePreference) {
             String language = Locale.getDefault().getDisplayLanguage();
-            String[] languageListArray = getResources().getStringArray(R.array.pref_language_list);
+            String[] languageListArray = getResources().getStringArray(R.array.global_settings_language_list);
             for (int i = 0; i < languageListArray.length; i++) {
                 if (languageListArray[i].equalsIgnoreCase(language)) {
                     languagePreference.setValueIndex(i);
@@ -184,14 +182,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                 }
             }
             languagePreference.setOnPreferenceChangeListener((preference, newValue) -> {
-
-                Resources res = getResources();
-                DisplayMetrics dm = res.getDisplayMetrics();
-                android.content.res.Configuration conf = res.getConfiguration();
-
-                conf.setLocale(new Locale(languageListArray[Integer.valueOf((String) newValue)]));
-                res.updateConfiguration(conf, dm);
-
+                LocaleHelper.setLocale(settingsActivityInstance, "ru");
                 String stringValue = newValue.toString();
                 ListPreference listPreference = (ListPreference) preference;
                 int index = listPreference.findIndexOfValue(stringValue);

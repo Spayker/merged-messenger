@@ -40,7 +40,7 @@
                     android:id="@+id/login_form_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_email"
+                    android:hint="@string/login_prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -56,9 +56,9 @@
                     android:id="@+id/login_form_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_password"
+                    android:hint="@string/login_prompt_password"
                     android:imeActionId="6"
-                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeActionLabel="@string/login_action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
@@ -70,13 +70,13 @@
                 android:id="@+id/login_form_rememberMe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/remember_me" />
+                android:text="@string/login_remember_me" />
 
             <CheckBox
                 android:id="@+id/login_form_autologin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/auto_login" />
+                android:text="@string/login_auto_login" />
 
             <Button
                 android:id="@+id/email_sign_in_button"
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:onClick="onClick"
-                android:text="@string/action_sign_in"
+                android:text="@string/login_action_sign_in"
                 android:textStyle="bold" />
 
         </LinearLayout>

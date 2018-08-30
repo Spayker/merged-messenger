@@ -100,37 +100,37 @@ public class Setupper implements Starter {
         if (channels.isEmpty()) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            Channel facebookChannel = createNewChannel(mainActivity.getString(R.string.fb), SOCIAL, FB, FB_HOME_URL,
+            Channel facebookChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_fb), SOCIAL, FB, FB_HOME_URL,
                     !isChannelExcluded(excludedChannels, KEY_FACEBOOK));
             channels.add(facebookChannel);
             editor.putBoolean(KEY_FACEBOOK, facebookChannel.getActive());
 
-            Channel vkontakteChannel = createNewChannel(mainActivity.getString(R.string.vk), SOCIAL, VK, VK_HOME_URL,
+            Channel vkontakteChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_vk), SOCIAL, VK, VK_HOME_URL,
                     !isChannelExcluded(excludedChannels, KEY_VKONTAKTE));
             channels.add(vkontakteChannel);
             editor.putBoolean(KEY_VKONTAKTE, vkontakteChannel.getActive());
 
-            Channel twitterChannel = createNewChannel(mainActivity.getString(R.string.tw), SOCIAL, TW, TWITTER_HOME_URL,
+            Channel twitterChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_tw), SOCIAL, TW, TWITTER_HOME_URL,
                     !isChannelExcluded(excludedChannels, KEY_TWITTER));
             channels.add(twitterChannel);
             editor.putBoolean(KEY_TWITTER, twitterChannel.getActive());
 
-            Channel instagramChannel = createNewChannel(mainActivity.getString(R.string.inst), SOCIAL, IN, INSTAGRAM_HOME_URL,
+            Channel instagramChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_inst), SOCIAL, IN, INSTAGRAM_HOME_URL,
                     !isChannelExcluded(excludedChannels, KEY_INSTAGRAM));
             channels.add(instagramChannel);
             editor.putBoolean(KEY_INSTAGRAM, instagramChannel.getActive());
 
-            Channel okChannel = createNewChannel(mainActivity.getString(R.string.ok), SOCIAL, OK, ODNOKLASNIKI_HOME_URL,
+            Channel okChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_ok), SOCIAL, OK, ODNOKLASNIKI_HOME_URL,
                     !isChannelExcluded(excludedChannels, KEY_ODNOKLASSNIKI));
             channels.add(okChannel);
             editor.putBoolean(KEY_ODNOKLASSNIKI, okChannel.getActive());
 
-            Channel youtubeChannel = createNewChannel(mainActivity.getString(R.string.yt), SOCIAL, YT, YOUTUBE_HOME_URL,
+            Channel youtubeChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_yt), SOCIAL, YT, YOUTUBE_HOME_URL,
                     !isChannelExcluded(excludedChannels, KEY_YOUTUBE));
             channels.add(youtubeChannel);
             editor.putBoolean(KEY_YOUTUBE, youtubeChannel.getActive());
 
-            Channel linkedinChannel = createNewChannel(mainActivity.getString(R.string.ln), SOCIAL, LN, LINKEDIN_HOME_URL,
+            Channel linkedinChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_ln), SOCIAL, LN, LINKEDIN_HOME_URL,
                     !isChannelExcluded(excludedChannels, KEY_LINKED_IN));
             channels.add(linkedinChannel);
             editor.putBoolean(KEY_LINKED_IN, linkedinChannel.getActive());
@@ -147,32 +147,32 @@ public class Setupper implements Starter {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = ChannelManager.getInstance().getChannels();
 
-        Channel telegramChannel = createNewChannel(mainActivity.getString(R.string.tl), CHAT, TL, TELEGRAM_HOME_URL,
+        Channel telegramChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_tl), CHAT, TL, TELEGRAM_HOME_URL,
                 !isChannelExcluded(excludedChannels, KEY_TELEGRAM));
         channels.add(telegramChannel);
         editor.putBoolean(KEY_TELEGRAM, telegramChannel.getActive());
 
-        Channel tumblChannel = createNewChannel(mainActivity.getString(R.string.tmb), CHAT, TUM, TUMBLR_HOME_URL,
+        Channel tumblChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_tmb), CHAT, TUM, TUMBLR_HOME_URL,
                 !isChannelExcluded(excludedChannels, KEY_TUMBLR));
         channels.add(tumblChannel);
         editor.putBoolean(KEY_TUMBLR, tumblChannel.getActive());
 
-        Channel skypeChannel = createNewChannel(mainActivity.getString(R.string.skp), CHAT, SK, SKYPE_HOME_URL,
+        Channel skypeChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_skp), CHAT, SK, SKYPE_HOME_URL,
                 !isChannelExcluded(excludedChannels, KEY_SKYPE));
         channels.add(skypeChannel);
         editor.putBoolean(KEY_SKYPE, skypeChannel.getActive());
 
-        Channel icqChannel = createNewChannel(mainActivity.getString(R.string.icq), CHAT, ICQ, ICQ_HOME_URL,
+        Channel icqChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_icq), CHAT, ICQ, ICQ_HOME_URL,
                 !isChannelExcluded(excludedChannels, KEY_ICQ));
         channels.add(icqChannel);
         editor.putBoolean(KEY_ICQ, icqChannel.getActive());
 
-        Channel discordChannel = createNewChannel(mainActivity.getString(R.string.dc), CHAT, DC, DISCORD_HOME_URL,
+        Channel discordChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_dc), CHAT, DC, DISCORD_HOME_URL,
                 !isChannelExcluded(excludedChannels, KEY_DISCORD));
         channels.add(discordChannel);
         editor.putBoolean(KEY_DISCORD, discordChannel.getActive());
 
-        Channel slackChannel = createNewChannel(mainActivity.getString(R.string.slack), CHAT, SL, SLACK_HOME_URL,
+        Channel slackChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_slack), CHAT, SL, SLACK_HOME_URL,
                 !isChannelExcluded(excludedChannels, KEY_SLACK));
         channels.add(slackChannel);
         editor.putBoolean(KEY_SLACK, slackChannel.getActive());
@@ -188,12 +188,12 @@ public class Setupper implements Starter {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = ChannelManager.getInstance().getChannels();
 
-        Channel gmailChannel = createNewChannel(mainActivity.getString(R.string.gmail), EMAIL, GM, GMAIL_HOME_URL,
+        Channel gmailChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_gmail), EMAIL, GM, GMAIL_HOME_URL,
                 !isChannelExcluded(excludedChannels, KEY_GMAIL));
         channels.add(gmailChannel);
         editor.putBoolean(KEY_GMAIL, gmailChannel.getActive());
 
-        Channel mailruChannel = createNewChannel(mainActivity.getString(R.string.mailru), EMAIL, MAIL_RU, MAIL_RU_HOME_URL,
+        Channel mailruChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_mailru), EMAIL, MAIL_RU, MAIL_RU_HOME_URL,
                 !isChannelExcluded(excludedChannels, KEY_MAIL_RU));
         channels.add(mailruChannel);
         editor.putBoolean(KEY_MAIL_RU, mailruChannel.getActive());

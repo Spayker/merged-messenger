@@ -1,146 +1,237 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--Application Common String Section start-->
     <string name="app_name">MeMe</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_name">Name</string>
-    <string name="title_activity_login">Sign In</string>
-    <string name="prompt_password">Password</string>
-    <string name="remember_me">Remember Me</string>
-    <string name="auto_login">Auto Login</string>
-    <string name="action_sign_in">Sign in</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">Your email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_empty_password">This password is empty</string>
-    <string name="error_field_required">This field is required</string>
+    <!--Application Common String Section end-->
+
+    <!--UI String Section Start-->
+
+    <!--Welcome Screen With SignIn and SignUp buttons-->
     <string name="sing_in_button">Sing In</string>
     <string name="sing_up_button">Sing Up</string>
-    <string name="title_activity_register">Sing Up</string>
-    <string name="title_activity_terms">Terms Of Use</string>
-    <string name="action_sign_up">Sign up</string>
-    <string name="action_sign_up_short">Sign up</string>
-    <string name="sing_in_content">Sing in</string>
-    <string name="sing_up_content">Sing up</string>
-    <string name="prompt_password_confirm">Confirm Password (optional)</string>
-    <string name="title_activity_main">MeMe</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_settings">Settings</string>
-    <string name="action_inbox">Inbox</string>
-    <string name="action_my_chats">My Chats</string>
-    <string name="action_create_chat">New Chat</string>
-    <string name="action_attach_new_account">Attach Account</string>
-    <string name="action_global_settings">Global Settings</string>
-    <string name="action_channels_setting">Channel Setting</string>
-    <string name="title_activity_settings">Settings</string>
-    <string name="pref_header_general">General</string>
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact based on your message history</string>
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string name="pref_header_data_sync">Data and sync</string>
-    <string name="pref_title_sync_frequency">Sync frequency</string>
-    <string name="pref_title_system_sync_settings">System sync settings</string>
-    <string name="pref_header_notifications">Notifications</string>
-    <string name="pref_title_new_message_notifications">New message notifications</string>
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-    <string name="pref_title_vibrate">Vibrate</string>
-    <string name="switch_autorun">Autorun</string>
-    <string name="switch_tips">Tips</string>
-    <string name="switch_autoupdate">Autoupdate</string>
-    <string name="action_change_password">Change Password</string>
-    <string name="list_preference_notification_type">Notification</string>
-    <string name="list_preference_font_size">Font Size</string>
-    <string name="certain_channel_background_color">Background Color</string>
-    <string name="certain_channel_font_color">Background Color</string>
-    <string name="list_preference_language_type">Language</string>
-    <string name="textview_melody">Melody</string>
-    <string name="action_reset_settings">Reset Settings</string>
-    <string name="action_remove_account">Remove Account</string>
-    <string name="textview_languages">Language</string>
-    <string name="old_password">Old Password</string>
-    <string name="current_password">Current Password</string>
-    <string name="new_account_password">New Password</string>
-    <string name="confirm_password">Confirm New Password</string>
-    <string name="action_save_password">Save</string>
-    <string name="reset_system_settings">Reset Application Settings?</string>
-    <string name="reset_system_successful">Reset Application Success</string>
-    <string name="no_button">No</string>
-    <string name="yes_button">Yes</string>
-    <string name="confirm_button">Confirm</string>
-    <string name="remove_account_action">Enter Your Current Password</string>
-    <string name="textview_background_color">Background Color</string>
-    <string name="vk">VKontakte</string>
-    <string name="fb">Facebook</string>
-    <string name="tl">Telegram</string>
-    <string name="skp">Skype</string>
-    <string name="ok">OK</string>
-    <string name="tmb">Tumblr</string>
-    <string name="dc">Discord</string>
-    <string name="yt">Youtube</string>
-    <string name="ln">LinkedIn</string>
-    <string name="tw">Twitter</string>
-    <string name="icq">ICQ</string>
-    <string name="slack">Slack</string>
-    <string name="inst">Instagram</string>
-    <string name="gmail">Gmail</string>
-    <string name="mailru">Mail.ru</string>
-    <string name="action_search">Search</string>
-    <string name="text_view_contact_search">Contact To Find</string>
-    <string name="switcher_on">On</string>
-    <string name="switcher_off">Off</string>
-    <string name="checking">Checking…</string>
+    <string name="welcome_error_auth_failed">Authentication Failed</string>
 
-    <string name="social_net_group">Social Networks</string>
-    <string name="chat_group">Chats</string>
-    <string name="mail_group">Email Services</string>
+    <!--Login Screen-->
+    <string name="login_title_activity">Sign In</string>
+    <string name="login_prompt_email">Email</string>
+    <string name="login_prompt_password">Password</string>
+    <string name="login_action_sign_in_short">Sign in</string>
+    <string name="login_remember_me">Remember Me</string>
+    <string name="login_auto_login">Auto Login</string>
+    <string name="login_action_sign_in">Sign in</string>
+    <string name="login_checking">Checking…</string>
+    <string name="login_field_required">required</string>
+    <string name="login_error_auth_failed">Authentication Failed</string>
+    <string name="login_log_sign_in">signIn:</string>
+    <string name="login_log_sign_in_with_email_success">signInWithEmail: success</string>
+    <string name="login_log_sign_in_with_email_failure">signInWithEmail: failure</string>
 
-    <string name="accept_terms">Accept</string>
-    <string name="decline_terms">Decline</string>
+    <!--Terms Of Use Screen-->
+    <string name="terms_title_activity">Terms Of Use</string>
+    <string name="terms_accept_terms">Accept</string>
+    <string name="terms_decline_terms">Decline</string>
 
-    <string name="loading_video">Loading…</string>
+    <!--Register Screen-->
+    <string name="register_title_activity">Sign Up</string>
+    <string name="register_prompt_name">Name</string>
+    <string name="register_prompt_email">Email</string>
+    <string name="register_prompt_password">Password</string>
+    <string name="register_prompt_password_confirm">Confirm Password (optional)</string>
+    <string name="register_action_sign_up">Sign up</string>
+    <string name="register_error_invalid_email">Your email address is invalid</string>
+    <string name="register_error_invalid_password">This password is too short</string>
+    <string name="register_error_empty_password">This password is empty</string>
+    <string name="register_checking">Checking…</string>
+    <string name="register_field_required">required</string>
+    <string name="register_error_auth_failed">Authentication Failed</string>
+    <string name="register_log_sign_up">signUp:</string>
+    <string name="register_log_create_user_with_email_success">createUserWithEmail: success</string>
+    <string name="register_log_create_user_with_email_failure">createUserWithEmail: failure</string>
 
-    <string-array name="pref_notification_list_values">
+    <!--Main Menu Screen-->
+    <string name="main_menu_title_activity">MeMe</string>
+    <string name="main_menu_action_settings">Settings</string>
+    <string name="main_menu_social_net_group">Social Networks</string>
+    <string name="main_menu_chat_group">Chats</string>
+    <string name="main_menu_mail_group">Email Services</string>
+    <string name="main_social_group_container">main_social_group_container</string>
+    <string name="main_chat_group_container">main_chat_group_container</string>
+    <string name="main_email_group_container">main_email_group_container</string>
+    <string name="main_social_category_textView">main_social_category_textView</string>
+    <string name="main_chat_category_textView">main_chat_category_textView</string>
+    <string name="main_email_category_textView">main_email_category_textView</string>
+    <string name="main_social_category_vertical_layout">main_social_category_vertical_layout</string>
+    <string name="main_chat_category_vertical_layout">main_chat_category_vertical_layout</string>
+    <string name="main_email_category_vertical_layout">main_email_category_vertical_layout</string>
+
+    <!--Menu of WebView Screen-->
+    <string name="webview_loading_video">Loading…</string>
+
+    <!--Menu of Global Settings Screen-->
+    <string name="global_settings_list_preference_notification_type">Notification</string>
+    <string name="global_settings_list_preference_melody_type">Melody</string>
+    <string name="global_settings_list_preference_language_type">Language</string>
+    <string name="global_settings_pref_change_password_button">pref_change_password_button</string>
+    <string name="global_settings_pref_remove_account_button">pref_remove_account_button</string>
+    <string name="global_settings_key_notification_list_preference">key_notification_list_preference</string>
+    <string name="global_settings_key_melody_list_preference">key_melody_list_preference</string>
+    <string name="global_settings_key_language_list_preference">key_language_list_preference</string>
+    <string-array name="global_settings_notification_list">
+        <item>Vibro</item>
+        <item>Ringtone</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="global_settings_language_list">
+        <item>english</item>
+        <item>русский</item>
+    </string-array>
+
+    <string-array name="global_settings_notification_list_values">
         <item>-1</item>
         <item>0</item>
         <item>1</item>
     </string-array>
 
-    <!--ChatSDK section begin-->
-    <string name="default_media_location_folder">MeMeCorp</string>
-    <!--ChatSDK section end-->
+    <string-array name="global_settings_language_list_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
 
-    <!--Error Messages section begin-->
-    <string name="old_password_empty">old password is empty</string>
-    <string name="new_password_empty">new password is empty</string>
-    <string name="new_confirm_password_empty">new confirm password is empty</string>
-    <string name="old_password_is_different">old password is different</string>
-    <string name="new_and_confirm_passwords_are_different">New and Confirm passwords are different</string>
-    <string name="old_and_new_passwords_are_same">Old and New passwords are same</string>
-    <string name="field_required">required</string>
-    <string name="error_auth_failed">Authentication Failed</string>
-    <string name="password_updated">Password Updated</string>
-    <!--Error Messages section end-->
+    <!--Menu of Channel Settings Screen-->
+    <string name="channel_setting_switcher_on">On</string>
+    <string name="channel_setting_switcher_off">Off</string>
+    <string name="channel_setting_vk">VKontakte</string>
+    <string name="channel_setting_fb">Facebook</string>
+    <string name="channel_setting_tl">Telegram</string>
+    <string name="channel_setting_skp">Skype</string>
+    <string name="channel_setting_ok">OK</string>
+    <string name="channel_setting_tmb">Tumblr</string>
+    <string name="channel_setting_dc">Discord</string>
+    <string name="channel_setting_yt">Youtube</string>
+    <string name="channel_setting_ln">LinkedIn</string>
+    <string name="channel_setting_tw">Twitter</string>
+    <string name="channel_setting_icq">ICQ</string>
+    <string name="channel_setting_slack">Slack</string>
+    <string name="channel_setting_inst">Instagram</string>
+    <string name="channel_setting_gmail">Gmail</string>
+    <string name="channel_setting_mailru">Mail.ru</string>
+    <string name="channel_setting_key_facebook_switcher">key_facebook_switcher</string>
+    <string name="channel_setting_key_linkedin_switcher">key_linkedin_switcher</string>
+    <string name="channel_setting_key_vkontakte_switcher">key_vkontakte_switcher</string>
+    <string name="channel_setting_key_twitter_switcher">key_twitter_switcher</string>
+    <string name="channel_setting_key_tumblr_switcher">key_tumblr_switcher</string>
+    <string name="channel_setting_key_instagram_switcher">key_instagram_switcher</string>
+    <string name="channel_setting_key_odnoklassniki_switcher">key_odnoklassniki_switcher</string>
+    <string name="channel_setting_key_telegram_switcher">key_telegram_switcher</string>
+    <string name="channel_setting_key_discord_switcher">key_discord_switcher</string>
+    <string name="channel_setting_key_skype_switcher">key_skype_switcher</string>
+    <string name="channel_setting_key_icq_switcher">key_icq_switcher</string>
+    <string name="channel_setting_key_slack_switcher">key_slack_switcher</string>
+    <string name="channel_setting_key_gmail_switcher">key_gmail_switcher</string>
+    <string name="channel_setting_key_mailru_switcher">key_mailru_switcher</string>
+    <string name="channel_setting_key_youtube_switcher">key_youtube_switcher</string>
 
-    <!--Logging Messages section begin-->
-    <string name="log_sign_up">signUp:</string>
-    <string name="log_sign_in">signIn:</string>
-    <string name="log_sign_in_with_email_success">signInWithEmail: success</string>
-    <string name="log_create_user_with_email_success">createUserWithEmail: success</string>
-    <string name="log_sign_in_with_email_failure">signInWithEmail: failure</string>
-    <string name="log_create_user_with_email_failure">createUserWithEmail: failure</string>
-    <string name="log_authentication_failed">authentication failed</string>
-    <string name="log_new_password_can_not_be_set">new password can not be set</string>
-    <string name="log_password_updated">password updated</string>
-    <string name="log_error_password_not_updated">error password not updated</string>
-    <string name="log_password_has_been_validated">password has been validated</string>
-    <string name="log_error_auth_failed">authentication failed</string>
-    <string name="log_remove_account">removing account: </string>
-    <string name="log_remove_account_successful">removing account successful</string>
-    <string name="log_settings_dropped_successfully">user settings are dropped successfully</string>
-    <!--Logging Messages section end-->
+    <!--Menu of Password change Screen-->
+    <string name="change_password_action_change_password">Change Password</string>
+    <string name="change_password_old_password">Old Password</string>
+    <string name="change_password_current_password">Current Password</string>
+    <string name="change_password_new_account_password">New Password</string>
+    <string name="change_password_confirm_password">Confirm New Password</string>
+    <string name="change_password_action_save_password">Save</string>
+    <string name="change_password_old_password_empty">old password is empty</string>
+    <string name="change_password_new_password_empty">new password is empty</string>
+    <string name="change_password_new_confirm_password_empty">new confirm password is empty</string>
+    <string name="change_password_old_password_is_different">old password is different</string>
+    <string name="change_password_new_and_confirm_passwords_are_different">New and Confirm passwords are different</string>
+    <string name="change_password_old_and_new_passwords_are_same">Old and New passwords are same</string>
+    <string name="change_password_updated">Password Updated</string>
+    <string name="change_password_log_new_password_can_not_be_set">new password can not be set</string>
+    <string name="change_password_log_password_updated">password updated</string>
+    <string name="change_password_log_error_password_not_updated">error password not updated</string>
+    <string name="change_password_log_password_has_been_validated">password has been validated</string>
+    <string name="change_password_log_error_auth_failed">authentication failed</string>
+
+    <!--Menu of Account Remove Screen-->
+    <string name="remove_account_action_remove_account">Remove Account</string>
+    <string name="remove_account_confirm_button">Confirm</string>
+    <string name="remove_account_action">Enter Your Current Password</string>
+    <string name="remove_account_old_password_is_different">old password is different</string>
+    <string name="remove_account_field_required">required</string>
+    <string name="remove_account_finished">Remove Account Finished</string>
+    <string name="remove_account_log_remove_account">removing account: </string>
+    <string name="remove_account_log_remove_account_successful">removing account successful</string>
+    <!--UI String Section End-->
+
+    <string name="terms_agreement" formatted="true">
+        Terms and Conditions of https://www.patreon.com/meme_chat - TermsFeed \n \n
+
+        MeMe \n \n
+
+        Terms and Conditions \n
+        Last updated: August 06, 2018 \n \n
+
+
+        These Terms and Conditions ("Terms", "Terms and Conditions") govern your relationship with https://www.patreon.com/meme_chat website and MeMe mobile application (the "Service") operated by MeMe ("us", "we", or "our").
+
+        Please read these Terms and Conditions carefully before using our website and MeMe mobile application (the "Service").
+
+        Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the Service.
+
+        By accessing or using the Service you agree to be bound by these Terms. If you disagree with any part of the terms then you may not access the Service.
+
+        Accounts \n \n
+
+        When you create an account with us, you must provide us information that is accurate, complete, and current at all times. Failure to do so constitutes a breach of the Terms, which may result in immediate termination of your account on our Service.
+
+        You are responsible for safeguarding the password that you use to access the Service and for any activities or actions under your password, whether your password is with our Service or a third-party service.
+
+        You agree not to disclose your password to any third party. You must notify us immediately upon becoming aware of any breach of security or unauthorized use of your account.
+
+        You may not use as a username the name of another person or entity or that is not lawfully available for use, a name or trade mark that is subject to any rights of another person or entity other than you without appropriate authorization, or a name that is otherwise offensive, vulgar or obscene.
+
+        Intellectual Property \n
+
+        The Service and its original content, features and functionality are and will remain the exclusive property of MeMe and its licensors. The Service is protected by copyright, trademark, and other laws of both the Poland and foreign countries. Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of MeMe.
+
+
+        Links To Other Web Sites \n
+
+        Our Service may contain links to third-party web sites or services that are not owned or controlled by MeMe.
+
+        MeMe has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that MeMe shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods or services available on or through any such web sites or services.
+
+        We strongly advise you to read the terms and conditions and privacy policies of any third-party web sites or services that you visit.
+
+
+        Termination \n
+
+        We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.
+
+        Upon termination, your right to use the Service will immediately cease. If you wish to terminate your account, you may simply discontinue using the Service.
+
+        Governing Law  \n
+
+        These Terms shall be governed and construed in accordance with the laws of Poland, without regard to its conflict of law provisions.
+
+        Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect. These Terms constitute the entire agreement between us regarding our Service, and supersede and replace any prior agreements we might have between us regarding the Service.
+
+        Changes \n
+
+        We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material we will try to provide at least 15 days notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.
+
+        By continuing to access or use our Service after those revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, please stop using the Service.
+
+
+        Contact Us  \n
+
+        If you have any questions about these Terms, please contact us.  \n \n
+
+
+        Terms and Conditions of https://www.patreon.com/meme_chat  \n
+
+
+
+    </string>
 
 </resources>

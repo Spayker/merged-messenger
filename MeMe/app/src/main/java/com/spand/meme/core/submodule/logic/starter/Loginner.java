@@ -99,37 +99,37 @@ public class Loginner implements Starter {
         if (channels.isEmpty()) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            Channel facebookChannel = createNewChannel(mainActivity.getString(R.string.fb),
+            Channel facebookChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_fb),
                     SOCIAL, FB, FB_HOME_URL,
                     sharedPreferences.getBoolean(KEY_FACEBOOK, false));
             channels.add(facebookChannel);
 
-            Channel vkontakteChannel = createNewChannel(mainActivity.getString(R.string.vk),
+            Channel vkontakteChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_vk),
                     SOCIAL, VK, VK_HOME_URL,
                     sharedPreferences.getBoolean(KEY_VKONTAKTE, false));
             channels.add(vkontakteChannel);
 
-            Channel twitterChannel = createNewChannel(mainActivity.getString(R.string.tw),
+            Channel twitterChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_tw),
                     SOCIAL, TW, TWITTER_HOME_URL,
                     sharedPreferences.getBoolean(KEY_TWITTER, false));
             channels.add(twitterChannel);
 
-            Channel instagramChannel = createNewChannel(mainActivity.getString(R.string.inst),
+            Channel instagramChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_inst),
                     SOCIAL, IN, INSTAGRAM_HOME_URL,
                     sharedPreferences.getBoolean(KEY_INSTAGRAM, false));
             channels.add(instagramChannel);
 
-            Channel okChannel = createNewChannel(mainActivity.getString(R.string.ok),
+            Channel okChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_ok),
                     SOCIAL, OK, ODNOKLASNIKI_HOME_URL,
                     sharedPreferences.getBoolean(KEY_ODNOKLASSNIKI, false));
             channels.add(okChannel);
 
-            Channel youtubeChannel = createNewChannel(mainActivity.getString(R.string.yt),
+            Channel youtubeChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_yt),
                     SOCIAL, YT, YOUTUBE_HOME_URL,
                     sharedPreferences.getBoolean(KEY_YOUTUBE, false));
             channels.add(youtubeChannel);
 
-            Channel linkedinChannel = createNewChannel(mainActivity.getString(R.string.ln),
+            Channel linkedinChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_ln),
                     SOCIAL, LN, LINKEDIN_HOME_URL,
                     sharedPreferences.getBoolean(KEY_LINKED_IN, false));
             channels.add(linkedinChannel);
@@ -145,32 +145,32 @@ public class Loginner implements Starter {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = ChannelManager.getInstance().getChannels();
 
-        Channel telegramChannel = createNewChannel(mainActivity.getString(R.string.tl),
+        Channel telegramChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_tl),
                 CHAT, TL, TELEGRAM_HOME_URL,
                 sharedPreferences.getBoolean(KEY_TELEGRAM, false));
         channels.add(telegramChannel);
 
-        Channel tumblChannel = createNewChannel(mainActivity.getString(R.string.tmb),
+        Channel tumblChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_tmb),
                 CHAT, TUM, TUMBLR_HOME_URL,
                 sharedPreferences.getBoolean(KEY_TUMBLR, false));
         channels.add(tumblChannel);
 
-        Channel skypeChannel = createNewChannel(mainActivity.getString(R.string.skp),
+        Channel skypeChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_skp),
                 CHAT, SK, SKYPE_HOME_URL,
                 sharedPreferences.getBoolean(KEY_SKYPE, false));
         channels.add(skypeChannel);
 
-        Channel icqChannel = createNewChannel(mainActivity.getString(R.string.icq),
+        Channel icqChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_icq),
                 CHAT, ICQ, ICQ_HOME_URL,
                 sharedPreferences.getBoolean(KEY_ICQ, false));
         channels.add(icqChannel);
 
-        Channel discordChannel = createNewChannel(mainActivity.getString(R.string.dc),
+        Channel discordChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_dc),
                 CHAT, DC, DISCORD_HOME_URL,
                 sharedPreferences.getBoolean(KEY_DISCORD, false));
         channels.add(discordChannel);
 
-        Channel slackChannel = createNewChannel(mainActivity.getString(R.string.slack),
+        Channel slackChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_slack),
                 CHAT, SL, SLACK_HOME_URL,
                 sharedPreferences.getBoolean(KEY_SLACK, false));
         channels.add(slackChannel);
@@ -185,12 +185,12 @@ public class Loginner implements Starter {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = ChannelManager.getInstance().getChannels();
 
-        Channel gmailChannel = createNewChannel(mainActivity.getString(R.string.gmail),
+        Channel gmailChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_gmail),
                 EMAIL, GM, GMAIL_HOME_URL,
                 sharedPreferences.getBoolean(KEY_GMAIL, false));
         channels.add(gmailChannel);
 
-        Channel mailruChannel = createNewChannel(mainActivity.getString(R.string.mailru),
+        Channel mailruChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_mailru),
                 EMAIL, MAIL_RU, MAIL_RU_HOME_URL,
                 sharedPreferences.getBoolean(KEY_MAIL_RU, false));
         channels.add(mailruChannel);

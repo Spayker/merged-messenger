@@ -1,107 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/social_net_group">
+    <PreferenceCategory android:title="@string/main_menu_social_net_group">
 
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/key_facebook_switcher"
-            android:summary="@string/switcher_on"
-            android:title="@string/fb"
+            android:key="@string/channel_setting_key_facebook_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_fb"
             android:icon="@mipmap/fb"/>
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/key_linkedin_switcher"
-            android:summary="@string/switcher_on"
-            android:title="@string/ln"
+            android:key="@string/channel_setting_key_linkedin_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_ln"
             android:icon="@mipmap/in"/>
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/key_vkontakte_switcher"
-            android:summary="@string/switcher_on"
-            android:title="@string/vk"
+            android:key="@string/channel_setting_key_vkontakte_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_vk"
             android:icon="@mipmap/vk"/>
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/key_twitter_switcher"
-            android:summary="@string/switcher_on"
-            android:title="@string/tw"
+            android:key="@string/channel_setting_key_twitter_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_tw"
             android:icon="@mipmap/twitter"/>
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/key_instagram_switcher"
-            android:summary="@string/switcher_on"
-            android:title="@string/inst"
+            android:key="@string/channel_setting_key_instagram_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_inst"
             android:icon="@mipmap/instagram"/>
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/key_odnoklassniki_switcher"
-            android:summary="@string/switcher_on"
-            android:title="@string/ok"
+            android:key="@string/channel_setting_key_odnoklassniki_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_ok"
             android:icon="@mipmap/ok"/>
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/key_youtube_switcher"
-            android:summary="@string/switcher_on"
-            android:title="@string/yt"
+            android:key="@string/channel_setting_key_youtube_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_yt"
             android:icon="@mipmap/youtube"/>
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/chat_group">
+    <PreferenceCategory android:title="@string/main_menu_chat_group">
 
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/key_skype_switcher"
-            android:summary="@string/switcher_on"
-            android:title="@string/skp"
+            android:key="@string/channel_setting_key_skype_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_skp"
             android:icon="@mipmap/skype"/>
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/key_tumblr_switcher"
-            android:summary="@string/switcher_on"
-            android:title="@string/tmb"
+            android:key="@string/channel_setting_key_tumblr_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_tmb"
             android:icon="@mipmap/tumblr"/>
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/key_discord_switcher"
-            android:summary="@string/switcher_on"
-            android:title="@string/dc"
+            android:key="@string/channel_setting_key_discord_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_dc"
             android:icon="@mipmap/discord"/>
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/key_telegram_switcher"
-            android:summary="@string/switcher_on"
-            android:title="@string/tl"
+            android:key="@string/channel_setting_key_telegram_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_tl"
             android:icon="@mipmap/telegram"/>
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/key_icq_switcher"
-            android:summary="@string/switcher_on"
-            android:title="@string/icq"
+            android:key="@string/channel_setting_key_icq_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_icq"
             android:icon="@mipmap/icq"/>
 
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/key_slack_switcher"
-            android:summary="@string/switcher_on"
-            android:title="@string/slack"
+            android:key="@string/channel_setting_key_slack_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_slack"
             android:icon="@mipmap/slack"/>
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/mail_group">
+    <PreferenceCategory android:title="@string/main_menu_mail_group">
 
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/key_gmail_switcher"
-            android:summary="@string/switcher_on"
-            android:title="@string/gmail"
+            android:key="@string/channel_setting_key_gmail_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_gmail"
             android:icon="@mipmap/gmail"/>
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/key_mailru_switcher"
-            android:summary="@string/switcher_on"
-            android:title="@string/mailru"
+            android:key="@string/channel_setting_key_mailru_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_mailru"
             android:icon="@mipmap/mail_ru"/>
     </PreferenceCategory>
 

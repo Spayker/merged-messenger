@@ -1,152 +1,237 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--Application Common String Section start-->
     <string name="app_name">MeMe</string>
-    <string name="title_activity_login">Логин</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_name">Имя</string>
-    <string name="prompt_password">Пароль</string>
-    <string name="remember_me">Оставаться в системе</string>
-    <string name="auto_login">Авто Вход</string>
+    <!--Application Common String Section end-->
+
+    <!--UI String Section Start-->
+
+    <!--Welcome Screen With SignIn and SignUp buttons-->
     <string name="sing_in_button">Вход</string>
     <string name="sing_up_button">Регистрация</string>
-    <string name="action_sign_in">Логин</string>
-    <string name="action_sign_in_short">Логин</string>
-    <string name="error_invalid_email">Email введён не верно</string>
-    <string name="error_invalid_password">Пароль слишком короткий</string>
-    <string name="error_incorrect_password">Пароль введён неверно</string>
-    <string name="error_empty_password">пароль не может быть пустым</string>
-    <string name="error_field_required">Обязательное поле</string>
-    <string name="title_activity_register">Регистрация</string>
-    <string name="title_activity_terms">Пользовательское Соглашение</string>
-    <string name="action_sign_up">Создать</string>
-    <string name="action_sign_up_short">Создать</string>
-    <string name="sing_in_content">Вход</string>
-    <string name="sing_up_content">Регистрация</string>
-    <string name="prompt_password_confirm">Подтвердите Пароль</string>
-    <string name="title_activity_main">MeMe</string>
-    <string name="navigation_drawer_open">Открыть</string>
-    <string name="navigation_drawer_close">Закрыть</string>
-    <string name="action_settings">Настройки</string>
-    <string name="action_inbox">Входящие</string>
-    <string name="action_my_chats">Мои Чаты</string>
-    <string name="action_create_chat">Новый Чат</string>
-    <string name="action_attach_new_account">Привязать Аккаунт</string>
-    <string name="title_activity_settings">Настройки</string>
-    <string name="pref_header_general">Общее</string>
-    <string name="pref_title_social_recommendations">Включить рекомендации</string>
-    <string name="pref_description_social_recommendations">Рекомендации контактов с истории чатов</string>
-    <string name="pref_title_display_name">Имя</string>
-    <string name="pref_default_display_name">Джон Смит</string>
-    <string name="pref_title_add_friends_to_messages">Добавить друзей в сообщение</string>
-    <string name="pref_header_data_sync">Данные и Синхронизация</string>
-    <string name="pref_title_vibrate">Вибро</string>
-    <string name="pref_ringtone_silent">Тихо</string>
-    <string name="pref_title_ringtone">Звонок</string>
-    <string name="pref_title_new_message_notifications">Новые напоминания</string>
-    <string name="pref_header_notifications">Напоминания</string>
-    <string name="pref_title_system_sync_settings">настройки синхронизации</string>
-    <string name="pref_title_sync_frequency">Частота синхронизации</string>
-    <string name="action_global_settings">Глобальные Настройки</string>
-    <string name="action_channels_setting">Настройки Каналов Связи</string>
-    <string name="switch_autorun">Автозапуск</string>
-    <string name="switch_tips">Подсказки</string>
-    <string name="switch_autoupdate">Автообновление</string>
-    <string name="action_change_password">Изменить Пароль</string>
-    <string name="list_preference_notification_type">Оповещение</string>
-    <string name="list_preference_melody_type">Мелодия</string>
-    <string name="list_preference_font_size">Размер Шрифта</string>
-    <string name="certain_channel_background_color">Цвет Фона</string>
-    <string name="certain_channel_font_color">Цвет Шрифта</string>
-    <string name="list_preference_language_type">Язык</string>
-    <string name="textview_melody">Мелодия</string>
-    <string name="action_reset_settings">Сброс Настроек</string>
-    <string name="action_remove_account">Удалить Аккаунт</string>
-    <string name="textview_languages">Язык</string>
-    <string name="old_password">Старый Пароль</string>
-    <string name="current_password">Текущий Пароль</string>
-    <string name="new_account_password">Новый Пароль</string>
-    <string name="confirm_password">Подтвердить Пароль</string>
-    <string name="action_save_password">Сохранить</string>
-    <string name="reset_system_settings">Сбросить Системные Настройки?</string>
-    <string name="reset_system_successful">Reset Application Success</string>
-    <string name="no_button">Нет</string>
-    <string name="yes_button">Да</string>
-    <string name="confirm_button">Подтвердить</string>
-    <string name="remove_account_action">Введите Свой Текущий Пароль</string>
-    <string name="textview_background_color">Цвет Фона</string>
-    <string name="vk">Вконтакте</string>
-    <string name="fb">Facebook</string>
-    <string name="tl">Telegram</string>
-    <string name="skp">Skype</string>
-    <string name="ok">OK</string>
-    <string name="tmb">Tumblr</string>
-    <string name="dc">Discord</string>
-    <string name="yt">Youtube</string>
-    <string name="ln">LinkedIn</string>
-    <string name="tw">Twitter</string>
-    <string name="icq">ICQ</string>
-    <string name="slack">Slack</string>
-    <string name="inst">Instagram</string>
-    <string name="gmail">Gmail</string>
-    <string name="mailru">Mail.ru</string>
-    <string name="switcher_on">Включено</string>
-    <string name="switcher_off">Выключено</string>
-    <string name="checking">Проверка…</string>
+    <string name="welcome_error_auth_failed">Ошибка Авторизации</string>
 
-    <string name="social_net_group">Социальные Сети</string>
-    <string name="chat_group">Чаты</string>
-    <string name="mail_group">Почтовые Службы</string>
+    <!--Login Screen-->
+    <string name="login_title_activity">Вход</string>
+    <string name="login_prompt_email">Email</string>
+    <string name="login_prompt_password">Пароль</string>
+    <string name="login_action_sign_in_short">Вход</string>
+    <string name="login_remember_me">Запомнить Меня</string>
+    <string name="login_auto_login">Авто Вход</string>
+    <string name="login_action_sign_in">Вход</string>
+    <string name="login_checking">Проверка…</string>
+    <string name="login_field_required">Требуется</string>
+    <string name="login_error_auth_failed">Ошибка Авторизации</string>
+    <string name="login_log_sign_in">signIn:</string>
+    <string name="login_log_sign_in_with_email_success">signInWithEmail: success</string>
+    <string name="login_log_sign_in_with_email_failure">signInWithEmail: failure</string>
 
-    <string name="accept_terms">Согласен</string>
-    <string name="decline_terms">Не согласен</string>
+    <!--Terms Of Use Screen-->
+    <string name="terms_title_activity">Пользовательское Соглашение</string>
+    <string name="terms_accept_terms">Принимаю</string>
+    <string name="terms_decline_terms">Отклоняю</string>
 
-    <string-array name="pref_notification_list">
-        <item>Вибро</item>
-        <item>Рингтон</item>
-        <item>Нет</item>
+    <!--Register Screen-->
+    <string name="register_title_activity">Регистрация</string>
+    <string name="register_prompt_name">Имя</string>
+    <string name="register_prompt_email">Email</string>
+    <string name="register_prompt_password">Пароль</string>
+    <string name="register_prompt_password_confirm">Подтвердить Пароль</string>
+    <string name="register_action_sign_up">Регистрация</string>
+    <string name="register_error_invalid_email">Неправильный Email адрес</string>
+    <string name="register_error_invalid_password">Пароль слишком короткий</string>
+    <string name="register_error_empty_password">Пустой Пароль</string>
+    <string name="register_checking">Проверка…</string>
+    <string name="register_field_required">Требуется</string>
+    <string name="register_error_auth_failed">Ошибка Авторизации</string>
+    <string name="register_log_sign_up">signUp:</string>
+    <string name="register_log_create_user_with_email_success">createUserWithEmail: success</string>
+    <string name="register_log_create_user_with_email_failure">createUserWithEmail: failure</string>
+
+    <!--Main Menu Screen-->
+    <string name="main_menu_title_activity">MeMe</string>
+    <string name="main_menu_action_settings">Настройки</string>
+    <string name="main_menu_social_net_group">Соц сети</string>
+    <string name="main_menu_chat_group">Чаты</string>
+    <string name="main_menu_mail_group">Почтовые Службы</string>
+    <string name="main_social_group_container">main_social_group_container</string>
+    <string name="main_chat_group_container">main_chat_group_container</string>
+    <string name="main_email_group_container">main_email_group_container</string>
+    <string name="main_social_category_textView">main_social_category_textView</string>
+    <string name="main_chat_category_textView">main_chat_category_textView</string>
+    <string name="main_email_category_textView">main_email_category_textView</string>
+    <string name="main_social_category_vertical_layout">main_social_category_vertical_layout</string>
+    <string name="main_chat_category_vertical_layout">main_chat_category_vertical_layout</string>
+    <string name="main_email_category_vertical_layout">main_email_category_vertical_layout</string>
+
+    <!--Menu of WebView Screen-->
+    <string name="webview_loading_video">Загрузка…</string>
+
+    <!--Menu of Global Settings Screen-->
+    <string name="global_settings_list_preference_notification_type">Напоминание</string>
+    <string name="global_settings_list_preference_melody_type">Мелодия</string>
+    <string name="global_settings_list_preference_language_type">Язык</string>
+    <string name="global_settings_pref_change_password_button">pref_change_password_button</string>
+    <string name="global_settings_pref_remove_account_button">pref_remove_account_button</string>
+    <string name="global_settings_key_notification_list_preference">key_notification_list_preference</string>
+    <string name="global_settings_key_melody_list_preference">key_melody_list_preference</string>
+    <string name="global_settings_key_language_list_preference">key_language_list_preference</string>
+    <string-array name="global_settings_notification_list">
+        <item>вибро</item>
+        <item>Мелодия</item>
+        <item>Ничего</item>
     </string-array>
 
-    <string-array name="pref_notification_list_values">
+    <string-array name="global_settings_language_list">
+        <item>english</item>
+        <item>русский</item>
+    </string-array>
+
+    <string-array name="global_settings_notification_list_values">
         <item>-1</item>
         <item>0</item>
         <item>1</item>
     </string-array>
 
+    <string-array name="global_settings_language_list_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
 
-    <!--ChatSDK section begin-->
-    <string name="default_media_location_folder">MeMeCorp</string>
-    <!--ChatSDK section end-->
+    <!--Menu of Channel Settings Screen-->
+    <string name="channel_setting_switcher_on">Вкл.</string>
+    <string name="channel_setting_switcher_off">Выкл.</string>
+    <string name="channel_setting_vk">VKontakte</string>
+    <string name="channel_setting_fb">Facebook</string>
+    <string name="channel_setting_tl">Телеграм</string>
+    <string name="channel_setting_skp">Skype</string>
+    <string name="channel_setting_ok">OK</string>
+    <string name="channel_setting_tmb">Tumblr</string>
+    <string name="channel_setting_dc">Discord</string>
+    <string name="channel_setting_yt">Youtube</string>
+    <string name="channel_setting_ln">LinkedIn</string>
+    <string name="channel_setting_tw">Twitter</string>
+    <string name="channel_setting_icq">ICQ</string>
+    <string name="channel_setting_slack">Slack</string>
+    <string name="channel_setting_inst">Instagram</string>
+    <string name="channel_setting_gmail">Gmail</string>
+    <string name="channel_setting_mailru">Мейл.ru</string>
+    <string name="channel_setting_key_facebook_switcher">key_facebook_switcher</string>
+    <string name="channel_setting_key_linkedin_switcher">key_linkedin_switcher</string>
+    <string name="channel_setting_key_vkontakte_switcher">key_vkontakte_switcher</string>
+    <string name="channel_setting_key_twitter_switcher">key_twitter_switcher</string>
+    <string name="channel_setting_key_tumblr_switcher">key_tumblr_switcher</string>
+    <string name="channel_setting_key_instagram_switcher">key_instagram_switcher</string>
+    <string name="channel_setting_key_odnoklassniki_switcher">key_odnoklassniki_switcher</string>
+    <string name="channel_setting_key_telegram_switcher">key_telegram_switcher</string>
+    <string name="channel_setting_key_discord_switcher">key_discord_switcher</string>
+    <string name="channel_setting_key_skype_switcher">key_skype_switcher</string>
+    <string name="channel_setting_key_icq_switcher">key_icq_switcher</string>
+    <string name="channel_setting_key_slack_switcher">key_slack_switcher</string>
+    <string name="channel_setting_key_gmail_switcher">key_gmail_switcher</string>
+    <string name="channel_setting_key_mailru_switcher">key_mailru_switcher</string>
+    <string name="channel_setting_key_youtube_switcher">key_youtube_switcher</string>
 
-    <!--Error Messages section begin-->
-    <string name="old_password_empty">Старый пароль пустой</string>
-    <string name="new_password_empty">Новый пароль пустой</string>
-    <string name="new_confirm_password_empty">Подтверждающий пароль пустой</string>
-    <string name="old_password_is_different">Старый пароль не совпадает</string>
-    <string name="new_and_confirm_passwords_are_different">Новый и Подтверждающий пароли разные</string>
-    <string name="old_and_new_passwords_are_same">Старый и Новый пароли одинаковы</string>
-    <string name="field_required">Не может быть пустым</string>
-    <string name="error_auth_failed">Авторизация Не Прошла</string>
-    <string name="password_updated">Пароль Обновлен</string>
-    <!--Error Messages section end-->
+    <!--Menu of Password change Screen-->
+    <string name="change_password_action_change_password">Ищменить Пароль</string>
+    <string name="change_password_old_password">Старый Пароль</string>
+    <string name="change_password_current_password">Текущий Пароль</string>
+    <string name="change_password_new_account_password">новый Пароль</string>
+    <string name="change_password_confirm_password">Подтвердить Новый Пароль</string>
+    <string name="change_password_action_save_password">Сохранить</string>
+    <string name="change_password_old_password_empty">Старый Пароль Пуст</string>
+    <string name="change_password_new_password_empty">Новый Пароль Пуст</string>
+    <string name="change_password_new_confirm_password_empty">Новый Пвроль Пуст</string>
+    <string name="change_password_old_password_is_different">Неверный Старый Пароль</string>
+    <string name="change_password_new_and_confirm_passwords_are_different">Пароли Не Совпадают</string>
+    <string name="change_password_old_and_new_passwords_are_same">Старый И Новый Пароли Совпадают</string>
+    <string name="change_password_updated">Пароль Обновлён</string>
+    <string name="change_password_log_new_password_can_not_be_set">new password can not be set</string>
+    <string name="change_password_log_password_updated">password updated</string>
+    <string name="change_password_log_error_password_not_updated">error password not updated</string>
+    <string name="change_password_log_password_has_been_validated">password has been validated</string>
+    <string name="change_password_log_error_auth_failed">authentication failed</string>
 
-    <string name="loading_video">Загрузка…</string>
+    <!--Menu of Account Remove Screen-->
+    <string name="remove_account_action_remove_account">Удалить Аккант</string>
+    <string name="remove_account_confirm_button">Подтвердить</string>
+    <string name="remove_account_action">Введите Текущий Пароль</string>
+    <string name="remove_account_old_password_is_different">Старый Пароль Отличается</string>
+    <string name="remove_account_field_required">Требуется</string>
+    <string name="remove_account_finished">Удаление Аккаунта Завершено</string>
+    <string name="remove_account_log_remove_account">removing account: </string>
+    <string name="remove_account_log_remove_account_successful">removing account successful</string>
+    <!--UI String Section End-->
 
-    <!--Logging Messages section begin-->
-    <string name="log_sign_up">signUp:</string>
-    <string name="log_sign_in">signIn:</string>
-    <string name="log_sign_in_with_email_success">signInWithEmail: success</string>
-    <string name="log_create_user_with_email_success">createUserWithEmail: success</string>
-    <string name="log_sign_in_with_email_failure">signInWithEmail: failure</string>
-    <string name="log_create_user_with_email_failure">createUserWithEmail: failure</string>
-    <string name="log_authentication_failed">authentication failed</string>
-    <string name="log_new_password_can_not_be_set">new password can not be set</string>
-    <string name="log_password_updated">password updated</string>
-    <string name="log_error_password_not_updated">error password not updated</string>
-    <string name="log_password_has_been_validated">password has been validated</string>
-    <string name="log_error_auth_failed">authentication failed</string>
-    <string name="log_remove_account">removing account: </string>
-    <string name="log_remove_account_successful">removing account successful</string>
-    <string name="log_settings_dropped_successfully">user settings are dropped successfully</string>
-    <!--Logging Messages section end-->
+    <string name="terms_agreement" formatted="true">
+        Terms and Conditions of https://www.patreon.com/meme_chat - TermsFeed \n \n
+
+        MeMe \n \n
+
+        Terms and Conditions \n
+        Last updated: August 06, 2018 \n \n
+
+
+        These Terms and Conditions ("Terms", "Terms and Conditions") govern your relationship with https://www.patreon.com/meme_chat website and MeMe mobile application (the "Service") operated by MeMe ("us", "we", or "our").
+
+        Please read these Terms and Conditions carefully before using our website and MeMe mobile application (the "Service").
+
+        Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the Service.
+
+        By accessing or using the Service you agree to be bound by these Terms. If you disagree with any part of the terms then you may not access the Service.
+
+        Accounts \n \n
+
+        When you create an account with us, you must provide us information that is accurate, complete, and current at all times. Failure to do so constitutes a breach of the Terms, which may result in immediate termination of your account on our Service.
+
+        You are responsible for safeguarding the password that you use to access the Service and for any activities or actions under your password, whether your password is with our Service or a third-party service.
+
+        You agree not to disclose your password to any third party. You must notify us immediately upon becoming aware of any breach of security or unauthorized use of your account.
+
+        You may not use as a username the name of another person or entity or that is not lawfully available for use, a name or trade mark that is subject to any rights of another person or entity other than you without appropriate authorization, or a name that is otherwise offensive, vulgar or obscene.
+
+        Intellectual Property \n
+
+        The Service and its original content, features and functionality are and will remain the exclusive property of MeMe and its licensors. The Service is protected by copyright, trademark, and other laws of both the Poland and foreign countries. Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of MeMe.
+
+
+        Links To Other Web Sites \n
+
+        Our Service may contain links to third-party web sites or services that are not owned or controlled by MeMe.
+
+        MeMe has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that MeMe shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods or services available on or through any such web sites or services.
+
+        We strongly advise you to read the terms and conditions and privacy policies of any third-party web sites or services that you visit.
+
+
+        Termination \n
+
+        We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.
+
+        Upon termination, your right to use the Service will immediately cease. If you wish to terminate your account, you may simply discontinue using the Service.
+
+        Governing Law  \n
+
+        These Terms shall be governed and construed in accordance with the laws of Poland, without regard to its conflict of law provisions.
+
+        Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect. These Terms constitute the entire agreement between us regarding our Service, and supersede and replace any prior agreements we might have between us regarding the Service.
+
+        Changes \n
+
+        We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material we will try to provide at least 15 days notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.
+
+        By continuing to access or use our Service after those revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, please stop using the Service.
+
+
+        Contact Us  \n
+
+        If you have any questions about these Terms, please contact us.  \n \n
+
+
+        Terms and Conditions of https://www.patreon.com/meme_chat  \n
+
+
+
+    </string>
 
 </resources>

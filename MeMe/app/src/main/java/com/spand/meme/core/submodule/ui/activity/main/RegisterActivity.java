@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -15,8 +14,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -26,10 +23,8 @@ import com.spand.meme.core.submodule.data.database.FireBaseDBInitializer;
 import static com.spand.meme.core.submodule.logic.starter.Starter.REGISTRATOR;
 import static com.spand.meme.core.submodule.logic.starter.Starter.START_TYPE;
 import static com.spand.meme.core.submodule.logic.starter.Starter.USERNAME;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_AUTO_LOGIN;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_OLD_CHANGE_PASS;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_PASS;
-import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_REMEMBER;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.KEY_USER_EMAIL;
 import static com.spand.meme.core.submodule.ui.activity.ActivityConstants.PREF_NAME;
 
@@ -128,7 +123,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      *  @param confirmPassword a String object which will be used during validation form
      **/
     private void signUp(String email, String password, String confirmPassword) throws Exception {
-        Log.d(TAG, getString(R.string.log_sign_up) + email);
+        Log.d(TAG, getString(R.string.register_log_sign_up) + email);
         if (!validateForm()) {
             return;
         }
@@ -136,10 +131,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         showProgressDialog();
         // Check for a valid password confirmation, if the user entered one.
         if (TextUtils.isEmpty(confirmPassword)) {
-            mPasswordConfirmView.setError(getString(R.string.error_empty_password));
+            mPasswordConfirmView.setError(getString(R.string.register_error_empty_password));
         } else {
             if (!isPasswordValid(confirmPassword)) {
-                mPasswordConfirmView.setError(getString(R.string.error_invalid_password));
+                mPasswordConfirmView.setError(getString(R.string.register_error_invalid_password));
             }
         }
 
@@ -147,13 +142,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, getString(R.string.log_create_user_with_email_success));
+                        Log.d(TAG, getString(R.string.register_log_create_user_with_email_success));
                         updateUI();
                         finishSingUpActivity();
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w(TAG, getString(R.string.log_create_user_with_email_failure), task.getException());
-                        Toast.makeText(RegisterActivity.this, getString(R.string.error_auth_failed),
+                        Log.w(TAG, getString(R.string.register_log_create_user_with_email_failure), task.getException());
+                        Toast.makeText(RegisterActivity.this, getString(R.string.register_error_auth_failed),
                                 Toast.LENGTH_SHORT).show();
                         updateUI();
                     }
@@ -186,7 +181,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(getString(R.string.checking));
+            mProgressDialog.setMessage(getString(R.string.register_checking));
             mProgressDialog.setIndeterminate(true);
         }
         mProgressDialog.show();
@@ -218,22 +213,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         String email = mEmailView.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.field_required));
+            mEmailView.setError(getString(R.string.register_field_required));
             valid = false;
         } else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            mEmailView.setError(getString(R.string.error_invalid_email));
+            mEmailView.setError(getString(R.string.register_error_invalid_email));
             valid = false;
         }
 
         String password = mPasswordView.getText().toString();
         if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.field_required));
+            mPasswordView.setError(getString(R.string.register_field_required));
             valid = false;
         }
 
         String confirmPassword = mPasswordConfirmView.getText().toString();
         if (TextUtils.isEmpty(confirmPassword)) {
-            mPasswordView.setError(getString(R.string.field_required));
+            mPasswordView.setError(getString(R.string.register_field_required));
             valid = false;
         }
 
