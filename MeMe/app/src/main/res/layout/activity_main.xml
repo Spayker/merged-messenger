@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_relative_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -21,7 +20,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:gravity="bottom|left|right"
+        android:gravity="bottom|start|end"
         android:orientation="horizontal">
 
         <Button
@@ -31,6 +30,7 @@
             android:layout_weight="0.1"
             android:background="@null"
             android:onClick="clickOnExit"
+            android:drawableStart="@mipmap/exit"
             android:drawableLeft="@mipmap/exit" />
 
         <TextView
@@ -50,6 +50,7 @@
             android:layout_weight="0.1"
             android:background="@null"
             android:onClick="clickOnEditChannels"
+            android:drawableEnd="@mipmap/edit_channels"
             android:drawableRight="@mipmap/edit_channels" />
 
     </LinearLayout>

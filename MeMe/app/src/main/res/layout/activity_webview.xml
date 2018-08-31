@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".core.submodule.ui.activity.webview.WebViewActivity">
+    tools:context=".core.ui.activity.webview.WebViewActivity">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/backToMainMenu"
@@ -14,7 +14,8 @@
         android:layout_alignParentBottom="true"
         android:onClick="clickOnBackToMainMenu"
         android:src="@mipmap/back"
-        app:backgroundTint="@android:color/holo_green_dark" />
+        app:backgroundTint="@android:color/holo_green_dark"
+        android:layout_alignParentRight="true" />
 
     <!-- View that will be hidden when video goes fullscreen -->
     <RelativeLayout
@@ -22,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <com.spand.meme.core.submodule.ui.activity.webview.CustomWebView
+        <com.spand.meme.core.ui.activity.webview.CustomWebView
             android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

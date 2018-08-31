@@ -1,61 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center_vertical|center"
+    android:layout_height="wrap_content"
+    android:gravity="center"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".core.submodule.ui.activity.settings.RemoveAccountActivity">
+    tools:context=".core.ui.activity.settings.RemoveAccountActivity">
 
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/remove_account_textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.1"
+        android:text="@string/remove_account_action"
+        android:textAlignment="center" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.1"
         android:gravity="center_vertical|center"
-        android:orientation="vertical">
+        app:passwordToggleEnabled="true">
 
-        <TextView
-            android:id="@+id/remove_account_textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/remove_account_action"
-            android:textAlignment="center" />
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|center"
-            app:passwordToggleEnabled="true">
-
-            <EditText
-                android:id="@+id/confirm_password"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:hint="@string/change_password_current_password"
-                android:imeActionId="6"
-                android:imeActionLabel="@string/login_action_sign_in_short"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:id="@+id/confirm_remove_account_button"
+        <EditText
+            android:id="@+id/confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/remove_account_confirm_button" />
+            android:hint="@string/change_password_current_password"
+            android:imeActionId="6"
+            android:imeActionLabel="@string/login_action_sign_in_short"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true" />
 
-    </LinearLayout>
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/confirm_remove_account_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:onClick="onClick"
+        android:text="@string/remove_account_confirm_button" />
 
 </LinearLayout>
 

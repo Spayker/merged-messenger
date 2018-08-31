@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logo"
@@ -29,7 +28,7 @@
 
         <!--Welcome Screen With SignIn and SignUp buttons-->
         <activity
-            android:name=".core.submodule.ui.activity.main.WelcomeActivity"
+            android:name=".core.ui.activity.main.WelcomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme">
@@ -42,72 +41,72 @@
 
         <!--Login Screen-->
         <activity
-            android:name=".core.submodule.ui.activity.main.LoginActivity"
+            android:name=".core.ui.activity.main.LoginActivity"
             android:label="@string/login_title_activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.main.WelcomeActivity" />
+                android:value=".core.ui.activity.main.WelcomeActivity" />
         </activity>
 
         <!--Terms Of Use Screen-->
         <activity
-            android:name=".core.submodule.ui.activity.main.TermsAndUseConditionsActivity"
+            android:name=".core.ui.activity.main.TermsAndUseConditionsActivity"
             android:label="@string/terms_title_activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.main.WelcomeActivity" />
+                android:value=".core.ui.activity.main.WelcomeActivity" />
         </activity>
 
         <!--Register Screen-->
         <activity
-            android:name=".core.submodule.ui.activity.main.RegisterActivity"
+            android:name=".core.ui.activity.main.RegisterActivity"
             android:label="@string/register_title_activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.main.TermsAndUseConditionsActivity" />
+                android:value=".core.ui.activity.main.TermsAndUseConditionsActivity" />
         </activity>
 
         <!--Main Menu Screen-->
-        <activity android:name=".core.submodule.ui.activity.main.MainActivity">
+        <activity android:name=".core.ui.activity.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.main.WelcomeActivity" />
+                android:value=".core.ui.activity.main.WelcomeActivity" />
         </activity>
 
         <!--Menu of WebView Screen-->
-        <activity android:name=".core.submodule.ui.activity.webview.WebViewActivity"
+        <activity android:name=".core.ui.activity.webview.WebViewActivity"
                   android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.main.MainActivity" />
+                android:value=".core.ui.activity.main.MainActivity" />
         </activity>
 
         <!--Menu of Global Settings Screen-->
-        <activity android:name=".core.submodule.ui.activity.settings.GlobalSettingsActivity">
+        <activity android:name=".core.ui.activity.settings.GlobalSettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.main.MainActivity" />
+                android:value=".core.ui.activity.main.MainActivity" />
         </activity>
 
         <!--Menu of Channel Settings Screen-->
-        <activity android:name=".core.submodule.ui.activity.settings.EditChannelsActivity">
+        <activity android:name=".core.ui.activity.settings.EditChannelsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.main.MainActivity" />
+                android:value=".core.ui.activity.main.MainActivity" />
         </activity>
 
         <!--Menu of Password change Screen-->
-        <activity android:name=".core.submodule.ui.activity.settings.ChangePasswordActivity">
+        <activity android:name=".core.ui.activity.settings.ChangePasswordActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.settings.GlobalSettingsActivity" />
+                android:value=".core.ui.activity.settings.GlobalSettingsActivity" />
         </activity>
 
         <!--Menu of Account Remove Screen-->
-        <activity android:name=".core.submodule.ui.activity.settings.RemoveAccountActivity">
+        <activity android:name=".core.ui.activity.settings.RemoveAccountActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.submodule.ui.activity.settings.GlobalSettingsActivity" />
+                android:value=".core.ui.activity.settings.GlobalSettingsActivity" />
         </activity>
 
     </application>

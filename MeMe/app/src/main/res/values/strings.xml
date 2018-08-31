@@ -2,6 +2,8 @@
 
     <!--Application Common String Section start-->
         <string name="app_name">MeMe</string>
+        <string name="default_media_location_folder">MeMeCorp</string>
+        <string name="app_version">v</string>
     <!--Application Common String Section end-->
 
     <!--UI String Section Start-->
@@ -131,6 +133,7 @@
             <string name="channel_setting_key_gmail_switcher">key_gmail_switcher</string>
             <string name="channel_setting_key_mailru_switcher">key_mailru_switcher</string>
             <string name="channel_setting_key_youtube_switcher">key_youtube_switcher</string>
+            <string name="channel_settings_log_channel_is_null">channel is null</string>
 
         <!--Menu of Password change Screen-->
             <string name="change_password_action_change_password">Change Password</string>
@@ -151,6 +154,8 @@
             <string name="change_password_log_error_password_not_updated">error password not updated</string>
             <string name="change_password_log_password_has_been_validated">password has been validated</string>
             <string name="change_password_log_error_auth_failed">authentication failed</string>
+            <string name="change_password_log_email_is_null">user is null</string>
+            <string name="change_password_log_user_is_null">email is null</string>
 
         <!--Menu of Account Remove Screen-->
             <string name="remove_account_action_remove_account">Remove Account</string>
