@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        AlphaDynamicMenuBuilder.create(this).build(sharedPreferences);
+        AlphaDynamicMenuBuilder.getInstance(this).build(sharedPreferences);
     }
 
     /**

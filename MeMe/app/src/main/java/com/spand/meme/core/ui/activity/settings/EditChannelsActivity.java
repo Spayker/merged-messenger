@@ -15,7 +15,6 @@ import com.spand.meme.core.data.memory.channel.Channel;
 import com.spand.meme.core.logic.menu.main.builder.AlphaDynamicMenuBuilder;
 
 import static com.spand.meme.core.data.memory.channel.ChannelManager.getChannelByName;
-import static com.spand.meme.core.logic.menu.main.builder.AlphaDynamicMenuBuilder.getMenuBuilder;
 import static com.spand.meme.core.logic.starter.SettingsConstants.PREF_NAME;
 
 public class EditChannelsActivity extends AppCompatActivity {
@@ -240,8 +239,6 @@ public class EditChannelsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AlphaDynamicMenuBuilder menuBuilder = getMenuBuilder();
-        menuBuilder.rebuild(sharedPreferences);
         super.onBackPressed();
     }
 

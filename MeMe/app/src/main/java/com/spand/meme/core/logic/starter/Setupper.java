@@ -65,6 +65,7 @@ public class Setupper implements Starter {
 
     @Override
     public void initApplication(SharedPreferences sharedPreferences) {
+        ChannelManager.clearChannels();
         initChannelManager(mainActivity);
         String selectedLanguage = Locale.getDefault().getLanguage();
         switch (selectedLanguage) {
@@ -72,6 +73,7 @@ public class Setupper implements Starter {
                 initSocialGroupChannels(sharedPreferences, mainActivity).
                         initChatGroupChannels(sharedPreferences, mainActivity).
                         initEmailGroupChannels(sharedPreferences, mainActivity);
+                break;
             }
             default: {
                 initSocialGroupChannels(sharedPreferences, mainActivity).

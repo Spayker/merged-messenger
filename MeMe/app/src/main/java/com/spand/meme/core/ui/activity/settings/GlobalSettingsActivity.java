@@ -182,6 +182,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                 }
             }
             languagePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                System.out.println(newValue);
                 LocaleHelper.setLocale(settingsActivityInstance, "ru");
                 String stringValue = newValue.toString();
                 ListPreference listPreference = (ListPreference) preference;
@@ -191,6 +192,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                         index >= 0
                                 ? listPreference.getEntries()[index]
                                 : null);
+                settingsActivityInstance.recreate();
                 return true;
             });
             setNewValueOnPreferenceChange(languagePreference);

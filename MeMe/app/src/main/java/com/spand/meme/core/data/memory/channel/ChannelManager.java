@@ -18,7 +18,7 @@ public class ChannelManager {
     private static ChannelManager channelManager;
     private static List<String> westExcludedChannels;
     private static List<String> eastExcludedChannels;
-    private List<Channel> channels;
+    private static List<Channel> channels;
 
     private ChannelManager() {
     }
@@ -29,6 +29,14 @@ public class ChannelManager {
 
     public static ChannelManager getInstance() {
         return channelManager;
+    }
+
+    public static Boolean clearChannels() {
+        if (channels != null) {
+            channels.clear();
+            return true;
+        }
+        return false;
     }
 
     public List<Channel> getChannels() {
@@ -64,7 +72,7 @@ public class ChannelManager {
         return channels;
     }
 
-    public static Channel getChannelByName(String name){
+    public static Channel getChannelByName(String name) {
         for (Channel chn : channelManager.getChannels()) {
             if (chn.getName().equals(name)) {
                 return chn;
@@ -73,20 +81,20 @@ public class ChannelManager {
         return null;
     }
 
-    public static Boolean isChannelExcludedByDefault(String key){
+    public static Boolean isChannelExcludedByDefault(String key) {
         String selectedLanguage = Locale.getDefault().getLanguage();
         switch (selectedLanguage) {
             case RU: {
                 for (String excChannel : eastExcludedChannels) {
-                    if(excChannel.equalsIgnoreCase(key)){
+                    if (excChannel.equalsIgnoreCase(key)) {
                         return true;
                     }
                 }
                 return false;
             }
-            default:{
+            default: {
                 for (String excChannel : westExcludedChannels) {
-                    if(excChannel.equalsIgnoreCase(key)){
+                    if (excChannel.equalsIgnoreCase(key)) {
                         return true;
                     }
                 }

@@ -31,24 +31,22 @@ import static com.spand.meme.core.ui.activity.ActivityConstants.SHALL_LOAD_URL;
 
 public class AlphaDynamicMenuBuilder implements MainMenuBuilder {
 
-    private AppCompatActivity mainActivity;
+    private static AppCompatActivity mainActivity;
 
     @SuppressLint("StaticFieldLeak")
     private static AlphaDynamicMenuBuilder instance;
 
     private final int BUTTON_LIMIT_IN_ROW = 4;
 
-    private AlphaDynamicMenuBuilder(){}
-
-    private AlphaDynamicMenuBuilder(AppCompatActivity mainActivity) {
-        this.mainActivity = mainActivity;
+    private AlphaDynamicMenuBuilder() {
         instance = this;
     }
 
-    public static MainMenuBuilder create(AppCompatActivity mainActivity) {
+    public static MainMenuBuilder getInstance(AppCompatActivity mA) {
         if (instance == null){
-            instance = new AlphaDynamicMenuBuilder(mainActivity);
+            instance = new AlphaDynamicMenuBuilder();
         }
+        mainActivity = mA;
         return instance;
     }
 
@@ -75,10 +73,6 @@ public class AlphaDynamicMenuBuilder implements MainMenuBuilder {
             createGroupCategory(mainLinearLayout, activatedEmailGroupAmount, groupNameResourceId, EMAIL);
         }
 
-    }
-
-    public void rebuild(SharedPreferences sharedPreferences) {
-        build(sharedPreferences);
     }
 
     private int createChannelButtons(TYPE type, LinearLayout buttonLayout, int lastIndex) {
@@ -112,8 +106,6 @@ public class AlphaDynamicMenuBuilder implements MainMenuBuilder {
     private void createGroupCategory(LinearLayout mainLinearLayout, int activatedGroupAmount, int groupNameResId, TYPE type){
         LinearLayout firstGroupVerticalLayout = new LinearLayout(mainActivity);
         LinearLayout.LayoutParams firstLayoutParams = new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
-        // in order to support sdk from v16
-        //firstLayoutParams.setLayoutDirection(LinearLayout.VERTICAL);
         firstLayoutParams.gravity = Gravity.START|Gravity.CENTER_VERTICAL;
         firstGroupVerticalLayout.setLayoutParams(firstLayoutParams);
         firstGroupVerticalLayout.setPadding(5, 5, 5, 5);
@@ -153,9 +145,5 @@ public class AlphaDynamicMenuBuilder implements MainMenuBuilder {
             firstGroupVerticalLayout.addView(secondGroupHorizontalLayout);
             mainLinearLayout.addView(firstGroupVerticalLayout);
         }
-    }
-
-    public static AlphaDynamicMenuBuilder getMenuBuilder() {
-        return instance;
     }
 }
