@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.spand.meme.core.data.memory.channel.ChannelManager.createNewChannel;
+import static com.spand.meme.core.data.memory.channel.ChannelManager.isChannelExcludedByDefault;
 import static com.spand.meme.core.data.memory.channel.ICON.DC;
 import static com.spand.meme.core.data.memory.channel.ICON.FB;
 import static com.spand.meme.core.data.memory.channel.ICON.GM;
@@ -29,21 +30,6 @@ import static com.spand.meme.core.data.memory.channel.ICON.YT;
 import static com.spand.meme.core.data.memory.channel.TYPE.CHAT;
 import static com.spand.meme.core.data.memory.channel.TYPE.EMAIL;
 import static com.spand.meme.core.data.memory.channel.TYPE.SOCIAL;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_DISCORD;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_FACEBOOK;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_GMAIL;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_ICQ;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_INSTAGRAM;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_LINKED_IN;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_MAIL_RU;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_ODNOKLASSNIKI;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_SKYPE;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_SLACK;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_TELEGRAM;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_TUMBLR;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_TWITTER;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_VKONTAKTE;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_YOUTUBE;
 import static com.spand.meme.core.logic.starter.SettingsConstants.RU;
 import static com.spand.meme.core.ui.activity.ActivityConstants.DISCORD_HOME_URL;
 import static com.spand.meme.core.ui.activity.ActivityConstants.FB_HOME_URL;
@@ -64,151 +50,153 @@ import static com.spand.meme.core.ui.activity.ActivityConstants.YOUTUBE_HOME_URL
 public class Setupper implements Starter {
 
     private static Setupper instance;
+    private static AppCompatActivity mainActivity;
 
     private Setupper() {
     }
 
-    public static Setupper createSetupper() {
+    public static Setupper createSetupper(AppCompatActivity mA) {
         if (instance == null) {
             instance = new Setupper();
+            mainActivity = mA;
         }
         return instance;
     }
 
     @Override
-    public Boolean initApplication(SharedPreferences sharedPreferences, AppCompatActivity mainActivity) {
-        initChannelManager();
+    public void initApplication(SharedPreferences sharedPreferences) {
+        initChannelManager(mainActivity);
         String selectedLanguage = Locale.getDefault().getLanguage();
         switch (selectedLanguage) {
             case RU: {
-                return initSocialGroupChannels(sharedPreferences, mainActivity, KEY_LINKED_IN) &&
-                        initChatGroupChannels(sharedPreferences, mainActivity, KEY_TUMBLR, KEY_TELEGRAM) &&
+                initSocialGroupChannels(sharedPreferences, mainActivity).
+                        initChatGroupChannels(sharedPreferences, mainActivity).
                         initEmailGroupChannels(sharedPreferences, mainActivity);
             }
             default: {
-                return initSocialGroupChannels(sharedPreferences, mainActivity, KEY_VKONTAKTE, KEY_ODNOKLASSNIKI) &&
-                        initChatGroupChannels(sharedPreferences, mainActivity) &&
-                        initEmailGroupChannels(sharedPreferences, mainActivity, KEY_MAIL_RU);
+                initSocialGroupChannels(sharedPreferences, mainActivity).
+                        initChatGroupChannels(sharedPreferences, mainActivity).
+                        initEmailGroupChannels(sharedPreferences, mainActivity);
             }
         }
     }
 
-    private static Boolean initSocialGroupChannels(SharedPreferences sharedPreferences,
-                                                   AppCompatActivity mainActivity,
-                                                   String... excludedChannels) {
+    private Setupper initSocialGroupChannels(SharedPreferences sharedPreferences,
+                                                   AppCompatActivity mainActivity) {
         List<Channel> channels = ChannelManager.getInstance().getChannels();
-        if (channels.isEmpty()) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            Channel facebookChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_fb), SOCIAL, FB, FB_HOME_URL,
-                    !isChannelExcluded(excludedChannels, KEY_FACEBOOK));
-            channels.add(facebookChannel);
-            editor.putBoolean(KEY_FACEBOOK, facebookChannel.getActive());
+        String fbKey = mainActivity.getString(R.string.channel_setting_fb);
+        Channel facebookChannel = createNewChannel(fbKey, SOCIAL, FB, FB_HOME_URL,
+                !isChannelExcludedByDefault(fbKey));
+        channels.add(facebookChannel);
+        editor.putBoolean(fbKey, facebookChannel.getActive());
 
-            Channel vkontakteChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_vk), SOCIAL, VK, VK_HOME_URL,
-                    !isChannelExcluded(excludedChannels, KEY_VKONTAKTE));
-            channels.add(vkontakteChannel);
-            editor.putBoolean(KEY_VKONTAKTE, vkontakteChannel.getActive());
+        String vkKey = mainActivity.getString(R.string.channel_setting_vk);
+        Channel vkontakteChannel = createNewChannel(vkKey, SOCIAL, VK, VK_HOME_URL,
+                !isChannelExcludedByDefault(vkKey));
+        channels.add(vkontakteChannel);
+        editor.putBoolean(vkKey, vkontakteChannel.getActive());
 
-            Channel twitterChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_tw), SOCIAL, TW, TWITTER_HOME_URL,
-                    !isChannelExcluded(excludedChannels, KEY_TWITTER));
-            channels.add(twitterChannel);
-            editor.putBoolean(KEY_TWITTER, twitterChannel.getActive());
+        String twKey = mainActivity.getString(R.string.channel_setting_tw);
+        Channel twitterChannel = createNewChannel(twKey, SOCIAL, TW, TWITTER_HOME_URL,
+                !isChannelExcludedByDefault(twKey));
+        channels.add(twitterChannel);
+        editor.putBoolean(twKey, twitterChannel.getActive());
 
-            Channel instagramChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_inst), SOCIAL, IN, INSTAGRAM_HOME_URL,
-                    !isChannelExcluded(excludedChannels, KEY_INSTAGRAM));
-            channels.add(instagramChannel);
-            editor.putBoolean(KEY_INSTAGRAM, instagramChannel.getActive());
+        String instKey = mainActivity.getString(R.string.channel_setting_inst);
+        Channel instagramChannel = createNewChannel(instKey, SOCIAL, IN, INSTAGRAM_HOME_URL,
+                !isChannelExcludedByDefault(instKey));
+        channels.add(instagramChannel);
+        editor.putBoolean(instKey, instagramChannel.getActive());
 
-            Channel okChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_ok), SOCIAL, OK, ODNOKLASNIKI_HOME_URL,
-                    !isChannelExcluded(excludedChannels, KEY_ODNOKLASSNIKI));
-            channels.add(okChannel);
-            editor.putBoolean(KEY_ODNOKLASSNIKI, okChannel.getActive());
+        String okKey = mainActivity.getString(R.string.channel_setting_ok);
+        Channel okChannel = createNewChannel(okKey, SOCIAL, OK, ODNOKLASNIKI_HOME_URL,
+                !isChannelExcludedByDefault(okKey));
+        channels.add(okChannel);
+        editor.putBoolean(okKey, okChannel.getActive());
 
-            Channel youtubeChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_yt), SOCIAL, YT, YOUTUBE_HOME_URL,
-                    !isChannelExcluded(excludedChannels, KEY_YOUTUBE));
-            channels.add(youtubeChannel);
-            editor.putBoolean(KEY_YOUTUBE, youtubeChannel.getActive());
+        String ytKey = mainActivity.getString(R.string.channel_setting_yt);
+        Channel youtubeChannel = createNewChannel(ytKey, SOCIAL, YT, YOUTUBE_HOME_URL,
+                !isChannelExcludedByDefault(ytKey));
+        channels.add(youtubeChannel);
+        editor.putBoolean(ytKey, youtubeChannel.getActive());
 
-            Channel linkedinChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_ln), SOCIAL, LN, LINKEDIN_HOME_URL,
-                    !isChannelExcluded(excludedChannels, KEY_LINKED_IN));
-            channels.add(linkedinChannel);
-            editor.putBoolean(KEY_LINKED_IN, linkedinChannel.getActive());
-            editor.apply();
-            editor.commit();
-            return true;
-        }
-        return false;
+        String lnKey = mainActivity.getString(R.string.channel_setting_ln);
+        Channel linkedinChannel = createNewChannel(lnKey, SOCIAL, LN, LINKEDIN_HOME_URL,
+                !isChannelExcludedByDefault(lnKey));
+        channels.add(linkedinChannel);
+        editor.putBoolean(lnKey, linkedinChannel.getActive());
+        editor.apply();
+        editor.commit();
+        return instance;
     }
 
-    private static Boolean initChatGroupChannels(SharedPreferences sharedPreferences,
-                                                 AppCompatActivity mainActivity,
-                                                 String... excludedChannels) {
+    private Setupper initChatGroupChannels(SharedPreferences sharedPreferences,
+                                                 AppCompatActivity mainActivity) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = ChannelManager.getInstance().getChannels();
 
-        Channel telegramChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_tl), CHAT, TL, TELEGRAM_HOME_URL,
-                !isChannelExcluded(excludedChannels, KEY_TELEGRAM));
+        String tlKey = mainActivity.getString(R.string.channel_setting_tl);
+        Channel telegramChannel = createNewChannel(tlKey, CHAT, TL, TELEGRAM_HOME_URL,
+                !isChannelExcludedByDefault(tlKey));
         channels.add(telegramChannel);
-        editor.putBoolean(KEY_TELEGRAM, telegramChannel.getActive());
+        editor.putBoolean(tlKey, telegramChannel.getActive());
 
-        Channel tumblChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_tmb), CHAT, TUM, TUMBLR_HOME_URL,
-                !isChannelExcluded(excludedChannels, KEY_TUMBLR));
+        String tmbKey = mainActivity.getString(R.string.channel_setting_tmb);
+        Channel tumblChannel = createNewChannel(tmbKey, CHAT, TUM, TUMBLR_HOME_URL,
+                !isChannelExcludedByDefault(tmbKey));
         channels.add(tumblChannel);
-        editor.putBoolean(KEY_TUMBLR, tumblChannel.getActive());
+        editor.putBoolean(tmbKey, tumblChannel.getActive());
 
-        Channel skypeChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_skp), CHAT, SK, SKYPE_HOME_URL,
-                !isChannelExcluded(excludedChannels, KEY_SKYPE));
+        String skpKey = mainActivity.getString(R.string.channel_setting_skp);
+        Channel skypeChannel = createNewChannel(skpKey, CHAT, SK, SKYPE_HOME_URL,
+                !isChannelExcludedByDefault(skpKey));
         channels.add(skypeChannel);
-        editor.putBoolean(KEY_SKYPE, skypeChannel.getActive());
+        editor.putBoolean(skpKey, skypeChannel.getActive());
 
-        Channel icqChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_icq), CHAT, ICQ, ICQ_HOME_URL,
-                !isChannelExcluded(excludedChannels, KEY_ICQ));
+        String icqKey = mainActivity.getString(R.string.channel_setting_icq);
+        Channel icqChannel = createNewChannel(icqKey, CHAT, ICQ, ICQ_HOME_URL,
+                !isChannelExcludedByDefault(icqKey));
         channels.add(icqChannel);
-        editor.putBoolean(KEY_ICQ, icqChannel.getActive());
+        editor.putBoolean(icqKey, icqChannel.getActive());
 
-        Channel discordChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_dc), CHAT, DC, DISCORD_HOME_URL,
-                !isChannelExcluded(excludedChannels, KEY_DISCORD));
+        String dcKey = mainActivity.getString(R.string.channel_setting_dc);
+        Channel discordChannel = createNewChannel(dcKey, CHAT, DC, DISCORD_HOME_URL,
+                !isChannelExcludedByDefault(dcKey));
         channels.add(discordChannel);
-        editor.putBoolean(KEY_DISCORD, discordChannel.getActive());
+        editor.putBoolean(dcKey, discordChannel.getActive());
 
-        Channel slackChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_slack), CHAT, SL, SLACK_HOME_URL,
-                !isChannelExcluded(excludedChannels, KEY_SLACK));
+        String slKey = mainActivity.getString(R.string.channel_setting_slack);
+        Channel slackChannel = createNewChannel(slKey, CHAT, SL, SLACK_HOME_URL,
+                !isChannelExcludedByDefault(slKey));
         channels.add(slackChannel);
-        editor.putBoolean(KEY_SLACK, slackChannel.getActive());
+        editor.putBoolean(slKey, slackChannel.getActive());
 
         editor.apply();
         editor.commit();
-        return true;
+        return instance;
     }
 
-    private static Boolean initEmailGroupChannels(SharedPreferences sharedPreferences,
-                                                  AppCompatActivity mainActivity,
-                                                  String... excludedChannels) {
+    private Setupper initEmailGroupChannels(SharedPreferences sharedPreferences,
+                                                  AppCompatActivity mainActivity) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = ChannelManager.getInstance().getChannels();
 
-        Channel gmailChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_gmail), EMAIL, GM, GMAIL_HOME_URL,
-                !isChannelExcluded(excludedChannels, KEY_GMAIL));
+        String gmailKey = mainActivity.getString(R.string.channel_setting_gmail);
+        Channel gmailChannel = createNewChannel(gmailKey, EMAIL, GM, GMAIL_HOME_URL,
+                !isChannelExcludedByDefault(gmailKey));
         channels.add(gmailChannel);
-        editor.putBoolean(KEY_GMAIL, gmailChannel.getActive());
+        editor.putBoolean(gmailKey, gmailChannel.getActive());
 
-        Channel mailruChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_mailru), EMAIL, MAIL_RU, MAIL_RU_HOME_URL,
-                !isChannelExcluded(excludedChannels, KEY_MAIL_RU));
+        String mainRuKey = mainActivity.getString(R.string.channel_setting_mailru);
+        Channel mailruChannel = createNewChannel(mainRuKey, EMAIL, MAIL_RU, MAIL_RU_HOME_URL,
+                !isChannelExcludedByDefault(mainRuKey));
         channels.add(mailruChannel);
-        editor.putBoolean(KEY_MAIL_RU, mailruChannel.getActive());
+        editor.putBoolean(mainRuKey, mailruChannel.getActive());
         editor.apply();
         editor.commit();
-        return true;
-    }
-
-    private static Boolean isChannelExcluded(String[] excludedChannels, String key){
-        for (String excludedChannel : excludedChannels) {
-            if (excludedChannel.equalsIgnoreCase(key)){
-                return true;
-            }
-        }
-        return false;
+        return instance;
     }
 
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.spand.meme.core.data.memory.channel.ChannelManager.createNewChannel;
+import static com.spand.meme.core.data.memory.channel.ChannelManager.isChannelExcludedByDefault;
 import static com.spand.meme.core.data.memory.channel.ICON.DC;
 import static com.spand.meme.core.data.memory.channel.ICON.FB;
 import static com.spand.meme.core.data.memory.channel.ICON.GM;
@@ -29,21 +30,6 @@ import static com.spand.meme.core.data.memory.channel.ICON.YT;
 import static com.spand.meme.core.data.memory.channel.TYPE.CHAT;
 import static com.spand.meme.core.data.memory.channel.TYPE.EMAIL;
 import static com.spand.meme.core.data.memory.channel.TYPE.SOCIAL;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_DISCORD;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_FACEBOOK;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_GMAIL;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_ICQ;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_INSTAGRAM;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_LINKED_IN;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_MAIL_RU;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_ODNOKLASSNIKI;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_SKYPE;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_SLACK;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_TELEGRAM;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_TUMBLR;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_TWITTER;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_VKONTAKTE;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_YOUTUBE;
 import static com.spand.meme.core.logic.starter.SettingsConstants.RU;
 import static com.spand.meme.core.ui.activity.ActivityConstants.DISCORD_HOME_URL;
 import static com.spand.meme.core.ui.activity.ActivityConstants.FB_HOME_URL;
@@ -64,138 +50,152 @@ import static com.spand.meme.core.ui.activity.ActivityConstants.YOUTUBE_HOME_URL
 public class Loginner implements Starter {
 
     private static Loginner instance;
-
+    private static AppCompatActivity mainActivity;
     private Loginner() { }
 
-    public static Loginner createLoginner() {
+    public static Loginner createLoginner(AppCompatActivity mA) {
         if (instance == null) {
             instance = new Loginner();
+            mainActivity = mA;
         }
         return instance;
     }
 
     @Override
-    public Boolean initApplication(SharedPreferences sharedPreferences, AppCompatActivity mainActivity) {
-        initChannelManager();
+    public void initApplication(SharedPreferences sharedPreferences) {
+        initChannelManager(mainActivity);
         String selectedLanguage = Locale.getDefault().getLanguage();
         switch (selectedLanguage) {
             case RU: {
-                return initSocialGroupChannels(sharedPreferences, mainActivity) &&
-                        initChatGroupChannels(sharedPreferences, mainActivity) &&
+                initSocialGroupChannels(sharedPreferences, mainActivity).
+                        initChatGroupChannels(sharedPreferences, mainActivity).
                         initEmailGroupChannels(sharedPreferences, mainActivity);
+                break;
             }
             default: {
-                return initSocialGroupChannels(sharedPreferences, mainActivity) &&
-                        initChatGroupChannels(sharedPreferences, mainActivity) &&
+                initSocialGroupChannels(sharedPreferences, mainActivity).
+                        initChatGroupChannels(sharedPreferences, mainActivity).
                         initEmailGroupChannels(sharedPreferences, mainActivity);
             }
         }
     }
 
-    private static Boolean initSocialGroupChannels(SharedPreferences sharedPreferences,
+    private Loginner initSocialGroupChannels(SharedPreferences sharedPreferences,
                                                    AppCompatActivity mainActivity) {
         List<Channel> channels = ChannelManager.getInstance().getChannels();
-        if (channels.isEmpty()) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            Channel facebookChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_fb),
-                    SOCIAL, FB, FB_HOME_URL,
-                    sharedPreferences.getBoolean(KEY_FACEBOOK, false));
-            channels.add(facebookChannel);
+        String fbKey = mainActivity.getString(R.string.channel_setting_fb);
+        Channel facebookChannel = createNewChannel(fbKey,
+                SOCIAL, FB, FB_HOME_URL,
+                sharedPreferences.getBoolean(fbKey, !isChannelExcludedByDefault(fbKey)));
+        channels.add(facebookChannel);
 
-            Channel vkontakteChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_vk),
-                    SOCIAL, VK, VK_HOME_URL,
-                    sharedPreferences.getBoolean(KEY_VKONTAKTE, false));
-            channels.add(vkontakteChannel);
+        String vkKey = mainActivity.getString(R.string.channel_setting_vk);
+        Channel vkontakteChannel = createNewChannel(vkKey,
+                SOCIAL, VK, VK_HOME_URL,
+                sharedPreferences.getBoolean(vkKey, !isChannelExcludedByDefault(vkKey)));
+        channels.add(vkontakteChannel);
 
-            Channel twitterChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_tw),
-                    SOCIAL, TW, TWITTER_HOME_URL,
-                    sharedPreferences.getBoolean(KEY_TWITTER, false));
-            channels.add(twitterChannel);
+        String twKey = mainActivity.getString(R.string.channel_setting_tw);
+        Channel twitterChannel = createNewChannel(twKey,
+                SOCIAL, TW, TWITTER_HOME_URL,
+                sharedPreferences.getBoolean(twKey, !isChannelExcludedByDefault(twKey)));
+        channels.add(twitterChannel);
 
-            Channel instagramChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_inst),
-                    SOCIAL, IN, INSTAGRAM_HOME_URL,
-                    sharedPreferences.getBoolean(KEY_INSTAGRAM, false));
-            channels.add(instagramChannel);
+        String instKey = mainActivity.getString(R.string.channel_setting_inst);
+        Channel instagramChannel = createNewChannel(instKey,
+                SOCIAL, IN, INSTAGRAM_HOME_URL,
+                sharedPreferences.getBoolean(instKey, !isChannelExcludedByDefault(instKey)));
+        channels.add(instagramChannel);
 
-            Channel okChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_ok),
-                    SOCIAL, OK, ODNOKLASNIKI_HOME_URL,
-                    sharedPreferences.getBoolean(KEY_ODNOKLASSNIKI, false));
-            channels.add(okChannel);
+        String okKey = mainActivity.getString(R.string.channel_setting_ok);
+        Channel okChannel = createNewChannel(okKey,
+                SOCIAL, OK, ODNOKLASNIKI_HOME_URL,
+                sharedPreferences.getBoolean(okKey, !isChannelExcludedByDefault(okKey)));
+        channels.add(okChannel);
 
-            Channel youtubeChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_yt),
-                    SOCIAL, YT, YOUTUBE_HOME_URL,
-                    sharedPreferences.getBoolean(KEY_YOUTUBE, false));
-            channels.add(youtubeChannel);
+        String ytKey = mainActivity.getString(R.string.channel_setting_yt);
+        Channel youtubeChannel = createNewChannel(ytKey,
+                SOCIAL, YT, YOUTUBE_HOME_URL,
+                sharedPreferences.getBoolean(ytKey, !isChannelExcludedByDefault(ytKey)));
+        channels.add(youtubeChannel);
 
-            Channel linkedinChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_ln),
-                    SOCIAL, LN, LINKEDIN_HOME_URL,
-                    sharedPreferences.getBoolean(KEY_LINKED_IN, false));
-            channels.add(linkedinChannel);
-            editor.apply();
-            editor.commit();
-            return true;
-        }
-        return false;
+        String lnKey = mainActivity.getString(R.string.channel_setting_ln);
+        Channel linkedinChannel = createNewChannel(lnKey,
+                SOCIAL, LN, LINKEDIN_HOME_URL,
+                sharedPreferences.getBoolean(lnKey, !isChannelExcludedByDefault(lnKey)));
+        channels.add(linkedinChannel);
+        editor.apply();
+        editor.commit();
+        return instance;
     }
 
-    private static Boolean initChatGroupChannels(SharedPreferences sharedPreferences,
+    private Loginner initChatGroupChannels(SharedPreferences sharedPreferences,
                                                  AppCompatActivity mainActivity) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = ChannelManager.getInstance().getChannels();
 
-        Channel telegramChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_tl),
+        String tlKey = mainActivity.getString(R.string.channel_setting_tl);
+        Channel telegramChannel = createNewChannel(tlKey,
                 CHAT, TL, TELEGRAM_HOME_URL,
-                sharedPreferences.getBoolean(KEY_TELEGRAM, false));
+                sharedPreferences.getBoolean(tlKey, !isChannelExcludedByDefault(tlKey)));
         channels.add(telegramChannel);
 
-        Channel tumblChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_tmb),
+        String tmbKey = mainActivity.getString(R.string.channel_setting_tmb);
+        Channel tumblChannel = createNewChannel(tmbKey,
                 CHAT, TUM, TUMBLR_HOME_URL,
-                sharedPreferences.getBoolean(KEY_TUMBLR, false));
+                sharedPreferences.getBoolean(tmbKey, !isChannelExcludedByDefault(tmbKey)));
         channels.add(tumblChannel);
 
-        Channel skypeChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_skp),
+        String skpKey = mainActivity.getString(R.string.channel_setting_skp);
+        Channel skypeChannel = createNewChannel(skpKey,
                 CHAT, SK, SKYPE_HOME_URL,
-                sharedPreferences.getBoolean(KEY_SKYPE, false));
+                sharedPreferences.getBoolean(skpKey, !isChannelExcludedByDefault(skpKey)));
         channels.add(skypeChannel);
 
-        Channel icqChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_icq),
+        String icqKey = mainActivity.getString(R.string.channel_setting_icq);
+        Channel icqChannel = createNewChannel(icqKey,
                 CHAT, ICQ, ICQ_HOME_URL,
-                sharedPreferences.getBoolean(KEY_ICQ, false));
+                sharedPreferences.getBoolean(icqKey, !isChannelExcludedByDefault(icqKey)));
         channels.add(icqChannel);
 
-        Channel discordChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_dc),
+        String dcKey = mainActivity.getString(R.string.channel_setting_dc);
+        Channel discordChannel = createNewChannel(dcKey,
                 CHAT, DC, DISCORD_HOME_URL,
-                sharedPreferences.getBoolean(KEY_DISCORD, false));
+                sharedPreferences.getBoolean(dcKey, !isChannelExcludedByDefault(dcKey)));
         channels.add(discordChannel);
 
-        Channel slackChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_slack),
+        String slKey = mainActivity.getString(R.string.channel_setting_slack);
+        Channel slackChannel = createNewChannel(slKey,
                 CHAT, SL, SLACK_HOME_URL,
-                sharedPreferences.getBoolean(KEY_SLACK, false));
+                sharedPreferences.getBoolean(slKey, !isChannelExcludedByDefault(dcKey)));
         channels.add(slackChannel);
 
         editor.apply();
         editor.commit();
-        return true;
+        return instance;
     }
 
-    private static Boolean initEmailGroupChannels(SharedPreferences sharedPreferences,
+    private Loginner initEmailGroupChannels(SharedPreferences sharedPreferences,
                                                   AppCompatActivity mainActivity) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = ChannelManager.getInstance().getChannels();
 
-        Channel gmailChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_gmail),
+        String gmailKey = mainActivity.getString(R.string.channel_setting_gmail);
+        Channel gmailChannel = createNewChannel(gmailKey,
                 EMAIL, GM, GMAIL_HOME_URL,
-                sharedPreferences.getBoolean(KEY_GMAIL, false));
+                sharedPreferences.getBoolean(gmailKey, !isChannelExcludedByDefault(gmailKey)));
         channels.add(gmailChannel);
 
-        Channel mailruChannel = createNewChannel(mainActivity.getString(R.string.channel_setting_mailru),
+        String mailRuKey = mainActivity.getString(R.string.channel_setting_mailru);
+        Channel mailruChannel = createNewChannel(mailRuKey,
                 EMAIL, MAIL_RU, MAIL_RU_HOME_URL,
-                sharedPreferences.getBoolean(KEY_MAIL_RU, false));
+                sharedPreferences.getBoolean(mailRuKey, !isChannelExcludedByDefault(mailRuKey)));
         channels.add(mailruChannel);
         editor.apply();
         editor.commit();
-        return true;
+        return instance;
     }
 
 }

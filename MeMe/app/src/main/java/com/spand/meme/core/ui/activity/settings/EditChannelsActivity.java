@@ -16,22 +16,7 @@ import com.spand.meme.core.logic.menu.main.builder.AlphaDynamicMenuBuilder;
 
 import static com.spand.meme.core.data.memory.channel.ChannelManager.getChannelByName;
 import static com.spand.meme.core.logic.menu.main.builder.AlphaDynamicMenuBuilder.getMenuBuilder;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_SLACK;
 import static com.spand.meme.core.logic.starter.SettingsConstants.PREF_NAME;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_DISCORD;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_FACEBOOK;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_GMAIL;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_ICQ;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_INSTAGRAM;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_LINKED_IN;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_MAIL_RU;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_ODNOKLASSNIKI;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_SKYPE;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_TELEGRAM;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_TUMBLR;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_TWITTER;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_VKONTAKTE;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_YOUTUBE;
 
 public class EditChannelsActivity extends AppCompatActivity {
 
@@ -90,122 +75,137 @@ public class EditChannelsActivity extends AppCompatActivity {
             addPreferencesFromResource(R.xml.pref_edit_channels);
 
             SwitchPreference facebookSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_facebook_switcher));
-            facebookSwitcher.setChecked(sharedPreferences.getBoolean(KEY_FACEBOOK, false));
+            String fbKey = getString(R.string.channel_setting_fb);
+            facebookSwitcher.setChecked(sharedPreferences.getBoolean(fbKey, false));
             bindGlobalPreferenceToBooleanValue(facebookSwitcher);
             facebookSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                handleSwitcherChange(facebookSwitcher, KEY_FACEBOOK);
+                handleSwitcherChange(facebookSwitcher, fbKey);
                 return true;
             });
 
             SwitchPreference linkedinSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_linkedin_switcher));
-            linkedinSwitcher.setChecked(sharedPreferences.getBoolean(KEY_LINKED_IN, false));
+            String lnKey = getString(R.string.channel_setting_ln);
+            linkedinSwitcher.setChecked(sharedPreferences.getBoolean(lnKey, false));
             bindGlobalPreferenceToBooleanValue(linkedinSwitcher);
             linkedinSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                handleSwitcherChange(linkedinSwitcher, KEY_LINKED_IN);
+                handleSwitcherChange(linkedinSwitcher, lnKey);
                 return true;
             });
 
             SwitchPreference vkontakteSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_vkontakte_switcher));
-            vkontakteSwitcher.setChecked(sharedPreferences.getBoolean(KEY_VKONTAKTE, false));
+            String vkKey = getString(R.string.channel_setting_vk);
+            vkontakteSwitcher.setChecked(sharedPreferences.getBoolean(vkKey, false));
             bindGlobalPreferenceToBooleanValue(vkontakteSwitcher);
             vkontakteSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                handleSwitcherChange(vkontakteSwitcher, KEY_VKONTAKTE);
+                handleSwitcherChange(vkontakteSwitcher, vkKey);
                 return true;
             });
 
             SwitchPreference twitterSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_twitter_switcher));
-            twitterSwitcher.setChecked(sharedPreferences.getBoolean(KEY_TWITTER, false));
+            String twKey = getString(R.string.channel_setting_tw);
+            twitterSwitcher.setChecked(sharedPreferences.getBoolean(twKey, false));
             bindGlobalPreferenceToBooleanValue(twitterSwitcher);
             twitterSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                handleSwitcherChange(twitterSwitcher, KEY_TWITTER);
+                handleSwitcherChange(twitterSwitcher, twKey);
                 return true;
             });
 
             SwitchPreference tumblrSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_tumblr_switcher));
-            tumblrSwitcher.setChecked(sharedPreferences.getBoolean(KEY_TUMBLR, false));
+            String tmbKey = getString(R.string.channel_setting_tmb);
+            tumblrSwitcher.setChecked(sharedPreferences.getBoolean(tmbKey, false));
             bindGlobalPreferenceToBooleanValue(tumblrSwitcher);
             tumblrSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                handleSwitcherChange(tumblrSwitcher, KEY_TUMBLR);
+                handleSwitcherChange(tumblrSwitcher, tmbKey);
                 return true;
             });
 
             SwitchPreference instagramSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_instagram_switcher));
-            instagramSwitcher.setChecked(sharedPreferences.getBoolean(KEY_INSTAGRAM, false));
+            String instKey = getString(R.string.channel_setting_inst);
+            instagramSwitcher.setChecked(sharedPreferences.getBoolean(instKey, false));
             bindGlobalPreferenceToBooleanValue(instagramSwitcher);
             instagramSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                handleSwitcherChange(instagramSwitcher, KEY_INSTAGRAM);
+                handleSwitcherChange(instagramSwitcher, instKey);
                 return true;
             });
 
             SwitchPreference okSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_odnoklassniki_switcher));
-            okSwitcher.setChecked(sharedPreferences.getBoolean(KEY_ODNOKLASSNIKI, false));
+            String okKey = getString(R.string.channel_setting_ok);
+            okSwitcher.setChecked(sharedPreferences.getBoolean(okKey, false));
             bindGlobalPreferenceToBooleanValue(okSwitcher);
             okSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                handleSwitcherChange(okSwitcher, KEY_ODNOKLASSNIKI);
+                handleSwitcherChange(okSwitcher, okKey);
                 return true;
             });
 
             SwitchPreference telegramSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_telegram_switcher));
-            telegramSwitcher.setChecked(sharedPreferences.getBoolean(KEY_TELEGRAM, false));
+            String tlKey = getString(R.string.channel_setting_tl);
+            telegramSwitcher.setChecked(sharedPreferences.getBoolean(tlKey, false));
             bindGlobalPreferenceToBooleanValue(telegramSwitcher);
             telegramSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                handleSwitcherChange(telegramSwitcher, KEY_TELEGRAM);
+                handleSwitcherChange(telegramSwitcher, tlKey);
                 return true;
             });
 
             SwitchPreference discordSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_discord_switcher));
-            discordSwitcher.setChecked(sharedPreferences.getBoolean(KEY_DISCORD, false));
+            String dcKey = getString(R.string.channel_setting_dc);
+            discordSwitcher.setChecked(sharedPreferences.getBoolean(dcKey, false));
             bindGlobalPreferenceToBooleanValue(discordSwitcher);
             discordSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                handleSwitcherChange(discordSwitcher, KEY_DISCORD);
+                handleSwitcherChange(discordSwitcher, dcKey);
                 return true;
             });
 
             SwitchPreference skypeSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_skype_switcher));
-            skypeSwitcher.setChecked(sharedPreferences.getBoolean(KEY_SKYPE, false));
+            String skpKey = getString(R.string.channel_setting_skp);
+            skypeSwitcher.setChecked(sharedPreferences.getBoolean(skpKey, false));
             bindGlobalPreferenceToBooleanValue(skypeSwitcher);
             skypeSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                handleSwitcherChange(skypeSwitcher, KEY_SKYPE);
+                handleSwitcherChange(skypeSwitcher, skpKey);
                 return true;
             });
 
             SwitchPreference icqSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_icq_switcher));
-            icqSwitcher.setChecked(sharedPreferences.getBoolean(KEY_ICQ, false));
+            String icqKey = getString(R.string.channel_setting_icq);
+            icqSwitcher.setChecked(sharedPreferences.getBoolean(icqKey, false));
             bindGlobalPreferenceToBooleanValue(icqSwitcher);
             icqSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                handleSwitcherChange(icqSwitcher, KEY_ICQ);
+                handleSwitcherChange(icqSwitcher, icqKey);
                 return true;
             });
 
             SwitchPreference slackSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_slack_switcher));
-            slackSwitcher.setChecked(sharedPreferences.getBoolean(KEY_SLACK, false));
+            String slKey = getString(R.string.channel_setting_slack);
+            slackSwitcher.setChecked(sharedPreferences.getBoolean(slKey, false));
             bindGlobalPreferenceToBooleanValue(slackSwitcher);
             slackSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                handleSwitcherChange(slackSwitcher, KEY_SLACK);
+                handleSwitcherChange(slackSwitcher, slKey);
                 return true;
             });
 
             SwitchPreference gmailSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_gmail_switcher));
-            gmailSwitcher.setChecked(sharedPreferences.getBoolean(KEY_GMAIL, false));
+            String gmailKey = getString(R.string.channel_setting_gmail);
+            gmailSwitcher.setChecked(sharedPreferences.getBoolean(gmailKey, false));
             bindGlobalPreferenceToBooleanValue(gmailSwitcher);
             gmailSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                handleSwitcherChange(gmailSwitcher, KEY_GMAIL);
+                handleSwitcherChange(gmailSwitcher, gmailKey);
                 return true;
             });
 
             SwitchPreference mailruSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_mailru_switcher));
-            mailruSwitcher.setChecked(sharedPreferences.getBoolean(KEY_MAIL_RU, false));
+            String mailKey = getString(R.string.channel_setting_mailru);
+            mailruSwitcher.setChecked(sharedPreferences.getBoolean(mailKey, false));
             bindGlobalPreferenceToBooleanValue(mailruSwitcher);
             mailruSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                handleSwitcherChange(mailruSwitcher, KEY_MAIL_RU);
+                handleSwitcherChange(mailruSwitcher, mailKey);
                 return true;
             });
 
             SwitchPreference youtubeSwitcher  = (SwitchPreference)findPreference(getString(R.string.channel_setting_key_youtube_switcher));
-            youtubeSwitcher.setChecked(sharedPreferences.getBoolean(KEY_YOUTUBE, false));
+            String ytKey = getString(R.string.channel_setting_yt);
+            youtubeSwitcher.setChecked(sharedPreferences.getBoolean(ytKey, false));
             bindGlobalPreferenceToBooleanValue(youtubeSwitcher);
             youtubeSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                handleSwitcherChange(youtubeSwitcher, KEY_YOUTUBE);
+                handleSwitcherChange(youtubeSwitcher, ytKey);
                 return true;
             });
         }

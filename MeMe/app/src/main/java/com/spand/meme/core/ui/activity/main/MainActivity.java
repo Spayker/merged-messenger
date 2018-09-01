@@ -50,13 +50,13 @@ public class MainActivity extends AppCompatActivity {
         if (startTypeKey != null) {
             switch (startTypeKey) {
                 case REGISTRATOR: {
-                    createSetupper().initApplication(sharedPreferences, this);
+                    createSetupper(this).initApplication(sharedPreferences);
                     String username = intent.getStringExtra(USERNAME);
                     setTitle(username);
                     break;
                 }
                 default: {
-                    createLoginner().initApplication(sharedPreferences, this);
+                    createLoginner(this).initApplication(sharedPreferences);
                     FirebaseAuth mAuth = FirebaseAuth.getInstance();
                     FirebaseUser currentUser = mAuth.getCurrentUser();
                     if (currentUser != null) {
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         } else {
-            createLoginner().initApplication(sharedPreferences, this);
+            createLoginner(this).initApplication(sharedPreferences);
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             FirebaseUser currentUser = mAuth.getCurrentUser();
             if (currentUser != null) {

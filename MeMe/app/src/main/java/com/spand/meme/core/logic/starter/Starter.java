@@ -11,14 +11,13 @@ import static com.spand.meme.core.data.memory.channel.ChannelManager.createChann
 public interface Starter {
 
     String START_TYPE = "startType";
-    String LOGINNER = "loginner";
     String REGISTRATOR = "registrator";
     String USERNAME = "username";
 
-    Boolean initApplication(SharedPreferences sharedPreferences, AppCompatActivity mainActivity);
+    void initApplication(SharedPreferences sharedPreferences);
 
-    default void initChannelManager(){
-        createChannelManager(new ArrayList<>());
+    default void initChannelManager(AppCompatActivity mainActivity){
+        createChannelManager(mainActivity, new ArrayList<>());
     }
 
 }

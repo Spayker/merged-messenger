@@ -168,6 +168,35 @@
             <string name="remove_account_log_remove_account_successful">removing account successful</string>
     <!--UI String Section End-->
 
+    <!--Backend Section Start-->
+        <!--West Social Group To Be Excluded By Default-->
+        <string-array name="default_excluded_west_social_group">
+            <item>VKontakte</item>
+            <item>OK</item>
+        </string-array>
+        <!--East Social Group To Be Excluded By Default-->
+        <string-array name="default_excluded_east_social_group">
+            <item>LinkedIn</item>
+        </string-array>
+
+        <!--West Chat Group To Be Excluded By Default-->
+        <string-array name="default_excluded_west_chat_group">
+        </string-array>
+        <!--East Chat Group To Be Excluded By Default-->
+        <string-array name="default_excluded_east_chat_group">
+            <item>Telegram</item>
+            <item>Tumblr</item>
+        </string-array>
+
+        <!--West Email Group To Be Excluded By Default-->
+        <string-array name="default_excluded_west_email_group">
+            <item>Mail.ru</item>
+        </string-array>
+        <!--East Email Group To Be Excluded By Default-->
+        <string-array name="default_excluded_east_email_group">
+        </string-array>
+    <!--Backend Section End-->
+
     <string name="terms_agreement" formatted="true">
         Terms and Conditions of https://www.patreon.com/meme_chat - TermsFeed \n \n
         
