@@ -1,5 +1,8 @@
 package com.spand.meme.core.logic.starter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public interface SettingsConstants {
 
     //// SETTINGS RELATED CONSTANTS
@@ -13,5 +16,13 @@ public interface SettingsConstants {
     // Language Codes
     String RU = "ru";
     String EN = "en";
+
+    Map<String,String> APP_SUPPORTED_LANGUAGES = createMap();
+    static Map<String, String> createMap() {
+        HashMap<String, String> language = new HashMap<>();
+        language.put("english", EN);
+        language.put("русский", RU);
+        return language;
+    }
 
 }

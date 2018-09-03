@@ -1,9 +1,14 @@
 package com.spand.meme.core.ui.activity.settings;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.media.RingtoneManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -14,10 +19,13 @@ import android.support.v7.app.AppCompatActivity;
 import com.spand.meme.R;
 import com.spand.meme.core.logic.menu.settings.LocaleHelper;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static com.spand.meme.core.logic.starter.SettingsConstants.APP_SUPPORTED_LANGUAGES;
 import static com.spand.meme.core.ui.activity.ActivityConstants.EMPTY_STRING;
 
 /**
@@ -151,6 +159,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
             melodyPreference.setEntries(melodyEntries);
             melodyPreference.setEntryValues(melodyValues);
             melodyPreference.setValueIndex(0);
+
             melodyPreference.setOnPreferenceChangeListener((preference, newValue) -> {
                 String stringValue = newValue.toString();
                 ListPreference listPreference = (ListPreference) preference;
@@ -182,8 +191,9 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                 }
             }
             languagePreference.setOnPreferenceChangeListener((preference, newValue) -> {
-                System.out.println(newValue);
-                LocaleHelper.setLocale(settingsActivityInstance, "ru");
+                List<String> languages = Arrays.asList(getResources().getStringArray(R.array.global_settings_language_list));
+                updateBaseContextLocale(settingsActivityInstance, APP_SUPPORTED_LANGUAGES.get(languages.get(Integer.valueOf((String)newValue))));
+
                 String stringValue = newValue.toString();
                 ListPreference listPreference = (ListPreference) preference;
                 int index = listPreference.findIndexOfValue(stringValue);
@@ -196,6 +206,33 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                 return true;
             });
             setNewValueOnPreferenceChange(languagePreference);
+        }
+
+        private Context updateBaseContextLocale(Context context, String language) {
+            Locale locale = new Locale(language);
+            Locale.setDefault(locale);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                return updateResourcesLocale(context, locale);
+            }
+
+            return updateResourcesLocaleLegacy(context, locale);
+        }
+
+        @TargetApi(Build.VERSION_CODES.N)
+        private Context updateResourcesLocale(Context context, Locale locale) {
+            Configuration configuration = context.getResources().getConfiguration();
+            configuration.setLocale(locale);
+            return context.createConfigurationContext(configuration);
+        }
+
+        @SuppressWarnings("deprecation")
+        private Context updateResourcesLocaleLegacy(Context context, Locale locale) {
+            Resources resources = context.getResources();
+            Configuration configuration = resources.getConfiguration();
+            configuration.locale = locale;
+            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+            return context;
         }
     }
 
@@ -210,5 +247,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                         .getDefaultSharedPreferences(preference.getContext())
                         .getString(preference.getKey(), EMPTY_STRING));
     }
+
+
 
 }

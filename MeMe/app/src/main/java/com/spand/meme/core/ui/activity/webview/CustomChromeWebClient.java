@@ -1,6 +1,5 @@
 package com.spand.meme.core.ui.activity.webview;
 
-import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.view.SurfaceView;
 import android.view.View;

@@ -37,10 +37,10 @@ public class WebViewActivity extends Activity {
         View mBackButton = findViewById(R.id.backToMainMenu);
 
         // Initialize the VideoEnabledWebChromeClient and set event handlers
-        View nonVideoLayout = findViewById(R.id.nonVideoLayout); // Your own view, read class comments
-        ViewGroup videoLayout = findViewById(R.id.videoLayout); // Your own view, read class comments
+        View nonVideoLayout = findViewById(R.id.nonVideoLayout);
+        ViewGroup videoLayout = findViewById(R.id.videoLayout);
 
-        View loadingView = getLayoutInflater().inflate(R.layout.view_loading_video, (ViewGroup) nonVideoLayout); // Your own view, read class comments
+        View loadingView = getLayoutInflater().inflate(R.layout.view_loading_video,null); // Your own view, read class comments
         CustomChromeWebClient webChromeClient = new CustomChromeWebClient(nonVideoLayout, videoLayout, loadingView, mWebView) // See all available constructors...
         {
             // Subscribe to standard events, such as onProgressChanged()...
@@ -103,7 +103,6 @@ public class WebViewActivity extends Activity {
         //CookieManager.getInstance().setAcceptThirdPartyCookies(mWebView, true);
     }
 
-    // Prevent the back-button from closing the app
     @Override
     public void onBackPressed() {
         if (mWebView.canGoBack()) {
@@ -125,8 +124,6 @@ public class WebViewActivity extends Activity {
 
     private class InsideWebViewClient extends WebViewClient {
         @Override
-        // Force links to be opened inside WebView and not in Default Browser
-        // Thanks http://stackoverflow.com/a/33681975/1815624
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             return true;
