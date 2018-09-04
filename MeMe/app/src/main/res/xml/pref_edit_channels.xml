@@ -45,6 +45,18 @@
             android:summary="@string/channel_setting_switcher_on"
             android:title="@string/channel_setting_yt"
             android:icon="@mipmap/youtube"/>
+        <SwitchPreference
+            android:defaultValue="true"
+            android:icon="@mipmap/tumblr"
+            android:key="@string/channel_setting_key_tumblr_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_tmb" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:icon="@mipmap/pinterest"
+            android:key="@string/channel_setting_key_pinterest_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_pn" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/main_menu_chat_group">
@@ -55,12 +67,6 @@
             android:summary="@string/channel_setting_switcher_on"
             android:title="@string/channel_setting_skp"
             android:icon="@mipmap/skype"/>
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="@string/channel_setting_key_tumblr_switcher"
-            android:summary="@string/channel_setting_switcher_on"
-            android:title="@string/channel_setting_tmb"
-            android:icon="@mipmap/tumblr"/>
         <SwitchPreference
             android:defaultValue="true"
             android:key="@string/channel_setting_key_discord_switcher"

@@ -1,6 +1,7 @@
 package com.spand.meme.core.ui.activity.settings;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -12,7 +13,7 @@ import android.util.Log;
 
 import com.spand.meme.R;
 import com.spand.meme.core.data.memory.channel.Channel;
-import com.spand.meme.core.logic.menu.main.builder.AlphaDynamicMenuBuilder;
+import com.spand.meme.core.ui.activity.main.MainActivity;
 
 import static com.spand.meme.core.data.memory.channel.ChannelManager.getChannelByName;
 import static com.spand.meme.core.logic.starter.SettingsConstants.PREF_NAME;
@@ -136,6 +137,15 @@ public class EditChannelsActivity extends AppCompatActivity {
                 return true;
             });
 
+            SwitchPreference pnSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_pinterest_switcher));
+            String pnKey = getString(R.string.channel_setting_pn);
+            pnSwitcher.setChecked(sharedPreferences.getBoolean(pnKey, false));
+            bindGlobalPreferenceToBooleanValue(pnSwitcher);
+            pnSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                handleSwitcherChange(pnSwitcher, pnKey);
+                return true;
+            });
+
             SwitchPreference telegramSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_telegram_switcher));
             String tlKey = getString(R.string.channel_setting_tl);
             telegramSwitcher.setChecked(sharedPreferences.getBoolean(tlKey, false));
@@ -239,7 +249,8 @@ public class EditChannelsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
 }

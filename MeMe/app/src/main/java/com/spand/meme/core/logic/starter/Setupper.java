@@ -20,6 +20,7 @@ import static com.spand.meme.core.data.memory.channel.ICON.IN;
 import static com.spand.meme.core.data.memory.channel.ICON.LN;
 import static com.spand.meme.core.data.memory.channel.ICON.MAIL_RU;
 import static com.spand.meme.core.data.memory.channel.ICON.OK;
+import static com.spand.meme.core.data.memory.channel.ICON.PN;
 import static com.spand.meme.core.data.memory.channel.ICON.SK;
 import static com.spand.meme.core.data.memory.channel.ICON.SL;
 import static com.spand.meme.core.data.memory.channel.ICON.TL;
@@ -39,6 +40,7 @@ import static com.spand.meme.core.ui.activity.ActivityConstants.INSTAGRAM_HOME_U
 import static com.spand.meme.core.ui.activity.ActivityConstants.LINKEDIN_HOME_URL;
 import static com.spand.meme.core.ui.activity.ActivityConstants.MAIL_RU_HOME_URL;
 import static com.spand.meme.core.ui.activity.ActivityConstants.ODNOKLASNIKI_HOME_URL;
+import static com.spand.meme.core.ui.activity.ActivityConstants.PINTEREST_HOME_URL;
 import static com.spand.meme.core.ui.activity.ActivityConstants.SKYPE_HOME_URL;
 import static com.spand.meme.core.ui.activity.ActivityConstants.SLACK_HOME_URL;
 import static com.spand.meme.core.ui.activity.ActivityConstants.TELEGRAM_HOME_URL;
@@ -124,6 +126,18 @@ public class Setupper implements Starter {
         channels.add(youtubeChannel);
         editor.putBoolean(ytKey, youtubeChannel.getActive());
 
+        String tmbKey = mainActivity.getString(R.string.channel_setting_tmb);
+        Channel tumblChannel = createNewChannel(tmbKey, SOCIAL, TUM, TUMBLR_HOME_URL,
+                !isChannelExcludedByDefault(tmbKey));
+        channels.add(tumblChannel);
+        editor.putBoolean(tmbKey, tumblChannel.getActive());
+
+        String pnKey = mainActivity.getString(R.string.channel_setting_pn);
+        Channel pinterestChannel = createNewChannel(pnKey, SOCIAL, PN, PINTEREST_HOME_URL,
+                !isChannelExcludedByDefault(pnKey));
+        channels.add(pinterestChannel);
+        editor.putBoolean(pnKey, pinterestChannel.getActive());
+
         String lnKey = mainActivity.getString(R.string.channel_setting_ln);
         Channel linkedinChannel = createNewChannel(lnKey, SOCIAL, LN, LINKEDIN_HOME_URL,
                 !isChannelExcludedByDefault(lnKey));
@@ -144,12 +158,6 @@ public class Setupper implements Starter {
                 !isChannelExcludedByDefault(tlKey));
         channels.add(telegramChannel);
         editor.putBoolean(tlKey, telegramChannel.getActive());
-
-        String tmbKey = mainActivity.getString(R.string.channel_setting_tmb);
-        Channel tumblChannel = createNewChannel(tmbKey, CHAT, TUM, TUMBLR_HOME_URL,
-                !isChannelExcludedByDefault(tmbKey));
-        channels.add(tumblChannel);
-        editor.putBoolean(tmbKey, tumblChannel.getActive());
 
         String skpKey = mainActivity.getString(R.string.channel_setting_skp);
         Channel skypeChannel = createNewChannel(skpKey, CHAT, SK, SKYPE_HOME_URL,

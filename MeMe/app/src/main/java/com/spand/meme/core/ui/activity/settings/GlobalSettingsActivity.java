@@ -17,7 +17,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.spand.meme.R;
-import com.spand.meme.core.logic.menu.settings.LocaleHelper;
+import com.spand.meme.core.ui.activity.main.MainActivity;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -208,31 +208,29 @@ public class GlobalSettingsActivity extends AppCompatActivity {
             setNewValueOnPreferenceChange(languagePreference);
         }
 
-        private Context updateBaseContextLocale(Context context, String language) {
+        private void updateBaseContextLocale(Context context, String language) {
             Locale locale = new Locale(language);
             Locale.setDefault(locale);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                return updateResourcesLocale(context, locale);
+                updateResourcesLocale(context, locale);
             }
 
-            return updateResourcesLocaleLegacy(context, locale);
+            updateResourcesLocaleLegacy(context, locale);
         }
 
         @TargetApi(Build.VERSION_CODES.N)
-        private Context updateResourcesLocale(Context context, Locale locale) {
+        private void updateResourcesLocale(Context context, Locale locale) {
             Configuration configuration = context.getResources().getConfiguration();
             configuration.setLocale(locale);
-            return context.createConfigurationContext(configuration);
         }
 
         @SuppressWarnings("deprecation")
-        private Context updateResourcesLocaleLegacy(Context context, Locale locale) {
+        private void updateResourcesLocaleLegacy(Context context, Locale locale) {
             Resources resources = context.getResources();
             Configuration configuration = resources.getConfiguration();
             configuration.locale = locale;
             resources.updateConfiguration(configuration, resources.getDisplayMetrics());
-            return context;
         }
     }
 
@@ -248,6 +246,9 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                         .getString(preference.getKey(), EMPTY_STRING));
     }
 
-
-
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
 }

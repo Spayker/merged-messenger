@@ -113,6 +113,7 @@
     <string name="channel_setting_yt">Youtube</string>
     <string name="channel_setting_ln">LinkedIn</string>
     <string name="channel_setting_tw">Twitter</string>
+    <string name="channel_setting_pn">Pinterest</string>
     <string name="channel_setting_icq">ICQ</string>
     <string name="channel_setting_slack">Slack</string>
     <string name="channel_setting_inst">Instagram</string>
@@ -123,6 +124,7 @@
     <string name="channel_setting_key_vkontakte_switcher">key_vkontakte_switcher</string>
     <string name="channel_setting_key_twitter_switcher">key_twitter_switcher</string>
     <string name="channel_setting_key_tumblr_switcher">key_tumblr_switcher</string>
+    <string name="channel_setting_key_pinterest_switcher">key_pinterest_switcher</string>
     <string name="channel_setting_key_instagram_switcher">key_instagram_switcher</string>
     <string name="channel_setting_key_odnoklassniki_switcher">key_odnoklassniki_switcher</string>
     <string name="channel_setting_key_telegram_switcher">key_telegram_switcher</string>

@@ -130,17 +130,10 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
      *  Return to settings activity of the application.
      **/
     public void finishRemoveAccountActivity() {
-        cleanWebViewCookies();
         dropPrefs();
         ActivityUtils.invokeOkAlertMessage(this, getString(R.string.remove_account_finished));
         Intent intent = new Intent(this, WelcomeActivity.class);
         startActivity(intent);
-    }
-
-    private void cleanWebViewCookies() {
-        android.webkit.CookieManager cookieManager = CookieManager.getInstance();
-        // in order to support sdk from v16
-        //cookieManager.removeAllCookies(aBoolean -> Log.d(TAG, "Cookie removed: " + aBoolean));
     }
 
     private void dropPrefs() {

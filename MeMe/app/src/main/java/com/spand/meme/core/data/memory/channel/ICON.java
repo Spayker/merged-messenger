@@ -11,6 +11,7 @@ public enum ICON {
     TW(R.mipmap.twitter),
     IN(R.mipmap.instagram),
     TL(R.mipmap.telegram),
+    PN(R.mipmap.pinterest),
     SK(R.mipmap.skype),
     ICQ(R.mipmap.icq),
     DC(R.mipmap.discord),

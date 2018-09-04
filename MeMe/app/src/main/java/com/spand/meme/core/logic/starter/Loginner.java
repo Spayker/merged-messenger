@@ -20,6 +20,7 @@ import static com.spand.meme.core.data.memory.channel.ICON.IN;
 import static com.spand.meme.core.data.memory.channel.ICON.LN;
 import static com.spand.meme.core.data.memory.channel.ICON.MAIL_RU;
 import static com.spand.meme.core.data.memory.channel.ICON.OK;
+import static com.spand.meme.core.data.memory.channel.ICON.PN;
 import static com.spand.meme.core.data.memory.channel.ICON.SK;
 import static com.spand.meme.core.data.memory.channel.ICON.SL;
 import static com.spand.meme.core.data.memory.channel.ICON.TL;
@@ -39,6 +40,7 @@ import static com.spand.meme.core.ui.activity.ActivityConstants.INSTAGRAM_HOME_U
 import static com.spand.meme.core.ui.activity.ActivityConstants.LINKEDIN_HOME_URL;
 import static com.spand.meme.core.ui.activity.ActivityConstants.MAIL_RU_HOME_URL;
 import static com.spand.meme.core.ui.activity.ActivityConstants.ODNOKLASNIKI_HOME_URL;
+import static com.spand.meme.core.ui.activity.ActivityConstants.PINTEREST_HOME_URL;
 import static com.spand.meme.core.ui.activity.ActivityConstants.SKYPE_HOME_URL;
 import static com.spand.meme.core.ui.activity.ActivityConstants.SLACK_HOME_URL;
 import static com.spand.meme.core.ui.activity.ActivityConstants.TELEGRAM_HOME_URL;
@@ -125,6 +127,18 @@ public class Loginner implements Starter {
         editor.putBoolean(ytKey, isYtActive);
         channels.add(youtubeChannel);
 
+        String tmbKey = mainActivity.getString(R.string.channel_setting_tmb);
+        boolean isTmbActive = sharedPreferences.getBoolean(tmbKey, !isChannelExcludedByDefault(tmbKey));
+        Channel tumblChannel = createNewChannel(tmbKey, SOCIAL, TUM, TUMBLR_HOME_URL, isTmbActive);
+        editor.putBoolean(tmbKey, isTmbActive);
+        channels.add(tumblChannel);
+
+        String pnKey = mainActivity.getString(R.string.channel_setting_pn);
+        boolean isPnActive = sharedPreferences.getBoolean(pnKey, !isChannelExcludedByDefault(pnKey));
+        Channel pnChannel = createNewChannel(pnKey, SOCIAL, PN, PINTEREST_HOME_URL, isPnActive);
+        editor.putBoolean(pnKey, isPnActive);
+        channels.add(pnChannel);
+
         String lnKey = mainActivity.getString(R.string.channel_setting_ln);
         boolean isLnActive = sharedPreferences.getBoolean(lnKey, !isChannelExcludedByDefault(lnKey));
         Channel linkedinChannel = createNewChannel(lnKey,
@@ -146,12 +160,6 @@ public class Loginner implements Starter {
         Channel telegramChannel = createNewChannel(tlKey, CHAT, TL, TELEGRAM_HOME_URL, isTlActive);
         editor.putBoolean(tlKey, isTlActive);
         channels.add(telegramChannel);
-
-        String tmbKey = mainActivity.getString(R.string.channel_setting_tmb);
-        boolean isTmbActive = sharedPreferences.getBoolean(tmbKey, !isChannelExcludedByDefault(tmbKey));
-        Channel tumblChannel = createNewChannel(tmbKey, CHAT, TUM, TUMBLR_HOME_URL, isTmbActive);
-        editor.putBoolean(tmbKey, isTmbActive);
-        channels.add(tumblChannel);
 
         String skpKey = mainActivity.getString(R.string.channel_setting_skp);
         boolean isSkpActive = sharedPreferences.getBoolean(skpKey, !isChannelExcludedByDefault(skpKey));

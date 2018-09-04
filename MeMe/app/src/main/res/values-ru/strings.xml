@@ -107,7 +107,7 @@
     <string name="channel_setting_fb">Facebook</string>
     <string name="channel_setting_tl">Телеграм</string>
     <string name="channel_setting_skp">Skype</string>
-    <string name="channel_setting_ok">OK</string>
+    <string name="channel_setting_ok">Одноклассники</string>
     <string name="channel_setting_tmb">Tumblr</string>
     <string name="channel_setting_dc">Discord</string>
     <string name="channel_setting_yt">Youtube</string>
@@ -118,11 +118,13 @@
     <string name="channel_setting_inst">Instagram</string>
     <string name="channel_setting_gmail">Gmail</string>
     <string name="channel_setting_mailru">Мейл.ru</string>
+    <string name="channel_setting_pn">Pinterest</string>
     <string name="channel_setting_key_facebook_switcher">key_facebook_switcher</string>
     <string name="channel_setting_key_linkedin_switcher">key_linkedin_switcher</string>
     <string name="channel_setting_key_vkontakte_switcher">key_vkontakte_switcher</string>
     <string name="channel_setting_key_twitter_switcher">key_twitter_switcher</string>
     <string name="channel_setting_key_tumblr_switcher">key_tumblr_switcher</string>
+    <string name="channel_setting_key_pinterest_switcher">key_pinterest_switcher</string>
     <string name="channel_setting_key_instagram_switcher">key_instagram_switcher</string>
     <string name="channel_setting_key_odnoklassniki_switcher">key_odnoklassniki_switcher</string>
     <string name="channel_setting_key_telegram_switcher">key_telegram_switcher</string>
@@ -135,7 +137,7 @@
     <string name="channel_setting_key_youtube_switcher">key_youtube_switcher</string>
 
     <!--Menu of Password change Screen-->
-    <string name="change_password_action_change_password">Ищменить Пароль</string>
+    <string name="change_password_action_change_password">Изменить Пароль</string>
     <string name="change_password_old_password">Старый Пароль</string>
     <string name="change_password_current_password">Текущий Пароль</string>
     <string name="change_password_new_account_password">новый Пароль</string>

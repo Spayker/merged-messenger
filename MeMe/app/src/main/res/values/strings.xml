@@ -107,12 +107,13 @@
             <string name="channel_setting_fb">Facebook</string>
             <string name="channel_setting_tl">Telegram</string>
             <string name="channel_setting_skp">Skype</string>
-            <string name="channel_setting_ok">OK</string>
+            <string name="channel_setting_ok">Odnoklassniki</string>
             <string name="channel_setting_tmb">Tumblr</string>
             <string name="channel_setting_dc">Discord</string>
             <string name="channel_setting_yt">Youtube</string>
             <string name="channel_setting_ln">LinkedIn</string>
             <string name="channel_setting_tw">Twitter</string>
+            <string name="channel_setting_pn">Pinterest</string>
             <string name="channel_setting_icq">ICQ</string>
             <string name="channel_setting_slack">Slack</string>
             <string name="channel_setting_inst">Instagram</string>
@@ -125,6 +126,7 @@
             <string name="channel_setting_key_tumblr_switcher">key_tumblr_switcher</string>
             <string name="channel_setting_key_instagram_switcher">key_instagram_switcher</string>
             <string name="channel_setting_key_odnoklassniki_switcher">key_odnoklassniki_switcher</string>
+            <string name="channel_setting_key_pinterest_switcher">key_pinterest_switcher</string>
             <string name="channel_setting_key_telegram_switcher">key_telegram_switcher</string>
             <string name="channel_setting_key_discord_switcher">key_discord_switcher</string>
             <string name="channel_setting_key_skype_switcher">key_skype_switcher</string>
@@ -177,6 +179,8 @@
         <!--East Social Group To Be Excluded By Default-->
         <string-array name="default_excluded_east_social_group">
             <item>LinkedIn</item>
+            <item>Tumblr</item>
+            <item>Pinterest</item>
         </string-array>
 
         <!--West Chat Group To Be Excluded By Default-->
@@ -185,7 +189,6 @@
         <!--East Chat Group To Be Excluded By Default-->
         <string-array name="default_excluded_east_chat_group">
             <item>Telegram</item>
-            <item>Tumblr</item>
         </string-array>
 
         <!--West Email Group To Be Excluded By Default-->
