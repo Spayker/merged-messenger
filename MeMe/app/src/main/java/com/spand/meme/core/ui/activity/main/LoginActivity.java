@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -16,8 +18,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.spand.meme.R;
 import com.spand.meme.core.data.database.FireBaseDBInitializer;
@@ -89,6 +94,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mPasswordView.addTextChangedListener(this);
         mRememberMeView.setOnCheckedChangeListener(this);
         mAutoLoginView.setOnCheckedChangeListener(this);
+
+        TextView mForgotPasswordView = findViewById(R.id.forgot_password);
+        mForgotPasswordView.setPaintFlags(mForgotPasswordView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         // Buttons
         findViewById(R.id.email_sign_in_button).setOnClickListener(this);
@@ -256,6 +264,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         editor.apply();
         editor.commit();
+    }
+
+    public void onForgotPasswordClick(View view) {
+        String email = mEmailView.getText().toString();
+        if (email.isEmpty()) {
+            Toast.makeText(LoginActivity.this, getString(R.string.login_error_email_empty),
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Email sent.");
+                            Toast.makeText(LoginActivity.this, getString(R.string.login_info_email_sent),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
     }
 
     @Override

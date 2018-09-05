@@ -23,7 +23,10 @@
     <string name="login_action_sign_in">Вход</string>
     <string name="login_checking">Проверка…</string>
     <string name="login_field_required">Требуется</string>
+    <string name="login_forgot_password">Забыли Пароль?</string>
+    <string name="login_info_email_sent">Пожалуйста проверьте свою почту</string>
     <string name="login_error_auth_failed">Ошибка Авторизации</string>
+    <string name="login_error_email_empty">Не Указан Email</string>
     <string name="login_log_sign_in">signIn:</string>
     <string name="login_log_sign_in_with_email_success">signInWithEmail: success</string>
     <string name="login_log_sign_in_with_email_failure">signInWithEmail: failure</string>
@@ -107,7 +110,7 @@
     <string name="channel_setting_fb">Facebook</string>
     <string name="channel_setting_tl">Телеграм</string>
     <string name="channel_setting_skp">Skype</string>
-    <string name="channel_setting_ok">Одноклассники</string>
+    <string name="channel_setting_ok">OK.RU</string>
     <string name="channel_setting_tmb">Tumblr</string>
     <string name="channel_setting_dc">Discord</string>
     <string name="channel_setting_yt">Youtube</string>

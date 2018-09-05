@@ -23,7 +23,10 @@
             <string name="login_action_sign_in">Sign in</string>
             <string name="login_checking">Checking…</string>
             <string name="login_field_required">required</string>
+            <string name="login_forgot_password">Forgot Password?</string>
+            <string name="login_info_email_sent">Please Check Your email</string>
             <string name="login_error_auth_failed">Authentication Failed</string>
+            <string name="login_error_email_empty">Email Is Empty</string>
             <string name="login_log_sign_in">signIn:</string>
             <string name="login_log_sign_in_with_email_success">signInWithEmail: success</string>
             <string name="login_log_sign_in_with_email_failure">signInWithEmail: failure</string>
@@ -107,7 +110,7 @@
             <string name="channel_setting_fb">Facebook</string>
             <string name="channel_setting_tl">Telegram</string>
             <string name="channel_setting_skp">Skype</string>
-            <string name="channel_setting_ok">Odnoklassniki</string>
+            <string name="channel_setting_ok">OK.RU</string>
             <string name="channel_setting_tmb">Tumblr</string>
             <string name="channel_setting_dc">Discord</string>
             <string name="channel_setting_yt">Youtube</string>
@@ -174,7 +177,7 @@
         <!--West Social Group To Be Excluded By Default-->
         <string-array name="default_excluded_west_social_group">
             <item>VKontakte</item>
-            <item>OK</item>
+            <item>OK.RU</item>
         </string-array>
         <!--East Social Group To Be Excluded By Default-->
         <string-array name="default_excluded_east_social_group">
