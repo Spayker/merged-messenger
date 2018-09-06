@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.webkit.CookieManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
@@ -24,7 +23,7 @@ import static com.spand.meme.core.ui.activity.ActivityConstants.EMPTY_STRING;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_OLD_CHANGE_PASS;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_PASS;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_REMEMBER;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_USER_EMAIL;
+import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_USER_EMAIL_OR_PHONE;
 import static com.spand.meme.core.logic.starter.SettingsConstants.PREF_NAME;
 
 /**
@@ -139,7 +138,7 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
     private void dropPrefs() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(KEY_OLD_CHANGE_PASS, null);
-        editor.putString(KEY_USER_EMAIL, null);
+        editor.putString(KEY_USER_EMAIL_OR_PHONE, null);
         editor.putString(KEY_PASS, null);
         editor.putBoolean(KEY_REMEMBER, false);
         editor.apply();

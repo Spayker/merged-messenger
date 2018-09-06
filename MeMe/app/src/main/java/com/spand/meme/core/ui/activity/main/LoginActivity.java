@@ -4,9 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.os.CountDownTimer;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -21,8 +22,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.spand.meme.R;
 import com.spand.meme.core.data.database.FireBaseDBInitializer;
@@ -32,7 +31,7 @@ import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_AUTO_LOGIN
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_OLD_CHANGE_PASS;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_PASS;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_REMEMBER;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_USER_EMAIL;
+import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_USER_EMAIL_OR_PHONE;
 import static com.spand.meme.core.logic.starter.SettingsConstants.PREF_NAME;
 
 /**
@@ -49,6 +48,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText mPasswordView;
     private CheckBox mRememberMeView;
     private CheckBox mAutoLoginView;
+    private TextView mForgotPasswordView;
+    private TextView mForgotPasswordTimerView;
 
     private SharedPreferences sharedPreferences;
 
@@ -76,6 +77,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mPasswordView = findViewById(R.id.login_form_password);
         mRememberMeView = findViewById(R.id.login_form_rememberMe);
         mAutoLoginView = findViewById(R.id.login_form_autologin);
+        mForgotPasswordView = findViewById(R.id.forgot_password);
+        mForgotPasswordTimerView = findViewById(R.id.forgot_password_timer);
 
         if (sharedPreferences.getBoolean(KEY_REMEMBER, false))
             mRememberMeView.setChecked(true);
@@ -87,7 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         else
             mAutoLoginView.setChecked(false);
 
-        mEmailView.setText(sharedPreferences.getString(KEY_USER_EMAIL, EMPTY_STRING));
+        mEmailView.setText(sharedPreferences.getString(KEY_USER_EMAIL_OR_PHONE, EMPTY_STRING));
         mPasswordView.setText(sharedPreferences.getString(KEY_PASS, EMPTY_STRING));
 
         mEmailView.addTextChangedListener(this);
@@ -247,13 +250,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(KEY_OLD_CHANGE_PASS, mPasswordView.getText().toString().trim());
         if (mRememberMeView.isChecked()) {
-            editor.putString(KEY_USER_EMAIL, mEmailView.getText().toString().trim());
+            editor.putString(KEY_USER_EMAIL_OR_PHONE, mEmailView.getText().toString().trim());
             editor.putString(KEY_PASS, mPasswordView.getText().toString().trim());
             editor.putBoolean(KEY_REMEMBER, true);
         } else {
             editor.putBoolean(KEY_REMEMBER, false);
             editor.remove(KEY_PASS);
-            editor.remove(KEY_USER_EMAIL);
+            editor.remove(KEY_USER_EMAIL_OR_PHONE);
         }
 
         if (mAutoLoginView.isChecked()) {
@@ -280,6 +283,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Toast.LENGTH_SHORT).show();
                         }
                     });
+            mForgotPasswordView.setEnabled(false);
+            mForgotPasswordView.setTextColor(Color.GRAY);
+
+            final int FORGOT_PASSWORD_COOLDOWN_MS = 30000;
+            final int FORGOT_PASSWORD_COOLDOWN_INTERVAL = 10;
+            final int FORGOT_PASSWORD_COOLDOWN_INTERVAL_DIVIDER = 1000;
+
+            new CountDownTimer(FORGOT_PASSWORD_COOLDOWN_MS, FORGOT_PASSWORD_COOLDOWN_INTERVAL) {
+                public void onTick(long millisUntilFinished) {
+                    Long secondsUntilFinished = millisUntilFinished/FORGOT_PASSWORD_COOLDOWN_INTERVAL_DIVIDER;
+                    mForgotPasswordTimerView.setText(String.format(" %s %s", secondsUntilFinished,
+                            getString(R.string.login_field_short_seconds)));
+                }
+
+                @Override
+                public void onFinish() {
+                    mForgotPasswordView.setEnabled(true);
+                    mForgotPasswordView.setTextColor(Color.parseColor(String.valueOf(R.color.holo_link_blue)));
+                    mForgotPasswordTimerView.setText(EMPTY_STRING);
+                }
+            }.start();
         }
     }
 

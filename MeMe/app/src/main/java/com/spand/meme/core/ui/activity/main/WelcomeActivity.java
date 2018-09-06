@@ -15,7 +15,7 @@ import com.spand.meme.R;
 import static com.spand.meme.core.ui.activity.ActivityConstants.EMPTY_STRING;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_AUTO_LOGIN;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_PASS;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_USER_EMAIL;
+import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_USER_EMAIL_OR_PHONE;
 import static com.spand.meme.core.logic.starter.SettingsConstants.PREF_NAME;
 
 /**
@@ -43,7 +43,7 @@ public class WelcomeActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         boolean isAutoLoginEnabled = sharedPreferences.getBoolean(KEY_AUTO_LOGIN, false);
         if (mAuth.getCurrentUser() != null && isAutoLoginEnabled) {
-            String email = sharedPreferences.getString(KEY_USER_EMAIL, EMPTY_STRING);
+            String email = sharedPreferences.getString(KEY_USER_EMAIL_OR_PHONE, EMPTY_STRING);
             String password = sharedPreferences.getString(KEY_PASS, EMPTY_STRING);
             if (!email.isEmpty() && !password.isEmpty()) {
                 mAuth.signInWithEmailAndPassword(email, password)
