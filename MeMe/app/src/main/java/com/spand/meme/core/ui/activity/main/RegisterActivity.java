@@ -14,32 +14,18 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseException;
-import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.spand.meme.R;
 import com.spand.meme.core.data.database.FireBaseDBInitializer;
-import com.spand.meme.core.logic.AUTH_WAY;
+import com.spand.meme.core.logic.authorization.AUTH_WAY;
+import com.spand.meme.core.logic.authorization.EmailAuthorizer;
+import com.spand.meme.core.logic.authorization.PhoneAuthorizer;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-
-import static com.spand.meme.core.logic.AUTH_WAY.EMAIL;
-import static com.spand.meme.core.logic.AUTH_WAY.PHONE;
+import static com.spand.meme.core.logic.authorization.AUTH_WAY.EMAIL;
+import static com.spand.meme.core.logic.authorization.AUTH_WAY.PHONE;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_OLD_CHANGE_PASS;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_PASS;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_USER_EMAIL_OR_PHONE;
@@ -69,16 +55,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = RegisterActivity.class.getSimpleName();
 
-    // Firebase related fields
-    private FirebaseAuth mAuth;
-    private FirebaseFirestore firestoreDB;
-    private static String uniqueIdentifier;
-    private static final String UNIQUE_ID = "UNIQUE_ID";
-
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks;
-
-    private SharedPreferences sharedPreferences;
-
     private AUTH_WAY authWay;
 
     @VisibleForTesting
@@ -106,64 +82,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         // Buttons
         findViewById(R.id.email_sign_up_button).setOnClickListener(this);
 
-        // auth init
-        mAuth = FirebaseAuth.getInstance();
-        firestoreDB = FirebaseFirestore.getInstance();
-        getInstallationIdentifier();
-
-        sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-
-        callbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-            @Override
-            public void onVerificationCompleted(PhoneAuthCredential credential) {
-                Log.d(TAG, "verification completed" + credential);
-                signInWithPhoneAuthCredential(credential);
-            }
-
-            @Override
-            public void onVerificationFailed(FirebaseException e) {
-                Log.w(TAG, "verification failed", e);
-                if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                    Toast.makeText(RegisterActivity.this,
-                            "Trying too many timeS",
-                            Toast.LENGTH_SHORT).show();
-                } else if (e instanceof FirebaseTooManyRequestsException) {
-                    Toast.makeText(RegisterActivity.this,
-                            "Trying too many timeS",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken token) {
-                Log.d(TAG, "code sent " + verificationId);
-                addVerificationDataToFirestore(mEmailOrPhoneView.getText().toString(), verificationId);
-            }
-        };
-    }
-
-    private void addVerificationDataToFirestore(String phone, String verificationId) {
-        Map verifyMap = new HashMap();
-        verifyMap.put("phone", phone);
-        verifyMap.put("verificationId", verificationId);
-        verifyMap.put("timestamp",System.currentTimeMillis());
-
-        firestoreDB.collection("phoneAuth").document(uniqueIdentifier)
-                .set(verifyMap)
-                .addOnSuccessListener((OnSuccessListener<DocumentReference>) documentReference -> Log.d(TAG, "phone auth info added to db "))
-                .addOnFailureListener((OnFailureListener) e -> Log.w(TAG, "Error adding phone auth info", e));
-    }
-
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        Log.d(TAG, "code verified signIn successful");
-                    } else {
-                        Log.w(TAG, "code verification failed", task.getException());
-                    }
-                });
     }
 
     /**
@@ -184,28 +102,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     /**
-     * Starts main activity of the application.
-     **/
-    public void finishSingUpActivity() {
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null) {
-            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(mNameView.getText().toString()).build();
-            user.updateProfile(profileUpdates);
-        }
-
-        // db init
-        FireBaseDBInitializer.create().init();
-
-        managePrefs();
-
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(START_TYPE, REGISTRATOR);
-        intent.putExtra(USERNAME, mNameView.getText().toString());
-        startActivity(intent);
-    }
-
-    /**
      * Performs a Sign Up procedure with FireBase module.
      *
      * @param email           a String object which will be used by FireBase module during SignUp
@@ -220,45 +116,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         showProgressDialog();
         // Check for a valid password confirmation, if the user entered one.
-        if (TextUtils.isEmpty(confirmPassword)) {
+        if (TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword)) {
             mPasswordConfirmView.setError(getString(R.string.register_error_empty_password));
-        } else {
-            if (!isPasswordValid(confirmPassword)) {
-                mPasswordConfirmView.setError(getString(R.string.register_error_invalid_password));
-            }
+            return;
+        }
+
+        if (!isPasswordValid(password)) {
+            mPasswordConfirmView.setError(getString(R.string.register_error_invalid_password));
+            return;
         }
 
         switch (authWay){
             case EMAIL:{
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(this, task -> {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, getString(R.string.register_log_create_user_with_email_success));
-                                updateUI();
-                                finishSingUpActivity();
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, getString(R.string.register_log_create_user_with_email_failure), task.getException());
-                                Toast.makeText(RegisterActivity.this, getString(R.string.register_error_auth_failed),
-                                        Toast.LENGTH_SHORT).show();
-                                updateUI();
-                            }
-                            hideProgressDialog();
-                        });
+                EmailAuthorizer.init(this, mNameView.getText().toString(), email, password).verify();
                 break;
             }
             case PHONE:{
-                PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                        email,                      // Phone number to verify
-                        60,                         // Timeout duration
-                        TimeUnit.SECONDS,             // Unit of timeout
-                        this,                  // Activity (for callback binding)
-                        callbacks);
+                PhoneAuthorizer.init(this, mNameView.getText().toString(), email).verify();
             }
         }
-
-
     }
 
     /**
@@ -340,65 +216,5 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return false;
         }
         return true;
-    }
-
-    private void managePrefs() {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_OLD_CHANGE_PASS, mPasswordView.getText().toString().trim());
-        editor.putString(KEY_USER_EMAIL_OR_PHONE, mEmailOrPhoneView.getText().toString().trim());
-        editor.putString(KEY_PASS, mPasswordView.getText().toString().trim());
-        editor.apply();
-        editor.commit();
-    }
-
-    public synchronized String getInstallationIdentifier() {
-        if (uniqueIdentifier == null) {
-            SharedPreferences sharedPrefs = this.getSharedPreferences(
-                    UNIQUE_ID, Context.MODE_PRIVATE);
-            uniqueIdentifier = sharedPrefs.getString(UNIQUE_ID, null);
-            if (uniqueIdentifier == null) {
-                uniqueIdentifier = UUID.randomUUID().toString();
-                SharedPreferences.Editor editor = sharedPrefs.edit();
-                editor.putString(UNIQUE_ID, uniqueIdentifier);
-                editor.commit();
-            }
-        }
-        return uniqueIdentifier;
-    }
-
-    private void getVerificationDataFromFirestoreAndVerify(final String code) {
-        firestoreDB.collection("phoneAuth").document(uniqueIdentifier)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot ds = task.getResult();
-                        if(ds.exists()){
-                            // disableSendCodeButton(ds.getLong("timestamp"));
-                            if(code != null){
-                                createCredentialSignIn(ds.getString("verificationId"),
-                                        code);
-                            }else{
-                                verifyPhoneNumber(ds.getString("phone"));
-                            }
-                        }else{
-                            //showSendCodeButton();
-                            Log.d(TAG, "Code hasn't been sent yet");
-                        }
-
-                    } else {
-                        Log.d(TAG, "Error getting document: ", task.getException());
-                    }
-                });
-    }
-
-    private void verifyPhoneNumber(String phno){
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(phno, 70,
-                TimeUnit.SECONDS, this, callbacks);
-    }
-
-    private void createCredentialSignIn(String verificationId, String verifyCode) {
-        PhoneAuthCredential credential = PhoneAuthProvider.
-                getCredential(verificationId, verifyCode);
-        signInWithPhoneAuthCredential(credential);
     }
 }

@@ -27,8 +27,11 @@ public class SmsReciever extends BroadcastReceiver {
                     for(int i=0; i<msgs.length; i++){
                         msgs[i] = SmsMessage.createFromPdu((byte[])pdus[i]);
                         msg_from = msgs[i].getOriginatingAddress();
-                        String msgBody = msgs[i].getMessageBody();
-                        RegisterActivity.getInstance().getVerificationDataFromFirestoreAndVerify(msgBody.split("\\D+")[0]);
+                        if(msg_from.equalsIgnoreCase("Phone code")) {
+                            String msgBody = msgs[i].getMessageBody();
+                            RegisterActivity.getInstance().getVerificationDataFromFirestoreAndVerify(msgBody.split("\\D+")[0]);
+                            break;
+                        }
                     }
                 }catch(Exception e){
                 }
