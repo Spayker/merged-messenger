@@ -2,9 +2,6 @@ package com.spand.meme.core.ui.activity.main;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
@@ -15,29 +12,19 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.spand.meme.R;
-import com.spand.meme.core.data.database.FireBaseDBInitializer;
 import com.spand.meme.core.logic.authorization.AUTH_WAY;
 import com.spand.meme.core.logic.authorization.EmailAuthorizer;
 import com.spand.meme.core.logic.authorization.PhoneAuthorizer;
+import com.spand.meme.core.logic.menu.authorization.ActivityBehaviourAddon;
 
 import static com.spand.meme.core.logic.authorization.AUTH_WAY.EMAIL;
 import static com.spand.meme.core.logic.authorization.AUTH_WAY.PHONE;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_OLD_CHANGE_PASS;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_PASS;
-import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_USER_EMAIL_OR_PHONE;
-import static com.spand.meme.core.logic.starter.SettingsConstants.PREF_NAME;
-import static com.spand.meme.core.logic.starter.Starter.REGISTRATOR;
-import static com.spand.meme.core.logic.starter.Starter.START_TYPE;
-import static com.spand.meme.core.logic.starter.Starter.USERNAME;
 
 /**
  * A Register screen that offers a registration procedure via email/password.
  */
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, ActivityBehaviourAddon {
 
     @SuppressLint("StaticFieldLeak")
     private static RegisterActivity instance;
@@ -48,14 +35,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     // UI references.
     private EditText mNameView;
-    private AutoCompleteTextView mEmailOrPhoneView;
+    private AutoCompleteTextView mEmailView;
+    private AutoCompleteTextView mPhoneNumberView;
     private EditText mPasswordView;
     private EditText mPasswordConfirmView;
 
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = RegisterActivity.class.getSimpleName();
-
-    private AUTH_WAY authWay;
 
     @VisibleForTesting
     private ProgressDialog mProgressDialog;
@@ -74,11 +60,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         instance = this;
         // Views
         mNameView = findViewById(R.id.register_form_name);
-        mEmailOrPhoneView = findViewById(R.id.register_form_email_phone_number);
+        mEmailView = findViewById(R.id.register_form_email);
+        mPhoneNumberView = findViewById(R.id.register_form_phone_number);
         mPasswordView = findViewById(R.id.register_form_password);
         mPasswordConfirmView = findViewById(R.id.register_form_password_confirm);
-
-        mEmailOrPhoneView.setText("+48577215683");
+        mPhoneNumberView.setText("+");
         // Buttons
         findViewById(R.id.email_sign_up_button).setOnClickListener(this);
 
@@ -97,7 +83,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     /**
      * Updates ui according to registration result.
      **/
-    private void updateUI() {
+    @Override
+    public void updateUI() {
         hideProgressDialog();
     }
 
@@ -125,16 +112,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             mPasswordConfirmView.setError(getString(R.string.register_error_invalid_password));
             return;
         }
-
-        switch (authWay){
-            case EMAIL:{
-                EmailAuthorizer.init(this, mNameView.getText().toString(), email, password).verify();
-                break;
-            }
-            case PHONE:{
-                PhoneAuthorizer.init(this, mNameView.getText().toString(), email).verify();
-            }
-        }
+        EmailAuthorizer.init(this, mNameView.getText().toString(), email, password).verify();
     }
 
     /**
@@ -148,7 +126,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         int i = view.getId();
         if (i == R.id.email_sign_up_button) {
             try {
-                signUp(mEmailOrPhoneView.getText().toString()
+                signUp(mEmailView.getText().toString()
                         , mPasswordView.getText().toString()
                         , mPasswordConfirmView.getText().toString());
             } catch (Exception e) {
@@ -172,6 +150,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     /**
      * Hides progress dialog from screen.
      **/
+    @Override
     public void hideProgressDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
@@ -192,16 +171,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      * Validates filled values in all fields of current activity on screen.
      **/
     private boolean validateForm() {
-        String email = mEmailOrPhoneView.getText().toString();
+        String email = mEmailView.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            mEmailOrPhoneView.setError(getString(R.string.register_field_required));
+            mEmailView.setError(getString(R.string.register_field_required));
             return false;
-        } else {
-            if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                authWay = EMAIL;
-            } else if (Patterns.PHONE.matcher(email).matches()) {
-                authWay = PHONE;
-            }
+        }
+
+        String phoneNumber = mPhoneNumberView.getText().toString();
+        if (TextUtils.isEmpty(phoneNumber)) {
+            mPhoneNumberView.setError(getString(R.string.register_field_required));
+            return false;
         }
 
         String password = mPasswordView.getText().toString();

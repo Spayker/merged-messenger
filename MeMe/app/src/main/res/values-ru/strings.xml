@@ -40,7 +40,8 @@
     <!--Register Screen-->
     <string name="register_title_activity">Регистрация</string>
     <string name="register_prompt_name">Имя</string>
-    <string name="register_prompt_email">Email или номер мобильного</string>
+    <string name="register_prompt_email">Email</string>
+    <string name="register_prompt_phone">Номер Мобильного</string>
     <string name="register_prompt_password">Пароль</string>
     <string name="register_prompt_password_confirm">Подтвердить Пароль</string>
     <string name="register_action_sign_up">Регистрация</string>

@@ -39,7 +39,8 @@
     <!--Register Screen-->
     <string name="register_title_activity">Sign Up</string>
     <string name="register_prompt_name">Name</string>
-    <string name="register_prompt_email">Email or phone number</string>
+    <string name="register_prompt_email">Email</string>
+    <string name="register_prompt_phone">Phone Number</string>
     <string name="register_prompt_password">Password</string>
     <string name="register_prompt_password_confirm">Confirm Password (optional)</string>
     <string name="register_action_sign_up">Sign up</string>

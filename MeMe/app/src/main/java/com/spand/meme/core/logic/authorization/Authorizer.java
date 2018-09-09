@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.spand.meme.core.data.database.FireBaseDBInitializer;
 import com.spand.meme.core.ui.activity.main.MainActivity;
 
@@ -25,8 +26,7 @@ abstract class Authorizer {
     // Firebase related fields
     FirebaseAuth mAuth;
     FirebaseFirestore firestoreDB;
-    static String uniqueIdentifier;
-    static final String UNIQUE_ID = "UNIQUE_ID";
+    String userName;
     private SharedPreferences sharedPreferences;
 
     public abstract void verify();
@@ -34,7 +34,7 @@ abstract class Authorizer {
     /**
      * Starts main activity of the application.
      **/
-    private void finishSingUpActivity(Activity currentActivity, String name) {
+    void finishSingUpActivity(Activity currentActivity, String name, String emailPhone, String password) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
@@ -47,7 +47,7 @@ abstract class Authorizer {
         FireBaseDBInitializer.create().init();
 
         sharedPreferences = currentActivity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        managePrefs();
+        managePrefs(emailPhone, password);
 
         Intent intent = new Intent(currentActivity, MainActivity.class);
         intent.putExtra(START_TYPE, REGISTRATOR);
@@ -55,12 +55,13 @@ abstract class Authorizer {
         currentActivity.startActivity(intent);
     }
 
-    private void managePrefs(String... params) {
+    private void managePrefs(String emailPhone, String password) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_USER_EMAIL_OR_PHONE, emailAddress.trim());
+        editor.putString(KEY_USER_EMAIL_OR_PHONE, emailPhone.trim());
         editor.putString(KEY_OLD_CHANGE_PASS, password.trim());
         editor.putString(KEY_PASS, password.trim());
         editor.apply();
         editor.commit();
     }
+
 }

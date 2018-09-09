@@ -13,8 +13,6 @@ public class SmsReciever extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // TODO Auto-generated method stub
-
         if(intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")){
             Bundle bundle = intent.getExtras();
             SmsMessage[] msgs;
@@ -29,7 +27,7 @@ public class SmsReciever extends BroadcastReceiver {
                         msg_from = msgs[i].getOriginatingAddress();
                         if(msg_from.equalsIgnoreCase("Phone code")) {
                             String msgBody = msgs[i].getMessageBody();
-                            RegisterActivity.getInstance().getVerificationDataFromFirestoreAndVerify(msgBody.split("\\D+")[0]);
+                            PhoneAuthorizer.getInstance().getVerificationDataFromFirestoreAndVerify(msgBody.split("\\D+")[0]);
                             break;
                         }
                     }

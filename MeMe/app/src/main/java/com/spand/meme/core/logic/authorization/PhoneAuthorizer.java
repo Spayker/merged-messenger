@@ -1,44 +1,53 @@
 package com.spand.meme.core.logic.authorization;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import static com.spand.meme.core.ui.activity.ActivityConstants.EMPTY_STRING;
+
 public class PhoneAuthorizer extends Authorizer {
 
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = PhoneAuthorizer.class.getSimpleName();
 
+    @SuppressLint("StaticFieldLeak")
     private static PhoneAuthorizer instance;
 
     private Activity currentActivity;
     private String phoneNumber;
+
+    private static String uniqueIdentifier;
+    private static final String UNIQUE_ID = "UNIQUE_ID";
+
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks =
             new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
                 @Override
                 public void onVerificationCompleted(PhoneAuthCredential credential) {
                     Log.d(TAG, "verification completed" + credential);
-                    signInWithPhoneAuthCredential(credential);
+                    finishSingUpActivity(currentActivity, userName, phoneNumber, EMPTY_STRING);
                 }
 
                 @Override
@@ -62,26 +71,33 @@ public class PhoneAuthorizer extends Authorizer {
                 }
             };
 
-    private PhoneAuthorizer() {
-    }
+    private PhoneAuthorizer() { }
 
-    public static PhoneAuthorizer init(Activity activity, String phoneNumber) {
+    public static PhoneAuthorizer init(Activity activity, String name, String phoneNumber) {
         if (instance == null) {
-            instance = new PhoneAuthorizer(activity, phoneNumber);
+            instance = new PhoneAuthorizer(activity, name, phoneNumber);
         }
         return instance;
     }
 
-    private PhoneAuthorizer(Activity currentActivity, String phoneNumber) {
+    private PhoneAuthorizer(Activity currentActivity, String name, String phoneNumber) {
         this.currentActivity = currentActivity;
         this.phoneNumber = phoneNumber;
+        userName = name;
         // auth init
         mAuth = FirebaseAuth.getInstance();
         firestoreDB = FirebaseFirestore.getInstance();
+
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setTimestampsInSnapshotsEnabled(true)
+                .build();
+        firestore.setFirestoreSettings(settings);
+
         getInstallationIdentifier();
     }
 
-    private synchronized String getInstallationIdentifier() {
+    private synchronized void getInstallationIdentifier() {
         if (uniqueIdentifier == null) {
             SharedPreferences sharedPrefs = currentActivity.getSharedPreferences(
                     UNIQUE_ID, Context.MODE_PRIVATE);
@@ -94,7 +110,6 @@ public class PhoneAuthorizer extends Authorizer {
                 editor.commit();
             }
         }
-        return uniqueIdentifier;
     }
 
     private void addVerificationDataToFirestore(String phone, String verificationId) {
@@ -122,10 +137,48 @@ public class PhoneAuthorizer extends Authorizer {
     @Override
     public void verify() {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phoneNumber,                      // Phone number to verify
+                phoneNumber,                  // Phone number to verify
                 60,                         // Timeout duration
                 TimeUnit.SECONDS,             // Unit of timeout
-                currentActivity,                  // Activity (for callback binding)
+                currentActivity,              // Activity (for callback binding)
                 callbacks);
+    }
+
+    public void getVerificationDataFromFirestoreAndVerify(String code) {
+        firestoreDB.collection("phoneAuth").document(uniqueIdentifier)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot ds = task.getResult();
+                        if(ds.exists()){
+                            //disableSendCodeButton(ds.getLong("timestamp"));
+                            if(code != null){
+                                createCredentialSignIn(ds.getString("verificationId"), code);
+                            }else{
+                                verifyPhoneNumber(ds.getString("phone"));
+                            }
+                        }else{
+                            //showSendCodeButton();
+                            Log.d(TAG, "Code hasn't been sent yet");
+                        }
+
+                    } else {
+                        Log.d(TAG, "Error getting document: ", task.getException());
+                    }
+                });
+    }
+
+    private void createCredentialSignIn(String verificationId, String verifyCode) {
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, verifyCode);
+        signInWithPhoneAuthCredential(credential);
+    }
+
+    private void verifyPhoneNumber(String phno){
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(phno, 70,
+                TimeUnit.SECONDS, currentActivity, callbacks);
+    }
+
+    public static PhoneAuthorizer getInstance() {
+        return instance;
     }
 }
