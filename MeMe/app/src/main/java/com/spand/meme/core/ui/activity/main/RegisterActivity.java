@@ -95,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      * @param password        a String object which will be used by FireBase module during SignUp
      * @param confirmPassword a String object which will be used during validation form
      **/
-    private void signUp(String email, String password, String confirmPassword) {
+    private void signUp(String email, String name, String phone, String password, String confirmPassword) {
         Log.d(TAG, getString(R.string.register_log_sign_up) + email);
         if (!validateForm()) {
             return;
@@ -112,7 +112,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             mPasswordConfirmView.setError(getString(R.string.register_error_invalid_password));
             return;
         }
-        EmailAuthorizer.init(this, mNameView.getText().toString(), email, password).verify();
+        EmailAuthorizer.init(this, name, email, phone, password).registerUser();
+        PhoneAuthorizer.init(this, name, phone).registerUser();
     }
 
     /**
@@ -126,9 +127,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         int i = view.getId();
         if (i == R.id.email_sign_up_button) {
             try {
-                signUp(mEmailView.getText().toString()
-                        , mPasswordView.getText().toString()
-                        , mPasswordConfirmView.getText().toString());
+                String email = mEmailView.getText().toString();
+                String password = mPasswordView.getText().toString();
+                String confirmPassword = mPasswordConfirmView.getText().toString();
+                String name = mNameView.getText().toString();
+                String phoneNumber = mPhoneNumberView.getText().toString();
+
+                signUp(email, name, phoneNumber, password, confirmPassword);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -29,7 +29,7 @@ abstract class Authorizer {
     String userName;
     private SharedPreferences sharedPreferences;
 
-    public abstract void verify();
+    public abstract void registerUser();
 
     /**
      * Starts main activity of the application.

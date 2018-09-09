@@ -135,7 +135,7 @@ public class PhoneAuthorizer extends Authorizer {
     }
 
     @Override
-    public void verify() {
+    public void registerUser() {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,                  // Phone number to verify
                 60,                         // Timeout duration

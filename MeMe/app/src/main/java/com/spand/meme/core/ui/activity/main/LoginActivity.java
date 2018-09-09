@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.VisibleForTesting;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -52,6 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     // UI references.
     private AutoCompleteTextView mEmailOrPhoneView;
+    private TextInputLayout mPasswordLayout;
     private EditText mPasswordView;
     private CheckBox mRememberMeView;
     private CheckBox mAutoLoginView;
@@ -81,6 +83,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Views
         mEmailOrPhoneView = findViewById(R.id.login_form_email);
         mPasswordView = findViewById(R.id.login_form_password);
+        mPasswordLayout = findViewById(R.id.login_form_password_layout);
         mRememberMeView = findViewById(R.id.login_form_rememberMe);
         mAutoLoginView = findViewById(R.id.login_form_autologin);
         mForgotPasswordView = findViewById(R.id.forgot_password);
@@ -98,8 +101,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         mEmailOrPhoneView.setText(sharedPreferences.getString(KEY_USER_EMAIL_OR_PHONE, EMPTY_STRING));
         mPasswordView.setText(sharedPreferences.getString(KEY_PASS, EMPTY_STRING));
+        mPasswordLayout.setVisibility(View.INVISIBLE);
 
         mEmailOrPhoneView.addTextChangedListener(this);
+        mEmailOrPhoneView.setOnClickListener(view -> {
+            String inputValue = mEmailOrPhoneView.getText().toString();
+            if (Patterns.EMAIL_ADDRESS.matcher(inputValue).matches()) {
+                authWay = EMAIL;
+                mPasswordLayout.setVisibility(View.VISIBLE);
+            }
+
+            if (Patterns.PHONE.matcher(inputValue).matches()) {
+                authWay = PHONE;
+                mPasswordLayout.setVisibility(View.INVISIBLE);
+            }
+        });
+
         mPasswordView.addTextChangedListener(this);
         mRememberMeView.setOnCheckedChangeListener(this);
         mAutoLoginView.setOnCheckedChangeListener(this);
@@ -197,11 +214,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         switch (authWay){
             case EMAIL:{
-                EmailAuthorizer.init(this, EMPTY_STRING, emailOrPhone, password).authorize();
+                EmailAuthorizer.init(this, EMPTY_STRING, emailOrPhone, EMPTY_STRING, password).authorize();
                 break;
             }
             case PHONE:{
-                PhoneAuthorizer.init(this, EMPTY_STRING, emailOrPhone).verify();
+                PhoneAuthorizer.init(this, EMPTY_STRING, emailOrPhone).registerUser();
             }
         }
 
@@ -224,12 +241,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (TextUtils.isEmpty(email)) {
             mEmailOrPhoneView.setError(getString(R.string.login_field_required));
             valid = false;
-        } else {
-            if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                authWay = EMAIL;
-            } else if (Patterns.PHONE.matcher(email).matches()) {
-                authWay = PHONE;
-            }
         }
 
         String password = mPasswordView.getText().toString();
