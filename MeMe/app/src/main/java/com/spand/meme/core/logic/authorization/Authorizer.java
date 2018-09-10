@@ -26,7 +26,6 @@ abstract class Authorizer {
     // Firebase related fields
     FirebaseAuth mAuth;
     FirebaseFirestore firestoreDB;
-    String userName;
     private SharedPreferences sharedPreferences;
 
     public abstract void registerUser();
@@ -34,7 +33,7 @@ abstract class Authorizer {
     /**
      * Starts main activity of the application.
      **/
-    void finishSingUpActivity(Activity currentActivity, String name, String emailPhone, String password) {
+    void finishSingUpActivity(Activity currentActivity, String name, String email, String password) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
@@ -47,7 +46,7 @@ abstract class Authorizer {
         FireBaseDBInitializer.create().init();
 
         sharedPreferences = currentActivity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        managePrefs(emailPhone, password);
+        managePrefs(email, password);
 
         Intent intent = new Intent(currentActivity, MainActivity.class);
         intent.putExtra(START_TYPE, REGISTRATOR);

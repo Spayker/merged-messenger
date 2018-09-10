@@ -15,7 +15,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
@@ -27,20 +26,16 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.spand.meme.R;
 import com.spand.meme.core.data.database.FireBaseDBInitializer;
-import com.spand.meme.core.logic.authorization.AUTH_WAY;
 import com.spand.meme.core.logic.authorization.EmailAuthorizer;
-import com.spand.meme.core.logic.authorization.PhoneAuthorizer;
 import com.spand.meme.core.logic.menu.authorization.ActivityBehaviourAddon;
 
-import static com.spand.meme.core.logic.authorization.AUTH_WAY.EMAIL;
-import static com.spand.meme.core.logic.authorization.AUTH_WAY.PHONE;
-import static com.spand.meme.core.ui.activity.ActivityConstants.EMPTY_STRING;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_AUTO_LOGIN;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_OLD_CHANGE_PASS;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_PASS;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_REMEMBER;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_USER_EMAIL_OR_PHONE;
 import static com.spand.meme.core.logic.starter.SettingsConstants.PREF_NAME;
+import static com.spand.meme.core.ui.activity.ActivityConstants.EMPTY_STRING;
 
 /**
  * A login screen that offers login via email/password.
@@ -52,7 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String TAG = LoginActivity.class.getSimpleName();
 
     // UI references.
-    private AutoCompleteTextView mEmailOrPhoneView;
+    private AutoCompleteTextView mEmailView;
     private TextInputLayout mPasswordLayout;
     private EditText mPasswordView;
     private CheckBox mRememberMeView;
@@ -64,8 +59,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @VisibleForTesting
     private ProgressDialog mProgressDialog;
-
-    private AUTH_WAY authWay;
 
     /**
      * Perform initialization of all fragments of current activity.
@@ -81,7 +74,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 
         // Views
-        mEmailOrPhoneView = findViewById(R.id.login_form_email);
+        mEmailView = findViewById(R.id.login_form_email);
         mPasswordView = findViewById(R.id.login_form_password);
         mPasswordLayout = findViewById(R.id.login_form_password_layout);
         mRememberMeView = findViewById(R.id.login_form_rememberMe);
@@ -99,24 +92,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         else
             mAutoLoginView.setChecked(false);
 
-        mEmailOrPhoneView.setText(sharedPreferences.getString(KEY_USER_EMAIL_OR_PHONE, EMPTY_STRING));
+        mEmailView.setText(sharedPreferences.getString(KEY_USER_EMAIL_OR_PHONE, EMPTY_STRING));
         mPasswordView.setText(sharedPreferences.getString(KEY_PASS, EMPTY_STRING));
-        mPasswordLayout.setVisibility(View.INVISIBLE);
 
-        mEmailOrPhoneView.addTextChangedListener(this);
-        mEmailOrPhoneView.setOnClickListener(view -> {
-            String inputValue = mEmailOrPhoneView.getText().toString();
-            if (Patterns.EMAIL_ADDRESS.matcher(inputValue).matches()) {
-                authWay = EMAIL;
-                mPasswordLayout.setVisibility(View.VISIBLE);
-            }
-
-            if (Patterns.PHONE.matcher(inputValue).matches()) {
-                authWay = PHONE;
-                mPasswordLayout.setVisibility(View.INVISIBLE);
-            }
-        });
-
+        mEmailView.addTextChangedListener(this);
         mPasswordView.addTextChangedListener(this);
         mRememberMeView.setOnCheckedChangeListener(this);
         mAutoLoginView.setOnCheckedChangeListener(this);
@@ -160,7 +139,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.email_sign_in_button) {
-            signIn(mEmailOrPhoneView.getText().toString(), mPasswordView.getText().toString());
+            signIn(mEmailView.getText().toString(), mPasswordView.getText().toString());
         }
     }
 
@@ -211,19 +190,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (!validateForm()) {
             return;
         }
-
-        switch (authWay){
-            case EMAIL:{
-                EmailAuthorizer.init(this, EMPTY_STRING, emailOrPhone, EMPTY_STRING, password).authorize();
-                break;
-            }
-            case PHONE:{
-                PhoneAuthorizer.init(this, EMPTY_STRING, emailOrPhone).registerUser();
-            }
-        }
-
+        EmailAuthorizer.init(this, EMPTY_STRING, emailOrPhone, password).authorize();
         showProgressDialog();
-
     }
 
     @Override
@@ -237,9 +205,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private boolean validateForm() {
         boolean valid = true;
 
-        String email = mEmailOrPhoneView.getText().toString();
+        String email = mEmailView.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            mEmailOrPhoneView.setError(getString(R.string.login_field_required));
+            mEmailView.setError(getString(R.string.login_field_required));
             valid = false;
         }
 
@@ -257,7 +225,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(KEY_OLD_CHANGE_PASS, mPasswordView.getText().toString().trim());
         if (mRememberMeView.isChecked()) {
-            editor.putString(KEY_USER_EMAIL_OR_PHONE, mEmailOrPhoneView.getText().toString().trim());
+            editor.putString(KEY_USER_EMAIL_OR_PHONE, mEmailView.getText().toString().trim());
             editor.putString(KEY_PASS, mPasswordView.getText().toString().trim());
             editor.putBoolean(KEY_REMEMBER, true);
         } else {
@@ -277,7 +245,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void onForgotPasswordClick(View view) {
-        String email = mEmailOrPhoneView.getText().toString();
+        String email = mEmailView.getText().toString();
         if (email.isEmpty()) {
             Toast.makeText(LoginActivity.this, getString(R.string.login_error_email_empty),
                     Toast.LENGTH_SHORT).show();

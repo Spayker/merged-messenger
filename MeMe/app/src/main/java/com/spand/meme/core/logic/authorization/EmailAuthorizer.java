@@ -12,6 +12,8 @@ import com.spand.meme.R;
 import com.spand.meme.core.ui.activity.main.LoginActivity;
 import com.spand.meme.core.ui.activity.main.MainActivity;
 
+import static com.spand.meme.core.ui.activity.ActivityConstants.EMPTY_STRING;
+
 public class EmailAuthorizer extends Authorizer {
 
     // tag field is used for logging sub system to identify from coming logs were created
@@ -19,17 +21,15 @@ public class EmailAuthorizer extends Authorizer {
 
     private Activity currentActivity;
     private String userName;
-    private String phone;
     private String emailAddress;
     private String password;
 
     @SuppressLint("StaticFieldLeak")
     private static EmailAuthorizer instance;
 
-    private EmailAuthorizer(Activity currentActivity, String name, String email, String phone, String password) {
+    private EmailAuthorizer(Activity currentActivity, String name, String email, String password) {
         this.currentActivity = currentActivity;
         this.userName = name;
-        this.phone = phone;
         this.emailAddress = email;
         this.password = password;
         userName = name;
@@ -39,9 +39,9 @@ public class EmailAuthorizer extends Authorizer {
         firestoreDB = FirebaseFirestore.getInstance();
     }
 
-    public static EmailAuthorizer init(Activity activity, String name, String email, String phoneNumber, String password) {
+    public static EmailAuthorizer init(Activity activity, String name, String email, String password) {
         if (instance == null) {
-            instance = new EmailAuthorizer(activity, name, email, phoneNumber, password);
+            instance = new EmailAuthorizer(activity, name, email, password);
         }
         return instance;
     }
@@ -53,6 +53,7 @@ public class EmailAuthorizer extends Authorizer {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, currentActivity.getString(R.string.register_log_create_user_with_email_success));
+                        finishSingUpActivity(currentActivity, userName, emailAddress, password);
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, currentActivity.getString(R.string.register_log_create_user_with_email_failure), task.getException());

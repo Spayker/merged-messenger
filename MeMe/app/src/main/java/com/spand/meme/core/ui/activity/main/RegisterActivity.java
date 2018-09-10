@@ -7,19 +7,13 @@ import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 import com.spand.meme.R;
-import com.spand.meme.core.logic.authorization.AUTH_WAY;
 import com.spand.meme.core.logic.authorization.EmailAuthorizer;
-import com.spand.meme.core.logic.authorization.PhoneAuthorizer;
 import com.spand.meme.core.logic.menu.authorization.ActivityBehaviourAddon;
-
-import static com.spand.meme.core.logic.authorization.AUTH_WAY.EMAIL;
-import static com.spand.meme.core.logic.authorization.AUTH_WAY.PHONE;
 
 /**
  * A Register screen that offers a registration procedure via email/password.
@@ -36,7 +30,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     // UI references.
     private EditText mNameView;
     private AutoCompleteTextView mEmailView;
-    private AutoCompleteTextView mPhoneNumberView;
     private EditText mPasswordView;
     private EditText mPasswordConfirmView;
 
@@ -61,7 +54,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         // Views
         mNameView = findViewById(R.id.register_form_name);
         mEmailView = findViewById(R.id.register_form_email);
-        mPhoneNumberView = findViewById(R.id.register_form_phone_number);
         mPasswordView = findViewById(R.id.register_form_password);
         mPasswordConfirmView = findViewById(R.id.register_form_password_confirm);
         // Buttons
@@ -94,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      * @param password        a String object which will be used by FireBase module during SignUp
      * @param confirmPassword a String object which will be used during validation form
      **/
-    private void signUp(String email, String name, String phone, String password, String confirmPassword) {
+    private void signUp(String email, String name, String password, String confirmPassword) {
         Log.d(TAG, getString(R.string.register_log_sign_up) + email);
         if (!validateForm()) {
             return;
@@ -111,8 +103,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             mPasswordConfirmView.setError(getString(R.string.register_error_invalid_password));
             return;
         }
-        EmailAuthorizer.init(this, name, email, phone, password).registerUser();
-        PhoneAuthorizer.init(this, name, phone).registerUser();
+        EmailAuthorizer.init(this, name, email, password).registerUser();
     }
 
     /**
@@ -130,9 +121,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 String password = mPasswordView.getText().toString();
                 String confirmPassword = mPasswordConfirmView.getText().toString();
                 String name = mNameView.getText().toString();
-                String phoneNumber = mPhoneNumberView.getText().toString();
 
-                signUp(email, name, phoneNumber, password, confirmPassword);
+                signUp(email, name, password, confirmPassword);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -178,12 +168,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String email = mEmailView.getText().toString();
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.register_field_required));
-            return false;
-        }
-
-        String phoneNumber = mPhoneNumberView.getText().toString();
-        if (TextUtils.isEmpty(phoneNumber)) {
-            mPhoneNumberView.setError(getString(R.string.register_field_required));
             return false;
         }
 
