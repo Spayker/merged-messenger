@@ -64,7 +64,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mPhoneNumberView = findViewById(R.id.register_form_phone_number);
         mPasswordView = findViewById(R.id.register_form_password);
         mPasswordConfirmView = findViewById(R.id.register_form_password_confirm);
-        mPhoneNumberView.setText("+");
         // Buttons
         findViewById(R.id.email_sign_up_button).setOnClickListener(this);
 
