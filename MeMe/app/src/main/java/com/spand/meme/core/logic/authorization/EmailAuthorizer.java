@@ -7,12 +7,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.spand.meme.R;
 import com.spand.meme.core.ui.activity.main.LoginActivity;
 import com.spand.meme.core.ui.activity.main.MainActivity;
-
-import static com.spand.meme.core.ui.activity.ActivityConstants.EMPTY_STRING;
 
 public class EmailAuthorizer extends Authorizer {
 
@@ -36,7 +33,6 @@ public class EmailAuthorizer extends Authorizer {
 
         // auth init
         mAuth = FirebaseAuth.getInstance();
-        firestoreDB = FirebaseFirestore.getInstance();
     }
 
     public static EmailAuthorizer init(Activity activity, String name, String email, String password) {

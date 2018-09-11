@@ -8,8 +8,6 @@ import android.content.SharedPreferences;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.spand.meme.core.data.database.FireBaseDBInitializer;
 import com.spand.meme.core.ui.activity.main.MainActivity;
 
@@ -25,7 +23,6 @@ abstract class Authorizer {
 
     // Firebase related fields
     FirebaseAuth mAuth;
-    FirebaseFirestore firestoreDB;
     private SharedPreferences sharedPreferences;
 
     public abstract void registerUser();
