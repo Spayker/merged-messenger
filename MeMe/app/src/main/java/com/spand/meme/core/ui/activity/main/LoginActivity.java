@@ -9,8 +9,8 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.VisibleForTesting;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -48,12 +48,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     // UI references.
     private AutoCompleteTextView mEmailView;
-    private TextInputLayout mPasswordLayout;
     private EditText mPasswordView;
     private CheckBox mRememberMeView;
     private CheckBox mAutoLoginView;
     private TextView mForgotPasswordView;
     private TextView mForgotPasswordTimerView;
+
+    final int FORGOT_PASSWORD_COOLDOWN_MS = 30000;
+    final int FORGOT_PASSWORD_COOLDOWN_INTERVAL = 10;
+    final int FORGOT_PASSWORD_COOLDOWN_INTERVAL_DIVIDER = 1000;
+
+    private static CountDownTimer countDownTimer;
+    private static long secondsLeft;
 
     private SharedPreferences sharedPreferences;
 
@@ -76,7 +82,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Views
         mEmailView = findViewById(R.id.login_form_email);
         mPasswordView = findViewById(R.id.login_form_password);
-        mPasswordLayout = findViewById(R.id.login_form_password_layout);
         mRememberMeView = findViewById(R.id.login_form_rememberMe);
         mAutoLoginView = findViewById(R.id.login_form_autologin);
         mForgotPasswordView = findViewById(R.id.forgot_password);
@@ -105,6 +110,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Buttons
         findViewById(R.id.email_sign_in_button).setOnClickListener(this);
+
+        // init count timer of forgot password
+        initForgotPasswordCountTimer();
+        if(secondsLeft > 0){
+            mForgotPasswordView.setEnabled(false);
+            mForgotPasswordView.setTextColor(Color.GRAY);
+            countDownTimer.start();
+        }
 
         // db init
         FireBaseDBInitializer.create().init();
@@ -182,8 +195,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /**
      * Performs Sign In operation.
      *
-     * @param emailOrPhone   a String object which will be checked during authorization procedure
-     * @param password a String object which will be checked during authorization procedure
+     * @param emailOrPhone a String object which will be checked during authorization procedure
+     * @param password     a String object which will be checked during authorization procedure
      **/
     private void signIn(String emailOrPhone, String password) {
         Log.d(TAG, getString(R.string.login_log_sign_in) + emailOrPhone);
@@ -244,6 +257,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editor.commit();
     }
 
+    private void initForgotPasswordCountTimer(){
+        long startCountDownValue;
+        if (secondsLeft == 0) {
+            startCountDownValue = FORGOT_PASSWORD_COOLDOWN_MS;
+        } else {
+            startCountDownValue = secondsLeft;
+        }
+
+        countDownTimer = new CountDownTimer(startCountDownValue, FORGOT_PASSWORD_COOLDOWN_INTERVAL) {
+            public void onTick(long millisUntilFinished) {
+                Long secondsUntilFinished = millisUntilFinished / FORGOT_PASSWORD_COOLDOWN_INTERVAL_DIVIDER;
+                mForgotPasswordTimerView.setText(String.format(" %s %s", secondsUntilFinished,
+                        getString(R.string.login_field_short_seconds)));
+                secondsLeft = secondsUntilFinished * FORGOT_PASSWORD_COOLDOWN_INTERVAL_DIVIDER;
+            }
+
+            @Override
+            public void onFinish() {
+                mForgotPasswordView.setEnabled(true);
+                mForgotPasswordView.setTextColor(R.string.login_forgot_password_link_color);
+                mForgotPasswordTimerView.setText(EMPTY_STRING);
+                countDownTimer = null;
+            }
+        };
+    }
+
     public void onForgotPasswordClick(View view) {
         String email = mEmailView.getText().toString();
         if (email.isEmpty()) {
@@ -260,30 +299,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     });
             mForgotPasswordView.setEnabled(false);
             mForgotPasswordView.setTextColor(Color.GRAY);
-
-            final int FORGOT_PASSWORD_COOLDOWN_MS = 30000;
-            final int FORGOT_PASSWORD_COOLDOWN_INTERVAL = 10;
-            final int FORGOT_PASSWORD_COOLDOWN_INTERVAL_DIVIDER = 1000;
-
-            new CountDownTimer(FORGOT_PASSWORD_COOLDOWN_MS, FORGOT_PASSWORD_COOLDOWN_INTERVAL) {
-                public void onTick(long millisUntilFinished) {
-                    Long secondsUntilFinished = millisUntilFinished/FORGOT_PASSWORD_COOLDOWN_INTERVAL_DIVIDER;
-                    mForgotPasswordTimerView.setText(String.format(" %s %s", secondsUntilFinished,
-                            getString(R.string.login_field_short_seconds)));
-                }
-
-                @Override
-                public void onFinish() {
-                    mForgotPasswordView.setEnabled(true);
-                    mForgotPasswordView.setTextColor(Color.parseColor(String.valueOf(R.color.holo_link_blue)));
-                    mForgotPasswordTimerView.setText(EMPTY_STRING);
-                }
-            }.start();
+            countDownTimer.start();
         }
     }
 
     @Override
     public void onBackPressed() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
         Intent intent = new Intent(this, WelcomeActivity.class);
         startActivity(intent);
     }

@@ -25,6 +25,7 @@
             <string name="login_field_required">required</string>
             <string name="login_forgot_password">Forgot Password?</string>
             <string name="login_field_short_seconds">s</string>
+            <string name="login_forgot_password_link_color">#ff0099cc</string>
             <string name="login_info_email_sent">Please Check Your email</string>
             <string name="login_error_auth_failed">Authentication Failed</string>
             <string name="login_error_email_empty">Email Is Empty</string>

@@ -25,6 +25,7 @@
     <string name="login_field_required">Требуется</string>
     <string name="login_forgot_password">Забыли Пароль?</string>
     <string name="login_field_short_seconds">с</string>
+    <string name="login_forgot_password_link_color">#ff0099cc</string>
     <string name="login_info_email_sent">Пожалуйста проверьте свою почту</string>
     <string name="login_error_auth_failed">Ошибка Авторизации</string>
     <string name="login_error_email_empty">Не Указан Email</string>
