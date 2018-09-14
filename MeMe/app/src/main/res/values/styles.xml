@@ -1,22 +1,26 @@
 <resources>
 
+    <style name="WelcomeScreen" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">#17c19a</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+    </style>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#17c19a</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@null</item>
+        <item name="colorAccent">#17c19a</item>
     </style>
 
-    <style name="FullscreenTheme" parent="AppTheme">
-        <item name="android:windowActionBarOverlay">true</item>
+    <style name="LoginTheme" parent="AppTheme">
+        <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@null</item>
-        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
-        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

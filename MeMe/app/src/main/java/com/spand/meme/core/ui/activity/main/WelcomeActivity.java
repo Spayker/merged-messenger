@@ -82,7 +82,7 @@ public class WelcomeActivity extends AppCompatActivity {
      *             ( represents the basic building block for user interface components )
      **/
     public void singUpActivity(View view) {
-        Intent intent = new Intent(this, TermsAndUseConditionsActivity.class);
+        Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 }

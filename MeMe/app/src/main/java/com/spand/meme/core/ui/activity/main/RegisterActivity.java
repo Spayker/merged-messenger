@@ -6,9 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.spand.meme.R;
@@ -23,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @SuppressLint("StaticFieldLeak")
     private static RegisterActivity instance;
 
-    public static RegisterActivity getInstance(){
+    public static RegisterActivity getInstance() {
         return instance;
     }
 
@@ -32,6 +36,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private EditText mPasswordConfirmView;
+    private CheckBox mAgreement;
+    private Button mRegister;
 
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = RegisterActivity.class.getSimpleName();
@@ -56,9 +62,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mEmailView = findViewById(R.id.register_form_email);
         mPasswordView = findViewById(R.id.register_form_password);
         mPasswordConfirmView = findViewById(R.id.register_form_password_confirm);
+        mAgreement = findViewById(R.id.agreement);
+        mRegister = findViewById(R.id.email_sign_up_button);
+
         // Buttons
+        mRegister.setEnabled(false);
         findViewById(R.id.email_sign_up_button).setOnClickListener(this);
 
+        // Checkbox
+        mAgreement.setMovementMethod(LinkMovementMethod.getInstance());
+        mAgreement.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    if (buttonView.isChecked()) {
+                        mRegister.setEnabled(true);
+                    } else {
+                        mRegister.setEnabled(false);
+                    }
+                }
+        );
     }
 
     /**
