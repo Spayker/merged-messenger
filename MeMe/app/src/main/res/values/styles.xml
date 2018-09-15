@@ -9,15 +9,22 @@
     </style>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#17c19a</item>
-        <item name="colorAccent">#17c19a</item>
+    <style name="AppTheme" parent="WelcomeScreen"/>
+
+    <style name="MainTheme" parent="WelcomeScreen">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
+        <item name="android:windowBackground">@mipmap/app_background</item>
+        <item name="colorButtonNormal">#17c19a</item>
+        <item name="android:textColor">#ffffff</item>
     </style>
 
-    <style name="LoginTheme" parent="AppTheme">
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@null</item>
+    <style name="AccentButton" parent="ThemeOverlay.AppCompat.Dark">
+        <!-- customize colorButtonNormal for the disable color -->
+        <item name="colorButtonNormal">#446d63</item>
+        <!-- customize colorAccent for the enabled color -->
+        <item name="colorAccent">#17c19a</item>
+        <item name="android:textColor">@color/text_color</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
