@@ -61,7 +61,8 @@
         </activity>
 
         <!--Main Menu Screen-->
-        <activity android:name=".core.ui.activity.main.MainActivity">
+        <activity android:name=".core.ui.activity.main.MainActivity"
+            android:theme="@style/MainTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.ui.activity.main.WelcomeActivity" />

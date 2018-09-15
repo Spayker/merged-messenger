@@ -114,7 +114,7 @@
                 android:layout_marginTop="16dp"
                 android:onClick="onClick"
                 android:text="@string/register_action_sign_up"
-                android:theme="@style/AccentButton"
+                android:theme="@style/RegisterAccentButton"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:textStyle="bold" />
 

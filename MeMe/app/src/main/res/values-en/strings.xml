@@ -51,7 +51,7 @@
     <string name="register_field_required">required</string>
     <string name="register_error_auth_failed">Authentication Failed</string>
     <string name="register_log_sign_up">signUp:</string>
-    <string name="register_agreement">I agree to the <a href="https://termsfeed.com/terms-conditions/99d4182b95758e526419909a033278d6">Terms and Conditions</a> \n and the <a href="https://termsfeed.com/privacy-policy/d4f0a4d7f7f46ffea23399daee7f9274">Privacy Policy</a></string>
+    <string name="register_agreement">I agree to the <a href="https://termsfeed.com/terms-conditions/99d4182b95758e526419909a033278d6">Terms and Conditions</a> \n and the <a href="https://termsfeed.com/privacy-policy/d4f0a4d7f7f46ffea23399daee7f9274">Privacy Policy</a> of application</string>
     <string name="register_log_create_user_with_email_success">createUserWithEmail: success</string>
     <string name="register_log_create_user_with_email_failure">createUserWithEmail: failure</string>
 

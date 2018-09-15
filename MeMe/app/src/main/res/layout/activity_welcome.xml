@@ -35,7 +35,7 @@
             android:paddingBottom="40dp"
             android:paddingTop="60dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@mipmap/logo" />
+            app:srcCompat="@mipmap/welcome_logo" />
 
         <LinearLayout
             android:id="@+id/fullscreen_content_controls"
@@ -72,7 +72,7 @@
             android:layout_weight="0"
             android:adjustViewBounds="false"
             android:cropToPadding="false"
-            app:srcCompat="@mipmap/because_we_can" />
+            app:srcCompat="@mipmap/app_slogan" />
 
     </LinearLayout>
 

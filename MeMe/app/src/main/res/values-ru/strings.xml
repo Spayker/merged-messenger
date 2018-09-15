@@ -52,7 +52,7 @@
     <string name="register_field_required">Требуется</string>
     <string name="register_error_auth_failed">Ошибка Авторизации</string>
     <string name="register_log_sign_up">signUp:</string>
-    <string name="register_agreement">Я принимаю <a href="https://termsfeed.com/terms-conditions/99d4182b95758e526419909a033278d6">условия использования</a> \n и <a href="https://termsfeed.com/privacy-policy/d4f0a4d7f7f46ffea23399daee7f9274">политику конфиденциальности</a></string>
+    <string name="register_agreement">Я принимаю <a href="https://termsfeed.com/terms-conditions/99d4182b95758e526419909a033278d6">условия использования</a> \n и <a href="https://termsfeed.com/privacy-policy/d4f0a4d7f7f46ffea23399daee7f9274">политику конфиденциальности</a> приложения</string>
     <string name="register_log_create_user_with_email_success">createUserWithEmail: success</string>
     <string name="register_log_create_user_with_email_failure">createUserWithEmail: failure</string>
 

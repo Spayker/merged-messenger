@@ -19,7 +19,7 @@
         <item name="android:textColor">#ffffff</item>
     </style>
 
-    <style name="AccentButton" parent="ThemeOverlay.AppCompat.Dark">
+    <style name="RegisterAccentButton" parent="ThemeOverlay.AppCompat.Dark">
         <!-- customize colorButtonNormal for the disable color -->
         <item name="colorButtonNormal">#446d63</item>
         <!-- customize colorAccent for the enabled color -->
