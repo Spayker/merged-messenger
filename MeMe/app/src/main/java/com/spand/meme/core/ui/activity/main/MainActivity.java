@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
     private void performSignOut() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, WelcomeActivity.class);
         startActivity(intent);
     }
 }

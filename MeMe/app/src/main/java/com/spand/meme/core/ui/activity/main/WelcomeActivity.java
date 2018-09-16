@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +28,6 @@ public class WelcomeActivity extends AppCompatActivity {
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = WelcomeActivity.class.getSimpleName();
 
-
     /**
      * Perform initialization of all fragments of current activity.
      *
@@ -39,6 +39,8 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        LinearLayout buttonLayer = findViewById(R.id.fullscreen_content_controls);
+        buttonLayer.setVisibility(View.INVISIBLE);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         boolean isAutoLoginEnabled = sharedPreferences.getBoolean(KEY_AUTO_LOGIN, false);
@@ -58,10 +60,13 @@ public class WelcomeActivity extends AppCompatActivity {
                                 Log.w(TAG, getString(R.string.login_log_sign_in_with_email_failure), task.getException());
                                 Toast.makeText(WelcomeActivity.this, getString(R.string.welcome_error_auth_failed),
                                         Toast.LENGTH_SHORT).show();
+                                buttonLayer.setVisibility(View.VISIBLE);
                             }
                         });
             }
+            return;
         }
+        buttonLayer.setVisibility(View.VISIBLE);
     }
 
     /**
