@@ -1,5 +1,6 @@
 package com.spand.meme.core.ui.activity.main;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.spand.meme.R;
+import com.spand.meme.core.logic.menu.authorization.ActivityBehaviourAddon;
 
 import static com.spand.meme.core.ui.activity.ActivityConstants.EMPTY_STRING;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_AUTO_LOGIN;
@@ -23,10 +25,12 @@ import static com.spand.meme.core.logic.starter.SettingsConstants.PREF_NAME;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity implements ActivityBehaviourAddon {
 
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = WelcomeActivity.class.getSimpleName();
+
+    private ProgressDialog mProgressDialog;
 
     /**
      * Perform initialization of all fragments of current activity.
@@ -48,6 +52,7 @@ public class WelcomeActivity extends AppCompatActivity {
             String email = sharedPreferences.getString(KEY_USER_EMAIL_OR_PHONE, EMPTY_STRING);
             String password = sharedPreferences.getString(KEY_PASS, EMPTY_STRING);
             if (!email.isEmpty() && !password.isEmpty()) {
+                showProgressDialog();
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, task -> {
                             if (task.isSuccessful()) {
@@ -62,6 +67,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                                 buttonLayer.setVisibility(View.VISIBLE);
                             }
+                            hideProgressDialog();
                         });
             }
             return;
@@ -89,5 +95,36 @@ public class WelcomeActivity extends AppCompatActivity {
     public void singUpActivity(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     * Shows progress dialog while backend action is in progress.
+     **/
+    public void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage(getString(R.string.login_checking));
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+
+    /**
+     * Hides progress dialog from screen.
+     **/
+    @Override
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    /**
+     * Updates ui according to authorization result.
+     **/
+    @Override
+    public void updateUI() {
+        hideProgressDialog();
     }
 }

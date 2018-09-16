@@ -108,14 +108,6 @@ public class AlphaDynamicMenuBuilder implements MainMenuBuilder {
         LinearLayout.LayoutParams firstLayoutParams = new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
         firstLayoutParams.gravity = Gravity.START|Gravity.CENTER_VERTICAL;
         firstGroupVerticalLayout.setLayoutParams(firstLayoutParams);
-        firstGroupVerticalLayout.setPadding(5, 5, 5, 5);
-
-        TextView groupNameTextView = new TextView(mainActivity);
-        groupNameTextView.setText(groupNameResId);
-        LinearLayout.LayoutParams textViewLayoutParams = new LinearLayout.LayoutParams(
-                MATCH_PARENT, WRAP_CONTENT);
-        groupNameTextView.setLayoutParams(textViewLayoutParams);
-        mainLinearLayout.addView(groupNameTextView);
 
         if(activatedGroupAmount > BUTTON_LIMIT_IN_ROW){
             int lastIndex = 0;

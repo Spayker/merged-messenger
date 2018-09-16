@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView mForgotPasswordView;
     private TextView mForgotPasswordTimerView;
 
-    final int FORGOT_PASSWORD_COOLDOWN_MS = 30000;
+    final int FORGOT_PASSWORD_COOLDOWN_MS = 5000;
     final int FORGOT_PASSWORD_COOLDOWN_INTERVAL = 10;
     final int FORGOT_PASSWORD_COOLDOWN_INTERVAL_DIVIDER = 1000;
 
@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        setTitle(R.string.login_title_activity);
         sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 
         // Views
@@ -276,7 +276,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onFinish() {
                 mForgotPasswordView.setEnabled(true);
-                mForgotPasswordView.setTextColor(R.string.login_forgot_password_link_color);
+                mForgotPasswordView.setTextColor(Color.CYAN);
                 mForgotPasswordTimerView.setText(EMPTY_STRING);
                 countDownTimer = null;
             }
@@ -294,7 +294,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (task.isSuccessful()) {
                             Log.d(TAG, "Email sent.");
                             Toast.makeText(LoginActivity.this, getString(R.string.login_info_email_sent),
-                                    Toast.LENGTH_SHORT).show();
+                                    Toast.LENGTH_LONG).show();
                         }
                     });
             mForgotPasswordView.setEnabled(false);

@@ -32,6 +32,9 @@ import static com.spand.meme.core.logic.starter.Starter.USERNAME;
  **/
 public class MainActivity extends AppCompatActivity {
 
+    private static final String FRAGMENT_TAG_DATA_PROVIDER = "data provider";
+    private static final String FRAGMENT_LIST_VIEW = "list view";
+
     /**
      * Perform initialization of all fragments of current activity.
      *
@@ -112,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickOnExit(View view) {
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        startActivity(intent);
         moveTaskToBack(true);
         android.os.Process.killProcess(android.os.Process.myPid());
     }
@@ -129,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
     private void performSignOut() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
-        Intent intent = new Intent(this, WelcomeActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 }

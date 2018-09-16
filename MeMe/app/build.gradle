@@ -6,8 +6,8 @@ android {
         applicationId 'com.spand.meme'
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 26
-        versionName "0.3.6"
+        versionCode 32
+        versionName "1.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -80,6 +80,11 @@ dependencies {
     // rx java
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+
+    // drag&drop module
+    implementation ('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.11.0@aar'){
+        transitive=true
+    }
 
     implementation 'org.jetbrains:annotations:15.0'
 }

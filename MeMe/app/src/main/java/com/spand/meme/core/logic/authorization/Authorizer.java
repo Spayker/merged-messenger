@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.spand.meme.R;
 import com.spand.meme.core.data.database.FireBaseDBInitializer;
 import com.spand.meme.core.ui.activity.main.MainActivity;
+import com.spand.meme.core.ui.activity.main.WelcomeActivity;
 
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_OLD_CHANGE_PASS;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_PASS;
@@ -33,6 +36,10 @@ abstract class Authorizer {
     void finishSingUpActivity(Activity currentActivity, String name, String email, String password) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
+
+        Toast.makeText(currentActivity, currentActivity.getString(R.string.register_error_auth_passed),
+                Toast.LENGTH_SHORT).show();
+
         if (user != null) {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                     .setDisplayName(name).build();

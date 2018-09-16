@@ -43,7 +43,6 @@
         <!--Login Screen-->
         <activity
             android:name=".core.ui.activity.main.LoginActivity"
-            android:label="@string/login_title_activity"
             android:theme="@style/MainTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -53,7 +52,6 @@
         <!--Register Screen-->
         <activity
             android:name=".core.ui.activity.main.RegisterActivity"
-            android:label="@string/register_title_activity"
             android:theme="@style/MainTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

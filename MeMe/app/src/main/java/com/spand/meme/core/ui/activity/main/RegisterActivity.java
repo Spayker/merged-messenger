@@ -56,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        setTitle(R.string.register_title_activity);
         instance = this;
         // Views
         mNameView = findViewById(R.id.register_form_name);
@@ -112,10 +113,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
 
-        showProgressDialog();
         // Check for a valid password confirmation, if the user entered one.
         if (TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword)) {
             mPasswordConfirmView.setError(getString(R.string.register_error_empty_password));
+            return;
+        }
+
+        if (!password.equalsIgnoreCase(confirmPassword)) {
+            mPasswordView.setError(getString(R.string.register_error_not_equal_password));
+            mPasswordConfirmView.setError(getString(R.string.register_error_not_equal_password));
             return;
         }
 
@@ -123,6 +129,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             mPasswordConfirmView.setError(getString(R.string.register_error_invalid_password));
             return;
         }
+        showProgressDialog();
         EmailAuthorizer.init(this, name, email, password).registerUser();
     }
 
@@ -188,6 +195,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String email = mEmailView.getText().toString();
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.register_field_required));
+            return false;
+        }
+
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            mEmailView.setError(getString(R.string.register_email_field_incorrect_format));
             return false;
         }
 

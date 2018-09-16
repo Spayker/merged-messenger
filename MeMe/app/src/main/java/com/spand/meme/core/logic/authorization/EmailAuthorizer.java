@@ -1,6 +1,5 @@
 package com.spand.meme.core.logic.authorization;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
@@ -10,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.spand.meme.R;
 import com.spand.meme.core.ui.activity.main.LoginActivity;
 import com.spand.meme.core.ui.activity.main.MainActivity;
+import com.spand.meme.core.ui.activity.main.RegisterActivity;
 
 public class EmailAuthorizer extends Authorizer {
 
@@ -20,9 +20,6 @@ public class EmailAuthorizer extends Authorizer {
     private String userName;
     private String emailAddress;
     private String password;
-
-    @SuppressLint("StaticFieldLeak")
-    private static EmailAuthorizer instance;
 
     private EmailAuthorizer(Activity currentActivity, String name, String email, String password) {
         this.currentActivity = currentActivity;
@@ -36,10 +33,7 @@ public class EmailAuthorizer extends Authorizer {
     }
 
     public static EmailAuthorizer init(Activity activity, String name, String email, String password) {
-        if (instance == null) {
-            instance = new EmailAuthorizer(activity, name, email, password);
-        }
-        return instance;
+        return new EmailAuthorizer(activity, name, email, password);
     }
 
     @Override
@@ -52,6 +46,7 @@ public class EmailAuthorizer extends Authorizer {
                         finishSingUpActivity(currentActivity, userName, emailAddress, password);
                     } else {
                         // If sign in fails, display a message to the user.
+                        ((RegisterActivity)currentActivity).hideProgressDialog();
                         Log.w(TAG, currentActivity.getString(R.string.register_log_create_user_with_email_failure), task.getException());
                         Toast.makeText(currentActivity, currentActivity.getString(R.string.register_error_auth_failed),
                                 Toast.LENGTH_SHORT).show();

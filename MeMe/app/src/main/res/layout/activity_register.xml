@@ -104,7 +104,7 @@
                 android:id="@+id/agreement"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:text="@string/register_agreement"/>
 
             <Button
