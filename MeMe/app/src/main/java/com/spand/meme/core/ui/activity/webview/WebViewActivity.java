@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -26,15 +27,16 @@ import static com.spand.meme.core.ui.activity.ActivityConstants.TUMBLR_HOME_URL;
 public class WebViewActivity extends Activity {
 
     private CustomWebView mWebView;
+    private View mBackButton;
 
-    @SuppressLint("SetJavaScriptEnabled")
+    @SuppressLint({"SetJavaScriptEnabled", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
 
         mWebView = findViewById(R.id.webView);
-        View mBackButton = findViewById(R.id.backToMainMenu);
+        mBackButton = findViewById(R.id.backToMainMenu);
 
         // Initialize the VideoEnabledWebChromeClient and set event handlers
         View nonVideoLayout = findViewById(R.id.nonVideoLayout);
@@ -49,6 +51,19 @@ public class WebViewActivity extends Activity {
                 // Your code...
             }
         };
+
+        mWebView.setOnTouchListener((v, event) -> {
+            mBackButton.setAlpha(.05f);
+            mWebView.performClick();
+            return false;
+        });
+
+        mBackButton.setOnTouchListener((v, event) -> {
+            mBackButton.setAlpha(.99f);
+            mBackButton.performClick();
+            return false;
+        });
+
         webChromeClient.setOnToggledFullscreen(fullscreen -> {
             // Your code to handle the full-screen change, for example showing and hiding the title bar. Example:
             if (fullscreen) {
@@ -88,6 +103,7 @@ public class WebViewActivity extends Activity {
         webSettings.setDomStorageEnabled(true);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
+
         // REMOTE RESOURCE
         Intent webViewIntent = getIntent();
         String loadUrl = webViewIntent.getStringExtra(HOME_URL);
@@ -99,6 +115,7 @@ public class WebViewActivity extends Activity {
             mWebView.getSettings()
                     .setUserAgentString("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36");
         }
+
         // in order to support sdk from v16
         //CookieManager.getInstance().setAcceptThirdPartyCookies(mWebView, true);
     }
@@ -111,6 +128,7 @@ public class WebViewActivity extends Activity {
             super.onBackPressed();
             mWebView.removeAllViews();
             mWebView.clearHistory();
+            mWebView.clearCache(true);
             mWebView.onPause();
             mWebView.removeAllViews();
             mWebView.destroyDrawingCache();
@@ -133,6 +151,7 @@ public class WebViewActivity extends Activity {
     public void clickOnBackToMainMenu(View view){
         mWebView.removeAllViews();
         mWebView.clearHistory();
+        mWebView.clearCache(true);
         mWebView.onPause();
         mWebView.removeAllViews();
         mWebView.destroyDrawingCache();

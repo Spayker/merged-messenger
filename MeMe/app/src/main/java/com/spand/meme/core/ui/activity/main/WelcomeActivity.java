@@ -4,11 +4,19 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,6 +53,18 @@ public class WelcomeActivity extends AppCompatActivity implements ActivityBehavi
 
         LinearLayout buttonLayer = findViewById(R.id.fullscreen_content_controls);
         buttonLayer.setVisibility(View.INVISIBLE);
+
+        // slogan part
+        TextView mAppStyledName = findViewById(R.id.welcome_app_name_styled);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Consolas.ttf");
+        mAppStyledName.setTypeface(typeface);
+
+        final SpannableStringBuilder sb = new SpannableStringBuilder(getString(R.string.app_name_styled));
+        final ForegroundColorSpan fcs = new ForegroundColorSpan(getResources().getColor(R.color.bright_green));
+        sb.setSpan(fcs, 0, 2, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        mAppStyledName.setText(sb);
+
+        // auto login part
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         boolean isAutoLoginEnabled = sharedPreferences.getBoolean(KEY_AUTO_LOGIN, false);
@@ -73,6 +93,8 @@ public class WelcomeActivity extends AppCompatActivity implements ActivityBehavi
             return;
         }
         buttonLayer.setVisibility(View.VISIBLE);
+
+
     }
 
     /**

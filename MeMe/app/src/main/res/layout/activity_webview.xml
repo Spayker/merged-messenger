@@ -14,7 +14,7 @@
         android:layout_alignParentBottom="true"
         android:onClick="clickOnBackToMainMenu"
         android:src="@mipmap/back"
-        app:backgroundTint="@android:color/holo_green_dark"
+        app:backgroundTint="#17c19a"
         android:layout_alignParentRight="true" />
 
     <!-- View that will be hidden when video goes fullscreen -->
@@ -26,7 +26,7 @@
         <com.spand.meme.core.ui.activity.webview.CustomWebView
             android:id="@+id/webView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
     </RelativeLayout>
 

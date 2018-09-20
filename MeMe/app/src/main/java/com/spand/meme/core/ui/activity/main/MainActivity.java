@@ -1,16 +1,23 @@
 package com.spand.meme.core.ui.activity.main;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -85,6 +92,18 @@ public class MainActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+
+        // slogan part
+        TextView mAppStyledName = findViewById(R.id.main_app_name_styled);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Consolas.ttf");
+        mAppStyledName.setTypeface(typeface);
+
+        final SpannableStringBuilder sb = new SpannableStringBuilder(getString(R.string.app_name_styled));
+        final ForegroundColorSpan fcs = new ForegroundColorSpan(getResources().getColor(R.color.bright_green));
+        sb.setSpan(fcs, 0, 2, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        mAppStyledName.setText(sb);
+
+
         AlphaDynamicMenuBuilder.getInstance(this).build(sharedPreferences);
     }
 

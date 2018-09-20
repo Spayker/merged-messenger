@@ -2,6 +2,8 @@
 
     <!--Application Common String Section start-->
         <string name="app_name">MeMe</string>
+        <string name="app_name_styled"><font color="#17c19a">Me</font>Me</string>
+        <string name="app_name_slogan">Because We Can!</string>
         <string name="default_media_location_folder">MeMeCorp</string>
         <string name="app_version">v</string>
     <!--Application Common String Section end-->

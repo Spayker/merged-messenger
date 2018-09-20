@@ -9,4 +9,7 @@
 
     <color name="holo_link_blue">#ff0099cc</color>
 
+    <color name="bright_green">#17c19a</color>
+    <color name="bright_green_transparent">#3317c19a</color>
+
 </resources>

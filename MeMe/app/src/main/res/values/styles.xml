@@ -5,7 +5,6 @@
         <item name="android:windowBackground">@null</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
     </style>
 
     <!-- Base application theme. -->
@@ -17,6 +16,7 @@
         <item name="android:windowBackground">@mipmap/app_background</item>
         <item name="colorButtonNormal">#17c19a</item>
         <item name="android:textColor">#ffffff</item>
+        <!--<item name="android:homeAsUpIndicator">@mipmap/back</item>-->
     </style>
 
     <style name="RegisterAccentButton" parent="ThemeOverlay.AppCompat.Dark">

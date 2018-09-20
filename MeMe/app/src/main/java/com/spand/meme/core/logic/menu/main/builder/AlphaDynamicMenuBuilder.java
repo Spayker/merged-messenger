@@ -21,6 +21,7 @@ import com.spand.meme.core.ui.activity.webview.WebViewActivity;
 import java.util.List;
 
 import static android.graphics.Color.TRANSPARENT;
+import static android.util.TypedValue.COMPLEX_UNIT_SP;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static com.spand.meme.core.data.memory.channel.TYPE.CHAT;
@@ -32,6 +33,7 @@ import static com.spand.meme.core.ui.activity.ActivityConstants.SHALL_LOAD_URL;
 public class AlphaDynamicMenuBuilder implements MainMenuBuilder {
 
     private static AppCompatActivity mainActivity;
+    private final int BUTTON_TEXT_SIZE_IN_SP = 12;
 
     @SuppressLint("StaticFieldLeak")
     private static AlphaDynamicMenuBuilder instance;
@@ -57,20 +59,17 @@ public class AlphaDynamicMenuBuilder implements MainMenuBuilder {
         mainLinearLayout.removeAllViews();
         int activatedSocialGroupAmount = ChannelManager.getActiveChannels(SOCIAL).size();
         if (activatedSocialGroupAmount > 0) {
-            int groupNameResourceId = R.string.main_menu_social_net_group;
-            createGroupCategory(mainLinearLayout, activatedSocialGroupAmount, groupNameResourceId, SOCIAL);
+            createGroupCategory(mainLinearLayout, activatedSocialGroupAmount, SOCIAL);
         }
 
         int activatedChatGroupAmount = ChannelManager.getActiveChannels(CHAT).size();
         if (activatedChatGroupAmount > 0) {
-            int groupNameResourceId = R.string.main_menu_chat_group;
-            createGroupCategory(mainLinearLayout, activatedChatGroupAmount, groupNameResourceId, CHAT);
+            createGroupCategory(mainLinearLayout, activatedChatGroupAmount, CHAT);
         }
 
         int activatedEmailGroupAmount = ChannelManager.getActiveChannels(EMAIL).size();
         if (activatedEmailGroupAmount > 0) {
-            int groupNameResourceId = R.string.main_menu_mail_group;
-            createGroupCategory(mainLinearLayout, activatedEmailGroupAmount, groupNameResourceId, EMAIL);
+            createGroupCategory(mainLinearLayout, activatedEmailGroupAmount, EMAIL);
         }
 
     }
@@ -90,6 +89,7 @@ public class AlphaDynamicMenuBuilder implements MainMenuBuilder {
         Button channelButton = new Button(mainActivity);
         String channelName = channel.getName();
         channelButton.setText(channelName);
+        channelButton.setTextSize(COMPLEX_UNIT_SP, BUTTON_TEXT_SIZE_IN_SP);
         channelButton.setLayoutParams(new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
         channelButton.setBackgroundColor(TRANSPARENT);
         Drawable icon = mainActivity.getResources().getDrawable(channel.getIcon().getIconId());
@@ -103,7 +103,7 @@ public class AlphaDynamicMenuBuilder implements MainMenuBuilder {
         return channelButton;
     }
 
-    private void createGroupCategory(LinearLayout mainLinearLayout, int activatedGroupAmount, int groupNameResId, TYPE type){
+    private void createGroupCategory(LinearLayout mainLinearLayout, int activatedGroupAmount, TYPE type){
         LinearLayout firstGroupVerticalLayout = new LinearLayout(mainActivity);
         LinearLayout.LayoutParams firstLayoutParams = new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
         firstLayoutParams.gravity = Gravity.START|Gravity.CENTER_VERTICAL;

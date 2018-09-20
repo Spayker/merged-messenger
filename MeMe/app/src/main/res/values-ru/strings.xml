@@ -2,6 +2,8 @@
 
     <!--Application Common String Section start-->
     <string name="app_name">MeMe</string>
+    <string name="app_name_styled"><font color="#17c19a">Me</font>Me</string>
+    <string name="app_name_slogan">Because We Can!</string>
     <string name="default_media_location_folder">MeMeCorp</string>
     <string name="app_version">v</string>
     <!--Application Common String Section end-->
@@ -80,7 +82,7 @@
     <string name="webview_loading_video">Загрузка…</string>
 
     <!--Menu of Global Settings Screen-->
-    <string name="global_settings_list_preference_notification_type">Напоминание</string>
+    <string name="global_settings_list_preference_notification_type">Уведомление</string>
     <string name="global_settings_list_preference_melody_type">Мелодия</string>
     <string name="global_settings_list_preference_language_type">Язык</string>
     <string name="global_settings_pref_change_password_button">pref_change_password_button</string>

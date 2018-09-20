@@ -75,14 +75,16 @@
         </activity>
 
         <!--Menu of Global Settings Screen-->
-        <activity android:name=".core.ui.activity.settings.GlobalSettingsActivity">
+        <activity android:name=".core.ui.activity.settings.GlobalSettingsActivity"
+            android:theme="@style/MainTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.ui.activity.main.MainActivity" />
         </activity>
 
         <!--Menu of Channel Settings Screen-->
-        <activity android:name=".core.ui.activity.settings.EditChannelsActivity">
+        <activity android:name=".core.ui.activity.settings.EditChannelsActivity"
+            android:theme="@style/MainTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.ui.activity.main.MainActivity" />
