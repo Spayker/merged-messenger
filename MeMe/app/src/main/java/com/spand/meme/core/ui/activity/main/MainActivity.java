@@ -21,17 +21,11 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
-import com.spand.meme.core.logic.menu.main.builder.AlphaDynamicMenuBuilder;
 import com.spand.meme.core.logic.menu.main.builder.draggable.DraggableGridFragment;
 import com.spand.meme.core.logic.menu.main.builder.draggable.common.data.AbstractDataProvider;
 import com.spand.meme.core.logic.menu.main.builder.draggable.common.fragment.DataProviderFragment;
 import com.spand.meme.core.ui.activity.settings.EditChannelsActivity;
 import com.spand.meme.core.ui.activity.settings.GlobalSettingsActivity;
-
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
-import java.util.TreeSet;
 
 import static com.spand.meme.core.logic.starter.Loginner.createLoginner;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
