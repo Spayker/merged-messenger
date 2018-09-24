@@ -1,11 +1,17 @@
 package com.spand.meme.core.logic.menu.main.builder.draggable;
 
-import android.support.v7.widget.DrawableUtils;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter;
@@ -15,12 +21,16 @@ import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropM
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractDraggableItemViewHolder;
 import com.spand.meme.R;
 import com.spand.meme.core.logic.menu.main.builder.draggable.common.data.AbstractDataProvider;
+import com.spand.meme.core.logic.menu.main.builder.draggable.common.utils.DrawableUtils;
+import com.spand.meme.core.ui.activity.webview.WebViewActivity;
 
-public class DraggableGridAdapter /*extends RecyclerView.Adapter<DraggableGridAdapter.MyViewHolder>
-        implements DraggableItemAdapter<DraggableGridAdapter.MyViewHolder>*/ {
+import static com.spand.meme.core.ui.activity.ActivityConstants.HOME_URL;
+import static com.spand.meme.core.ui.activity.ActivityConstants.SHALL_LOAD_URL;
 
-    /*private static final String TAG = "MyDraggableItemAdapter";
-    private int mItemMoveMode = RecyclerViewDragDropManager.ITEM_MOVE_MODE_DEFAULT;
+public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdapter.CustomViewHolder>
+        implements DraggableItemAdapter<DraggableGridAdapter.CustomViewHolder> {
+
+    private static final String TAG = "DraggableGridAdapter";
 
     // NOTE: Make accessible with short name
     private interface Draggable extends DraggableItemConstants {
@@ -28,29 +38,22 @@ public class DraggableGridAdapter /*extends RecyclerView.Adapter<DraggableGridAd
 
     private AbstractDataProvider mProvider;
 
-    public static class MyViewHolder extends AbstractDraggableItemViewHolder {
-        public FrameLayout mContainer;
-        public View mDragHandle;
-        public TextView mTextView;
+    static class CustomViewHolder extends AbstractDraggableItemViewHolder {
+        private FrameLayout mContainer;
+        private Button mImageButton;
 
-        public MyViewHolder(View v) {
+        private CustomViewHolder(View v) {
             super(v);
             mContainer = v.findViewById(R.id.container);
-            mDragHandle = v.findViewById(R.id.drag_handle);
-            mTextView = v.findViewById(android.R.id.text1);
+            mImageButton = v.findViewById(R.id.channel_icon);
         }
     }
 
-    public DraggableGridAdapter(AbstractDataProvider dataProvider) {
+    DraggableGridAdapter(AbstractDataProvider dataProvider) {
         mProvider = dataProvider;
-
         // DraggableItemAdapter requires stable ID, and also
         // have to implement the getItemId() method appropriately.
         setHasStableIds(true);
-    }
-
-    public void setItemMoveMode(int itemMoveMode) {
-        mItemMoveMode = itemMoveMode;
     }
 
     @Override
@@ -63,19 +66,25 @@ public class DraggableGridAdapter /*extends RecyclerView.Adapter<DraggableGridAd
         return mProvider.getItem(position).getViewType();
     }
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         final View v = inflater.inflate(R.layout.list_grid_item, parent, false);
-        return new MyViewHolder(v);
+        return new CustomViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(CustomViewHolder holder, int position) {
         final AbstractDataProvider.Data item = mProvider.getItem(position);
 
         // set text
-        holder.mTextView.setText(item.getText());
+        holder.mImageButton.setText(item.getText());
+
+        // set icon
+        Drawable icon = item.getIcon();
+        holder.mImageButton.setCompoundDrawablesWithIntrinsicBounds(null, icon, null, null);
+        holder.mImageButton.setOnClickListener(item.getOnClickListener());
 
         // set background resource (target view ID: container)
         final int dragState = holder.getDragStateFlags();
@@ -106,21 +115,16 @@ public class DraggableGridAdapter /*extends RecyclerView.Adapter<DraggableGridAd
     @Override
     public void onMoveItem(int fromPosition, int toPosition) {
         Log.d(TAG, "onMoveItem(fromPosition = " + fromPosition + ", toPosition = " + toPosition + ")");
-
-        if (mItemMoveMode == RecyclerViewDragDropManager.ITEM_MOVE_MODE_DEFAULT) {
-            mProvider.moveItem(fromPosition, toPosition);
-        } else {
-            mProvider.swapItem(fromPosition, toPosition);
-        }
+        mProvider.moveItem(fromPosition, toPosition);
     }
 
     @Override
-    public boolean onCheckCanStartDrag(MyViewHolder holder, int position, int x, int y) {
+    public boolean onCheckCanStartDrag(CustomViewHolder holder, int position, int x, int y) {
         return true;
     }
 
     @Override
-    public ItemDraggableRange onGetItemDraggableRange(MyViewHolder holder, int position) {
+    public ItemDraggableRange onGetItemDraggableRange(CustomViewHolder holder, int position) {
         // no drag-sortable range specified
         return null;
     }
@@ -138,7 +142,7 @@ public class DraggableGridAdapter /*extends RecyclerView.Adapter<DraggableGridAd
     @Override
     public void onItemDragFinished(int fromPosition, int toPosition, boolean result) {
         notifyDataSetChanged();
-    }*/
+    }
 
 
 }

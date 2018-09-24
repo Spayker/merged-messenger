@@ -55,7 +55,7 @@ public class AlphaDynamicMenuBuilder implements MainMenuBuilder {
     @Override
     public void build(SharedPreferences sharedPreferences) {
 
-        LinearLayout mainLinearLayout = mainActivity.findViewById(R.id.main_linear_layout);
+        LinearLayout mainLinearLayout = mainActivity.findViewById(R.id.container);
         mainLinearLayout.removeAllViews();
         int activatedSocialGroupAmount = ChannelManager.getActiveChannels(SOCIAL).size();
         if (activatedSocialGroupAmount > 0) {

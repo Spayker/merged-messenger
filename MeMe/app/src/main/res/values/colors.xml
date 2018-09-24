@@ -6,10 +6,17 @@
 
     <color name="black_overlay">#66000000</color>
 
+    <color name="main_menu_bottom_panel_background">#242422</color>
+
 
     <color name="holo_link_blue">#ff0099cc</color>
 
     <color name="bright_green">#17c19a</color>
     <color name="bright_green_transparent">#3317c19a</color>
+
+    <color name="bg_item_dragging_active_state">#242422</color>
+    <color name="bg_item_dragging_state">@android:color/transparent</color>
+    <color name="bg_item_normal_state">@android:color/transparent</color>
+    <color name="bg_swipe_item_neutral">@android:color/transparent</color>
 
 </resources>

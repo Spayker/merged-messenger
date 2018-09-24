@@ -1,5 +1,10 @@
 package com.spand.meme.core.logic.menu.main.builder.draggable.common.data;
 
+import android.graphics.drawable.Drawable;
+import android.view.View;
+
+import com.spand.meme.core.data.memory.channel.ICON;
+
 public abstract class AbstractDataProvider {
 
     public static abstract class Data {
@@ -11,6 +16,10 @@ public abstract class AbstractDataProvider {
 
         public abstract String getText();
 
+        public abstract Drawable getIcon();
+
+        public abstract View.OnClickListener getOnClickListener();
+
         public abstract void setPinned(boolean pinned);
 
         public abstract boolean isPinned();
@@ -19,6 +28,8 @@ public abstract class AbstractDataProvider {
     public abstract int getCount();
 
     public abstract Data getItem(int index);
+
+    public abstract View.OnClickListener getOnClickListener();
 
     public abstract void removeItem(int position);
 

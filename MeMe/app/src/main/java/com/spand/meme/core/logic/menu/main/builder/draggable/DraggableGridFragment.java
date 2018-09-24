@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,11 +28,12 @@ import com.spand.meme.R;
 import com.spand.meme.core.logic.menu.main.builder.draggable.common.data.AbstractDataProvider;
 import com.spand.meme.core.ui.activity.main.MainActivity;
 
+import java.util.Objects;
+
 public class DraggableGridFragment extends Fragment {
 
-    /*private RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private DraggableGridAdapter mAdapter;
     private RecyclerView.Adapter mWrappedAdapter;
     private RecyclerViewDragDropManager mRecyclerViewDragDropManager;
 
@@ -60,8 +62,9 @@ public class DraggableGridFragment extends Fragment {
 
         // drag & drop manager
         mRecyclerViewDragDropManager = new RecyclerViewDragDropManager();
-        mRecyclerViewDragDropManager.setDraggingItemShadowDrawable(
-                (NinePatchDrawable) ContextCompat.getDrawable(getContext(), R.drawable.material_shadow_z3));
+        mRecyclerViewDragDropManager.setDraggingItemShadowDrawable((NinePatchDrawable)
+                ContextCompat.getDrawable(Objects.requireNonNull(getContext()),
+                        R.drawable.material_shadow_z3));
         // Start dragging after long press
         mRecyclerViewDragDropManager.setInitiateOnLongPress(true);
         mRecyclerViewDragDropManager.setInitiateOnMove(false);
@@ -75,7 +78,6 @@ public class DraggableGridFragment extends Fragment {
 
         //adapter
         final DraggableGridAdapter myItemAdapter = new DraggableGridAdapter(getDataProvider());
-        mAdapter = myItemAdapter;
 
         mWrappedAdapter = mRecyclerViewDragDropManager.createWrappedAdapter(myItemAdapter);      // wrap for dragging
 
@@ -87,17 +89,13 @@ public class DraggableGridFragment extends Fragment {
 
         // additional decorations
         //noinspection StatementWithEmptyBody
-        if (supportsViewElevation()) {
-            // Lollipop or later has native drop shadow feature. ItemShadowDecorator is not required.
-        } else {
-            mRecyclerView.addItemDecoration(new ItemShadowDecorator((NinePatchDrawable) ContextCompat.getDrawable(getContext(), R.drawable.material_shadow_z1)));
+        if (!supportsViewElevation()) {
+            mRecyclerView.addItemDecoration(new ItemShadowDecorator((NinePatchDrawable)
+                    Objects.requireNonNull(ContextCompat.getDrawable(getContext(),
+                            R.drawable.material_shadow_z1))));
         }
 
         mRecyclerViewDragDropManager.attachRecyclerView(mRecyclerView);
-
-        // for debugging
-//        animator.setDebug(true);
-//        animator.setMoveDuration(2000);
     }
 
     @Override
@@ -123,7 +121,6 @@ public class DraggableGridFragment extends Fragment {
             WrapperAdapterUtils.releaseAll(mWrappedAdapter);
             mWrappedAdapter = null;
         }
-        mAdapter = null;
         mLayoutManager = null;
 
         super.onDestroyView();
@@ -131,24 +128,10 @@ public class DraggableGridFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_drag_grid, menu);
+        /*inflater.inflate(R.menu.menu_drag_grid, menu);
 
         // setting up the item move mode selection switch
-        MenuItem menuSwitchItem = menu.findItem(R.id.menu_switch_swap_mode);
-        CompoundButton actionView = MenuItemCompat.getActionView(menuSwitchItem).findViewById(R.id.switch_view);
-
-        actionView.setOnCheckedChangeListener((buttonView, isChecked) -> updateItemMoveMode(isChecked));
-    }
-
-    private void updateItemMoveMode(boolean swapMode) {
-        int mode = (swapMode)
-                ? RecyclerViewDragDropManager.ITEM_MOVE_MODE_SWAP
-                : RecyclerViewDragDropManager.ITEM_MOVE_MODE_DEFAULT;
-
-        mRecyclerViewDragDropManager.setItemMoveMode(mode);
-        mAdapter.setItemMoveMode(mode);
-
-        Snackbar.make(getView(), "Item move mode: " + (swapMode ? "SWAP" : "DEFAULT"), Snackbar.LENGTH_SHORT).show();
+        MenuItem menuSwitchItem = menu.findItem(R.id.menu_switch_swap_mode);*/
     }
 
     private boolean supportsViewElevation() {
@@ -156,7 +139,6 @@ public class DraggableGridFragment extends Fragment {
     }
 
     public AbstractDataProvider getDataProvider() {
-        return ((MainActivity) getActivity()).getDataProvider();
-    }*/
-
+        return ((MainActivity) Objects.requireNonNull(getActivity())).getDataProvider();
+    }
 }

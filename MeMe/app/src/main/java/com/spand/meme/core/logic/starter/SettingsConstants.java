@@ -12,6 +12,7 @@ public interface SettingsConstants {
     String KEY_USER_EMAIL_OR_PHONE = "userEmailOrPhone";
     String KEY_PASS = "password";
     String KEY_OLD_CHANGE_PASS = "oldChangePassword";
+    String KEY_CHANNEL_ORDER = "channelOrder";
 
     // Language Codes
     String RU = "ru";

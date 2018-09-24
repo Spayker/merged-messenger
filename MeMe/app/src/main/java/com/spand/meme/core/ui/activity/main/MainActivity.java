@@ -1,6 +1,5 @@
 package com.spand.meme.core.ui.activity.main;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,8 +7,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
@@ -17,17 +16,25 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spand.meme.R;
 import com.spand.meme.core.logic.menu.main.builder.AlphaDynamicMenuBuilder;
+import com.spand.meme.core.logic.menu.main.builder.draggable.DraggableGridFragment;
+import com.spand.meme.core.logic.menu.main.builder.draggable.common.data.AbstractDataProvider;
+import com.spand.meme.core.logic.menu.main.builder.draggable.common.fragment.DataProviderFragment;
 import com.spand.meme.core.ui.activity.settings.EditChannelsActivity;
 import com.spand.meme.core.ui.activity.settings.GlobalSettingsActivity;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.TreeSet;
+
 import static com.spand.meme.core.logic.starter.Loginner.createLoginner;
+import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spand.meme.core.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spand.meme.core.logic.starter.Setupper.createSetupper;
 import static com.spand.meme.core.logic.starter.Starter.REGISTRATOR;
@@ -103,8 +110,14 @@ public class MainActivity extends AppCompatActivity {
         sb.setSpan(fcs, 0, 2, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         mAppStyledName.setText(sb);
 
-
-        AlphaDynamicMenuBuilder.getInstance(this).build(sharedPreferences);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(new DataProviderFragment().initActivity(this), FRAGMENT_TAG_DATA_PROVIDER)
+                    .commit();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.main_linear_layout, new DraggableGridFragment(), FRAGMENT_LIST_VIEW)
+                    .commit();
+        }
     }
 
     /**
@@ -147,13 +160,35 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        saveChannelOrder();
         performSignOut();
     }
 
+    private void saveChannelOrder() {
+        AbstractDataProvider channelProvider = getDataProvider();
+        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        StringBuffer currentChannelOrder = new StringBuffer();
+        int channelCount = channelProvider.getCount();
+        for(int i = 0; i != channelCount; i++){
+            AbstractDataProvider.Data item = channelProvider.getItem(i);
+            currentChannelOrder.append(item.getText()).append("|");
+        }
+        editor.putString(KEY_CHANNEL_ORDER, currentChannelOrder.toString());
+        editor.apply();
+        editor.commit();
+    }
+
     private void performSignOut() {
+        saveChannelOrder();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+    }
+
+    public AbstractDataProvider getDataProvider() {
+        final Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_DATA_PROVIDER);
+        return ((DataProviderFragment) fragment).getDataProvider();
     }
 }
