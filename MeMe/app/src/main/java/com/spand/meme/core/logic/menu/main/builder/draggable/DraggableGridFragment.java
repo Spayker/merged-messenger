@@ -37,18 +37,18 @@ public class DraggableGridFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_recycler_list_view, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         //noinspection ConstantConditions
@@ -119,14 +119,6 @@ public class DraggableGridFragment extends Fragment {
         mLayoutManager = null;
 
         super.onDestroyView();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        /*inflater.inflate(R.menu.menu_drag_grid, menu);
-
-        // setting up the item move mode selection switch
-        MenuItem menuSwitchItem = menu.findItem(R.id.menu_switch_swap_mode);*/
     }
 
     private boolean supportsViewElevation() {

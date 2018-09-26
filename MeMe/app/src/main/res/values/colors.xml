@@ -8,7 +8,7 @@
 
     <color name="bright_green">#17c19a</color>
 
-    <color name="bg_item_dragging_active_state">#242422</color>
+    <color name="bg_item_dragging_active_state">@android:color/transparent</color>
     <color name="bg_item_dragging_state">@android:color/transparent</color>
     <color name="bg_item_normal_state">@android:color/transparent</color>
     <color name="bg_swipe_item_neutral">@android:color/transparent</color>

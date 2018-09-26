@@ -23,6 +23,7 @@ import static com.spand.meme.core.data.memory.channel.TYPE.EMAIL;
 import static com.spand.meme.core.data.memory.channel.TYPE.SOCIAL;
 import static com.spand.meme.core.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spand.meme.core.logic.starter.SettingsConstants.PREF_NAME;
+import static com.spand.meme.core.ui.activity.ActivityConstants.EMPTY_STRING;
 import static com.spand.meme.core.ui.activity.ActivityConstants.HOME_URL;
 import static com.spand.meme.core.ui.activity.ActivityConstants.SHALL_LOAD_URL;
 
@@ -101,12 +102,7 @@ public class DataProvider extends AbstractDataProvider {
 
     @Override
     public View.OnClickListener getOnClickListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        };
+        return v -> { };
     }
 
     @Override

@@ -1,9 +1,7 @@
 package com.spand.meme.core.logic.menu.main.builder.draggable;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,21 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemConstants;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.ItemDraggableRange;
-import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractDraggableItemViewHolder;
 import com.spand.meme.R;
 import com.spand.meme.core.logic.menu.main.builder.draggable.common.data.AbstractDataProvider;
 import com.spand.meme.core.logic.menu.main.builder.draggable.common.utils.DrawableUtils;
-import com.spand.meme.core.ui.activity.webview.WebViewActivity;
-
-import static com.spand.meme.core.ui.activity.ActivityConstants.HOME_URL;
-import static com.spand.meme.core.ui.activity.ActivityConstants.SHALL_LOAD_URL;
 
 public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdapter.CustomViewHolder>
         implements DraggableItemAdapter<DraggableGridAdapter.CustomViewHolder> {
@@ -51,8 +42,6 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
 
     DraggableGridAdapter(AbstractDataProvider dataProvider) {
         mProvider = dataProvider;
-        // DraggableItemAdapter requires stable ID, and also
-        // have to implement the getItemId() method appropriately.
         setHasStableIds(true);
     }
 
@@ -115,7 +104,7 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
     @Override
     public void onMoveItem(int fromPosition, int toPosition) {
         Log.d(TAG, "onMoveItem(fromPosition = " + fromPosition + ", toPosition = " + toPosition + ")");
-        mProvider.moveItem(fromPosition, toPosition);
+        mProvider.swapItem(fromPosition, toPosition);
     }
 
     @Override
@@ -125,7 +114,6 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
 
     @Override
     public ItemDraggableRange onGetItemDraggableRange(CustomViewHolder holder, int position) {
-        // no drag-sortable range specified
         return null;
     }
 
@@ -136,7 +124,7 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
 
     @Override
     public void onItemDragStarted(int position) {
-        notifyDataSetChanged();
+
     }
 
     @Override
