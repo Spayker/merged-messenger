@@ -5,21 +5,6 @@
         android:title="@string/change_password_action_change_password" />
 
     <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
-    <ListPreference
-        android:defaultValue="-1"
-        android:entries="@array/global_settings_notification_list"
-        android:entryValues="@array/global_settings_notification_list_values"
-        android:key="@string/global_settings_key_notification_list_preference"
-        android:negativeButtonText="@null"
-        android:positiveButtonText="@null"
-        android:title="@string/global_settings_list_preference_notification_type" />
-
-    <ListPreference
-        android:defaultValue="-1"
-        android:key="@string/global_settings_key_melody_list_preference"
-        android:negativeButtonText="@null"
-        android:positiveButtonText="@null"
-        android:title="@string/global_settings_list_preference_melody_type" />
 
     <Preference
         android:key="@string/global_settings_pref_remove_account_button"

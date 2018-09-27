@@ -57,9 +57,6 @@ public class DraggableGridFragment extends Fragment {
 
         // drag & drop manager
         mRecyclerViewDragDropManager = new RecyclerViewDragDropManager();
-        mRecyclerViewDragDropManager.setDraggingItemShadowDrawable((NinePatchDrawable)
-                ContextCompat.getDrawable(Objects.requireNonNull(getContext()),
-                        R.drawable.material_shadow_z3));
         // Start dragging after long press
         mRecyclerViewDragDropManager.setInitiateOnLongPress(true);
         mRecyclerViewDragDropManager.setInitiateOnMove(false);
@@ -81,15 +78,6 @@ public class DraggableGridFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mWrappedAdapter);  // requires *wrapped* adapter
         mRecyclerView.setItemAnimator(animator);
-
-        // additional decorations
-        //noinspection StatementWithEmptyBody
-        if (!supportsViewElevation()) {
-            mRecyclerView.addItemDecoration(new ItemShadowDecorator((NinePatchDrawable)
-                    Objects.requireNonNull(ContextCompat.getDrawable(getContext(),
-                            R.drawable.material_shadow_z1))));
-        }
-
         mRecyclerViewDragDropManager.attachRecyclerView(mRecyclerView);
     }
 
@@ -119,10 +107,6 @@ public class DraggableGridFragment extends Fragment {
         mLayoutManager = null;
 
         super.onDestroyView();
-    }
-
-    private boolean supportsViewElevation() {
-        return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
     }
 
     public AbstractDataProvider getDataProvider() {

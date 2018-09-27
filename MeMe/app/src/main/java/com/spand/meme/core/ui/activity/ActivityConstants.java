@@ -16,7 +16,7 @@ public interface ActivityConstants {
     String SLACK_HOME_URL = "https://m.slack.com/";
     String DISCORD_HOME_URL = "https://discordapp.com/login";
     String DISCORD_ACTIVITY_URL = "https://discordapp.com/activity";
-    String YOUTUBE_HOME_URL = "https://m.youtube.com";
+    String YOUTUBE_HOME_URL = "http://m.youtube.com";
     String LINKEDIN_HOME_URL = "https://www.linkedin.com/";
     String TWITTER_HOME_URL = "https://twitter.com/";
     String ICQ_HOME_URL = "https://web.icq.com";

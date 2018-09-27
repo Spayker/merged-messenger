@@ -94,14 +94,6 @@ public class GlobalSettingsActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_global);
 
-            // notification preference change listener
-            ListPreference notificationPreference = (ListPreference) findPreference(getString(R.string.global_settings_key_notification_list_preference));
-            initNotificationPreference(notificationPreference);
-
-            // melody preference change listener
-            ListPreference melodyPreference = (ListPreference) findPreference(getString(R.string.global_settings_key_melody_list_preference));
-            initMelodyPreference(melodyPreference, notificationPreference);
-
             // language preference change listener
             ListPreference languagePreference = (ListPreference) findPreference(getString(R.string.global_settings_key_language_list_preference));
             initLanguagePreference(languagePreference);
@@ -121,64 +113,6 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             });
-        }
-
-        private void initNotificationPreference(ListPreference notificationPreference) {
-            notificationPreference.setOnPreferenceChangeListener((preference, newValue) -> {
-                String stringValue = newValue.toString();
-                ListPreference listPreference = (ListPreference) preference;
-                int index = listPreference.findIndexOfValue(stringValue);
-                preference.setSummary(
-                        index >= 0
-                                ? listPreference.getEntries()[index]
-                                : null);
-                ListPreference melodyPreference = (ListPreference) findPreference(getString(R.string.global_settings_key_melody_list_preference));
-                if (index == MELODY_NOTIFICATION_INDEX) {
-                    melodyPreference.setEnabled(true);
-                } else {
-                    melodyPreference.setEnabled(false);
-                }
-                return true;
-            });
-            setNewValueOnPreferenceChange(notificationPreference);
-        }
-
-        private void initMelodyPreference(ListPreference melodyPreference, ListPreference notificationPreference) {
-            RingtoneManager manager = new RingtoneManager(settingsActivityInstance);
-            manager.setType(RingtoneManager.TYPE_RINGTONE);
-            Cursor cursor = manager.getCursor();
-
-            Map<String, String> mapItems = new HashMap<>();
-            while (cursor.moveToNext()) {
-                String notificationTitle = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
-                String notificationUri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
-                mapItems.put(notificationTitle, notificationUri);
-            }
-            CharSequence[] melodyEntries = mapItems.keySet().toArray(new CharSequence[mapItems.size()]);
-            CharSequence[] melodyValues = mapItems.values().toArray(new CharSequence[mapItems.size()]);
-            melodyPreference.setEntries(melodyEntries);
-            melodyPreference.setEntryValues(melodyValues);
-            melodyPreference.setValueIndex(0);
-
-            melodyPreference.setOnPreferenceChangeListener((preference, newValue) -> {
-                String stringValue = newValue.toString();
-                ListPreference listPreference = (ListPreference) preference;
-                int index = listPreference.findIndexOfValue(stringValue);
-
-                preference.setSummary(
-                        index >= 0
-                                ? listPreference.getEntries()[index]
-                                : null);
-                return true;
-            });
-            setNewValueOnPreferenceChange(melodyPreference);
-
-            Integer currentValueIndex = notificationPreference.findIndexOfValue(notificationPreference.getValue());
-            if (currentValueIndex.equals(MELODY_NOTIFICATION_INDEX)) {
-                melodyPreference.setEnabled(true);
-            } else {
-                melodyPreference.setEnabled(false);
-            }
         }
 
         private void initLanguagePreference(ListPreference languagePreference) {
