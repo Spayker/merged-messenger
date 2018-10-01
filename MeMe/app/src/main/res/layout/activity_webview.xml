@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/webview_relative_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".core.ui.activity.webview.WebViewActivity">
@@ -9,44 +10,41 @@
         android:id="@+id/backToMainMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp"
         android:onClick="clickOnBackToMainMenu"
         android:src="@mipmap/back"
         app:backgroundTint="#17c19a"
-        android:layout_alignParentRight="true" />
+        app:fabSize="normal" />
 
-    <!-- View that will be hidden when video goes fullscreen -->
-    <RelativeLayout
-        android:id="@+id/nonVideoLayout"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.spand.meme.core.ui.activity.webview.CustomWebView
-            android:id="@+id/webView"
+        <!-- View that will be hidden when video goes fullscreen -->
+        <RelativeLayout
+            android:id="@+id/nonVideoLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" >
 
-    </RelativeLayout>
+            <im.delight.android.webview.AdvancedWebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
     <!-- View where the video will be shown when video goes fullscreen -->
     <RelativeLayout
         android:id="@+id/videoLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <!-- View that will be shown while the fullscreen video loads. For example you could include
-        a "Loading..." message. However, in this particular example this view is actually defined in
-        view_loading_video.xml and inflated programmatically in ExampleActivity.java. The reason for
-        this is to keep the main layout (this file) cleaner. -->
-        <!-- <View
-            android:id="@+id/videoLoading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="invisible" /> -->
-
-    </RelativeLayout>
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

@@ -20,7 +20,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keepclassmembers class com.spand.meme.core.ui.activity.webview.CustomWebView$JavascriptInterface { public *; }
+-keepclassmembers class com.spandr.meme.core.ui.activity.webview.CustomWebView$JavascriptInterface { public *; }
 
  #GSON Config
 -keepattributes Signature

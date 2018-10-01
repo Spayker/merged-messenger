@@ -3,11 +3,11 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId 'com.spand.meme'
+        applicationId 'com.spandr.meme'
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 35
-        versionName "1.0.7"
+        versionCode 1
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -74,12 +74,12 @@ dependencies {
     // Google Service Dependencies
     implementation 'com.google.android.gms:play-services-auth:16.0.0'
 
-    // custom dependencies
-    implementation 'com.rarepebble:colorpicker:2.4.0'
-
     // rx java
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+
+    // custom webview component
+    implementation "com.github.delight-im:Android-AdvancedWebView:v3.0.0"
 
     // drag&drop module
     implementation ('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.11.0@aar'){

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:316232537213:android:93fe47d9b8c391d2",
         "android_client_info": {
-          "package_name": "com.spand.meme"
+          "package_name": "com.spandr.meme"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "316232537213-sgjjul0i083mgluidr0k7rc3cc8vu81p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.spand.meme",
+            "package_name": "com.spandr.meme",
             "certificate_hash": "9638e612ac7ec69dfae4e6fd074131ac301403f0"
           }
         },
