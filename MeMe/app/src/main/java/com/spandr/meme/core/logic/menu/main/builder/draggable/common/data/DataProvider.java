@@ -3,10 +3,13 @@ package com.spandr.meme.core.logic.menu.main.builder.draggable.common.data;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.spandr.meme.R;
 import com.spandr.meme.core.data.memory.channel.Channel;
 import com.spandr.meme.core.data.memory.channel.ChannelManager;
 import com.spandr.meme.core.data.memory.channel.ICON;
@@ -84,6 +87,9 @@ public class DataProvider extends AbstractDataProvider {
                 }
             }
         }
+        View.OnClickListener clickOnListener = v -> { };
+        Drawable transparentDrawable = new ColorDrawable(Color.TRANSPARENT);
+        mData.add(new ConcreteData(id, viewType, transparentDrawable, EMPTY_STRING, clickOnListener));
     }
 
     @Override

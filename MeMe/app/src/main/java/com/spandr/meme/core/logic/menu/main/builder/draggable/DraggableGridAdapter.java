@@ -123,14 +123,10 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
     }
 
     @Override
-    public void onItemDragStarted(int position) {
-
-    }
+    public void onItemDragStarted(int position) { }
 
     @Override
-    public void onItemDragFinished(int fromPosition, int toPosition, boolean result) {
-        notifyDataSetChanged();
-    }
+    public void onItemDragFinished(int fromPosition, int toPosition, boolean result) { }
 
 
 }
