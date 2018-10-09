@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;

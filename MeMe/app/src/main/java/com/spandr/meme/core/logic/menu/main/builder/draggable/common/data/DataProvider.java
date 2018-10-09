@@ -9,17 +9,14 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.spandr.meme.R;
 import com.spandr.meme.core.data.memory.channel.Channel;
 import com.spandr.meme.core.data.memory.channel.ChannelManager;
 import com.spandr.meme.core.data.memory.channel.ICON;
 import com.spandr.meme.core.ui.activity.webview.WebViewActivity;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import static com.spandr.meme.core.data.memory.channel.TYPE.CHAT;
 import static com.spandr.meme.core.data.memory.channel.TYPE.EMAIL;

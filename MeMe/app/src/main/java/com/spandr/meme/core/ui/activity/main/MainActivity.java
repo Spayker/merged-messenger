@@ -1,11 +1,14 @@
 package com.spandr.meme.core.ui.activity.main;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Typeface;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -27,8 +30,12 @@ import com.spandr.meme.core.logic.menu.main.builder.draggable.common.fragment.Da
 import com.spandr.meme.core.ui.activity.settings.EditChannelsActivity;
 import com.spandr.meme.core.ui.activity.settings.GlobalSettingsActivity;
 
+import java.util.Locale;
+
 import static com.spandr.meme.core.logic.starter.Loginner.createLoginner;
+import static com.spandr.meme.core.logic.starter.SettingsConstants.APP_SUPPORTED_LANGUAGES;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
+import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_CURRENT_APP_LANGUAGE;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.logic.starter.Setupper.createSetupper;
 import static com.spandr.meme.core.logic.starter.Starter.REGISTRATOR;
@@ -42,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String FRAGMENT_TAG_DATA_PROVIDER = "data provider";
     private static final String FRAGMENT_LIST_VIEW = "list view";
+
+    private static Boolean isLocaleSet;
 
     /**
      * Perform initialization of all fragments of current activity.
@@ -84,6 +93,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        initVersionNumber();
+        initLanguage(sharedPreferences);
+        initSloganPart();
+        initFragment(savedInstanceState);
+    }
+
+    private void initVersionNumber(){
         TextView mAppVersionView = findViewById(R.id.app_build_version);
         try {
             PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -93,14 +109,29 @@ public class MainActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+    }
 
-        // slogan part
+    private void initLanguage(SharedPreferences sharedPreferences){
+        String currentLanguage = sharedPreferences.getString(KEY_CURRENT_APP_LANGUAGE, Locale.getDefault().getDisplayLanguage());
+        String shortLanguage = APP_SUPPORTED_LANGUAGES.get(currentLanguage);
+        Locale locale = new Locale(shortLanguage);
+        Locale.setDefault(locale);
+        updateResourcesLocaleLegacy(this, locale);
+        if(isLocaleSet == null) {
+            recreate();
+            isLocaleSet = true;
+        }
+    }
+
+    private void initSloganPart(){
         TextView mAppStyledName = findViewById(R.id.main_app_name_styled);
         final SpannableStringBuilder sb = new SpannableStringBuilder(getString(R.string.app_name_styled));
         final ForegroundColorSpan fcs = new ForegroundColorSpan(getResources().getColor(R.color.bright_green));
         sb.setSpan(fcs, 0, 2, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         mAppStyledName.setText(sb);
+    }
 
+    private void initFragment(Bundle savedInstanceState){
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(new DataProviderFragment().initActivity(this), FRAGMENT_TAG_DATA_PROVIDER)
@@ -159,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
         AbstractDataProvider channelProvider = getDataProvider();
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        StringBuffer currentChannelOrder = new StringBuffer();
+        StringBuilder currentChannelOrder = new StringBuilder();
         int channelCount = channelProvider.getCount();
         for(int i = 0; i != channelCount; i++){
             AbstractDataProvider.Data item = channelProvider.getItem(i);
@@ -181,5 +212,19 @@ public class MainActivity extends AppCompatActivity {
     public AbstractDataProvider getDataProvider() {
         final Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_DATA_PROVIDER);
         return ((DataProviderFragment) fragment).getDataProvider();
+    }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    private void updateResourcesLocale(Context context, Locale locale) {
+        Configuration configuration = context.getResources().getConfiguration();
+        configuration.setLocale(locale);
+    }
+
+    @SuppressWarnings("deprecation")
+    private void updateResourcesLocaleLegacy(Context context, Locale locale) {
+        Resources resources = context.getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.locale = locale;
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 }

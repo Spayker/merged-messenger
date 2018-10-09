@@ -85,6 +85,7 @@
     <string name="global_settings_list_preference_notification_type">Уведомление</string>
     <string name="global_settings_list_preference_melody_type">Мелодия</string>
     <string name="global_settings_list_preference_language_type">Язык</string>
+    <string name="global_settings_language_changed">Язык был изменён</string>
     <string name="global_settings_pref_change_password_button">pref_change_password_button</string>
     <string name="global_settings_pref_remove_account_button">pref_remove_account_button</string>
     <string name="global_settings_key_notification_list_preference">key_notification_list_preference</string>

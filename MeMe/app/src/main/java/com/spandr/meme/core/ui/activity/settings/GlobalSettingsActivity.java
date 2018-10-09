@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -15,9 +16,11 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.spandr.meme.R;
 import com.spandr.meme.core.ui.activity.main.MainActivity;
+import com.spandr.meme.core.ui.activity.main.WelcomeActivity;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -26,6 +29,9 @@ import java.util.Locale;
 import java.util.Map;
 
 import static com.spandr.meme.core.logic.starter.SettingsConstants.APP_SUPPORTED_LANGUAGES;
+import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
+import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_CURRENT_APP_LANGUAGE;
+import static com.spandr.meme.core.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.EMPTY_STRING;
 
 /**
@@ -38,7 +44,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     private static AppCompatActivity settingsActivityInstance;
 
-    private final static int MELODY_NOTIFICATION_INDEX = 1;
+    private static SharedPreferences sharedPreferences;
 
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = GlobalSettingsActivity.class.getSimpleName();
@@ -77,12 +83,14 @@ public class GlobalSettingsActivity extends AppCompatActivity {
         // load settings fragment
         getFragmentManager().beginTransaction().replace(android.R.id.content, new MainPreferenceFragment()).commit();
         settingsActivityInstance = this;
+        sharedPreferences = settingsActivityInstance.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
     /**
      * A static class which adds preference fragment to current activity.
      **/
     public static class MainPreferenceFragment extends PreferenceFragment {
+
         /**
          * Perform initialization of all fragments of current activity.
          *
@@ -100,7 +108,6 @@ public class GlobalSettingsActivity extends AppCompatActivity {
 
             Preference changePasswordButton = findPreference(getString(R.string.global_settings_pref_change_password_button));
             changePasswordButton.setOnPreferenceClickListener(preference -> {
-                //code for what you want it to do
                 Intent intent = new Intent(settingsActivityInstance, ChangePasswordActivity.class);
                 startActivity(intent);
                 return true;
@@ -108,7 +115,6 @@ public class GlobalSettingsActivity extends AppCompatActivity {
 
             Preference removeAccountButton = findPreference(getString(R.string.global_settings_pref_remove_account_button));
             removeAccountButton.setOnPreferenceClickListener(preference -> {
-                //code for what you want it to do
                 Intent intent = new Intent(settingsActivityInstance, RemoveAccountActivity.class);
                 startActivity(intent);
                 return true;
@@ -116,7 +122,8 @@ public class GlobalSettingsActivity extends AppCompatActivity {
         }
 
         private void initLanguagePreference(ListPreference languagePreference) {
-            String language = Locale.getDefault().getDisplayLanguage();
+
+            String language = sharedPreferences.getString(KEY_CURRENT_APP_LANGUAGE, Locale.getDefault().getDisplayLanguage());
             String[] languageListArray = getResources().getStringArray(R.array.global_settings_language_list);
             for (int i = 0; i < languageListArray.length; i++) {
                 if (languageListArray[i].equalsIgnoreCase(language)) {
@@ -126,7 +133,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
             }
             languagePreference.setOnPreferenceChangeListener((preference, newValue) -> {
                 List<String> languages = Arrays.asList(getResources().getStringArray(R.array.global_settings_language_list));
-                updateBaseContextLocale(settingsActivityInstance, APP_SUPPORTED_LANGUAGES.get(languages.get(Integer.valueOf((String)newValue))));
+                updateBaseContextLocale(settingsActivityInstance, languages.get(Integer.valueOf((String) newValue)));
 
                 String stringValue = newValue.toString();
                 ListPreference listPreference = (ListPreference) preference;
@@ -136,14 +143,25 @@ public class GlobalSettingsActivity extends AppCompatActivity {
                         index >= 0
                                 ? listPreference.getEntries()[index]
                                 : null);
-                settingsActivityInstance.recreate();
+
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(KEY_CHANNEL_ORDER, null);
+                editor.apply();
+                editor.commit();
+
+                settingsActivityInstance.startActivity(new Intent(settingsActivityInstance, MainActivity.class));
+                settingsActivityInstance.finish();
+                Toast.makeText(settingsActivityInstance, getString(R.string.global_settings_language_changed),
+                        Toast.LENGTH_SHORT).show();
                 return true;
             });
             setNewValueOnPreferenceChange(languagePreference);
         }
 
         private void updateBaseContextLocale(Context context, String language) {
-            Locale locale = new Locale(language);
+            String shortLanguage = APP_SUPPORTED_LANGUAGES.get(language);
+            Locale locale = new Locale(shortLanguage);
             Locale.setDefault(locale);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -151,6 +169,10 @@ public class GlobalSettingsActivity extends AppCompatActivity {
             }
 
             updateResourcesLocaleLegacy(context, locale);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(KEY_CURRENT_APP_LANGUAGE, language);
+            editor.apply();
+            editor.commit();
         }
 
         @TargetApi(Build.VERSION_CODES.N)

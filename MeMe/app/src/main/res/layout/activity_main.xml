@@ -10,16 +10,15 @@
         android:id="@+id/main_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="72dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="72sp"
         android:orientation="vertical"
         tools:ignore="UselessParent"
         android:clickable="true"
-        android:focusable="true">
-
-    </FrameLayout>
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/linear"
@@ -40,13 +39,14 @@
             android:paddingLeft="12dp"
             android:scaleX="0.7"
             android:scaleY="0.7"
-            android:src="@mipmap/exit" />
+            android:src="@mipmap/exit"
+            android:paddingStart="12dp"
+            tools:ignore="RtlSymmetry" />
 
         <LinearLayout
             android:id="@+id/central_bottom_layout"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_gravity="center"
             android:layout_weight="0.1"
             android:gravity="center"
@@ -86,7 +86,9 @@
             android:paddingRight="14sp"
             android:scaleX="0.7"
             android:scaleY="0.7"
-            android:src="@mipmap/edit_channels" />
+            android:src="@mipmap/edit_channels"
+            android:paddingEnd="14sp"
+            tools:ignore="RtlSymmetry" />
 
     </LinearLayout>
 

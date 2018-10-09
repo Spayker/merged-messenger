@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import static com.spandr.meme.core.data.memory.channel.ChannelManager.createChannelManager;
 

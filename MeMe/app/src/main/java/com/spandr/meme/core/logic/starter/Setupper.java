@@ -31,6 +31,7 @@ import static com.spandr.meme.core.data.memory.channel.ICON.YT;
 import static com.spandr.meme.core.data.memory.channel.TYPE.CHAT;
 import static com.spandr.meme.core.data.memory.channel.TYPE.EMAIL;
 import static com.spandr.meme.core.data.memory.channel.TYPE.SOCIAL;
+import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.RU;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.DISCORD_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.FB_HOME_URL;
@@ -83,6 +84,23 @@ public class Setupper implements Starter {
                         initEmailGroupChannels(sharedPreferences, mainActivity);
             }
         }
+        setupChannelOrder(sharedPreferences);
+    }
+
+    private void setupChannelOrder(SharedPreferences sharedPreferences) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String selectedLanguage = Locale.getDefault().getLanguage();
+        switch (selectedLanguage) {
+            case RU: {
+                editor.putString(KEY_CHANNEL_ORDER, mainActivity.getString(R.string.main_east_ordered_channel_set));
+                break;
+            }
+            default: {
+                editor.putString(KEY_CHANNEL_ORDER, mainActivity.getString(R.string.main_west_ordered_channel_set));
+            }
+        }
+        editor.apply();
+        editor.commit();
     }
 
     private Setupper initSocialGroupChannels(SharedPreferences sharedPreferences,

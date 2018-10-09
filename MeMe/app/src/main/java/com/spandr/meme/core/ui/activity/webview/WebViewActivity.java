@@ -73,7 +73,7 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         };
 
         mWebView.setOnTouchListener((v, event) -> {
-            mBackButton.setAlpha(.15f);
+            mBackButton.setAlpha(.45f);
             mWebView.performClick();
             return false;
         });

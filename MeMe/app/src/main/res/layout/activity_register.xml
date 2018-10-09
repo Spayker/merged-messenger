@@ -104,8 +104,11 @@
                 android:id="@+id/agreement"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="3"
-                android:text="@string/register_agreement"/>
+                android:maxLines="4"
+                android:paddingLeft="30sp"
+                android:paddingStart="30sp"
+                android:text="@string/register_agreement"
+                tools:ignore="RtlSymmetry" />
 
             <Button
                 android:id="@+id/email_sign_up_button"

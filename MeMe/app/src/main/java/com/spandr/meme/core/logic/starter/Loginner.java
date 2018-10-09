@@ -1,5 +1,6 @@
 package com.spandr.meme.core.logic.starter;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
@@ -51,7 +52,9 @@ import static com.spandr.meme.core.ui.activity.ActivityConstants.YOUTUBE_HOME_UR
 
 public class Loginner implements Starter {
 
+    @SuppressLint("StaticFieldLeak")
     private static Loginner instance;
+    @SuppressLint("StaticFieldLeak")
     private static AppCompatActivity mainActivity;
     private Loginner() { }
 
@@ -190,8 +193,8 @@ public class Loginner implements Starter {
         return instance;
     }
 
-    private Loginner initEmailGroupChannels(SharedPreferences sharedPreferences,
-                                                  AppCompatActivity mainActivity) {
+    private void initEmailGroupChannels(SharedPreferences sharedPreferences,
+                                        AppCompatActivity mainActivity) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = ChannelManager.getInstance().getChannels();
 
@@ -208,7 +211,6 @@ public class Loginner implements Starter {
         channels.add(mailruChannel);
         editor.apply();
         editor.commit();
-        return instance;
     }
 
 }

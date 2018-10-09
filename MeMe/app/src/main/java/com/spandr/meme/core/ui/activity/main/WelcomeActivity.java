@@ -1,20 +1,20 @@
 package com.spandr.meme.core.ui.activity.main;
 
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.Typeface;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -25,11 +25,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.spandr.meme.R;
 import com.spandr.meme.core.logic.menu.authorization.ActivityBehaviourAddon;
 
-import static com.spandr.meme.core.ui.activity.ActivityConstants.EMPTY_STRING;
+import java.util.Locale;
+
+import static com.spandr.meme.core.logic.starter.SettingsConstants.APP_SUPPORTED_LANGUAGES;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_AUTO_LOGIN;
+import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_CURRENT_APP_LANGUAGE;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_PASS;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_USER_EMAIL_OR_PHONE;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.PREF_NAME;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.EMPTY_STRING;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -41,6 +45,8 @@ public class WelcomeActivity extends AppCompatActivity implements ActivityBehavi
     private static final String TAG = WelcomeActivity.class.getSimpleName();
 
     private ProgressDialog mProgressDialog;
+
+    private static Boolean isLocaleSet;
 
     /**
      * Perform initialization of all fragments of current activity.
@@ -103,6 +109,41 @@ public class WelcomeActivity extends AppCompatActivity implements ActivityBehavi
             return;
         }
         buttonLayer.setVisibility(View.VISIBLE);
+
+        // language part
+        String currentLanguage = sharedPreferences.getString(KEY_CURRENT_APP_LANGUAGE, Locale.getDefault().getDisplayLanguage());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String shortLanguage = APP_SUPPORTED_LANGUAGES.get(currentLanguage);
+        Locale locale = new Locale(shortLanguage);
+        Locale.setDefault(locale);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            updateResourcesLocale(this, locale);
+        }
+
+        updateResourcesLocaleLegacy(this, locale);
+        if(isLocaleSet == null) {
+            recreate();
+            isLocaleSet = true;
+        }
+
+        editor.putString(KEY_CURRENT_APP_LANGUAGE, currentLanguage);
+        editor.apply();
+        editor.commit();
+    }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    private void updateResourcesLocale(Context context, Locale locale) {
+        Configuration configuration = context.getResources().getConfiguration();
+        configuration.setLocale(locale);
+    }
+
+    @SuppressWarnings("deprecation")
+    private void updateResourcesLocaleLegacy(Context context, Locale locale) {
+        Resources resources = context.getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.locale = locale;
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 
     /**
@@ -156,5 +197,13 @@ public class WelcomeActivity extends AppCompatActivity implements ActivityBehavi
     @Override
     public void updateUI() {
         hideProgressDialog();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }
