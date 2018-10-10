@@ -6,12 +6,8 @@ import com.spandr.meme.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
-
-import static com.spandr.meme.core.logic.starter.SettingsConstants.RU;
 
 public class ChannelManager {
 
@@ -23,8 +19,8 @@ public class ChannelManager {
     private ChannelManager() {
     }
 
-    private ChannelManager(List<Channel> channels) {
-        this.channels = channels;
+    private ChannelManager(List<Channel> chnls) {
+        channels = chnls;
     }
 
     public static ChannelManager getInstance() {
@@ -81,25 +77,24 @@ public class ChannelManager {
         return null;
     }
 
-    public static Boolean isChannelExcludedByDefault(String key) {
-        String selectedLanguage = Locale.getDefault().getLanguage();
-        switch (selectedLanguage) {
-            case RU: {
-                for (String excChannel : eastExcludedChannels) {
-                    if (excChannel.equalsIgnoreCase(key)) {
-                        return true;
-                    }
+    public static Boolean isChannelExcludedByDefault(String key, AppCompatActivity mainActivity) {
+        String deviceCountryCode = mainActivity.getResources().getConfiguration().locale.getCountry();
+        String[] eastCountryCodes = mainActivity.getResources().getStringArray(R.array.east_country_codes);
+
+        if (Arrays.asList(eastCountryCodes).contains(deviceCountryCode)) {
+            for (String excChannel : eastExcludedChannels) {
+                if (excChannel.equalsIgnoreCase(key)) {
+                    return true;
                 }
-                return false;
             }
-            default: {
-                for (String excChannel : westExcludedChannels) {
-                    if (excChannel.equalsIgnoreCase(key)) {
-                        return true;
-                    }
+            return false;
+        } else {
+            for (String excChannel : westExcludedChannels) {
+                if (excChannel.equalsIgnoreCase(key)) {
+                    return true;
                 }
-                return false;
             }
+            return false;
         }
     }
 }

@@ -58,31 +58,18 @@ public class WelcomeActivity extends AppCompatActivity implements ActivityBehavi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 
         LinearLayout buttonLayer = findViewById(R.id.fullscreen_content_controls);
         buttonLayer.setVisibility(View.INVISIBLE);
 
-        // slogan part
-        TextView mAppStyledName = findViewById(R.id.welcome_app_name_styled);
-        final SpannableStringBuilder sb = new SpannableStringBuilder(getString(R.string.app_name_styled));
-        final ForegroundColorSpan fcs = new ForegroundColorSpan(getResources().getColor(R.color.bright_green));
-        sb.setSpan(fcs, 0, 2, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        mAppStyledName.setText(sb);
-
-        // app version part
-        TextView mAppVersionView = findViewById(R.id.app_build_version);
-        try {
-            PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
-            String version = pInfo.versionName;
-            mAppVersionView.setText(String.format("%s %s%s", getString(R.string.app_name),
-                    getString(R.string.app_version), version));
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        initLanguage(sharedPreferences);
+        initSloganPart();
+        initVersionNumber();
 
         // auto login part
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+
         boolean isAutoLoginEnabled = sharedPreferences.getBoolean(KEY_AUTO_LOGIN, false);
         if (mAuth.getCurrentUser() != null && isAutoLoginEnabled) {
             String email = sharedPreferences.getString(KEY_USER_EMAIL_OR_PHONE, EMPTY_STRING);
@@ -109,7 +96,22 @@ public class WelcomeActivity extends AppCompatActivity implements ActivityBehavi
             return;
         }
         buttonLayer.setVisibility(View.VISIBLE);
+    }
 
+    private void initVersionNumber() {
+        // app version part
+        TextView mAppVersionView = findViewById(R.id.app_build_version);
+        try {
+            PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+            String version = pInfo.versionName;
+            mAppVersionView.setText(String.format("%s %s%s", getString(R.string.app_name),
+                    getString(R.string.app_version), version));
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initLanguage(SharedPreferences sharedPreferences) {
         // language part
         String currentLanguage = sharedPreferences.getString(KEY_CURRENT_APP_LANGUAGE, Locale.getDefault().getDisplayLanguage());
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -130,6 +132,14 @@ public class WelcomeActivity extends AppCompatActivity implements ActivityBehavi
         editor.putString(KEY_CURRENT_APP_LANGUAGE, currentLanguage);
         editor.apply();
         editor.commit();
+    }
+
+    private void initSloganPart(){
+        TextView mAppStyledName = findViewById(R.id.welcome_app_name_styled);
+        final SpannableStringBuilder sb = new SpannableStringBuilder(getString(R.string.app_name_styled));
+        final ForegroundColorSpan fcs = new ForegroundColorSpan(getResources().getColor(R.color.bright_green));
+        sb.setSpan(fcs, 0, 2, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        mAppStyledName.setText(sb);
     }
 
     @TargetApi(Build.VERSION_CODES.N)

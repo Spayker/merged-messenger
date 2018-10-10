@@ -20,6 +20,8 @@ import android.widget.RelativeLayout;
 
 import com.spandr.meme.R;
 
+import java.util.Calendar;
+
 import im.delight.android.webview.AdvancedWebView;
 
 import static com.spandr.meme.core.ui.activity.ActivityConstants.HOME_URL;
@@ -34,11 +36,14 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
     private AdvancedWebView mWebView;
     private View mBackButton;
     private boolean isBackButtonMoved;
-    private RelativeLayout.LayoutParams relativelayoutParams;
+    private static RelativeLayout.LayoutParams relativeLayoutParams;
 
     private ViewGroup webViewRelativeLayout;
     private int _xDelta;
     private int _yDelta;
+    private boolean longClicked;
+    private long startClickTime;
+    private static final int MIN_CLICK_DURATION = 1500;
 
     @SuppressLint({"SetJavaScriptEnabled", "ClickableViewAccessibility"})
     @Override
@@ -78,8 +83,13 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
             return false;
         });
 
+
         mBackButton.setOnTouchListener(this);
         mBackButton.setOnClickListener(this::clickOnBackToMainMenu);
+
+        if(relativeLayoutParams != null) {
+            mBackButton.setLayoutParams(relativeLayoutParams);
+        }
 
         webChromeClient.setOnToggledFullscreen(fullscreen -> {
             if (fullscreen) {
@@ -167,67 +177,77 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         final int X = (int) event.getRawX();
         final int Y = (int) event.getRawY();
 
-        if(relativelayoutParams == null){
-            relativelayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+        if(relativeLayoutParams == null){
+            relativeLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
-            relativelayoutParams.topMargin = Y - 300;
-            relativelayoutParams.leftMargin = X - 250;
-            relativelayoutParams.bottomMargin = -250;
-            relativelayoutParams.rightMargin = -250;
+            relativeLayoutParams.topMargin = Y - 300;
+            relativeLayoutParams.leftMargin = X - 250;
+            relativeLayoutParams.bottomMargin = -250;
+            relativeLayoutParams.rightMargin = -250;
         }
 
-        boolean outOfTop = relativelayoutParams.topMargin < 0;
-        boolean outOfLeft = relativelayoutParams.leftMargin < 0;
-        boolean outOfBottom = relativelayoutParams.topMargin + v.getMeasuredHeight() > webViewRelativeLayout.getMeasuredHeight();
-        boolean outOfRight = relativelayoutParams.leftMargin + v.getMeasuredWidth() > webViewRelativeLayout.getMeasuredWidth();
+        boolean outOfTop = relativeLayoutParams.topMargin < 0;
+        boolean outOfLeft = relativeLayoutParams.leftMargin < 0;
+        boolean outOfBottom = relativeLayoutParams.topMargin + v.getMeasuredHeight() > webViewRelativeLayout.getMeasuredHeight();
+        boolean outOfRight = relativeLayoutParams.leftMargin + v.getMeasuredWidth() > webViewRelativeLayout.getMeasuredWidth();
 
         if (outOfTop) {
-            relativelayoutParams.topMargin = 50;
-            v.setLayoutParams(relativelayoutParams);
+            relativeLayoutParams.topMargin = 50;
+            v.setLayoutParams(relativeLayoutParams);
             return true;
         }
 
         if (outOfLeft) {
-            relativelayoutParams.leftMargin = 50;
-            v.setLayoutParams(relativelayoutParams);
+            relativeLayoutParams.leftMargin = 50;
+            v.setLayoutParams(relativeLayoutParams);
             return true;
         }
 
         if (outOfBottom) {
-            relativelayoutParams.topMargin = Y - 300;
-            v.setLayoutParams(relativelayoutParams);
+            relativeLayoutParams.topMargin = Y - 300;
+            v.setLayoutParams(relativeLayoutParams);
             return true;
         }
 
         if (outOfRight) {
-            relativelayoutParams.leftMargin = X - 250;
-            v.setLayoutParams(relativelayoutParams);
+            relativeLayoutParams.leftMargin = X - 250;
+            v.setLayoutParams(relativeLayoutParams);
             return true;
         }
 
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN: {
-                _xDelta = X - relativelayoutParams.leftMargin;
-                _yDelta = Y - relativelayoutParams.topMargin;
+                _xDelta = X - relativeLayoutParams.leftMargin;
+                _yDelta = Y - relativeLayoutParams.topMargin;
+                if(!longClicked){
+                    longClicked = true;
+                    startClickTime = Calendar.getInstance().getTimeInMillis();
+                }
                 break;
             }
             case MotionEvent.ACTION_UP: {
+                longClicked = false;
                 if (!isBackButtonMoved) {
                     v.performClick();
                     break;
                 }
             }
             case MotionEvent.ACTION_MOVE: {
-                int newLeftMargin = X - _xDelta;
-                int newTopMargin = Y - _yDelta;
+                if(longClicked){
+                    long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
+                    if (clickDuration >= MIN_CLICK_DURATION) {
+                        int newLeftMargin = X - _xDelta;
+                        int newTopMargin = Y - _yDelta;
 
-                isBackButtonMoved = relativelayoutParams.leftMargin != newLeftMargin ||
-                        relativelayoutParams.topMargin != newTopMargin;
-                relativelayoutParams.leftMargin = newLeftMargin;
-                relativelayoutParams.topMargin = newTopMargin;
-                relativelayoutParams.rightMargin = -250;
-                relativelayoutParams.bottomMargin = -250;
-                v.setLayoutParams(relativelayoutParams);
+                        isBackButtonMoved = relativeLayoutParams.leftMargin != newLeftMargin ||
+                                relativeLayoutParams.topMargin != newTopMargin;
+                        relativeLayoutParams.leftMargin = newLeftMargin;
+                        relativeLayoutParams.topMargin = newTopMargin;
+                        relativeLayoutParams.rightMargin = -250;
+                        relativeLayoutParams.bottomMargin = -250;
+                        v.setLayoutParams(relativeLayoutParams);
+                    }
+                }
             }
         }
         webViewRelativeLayout.invalidate();

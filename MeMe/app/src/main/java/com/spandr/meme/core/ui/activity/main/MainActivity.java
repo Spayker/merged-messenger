@@ -1,6 +1,5 @@
 package com.spandr.meme.core.ui.activity.main;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,7 +7,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -212,12 +210,6 @@ public class MainActivity extends AppCompatActivity {
     public AbstractDataProvider getDataProvider() {
         final Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_DATA_PROVIDER);
         return ((DataProviderFragment) fragment).getDataProvider();
-    }
-
-    @TargetApi(Build.VERSION_CODES.N)
-    private void updateResourcesLocale(Context context, Locale locale) {
-        Configuration configuration = context.getResources().getConfiguration();
-        configuration.setLocale(locale);
     }
 
     @SuppressWarnings("deprecation")
