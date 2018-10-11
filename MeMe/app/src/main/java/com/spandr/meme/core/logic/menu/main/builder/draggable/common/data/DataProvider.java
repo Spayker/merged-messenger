@@ -84,9 +84,8 @@ public class DataProvider extends AbstractDataProvider {
                 }
             }
         }
-        View.OnClickListener clickOnListener = v -> { };
         Drawable transparentDrawable = new ColorDrawable(Color.TRANSPARENT);
-        mData.add(new ConcreteData(id, viewType, transparentDrawable, EMPTY_STRING, clickOnListener));
+        mData.add(new ConcreteData(id, viewType, transparentDrawable, EMPTY_STRING, null));
     }
 
     @Override

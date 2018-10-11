@@ -2,11 +2,16 @@ package com.spandr.meme.core.ui.activity.webview;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,7 +29,10 @@ import java.util.Calendar;
 
 import im.delight.android.webview.AdvancedWebView;
 
+import static com.spandr.meme.core.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.HOME_URL;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.KEY_LEFT_MARGIN;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.KEY_TOP_MARGIN;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.SHALL_LOAD_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.TUMBLR_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.YOUTUBE_HOME_URL;
@@ -32,18 +40,18 @@ import static com.spandr.meme.core.ui.activity.ActivityConstants.YOUTUBE_HOME_UR
 public class WebViewActivity extends Activity implements AdvancedWebView.Listener, View.OnTouchListener {
 
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ViewTreeObserver.OnScrollChangedListener mOnScrollChangedListener;
     private AdvancedWebView mWebView;
-    private View mBackButton;
-    private boolean isBackButtonMoved;
-    private static RelativeLayout.LayoutParams relativeLayoutParams;
+    private FloatingActionButton mBackButton;
+    private RelativeLayout.LayoutParams relativeLayoutParams;
+    private SharedPreferences sharedPreferences;
 
     private ViewGroup webViewRelativeLayout;
     private int _xDelta;
     private int _yDelta;
     private boolean longClicked;
+    private boolean isActionUpHappened;
     private long startClickTime;
-    private static final int MIN_CLICK_DURATION = 1500;
+    private static final int MIN_CLICK_DURATION = 500;
 
     @SuppressLint({"SetJavaScriptEnabled", "ClickableViewAccessibility"})
     @Override
@@ -51,13 +59,14 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
 
+        sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         webViewRelativeLayout = findViewById(R.id.webview_relative_layout);
         mWebView = findViewById(R.id.webView);
         mBackButton = findViewById(R.id.backToMainMenu);
         swipeRefreshLayout = findViewById(R.id.swipeContainer);
 
         swipeRefreshLayout.getViewTreeObserver().addOnScrollChangedListener(
-                mOnScrollChangedListener = () -> {
+                () -> {
                     if (mWebView.getScrollY() == 0) {
                         swipeRefreshLayout.setEnabled(true);
                     } else {
@@ -82,14 +91,6 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
             mWebView.performClick();
             return false;
         });
-
-
-        mBackButton.setOnTouchListener(this);
-        mBackButton.setOnClickListener(this::clickOnBackToMainMenu);
-
-        if(relativeLayoutParams != null) {
-            mBackButton.setLayoutParams(relativeLayoutParams);
-        }
 
         webChromeClient.setOnToggledFullscreen(fullscreen -> {
             if (fullscreen) {
@@ -151,6 +152,20 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         }
 
         swipeRefreshLayout.setOnRefreshListener(() -> mWebView.reload());
+
+        mBackButton.setOnTouchListener(this);
+        mBackButton.setOnClickListener(this::clickOnBackToMainMenu);
+        int topMargin = sharedPreferences.getInt(KEY_TOP_MARGIN, 0);
+        int leftMargin = sharedPreferences.getInt(KEY_LEFT_MARGIN, 0);
+        if(topMargin > 0 || leftMargin > 0){
+            relativeLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+            relativeLayoutParams.topMargin = topMargin;
+            relativeLayoutParams.leftMargin = leftMargin;
+            relativeLayoutParams.bottomMargin = 0;
+            relativeLayoutParams.rightMargin = 0;
+            mBackButton.setLayoutParams(relativeLayoutParams);
+        }
     }
 
     @Override
@@ -177,13 +192,13 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         final int X = (int) event.getRawX();
         final int Y = (int) event.getRawY();
 
-        if(relativeLayoutParams == null){
+        if (relativeLayoutParams == null) {
             relativeLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
             relativeLayoutParams.topMargin = Y - 300;
             relativeLayoutParams.leftMargin = X - 250;
-            relativeLayoutParams.bottomMargin = -250;
-            relativeLayoutParams.rightMargin = -250;
+            relativeLayoutParams.bottomMargin = 0;
+            relativeLayoutParams.rightMargin = 0;
         }
 
         boolean outOfTop = relativeLayoutParams.topMargin < 0;
@@ -217,37 +232,46 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
 
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN: {
+                mBackButton.setBackgroundTintList(ColorStateList.
+                        valueOf(getResources().getColor(R.color.dark_green)));
                 _xDelta = X - relativeLayoutParams.leftMargin;
                 _yDelta = Y - relativeLayoutParams.topMargin;
-                if(!longClicked){
-                    longClicked = true;
-                    startClickTime = Calendar.getInstance().getTimeInMillis();
-                }
+                longClicked = false;
+                isActionUpHappened = false;
+                startClickTime = Calendar.getInstance().getTimeInMillis();
                 break;
             }
             case MotionEvent.ACTION_UP: {
-                longClicked = false;
-                if (!isBackButtonMoved) {
+                mBackButton.setBackgroundTintList(ColorStateList.
+                        valueOf(getResources().getColor(R.color.bright_green)));
+                isActionUpHappened = true;
+                if (!longClicked) {
                     v.performClick();
                     break;
                 }
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt(KEY_TOP_MARGIN, relativeLayoutParams.topMargin);
+                        editor.putInt(KEY_LEFT_MARGIN, relativeLayoutParams.leftMargin);
+                        editor.apply();
+                        editor.commit();
             }
             case MotionEvent.ACTION_MOVE: {
-                if(longClicked){
-                    long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
+                long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
+                if(!isActionUpHappened){
                     if (clickDuration >= MIN_CLICK_DURATION) {
+                        longClicked = true;
                         int newLeftMargin = X - _xDelta;
                         int newTopMargin = Y - _yDelta;
 
-                        isBackButtonMoved = relativeLayoutParams.leftMargin != newLeftMargin ||
-                                relativeLayoutParams.topMargin != newTopMargin;
                         relativeLayoutParams.leftMargin = newLeftMargin;
                         relativeLayoutParams.topMargin = newTopMargin;
-                        relativeLayoutParams.rightMargin = -250;
-                        relativeLayoutParams.bottomMargin = -250;
+                        relativeLayoutParams.rightMargin = 0;
+                        relativeLayoutParams.bottomMargin = 0;
                         v.setLayoutParams(relativeLayoutParams);
                     }
                 }
+
+
             }
         }
         webViewRelativeLayout.invalidate();
@@ -299,20 +323,25 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
     }
 
     @Override
-    public void onPageStarted(String url, Bitmap favicon) { }
+    public void onPageStarted(String url, Bitmap favicon) {
+    }
 
     @Override
-    public void onPageFinished(String url) { }
+    public void onPageFinished(String url) {
+    }
 
     @Override
-    public void onPageError(int errorCode, String description, String failingUrl) { }
+    public void onPageError(int errorCode, String description, String failingUrl) {
+    }
 
     @Override
     public void onDownloadRequested(String url, String suggestedFilename, String mimeType,
                                     long contentLength, String contentDisposition,
-                                    String userAgent) { }
+                                    String userAgent) {
+    }
 
     @Override
-    public void onExternalPageRequest(String url) { }
+    public void onExternalPageRequest(String url) {
+    }
 
 }

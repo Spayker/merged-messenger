@@ -31,12 +31,12 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
 
     static class CustomViewHolder extends AbstractDraggableItemViewHolder {
         private FrameLayout mContainer;
-        private Button mImageButton;
+        private Button mChannelButton;
 
         private CustomViewHolder(View v) {
             super(v);
             mContainer = v.findViewById(R.id.container);
-            mImageButton = v.findViewById(R.id.channel_icon);
+            mChannelButton = v.findViewById(R.id.channel_icon);
         }
     }
 
@@ -68,12 +68,20 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
         final AbstractDataProvider.Data item = mProvider.getItem(position);
 
         // set text
-        holder.mImageButton.setText(item.getText());
+        holder.mChannelButton.setText(item.getText());
 
         // set icon
         Drawable icon = item.getIcon();
-        holder.mImageButton.setCompoundDrawablesWithIntrinsicBounds(null, icon, null, null);
-        holder.mImageButton.setOnClickListener(item.getOnClickListener());
+        holder.mChannelButton.setCompoundDrawablesWithIntrinsicBounds(null, icon, null, null);
+
+        View.OnClickListener listener = item.getOnClickListener();
+        if(listener != null){
+            holder.mChannelButton.setOnClickListener(listener);
+        } else {
+            holder.mChannelButton.setEnabled(false);
+            holder.mChannelButton.setClickable(false);
+            holder.mChannelButton.setOnDragListener(null);
+        }
 
         // set background resource (target view ID: container)
         final int dragState = holder.getDragStateFlags();

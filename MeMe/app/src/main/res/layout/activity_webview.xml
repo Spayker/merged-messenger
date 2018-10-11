@@ -17,6 +17,7 @@
         android:onClick="clickOnBackToMainMenu"
         android:src="@mipmap/back"
         app:backgroundTint="#17c19a"
+        android:background="?attr/selectableItemBackground"
         app:fabSize="normal" />
 
     <android.support.v4.widget.SwipeRefreshLayout

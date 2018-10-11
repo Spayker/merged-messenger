@@ -184,7 +184,7 @@ public class WelcomeActivity extends AppCompatActivity implements ActivityBehavi
     public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(getString(R.string.login_checking));
+            mProgressDialog.setMessage(getString(R.string.welcome_connecting));
             mProgressDialog.setIndeterminate(true);
         }
 

@@ -7,6 +7,7 @@
     <color name="holo_link_blue">#ff0099cc</color>
 
     <color name="bright_green">#17c19a</color>
+    <color name="dark_green">#0f8368</color>
 
     <color name="bg_item_dragging_active_state">@android:color/transparent</color>
     <color name="bg_item_dragging_state">@android:color/transparent</color>

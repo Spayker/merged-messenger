@@ -14,6 +14,7 @@
             <string name="sing_in_button">Sing In</string>
             <string name="sing_up_button">Sing Up</string>
             <string name="welcome_error_auth_failed">Authentication Failed</string>
+            <string name="welcome_connecting">Connecting…</string>
 
         <!--Login Screen-->
             <string name="login_title_activity">Sign In</string>

@@ -25,7 +25,12 @@ public interface ActivityConstants {
 
     String MAIL_RU_HOME_URL = "https://mail.ru/";
 
+    //// Shared Preferences Keys
+    String KEY_TOP_MARGIN = "topMargin";
+    String KEY_LEFT_MARGIN = "leftMargin";
+
     //// OTHER
     String EMPTY_STRING = "";
+
 
 }
