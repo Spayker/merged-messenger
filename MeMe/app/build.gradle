@@ -67,12 +67,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     // FireBase module
-    implementation 'com.google.firebase:firebase-core:16.0.3'
-    implementation 'com.google.firebase:firebase-auth:16.0.3'
-    implementation 'com.google.firebase:firebase-database:16.0.1'
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.google.firebase:firebase-auth:16.0.4'
+    implementation 'com.google.firebase:firebase-database:16.0.3'
 
     // Google Service Dependencies
-    implementation 'com.google.android.gms:play-services-auth:16.0.0'
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
 
     // rx java
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
