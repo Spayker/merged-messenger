@@ -24,10 +24,10 @@ import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.spandr.meme.R;
-import com.spandr.meme.core.logic.menu.authorization.ActivityBehaviourAddon;
+
+import java.util.Locale;
 
 import io.fabric.sdk.android.Fabric;
-import java.util.Locale;
 
 import static com.spandr.meme.core.logic.starter.SettingsConstants.APP_SUPPORTED_LANGUAGES;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_AUTO_LOGIN;
@@ -41,7 +41,7 @@ import static com.spandr.meme.core.ui.activity.ActivityConstants.EMPTY_STRING;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class WelcomeActivity extends AppCompatActivity implements ActivityBehaviourAddon {
+public class WelcomeActivity extends AppCompatActivity {
 
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = WelcomeActivity.class.getSimpleName();
@@ -198,19 +198,10 @@ public class WelcomeActivity extends AppCompatActivity implements ActivityBehavi
     /**
      * Hides progress dialog from screen.
      **/
-    @Override
     public void hideProgressDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
-    }
-
-    /**
-     * Updates ui according to authorization result.
-     **/
-    @Override
-    public void updateUI() {
-        hideProgressDialog();
     }
 
     @Override

@@ -26,7 +26,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.spandr.meme.R;
 import com.spandr.meme.core.data.database.FireBaseDBInitializer;
 import com.spandr.meme.core.logic.authorization.EmailAuthorizer;
-import com.spandr.meme.core.logic.menu.authorization.ActivityBehaviourAddon;
 
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_AUTO_LOGIN;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_OLD_CHANGE_PASS;
@@ -40,7 +39,7 @@ import static com.spandr.meme.core.ui.activity.ActivityConstants.EMPTY_STRING;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher,
-        CompoundButton.OnCheckedChangeListener, ActivityBehaviourAddon {
+        CompoundButton.OnCheckedChangeListener {
 
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = LoginActivity.class.getSimpleName();
@@ -135,7 +134,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /**
      * Updates ui according to authorization result.
      **/
-    @Override
     public void updateUI() {
         hideProgressDialog();
         managePrefs();
@@ -184,7 +182,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /**
      * Hides progress dialog from screen.
      **/
-    @Override
     public void hideProgressDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();

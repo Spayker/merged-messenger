@@ -16,12 +16,11 @@ import android.widget.EditText;
 
 import com.spandr.meme.R;
 import com.spandr.meme.core.logic.authorization.EmailAuthorizer;
-import com.spandr.meme.core.logic.menu.authorization.ActivityBehaviourAddon;
 
 /**
  * A Register screen that offers a registration procedure via email/password.
  */
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, ActivityBehaviourAddon {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     @SuppressLint("StaticFieldLeak")
     private static RegisterActivity instance;
@@ -35,7 +34,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private EditText mPasswordConfirmView;
-    private CheckBox mAgreement;
     private Button mRegister;
 
     // tag field is used for logging sub system to identify from coming logs were created
@@ -62,8 +60,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mEmailView = findViewById(R.id.register_form_email);
         mPasswordView = findViewById(R.id.register_form_password);
         mPasswordConfirmView = findViewById(R.id.register_form_password_confirm);
-        mAgreement = findViewById(R.id.agreement);
         mRegister = findViewById(R.id.email_sign_up_button);
+        CheckBox mAgreement = findViewById(R.id.agreement);
 
         // Buttons
         mRegister.setEnabled(false);
@@ -88,14 +86,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onStart() {
         super.onStart();
-        updateUI();
-    }
-
-    /**
-     * Updates ui according to registration result.
-     **/
-    @Override
-    public void updateUI() {
         hideProgressDialog();
     }
 
@@ -170,7 +160,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     /**
      * Hides progress dialog from screen.
      **/
-    @Override
     public void hideProgressDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
