@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.database.Cursor;
-import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -20,13 +18,10 @@ import android.widget.Toast;
 
 import com.spandr.meme.R;
 import com.spandr.meme.core.ui.activity.main.MainActivity;
-import com.spandr.meme.core.ui.activity.main.WelcomeActivity;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import static com.spandr.meme.core.logic.starter.SettingsConstants.APP_SUPPORTED_LANGUAGES;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;

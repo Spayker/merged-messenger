@@ -18,7 +18,6 @@ import com.spandr.meme.core.ui.activity.main.MainActivity;
 import static com.spandr.meme.core.data.memory.channel.ChannelManager.getChannelByName;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.PREF_NAME;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.EMPTY_STRING;
 
 public class EditChannelsActivity extends AppCompatActivity {
 

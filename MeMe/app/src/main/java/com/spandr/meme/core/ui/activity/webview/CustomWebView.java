@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
+import com.spandr.meme.core.logic.menu.webview.CustomChromeWebClient;
+
 import java.util.Map;
 
 public class CustomWebView extends WebView {

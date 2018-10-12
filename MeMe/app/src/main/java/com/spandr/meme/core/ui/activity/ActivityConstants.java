@@ -31,6 +31,7 @@ public interface ActivityConstants {
 
     //// OTHER
     String EMPTY_STRING = "";
+    int WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS = 100;
 
 
 }

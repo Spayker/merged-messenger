@@ -9,14 +9,13 @@ import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -24,6 +23,7 @@ import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 
 import com.spandr.meme.R;
+import com.spandr.meme.core.logic.menu.webview.CustomChromeWebClient;
 
 import java.util.Calendar;
 
@@ -35,9 +35,12 @@ import static com.spandr.meme.core.ui.activity.ActivityConstants.KEY_LEFT_MARGIN
 import static com.spandr.meme.core.ui.activity.ActivityConstants.KEY_TOP_MARGIN;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.SHALL_LOAD_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.TUMBLR_HOME_URL;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.YOUTUBE_HOME_URL;
 
 public class WebViewActivity extends Activity implements AdvancedWebView.Listener, View.OnTouchListener {
+
+    private static final int MIN_CLICK_DURATION = 500;
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private AdvancedWebView mWebView;
@@ -51,9 +54,7 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
     private boolean longClicked;
     private boolean isActionUpHappened;
     private long startClickTime;
-    private static final int MIN_CLICK_DURATION = 500;
 
-    @SuppressLint({"SetJavaScriptEnabled", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,16 +66,74 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         mBackButton = findViewById(R.id.backToMainMenu);
         swipeRefreshLayout = findViewById(R.id.swipeContainer);
 
-        swipeRefreshLayout.getViewTreeObserver().addOnScrollChangedListener(
-                () -> {
-                    if (mWebView.getScrollY() == 0) {
-                        swipeRefreshLayout.setEnabled(true);
-                    } else {
-                        swipeRefreshLayout.setEnabled(false);
-                    }
-                });
+        initListeners();
+        initWebClients();
+        initWebSettings();
+        loadStartURL();
+        initBackButtonStartPosition();
 
-        // Initialize the VideoEnabledWebChromeClient and set event handlers
+        mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+        mWebView.setScrollbarFadingEnabled(false);
+    }
+
+    private void initWebClients() {
+        mWebView.setWebChromeClient(initWebChromeClient());
+        mWebView.setWebViewClient(new InsideWebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                swipeRefreshLayout.setRefreshing(false);
+                super.onPageFinished(view, url);
+            }
+        });
+    }
+
+    private void loadStartURL() {
+        Intent webViewIntent = getIntent();
+        String loadUrl = webViewIntent.getStringExtra(HOME_URL);
+        if (webViewIntent.getBooleanExtra(SHALL_LOAD_URL, false)) {
+            mWebView.loadUrl(loadUrl);
+        }
+
+        if (!loadUrl.contains(TUMBLR_HOME_URL) && !loadUrl.contains(YOUTUBE_HOME_URL)) {
+            mWebView.getSettings()
+                    .setUserAgentString("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36");
+        }
+    }
+
+    private void initBackButtonStartPosition() {
+        int topMargin = sharedPreferences.getInt(KEY_TOP_MARGIN, 0);
+        int leftMargin = sharedPreferences.getInt(KEY_LEFT_MARGIN, 0);
+        if (topMargin > 0 || leftMargin > 0) {
+            relativeLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+            relativeLayoutParams.topMargin = topMargin;
+            relativeLayoutParams.leftMargin = leftMargin;
+            relativeLayoutParams.bottomMargin = 0;
+            relativeLayoutParams.rightMargin = 0;
+            mBackButton.setLayoutParams(relativeLayoutParams);
+        }
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private void initWebSettings() {
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setSupportZoom(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setDisplayZoomControls(false);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setAllowContentAccess(true);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+    }
+
+    private CustomChromeWebClient initWebChromeClient() {
         View nonVideoLayout = findViewById(R.id.nonVideoLayout);
         ViewGroup videoLayout = findViewById(R.id.videoLayout);
 
@@ -85,12 +144,6 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
             public void onProgressChanged(WebView view, int progress) {
             }
         };
-
-        mWebView.setOnTouchListener((v, event) -> {
-            mBackButton.setAlpha(.45f);
-            mWebView.performClick();
-            return false;
-        });
 
         webChromeClient.setOnToggledFullscreen(fullscreen -> {
             if (fullscreen) {
@@ -109,63 +162,29 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
                 mBackButton.setVisibility(View.VISIBLE);
             }
         });
+        return webChromeClient;
+    }
 
-        mWebView.setWebChromeClient(webChromeClient);
-        mWebView.setWebViewClient(new InsideWebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                swipeRefreshLayout.setRefreshing(false);
-                super.onPageFinished(view, url);
+    @SuppressLint("ClickableViewAccessibility")
+    private void initListeners() {
+
+        swipeRefreshLayout.getViewTreeObserver().addOnScrollChangedListener(() -> {
+            if (mWebView.getScrollY() == 0) {
+                swipeRefreshLayout.setEnabled(true);
+                return;
             }
+            swipeRefreshLayout.setEnabled(false);
         });
-        mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-        mWebView.setScrollbarFadingEnabled(false);
-
-        // Enable Javascript
-        WebSettings webSettings = mWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setSupportZoom(true);
-        webSettings.setBuiltInZoomControls(true);
-        webSettings.setDisplayZoomControls(false);
-        webSettings.setDomStorageEnabled(true);
-        webSettings.setLoadWithOverviewMode(true);
-        webSettings.setUseWideViewPort(true);
-        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        webSettings.setDomStorageEnabled(true);
-        webSettings.setAllowFileAccess(true);
-        webSettings.setAllowFileAccess(true);
-        webSettings.setAllowContentAccess(true);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-
-
-        // REMOTE RESOURCE
-        Intent webViewIntent = getIntent();
-        String loadUrl = webViewIntent.getStringExtra(HOME_URL);
-        if (webViewIntent.getBooleanExtra(SHALL_LOAD_URL, false)) {
-            mWebView.loadUrl(loadUrl);
-        }
-
-        if (!loadUrl.contains(TUMBLR_HOME_URL) && !loadUrl.contains(YOUTUBE_HOME_URL)) {
-            mWebView.getSettings()
-                    .setUserAgentString("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36");
-        }
-
         swipeRefreshLayout.setOnRefreshListener(() -> mWebView.reload());
+
+        mWebView.setOnTouchListener((v, event) -> {
+            mBackButton.setAlpha(.45f);
+            mWebView.performClick();
+            return false;
+        });
 
         mBackButton.setOnTouchListener(this);
         mBackButton.setOnClickListener(this::clickOnBackToMainMenu);
-        int topMargin = sharedPreferences.getInt(KEY_TOP_MARGIN, 0);
-        int leftMargin = sharedPreferences.getInt(KEY_LEFT_MARGIN, 0);
-        if(topMargin > 0 || leftMargin > 0){
-            relativeLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                    RelativeLayout.LayoutParams.WRAP_CONTENT);
-            relativeLayoutParams.topMargin = topMargin;
-            relativeLayoutParams.leftMargin = leftMargin;
-            relativeLayoutParams.bottomMargin = 0;
-            relativeLayoutParams.rightMargin = 0;
-            mBackButton.setLayoutParams(relativeLayoutParams);
-        }
     }
 
     @Override
@@ -175,7 +194,9 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         } else {
             mWebView.removeAllViews();
             mWebView.clearHistory();
+            mWebView.clearCache(true);
             mWebView.onPause();
+            mWebView.removeAllViews();
             mWebView.destroyDrawingCache();
             super.onBackPressed();
         }
@@ -250,14 +271,14 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
                     break;
                 }
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putInt(KEY_TOP_MARGIN, relativeLayoutParams.topMargin);
-                        editor.putInt(KEY_LEFT_MARGIN, relativeLayoutParams.leftMargin);
-                        editor.apply();
-                        editor.commit();
+                editor.putInt(KEY_TOP_MARGIN, relativeLayoutParams.topMargin);
+                editor.putInt(KEY_LEFT_MARGIN, relativeLayoutParams.leftMargin);
+                editor.apply();
+                editor.commit();
             }
             case MotionEvent.ACTION_MOVE: {
                 long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
-                if(!isActionUpHappened){
+                if (!isActionUpHappened) {
                     if (clickDuration >= MIN_CLICK_DURATION) {
                         longClicked = true;
                         int newLeftMargin = X - _xDelta;
@@ -268,10 +289,13 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
                         relativeLayoutParams.rightMargin = 0;
                         relativeLayoutParams.bottomMargin = 0;
                         v.setLayoutParams(relativeLayoutParams);
+
+                        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                        if (vibrator != null) {
+                            vibrator.vibrate(WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS);
+                        }
                     }
                 }
-
-
             }
         }
         webViewRelativeLayout.invalidate();
@@ -289,21 +313,17 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
     public void clickOnBackToMainMenu(View view) {
         mWebView.removeAllViews();
         mWebView.clearHistory();
-        mWebView.clearCache(true);
         mWebView.onPause();
         mWebView.removeAllViews();
-        mWebView.destroyDrawingCache();
         onBackPressed();
     }
 
-    @SuppressLint("NewApi")
     @Override
     protected void onResume() {
         super.onResume();
         mWebView.onResume();
     }
 
-    @SuppressLint("NewApi")
     @Override
     protected void onPause() {
         mWebView.onPause();
@@ -323,25 +343,20 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
     }
 
     @Override
-    public void onPageStarted(String url, Bitmap favicon) {
-    }
+    public void onPageStarted(String url, Bitmap favicon) { }
 
     @Override
-    public void onPageFinished(String url) {
-    }
+    public void onPageFinished(String url) { }
 
     @Override
-    public void onPageError(int errorCode, String description, String failingUrl) {
-    }
+    public void onPageError(int errorCode, String description, String failingUrl) { }
 
     @Override
     public void onDownloadRequested(String url, String suggestedFilename, String mimeType,
                                     long contentLength, String contentDisposition,
-                                    String userAgent) {
-    }
+                                    String userAgent) { }
 
     @Override
-    public void onExternalPageRequest(String url) {
-    }
+    public void onExternalPageRequest(String url) { }
 
 }

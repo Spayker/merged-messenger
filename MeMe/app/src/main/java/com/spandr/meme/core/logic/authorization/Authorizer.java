@@ -12,7 +12,6 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.spandr.meme.R;
 import com.spandr.meme.core.data.database.FireBaseDBInitializer;
 import com.spandr.meme.core.ui.activity.main.MainActivity;
-import com.spandr.meme.core.ui.activity.main.WelcomeActivity;
 
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_OLD_CHANGE_PASS;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_PASS;

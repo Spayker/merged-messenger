@@ -3,8 +3,6 @@ package com.spandr.meme.core.logic.menu.main.builder.draggable.common.data;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
-import com.spandr.meme.core.data.memory.channel.ICON;
-
 public abstract class AbstractDataProvider {
 
     public static abstract class Data {

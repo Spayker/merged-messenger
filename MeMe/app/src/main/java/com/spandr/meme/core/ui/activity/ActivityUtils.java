@@ -11,9 +11,7 @@ public final class ActivityUtils {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message)
                 .setCancelable(false)
-                .setPositiveButton(OK, (dialog, id) -> {
-                    //do things
-                });
+                .setPositiveButton(OK, (dialog, id) -> {});
         AlertDialog alert = builder.create();
         alert.show();
     }
