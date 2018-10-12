@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:316232537213:android:93fe47d9b8c391d2",
         "android_client_info": {
-          "package_name": "com.spandr.meme"
+          "package_name": "com.spand.meme"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "316232537213-sgjjul0i083mgluidr0k7rc3cc8vu81p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.spandr.meme",
+            "package_name": "com.spand.meme",
             "certificate_hash": "9638e612ac7ec69dfae4e6fd074131ac301403f0"
           }
         },
@@ -44,6 +44,37 @@
               "client_type": 3
             }
           ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316232537213:android:55b83a4f77d805e5",
+        "android_client_info": {
+          "package_name": "com.spandr.meme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "316232537213-ri394s4q8l936s86bsk5riq8gtce0cvg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjoqIfZfD9NPN_c0KC8tOzYt-nhKfVhfg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

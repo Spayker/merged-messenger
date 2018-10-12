@@ -21,10 +21,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.spandr.meme.R;
 import com.spandr.meme.core.logic.menu.authorization.ActivityBehaviourAddon;
 
+import io.fabric.sdk.android.Fabric;
 import java.util.Locale;
 
 import static com.spandr.meme.core.logic.starter.SettingsConstants.APP_SUPPORTED_LANGUAGES;
@@ -58,6 +60,7 @@ public class WelcomeActivity extends AppCompatActivity implements ActivityBehavi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        Fabric.with(this, new Crashlytics());
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 
         LinearLayout buttonLayer = findViewById(R.id.fullscreen_content_controls);
@@ -97,6 +100,7 @@ public class WelcomeActivity extends AppCompatActivity implements ActivityBehavi
         }
         buttonLayer.setVisibility(View.VISIBLE);
     }
+
 
     private void initVersionNumber() {
         // app version part

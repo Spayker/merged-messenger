@@ -107,6 +107,9 @@
                 android:value=".core.ui.activity.settings.GlobalSettingsActivity" />
         </activity>
 
+    <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="d4a2832e07fd95f91d11ac1f04bb9e6762526e6c" />
     </application>
 
 </manifest>
