@@ -32,6 +32,7 @@ import java.util.Locale;
 
 import static com.spandr.meme.core.logic.starter.Loginner.createLoginner;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.APP_SUPPORTED_LANGUAGES;
+import static com.spandr.meme.core.logic.starter.SettingsConstants.EN;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_CURRENT_APP_LANGUAGE;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.PREF_NAME;
@@ -112,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
     private void initLanguage(SharedPreferences sharedPreferences){
         String currentLanguage = sharedPreferences.getString(KEY_CURRENT_APP_LANGUAGE, Locale.getDefault().getDisplayLanguage());
         String shortLanguage = APP_SUPPORTED_LANGUAGES.get(currentLanguage);
+        if(shortLanguage == null){
+            shortLanguage = EN;
+        }
         Locale locale = new Locale(shortLanguage);
         Locale.setDefault(locale);
         updateResourcesLocaleLegacy(this, locale);

@@ -1,7 +1,6 @@
 package com.spandr.meme.core.ui.activity.main;
 
 import android.annotation.TargetApi;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +17,7 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +30,7 @@ import java.util.Locale;
 import io.fabric.sdk.android.Fabric;
 
 import static com.spandr.meme.core.logic.starter.SettingsConstants.APP_SUPPORTED_LANGUAGES;
+import static com.spandr.meme.core.logic.starter.SettingsConstants.EN;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_AUTO_LOGIN;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_CURRENT_APP_LANGUAGE;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_PASS;
@@ -46,7 +47,7 @@ public class WelcomeActivity extends AppCompatActivity {
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = WelcomeActivity.class.getSimpleName();
 
-    private ProgressDialog mProgressDialog;
+    private ProgressBar progressBar;
 
     private static Boolean isLocaleSet;
 
@@ -60,9 +61,12 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
         Fabric.with(this, new Crashlytics());
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 
+        progressBar = findViewById(R.id.progressBar_cyclic);
+        progressBar.setVisibility(View.INVISIBLE);
         LinearLayout buttonLayer = findViewById(R.id.fullscreen_content_controls);
         buttonLayer.setVisibility(View.INVISIBLE);
 
@@ -78,7 +82,7 @@ public class WelcomeActivity extends AppCompatActivity {
             String email = sharedPreferences.getString(KEY_USER_EMAIL_OR_PHONE, EMPTY_STRING);
             String password = sharedPreferences.getString(KEY_PASS, EMPTY_STRING);
             if (!email.isEmpty() && !password.isEmpty()) {
-                showProgressDialog();
+                progressBar.setVisibility(View.VISIBLE);
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this, task -> {
                             if (task.isSuccessful()) {
@@ -93,7 +97,6 @@ public class WelcomeActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                                 buttonLayer.setVisibility(View.VISIBLE);
                             }
-                            hideProgressDialog();
                         });
             }
             return;
@@ -120,6 +123,9 @@ public class WelcomeActivity extends AppCompatActivity {
         String currentLanguage = sharedPreferences.getString(KEY_CURRENT_APP_LANGUAGE, Locale.getDefault().getDisplayLanguage());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         String shortLanguage = APP_SUPPORTED_LANGUAGES.get(currentLanguage);
+        if(shortLanguage == null){
+            shortLanguage = EN;
+        }
         Locale locale = new Locale(shortLanguage);
         Locale.setDefault(locale);
 
@@ -180,28 +186,6 @@ public class WelcomeActivity extends AppCompatActivity {
     public void singUpActivity(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
-    }
-
-    /**
-     * Shows progress dialog while backend action is in progress.
-     **/
-    public void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(getString(R.string.welcome_connecting));
-            mProgressDialog.setIndeterminate(true);
-        }
-
-        mProgressDialog.show();
-    }
-
-    /**
-     * Hides progress dialog from screen.
-     **/
-    public void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
     }
 
     @Override

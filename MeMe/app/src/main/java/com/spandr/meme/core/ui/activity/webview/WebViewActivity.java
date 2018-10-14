@@ -9,6 +9,8 @@ import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
@@ -23,6 +25,8 @@ import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 
 import com.spandr.meme.R;
+import com.spandr.meme.core.data.memory.channel.Channel;
+import com.spandr.meme.core.data.memory.channel.ChannelManager;
 import com.spandr.meme.core.logic.menu.webview.CustomChromeWebClient;
 
 import java.util.Calendar;
@@ -30,17 +34,20 @@ import java.util.Calendar;
 import im.delight.android.webview.AdvancedWebView;
 
 import static com.spandr.meme.core.logic.starter.SettingsConstants.PREF_NAME;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.HOME_URL;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.CHANNEL_NAME;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.ICQ_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.KEY_LEFT_MARGIN;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.KEY_TOP_MARGIN;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.SHALL_LOAD_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.TUMBLR_HOME_URL;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.MEME_HOME_URL;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.SKYPE_HOME_URL;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.TELEGRAM_HOME_URL;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.USER_AGENT_STRING;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.VK_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.YOUTUBE_HOME_URL;
 
 public class WebViewActivity extends Activity implements AdvancedWebView.Listener, View.OnTouchListener {
 
-    private static final int MIN_CLICK_DURATION = 500;
+    private static final int BACK_BUTTON_MIN_CLICK_DURATION = 500;
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private AdvancedWebView mWebView;
@@ -53,6 +60,7 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
     private int _yDelta;
     private boolean longClicked;
     private boolean isActionUpHappened;
+    private boolean shallVibroNotify;
     private long startClickTime;
 
     @Override
@@ -62,18 +70,47 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
 
         sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         webViewRelativeLayout = findViewById(R.id.webview_relative_layout);
+        swipeRefreshLayout = findViewById(R.id.swipeContainer);
         mWebView = findViewById(R.id.webView);
         mBackButton = findViewById(R.id.backToMainMenu);
-        swipeRefreshLayout = findViewById(R.id.swipeContainer);
 
         initListeners();
         initWebClients();
         initWebSettings();
+        initUserAgent();
         loadStartURL();
         initBackButtonStartPosition();
 
         mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         mWebView.setScrollbarFadingEnabled(false);
+    }
+
+    private void initUserAgent() {
+        Intent webViewIntent = getIntent();
+        String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
+        Channel channel = ChannelManager.getChannelByName(channelName);
+        if(channel != null){
+            String homeURL = channel.getHomeUrl();
+            switch (homeURL){
+                case VK_HOME_URL:
+                case TELEGRAM_HOME_URL:
+                case ICQ_HOME_URL:
+                case SKYPE_HOME_URL:
+                    mWebView.getSettings()
+                            .setUserAgentString(USER_AGENT_STRING);
+            }
+        }
+    }
+
+    private void loadStartURL() {
+        Intent webViewIntent = getIntent();
+        String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
+        Channel channel = ChannelManager.getChannelByName(channelName);
+        if(channel != null){
+            mWebView.loadUrl(channel.getHomeUrl());
+        } else {
+            mWebView.loadUrl(MEME_HOME_URL);
+        }
     }
 
     private void initWebClients() {
@@ -85,19 +122,6 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
                 super.onPageFinished(view, url);
             }
         });
-    }
-
-    private void loadStartURL() {
-        Intent webViewIntent = getIntent();
-        String loadUrl = webViewIntent.getStringExtra(HOME_URL);
-        if (webViewIntent.getBooleanExtra(SHALL_LOAD_URL, false)) {
-            mWebView.loadUrl(loadUrl);
-        }
-
-        if (!loadUrl.contains(TUMBLR_HOME_URL) && !loadUrl.contains(YOUTUBE_HOME_URL)) {
-            mWebView.getSettings()
-                    .setUserAgentString("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36");
-        }
     }
 
     private void initBackButtonStartPosition() {
@@ -125,12 +149,31 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setUseWideViewPort(true);
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
         webSettings.setDomStorageEnabled(true);
         webSettings.setAllowFileAccess(true);
-        webSettings.setAllowFileAccess(true);
         webSettings.setAllowContentAccess(true);
+        webSettings.setAllowFileAccessFromFileURLs(true);
+        webSettings.setAllowUniversalAccessFromFileURLs(true);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+
+        webSettings.setAppCacheMaxSize( 50 * 1024 * 1024 );
+        webSettings.setAppCachePath( getApplicationContext().getCacheDir().getAbsolutePath() );
+        webSettings.setAppCacheEnabled(true);
+
+        //This part will load the web page if the network is not available.
+        if (!isNetworkAvailable()) {
+            webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK );
+        }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService( CONNECTIVITY_SERVICE );
+        if(connectivityManager != null){
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
     }
 
     private CustomChromeWebClient initWebChromeClient() {
@@ -194,10 +237,8 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         } else {
             mWebView.removeAllViews();
             mWebView.clearHistory();
-            mWebView.clearCache(true);
             mWebView.onPause();
             mWebView.removeAllViews();
-            mWebView.destroyDrawingCache();
             super.onBackPressed();
         }
     }
@@ -259,6 +300,7 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
                 _yDelta = Y - relativeLayoutParams.topMargin;
                 longClicked = false;
                 isActionUpHappened = false;
+                shallVibroNotify = true;
                 startClickTime = Calendar.getInstance().getTimeInMillis();
                 break;
             }
@@ -279,7 +321,15 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
             case MotionEvent.ACTION_MOVE: {
                 long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
                 if (!isActionUpHappened) {
-                    if (clickDuration >= MIN_CLICK_DURATION) {
+                    if (clickDuration >= BACK_BUTTON_MIN_CLICK_DURATION) {
+                        if (shallVibroNotify) {
+                            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                            if (vibrator != null) {
+                                vibrator.vibrate(WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS);
+                            }
+                            shallVibroNotify = false;
+                        }
+
                         longClicked = true;
                         int newLeftMargin = X - _xDelta;
                         int newTopMargin = Y - _yDelta;
@@ -289,11 +339,6 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
                         relativeLayoutParams.rightMargin = 0;
                         relativeLayoutParams.bottomMargin = 0;
                         v.setLayoutParams(relativeLayoutParams);
-
-                        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                        if (vibrator != null) {
-                            vibrator.vibrate(WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS);
-                        }
                     }
                 }
             }

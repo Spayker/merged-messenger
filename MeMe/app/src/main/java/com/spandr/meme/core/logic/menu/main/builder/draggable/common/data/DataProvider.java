@@ -21,8 +21,10 @@ import java.util.List;
 import static com.spandr.meme.core.data.memory.channel.TYPE.CHAT;
 import static com.spandr.meme.core.data.memory.channel.TYPE.EMAIL;
 import static com.spandr.meme.core.data.memory.channel.TYPE.SOCIAL;
+import static com.spandr.meme.core.logic.LogicContants.CHANNEL_SPLITTER;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.PREF_NAME;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.CHANNEL_NAME;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.EMPTY_STRING;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.SHALL_LOAD_URL;
@@ -48,34 +50,34 @@ public class DataProvider extends AbstractDataProvider {
 
         if(savedChannelOrder == null || savedChannelOrder.isEmpty()){
             for (int i = 0; i < channels.size(); i++) {
-                String text = channels.get(i).getName();
-                String homeUrl = channels.get(i).getHomeUrl();
-                ICON icon = channels.get(i).getIcon();
+                Channel channel = channels.get(i);
+                String text = channel.getName();
+                String homeUrl = channel.getHomeUrl();
+                ICON icon = channel.getIcon();
                 Drawable drawableIcon = mainActivity.getResources().getDrawable(icon.getIconId());
 
                 View.OnClickListener clickOnListener = v -> {
                     Intent intent = new Intent(mainActivity, WebViewActivity.class);
+                    intent.putExtra(CHANNEL_NAME, text);
                     intent.putExtra(HOME_URL, homeUrl);
-                    intent.putExtra(SHALL_LOAD_URL, true);
                     mainActivity.startActivity(intent);
                 };
-
                 mData.add(new ConcreteData(id, viewType, drawableIcon, text, clickOnListener));
-
             }
         } else {
-            String[] spitedChannels = savedChannelOrder.split("\\|");
+            String[] spitedChannels = savedChannelOrder.split(CHANNEL_SPLITTER);
             for(String channelName: spitedChannels){
                 for (int i = 0; i < channels.size(); i++) {
                     if (channelName.equalsIgnoreCase(channels.get(i).getName())) {
-                        String text = channels.get(i).getName();
-                        String homeUrl = channels.get(i).getHomeUrl();
-                        ICON icon = channels.get(i).getIcon();
+                        Channel channel = channels.get(i);
+                        String text = channel.getName();
+                        String homeUrl = channel.getHomeUrl();
+                        ICON icon = channel.getIcon();
                         Drawable drawableIcon = mainActivity.getResources().getDrawable(icon.getIconId());
                         View.OnClickListener clickOnListener = v -> {
                             Intent intent = new Intent(mainActivity, WebViewActivity.class);
+                            intent.putExtra(CHANNEL_NAME, text);
                             intent.putExtra(HOME_URL, homeUrl);
-                            intent.putExtra(SHALL_LOAD_URL, true);
                             mainActivity.startActivity(intent);
                         };
                         mData.add(new ConcreteData(id, viewType, drawableIcon, text, clickOnListener));
@@ -152,10 +154,7 @@ public class DataProvider extends AbstractDataProvider {
 
     @Override
     public void removeItem(int position) {
-        //noinspection UnnecessaryLocalVariable
-        final ConcreteData removedItem = mData.remove(position);
-
-        mLastRemovedData = removedItem;
+        mLastRemovedData = mData.remove(position);
         mLastRemovedPosition = position;
     }
 
@@ -172,14 +171,8 @@ public class DataProvider extends AbstractDataProvider {
             mId = id;
             mViewType = viewType;
             mIcon = icon;
-            mText = makeText(text);
+            mText = text;
             mClickOnListener = clickOnListener;
-        }
-
-        private static String makeText(String text) {
-            final StringBuilder sb = new StringBuilder();
-            sb.append(text);
-            return sb.toString();
         }
 
         @Override

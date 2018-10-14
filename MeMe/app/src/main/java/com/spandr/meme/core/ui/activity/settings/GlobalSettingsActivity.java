@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.spandr.meme.core.logic.starter.SettingsConstants.APP_SUPPORTED_LANGUAGES;
+import static com.spandr.meme.core.logic.starter.SettingsConstants.EN;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_CURRENT_APP_LANGUAGE;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.PREF_NAME;
@@ -156,6 +157,9 @@ public class GlobalSettingsActivity extends AppCompatActivity {
 
         private void updateBaseContextLocale(Context context, String language) {
             String shortLanguage = APP_SUPPORTED_LANGUAGES.get(language);
+            if(shortLanguage == null){
+                shortLanguage = EN;
+            }
             Locale locale = new Locale(shortLanguage);
             Locale.setDefault(locale);
 

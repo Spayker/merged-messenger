@@ -6,21 +6,6 @@
     android:background="@mipmap/app_background"
     tools:context=".core.ui.activity.main.WelcomeActivity">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
-    <TextView
-        android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:textSize="50sp"
-        android:textStyle="bold" />
-
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,11 +16,18 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
-            android:paddingBottom="40dp"
-            android:paddingTop="60dp"
-            android:scaleType="fitCenter"
+            android:paddingTop="30dp"
+            android:scaleType="center"
             app:srcCompat="@mipmap/welcome_logo" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_cyclic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="100sp"
+            android:minWidth="100sp"
+            android:visibility="visible"
+            android:indeterminateDrawable="@drawable/progress"/>
 
         <LinearLayout
             android:id="@+id/fullscreen_content_controls"
