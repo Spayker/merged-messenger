@@ -120,6 +120,7 @@
     <string name="channel_setting_vk">VKontakte</string>
     <string name="channel_setting_fb">Facebook</string>
     <string name="channel_setting_tl">Телеграм</string>
+    <string name="channel_setting_wsap">WhatsApp</string>
     <string name="channel_setting_skp">Skype</string>
     <string name="channel_setting_ok">OK.RU</string>
     <string name="channel_setting_tmb">Tumblr</string>
@@ -144,6 +145,7 @@
     <string name="channel_setting_key_telegram_switcher">key_telegram_switcher</string>
     <string name="channel_setting_key_discord_switcher">key_discord_switcher</string>
     <string name="channel_setting_key_skype_switcher">key_skype_switcher</string>
+    <string name="channel_setting_key_wsap_switcher">key_wsap_switcher</string>
     <string name="channel_setting_key_icq_switcher">key_icq_switcher</string>
     <string name="channel_setting_key_slack_switcher">key_slack_switcher</string>
     <string name="channel_setting_key_gmail_switcher">key_gmail_switcher</string>

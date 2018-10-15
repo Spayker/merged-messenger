@@ -165,6 +165,15 @@ public class EditChannelsActivity extends AppCompatActivity {
                 return true;
             });
 
+            SwitchPreference wsapSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_skype_switcher));
+            String wsapKey = getString(R.string.channel_setting_wsap);
+            wsapSwitcher.setChecked(sharedPreferences.getBoolean(wsapKey, false));
+            bindGlobalPreferenceToBooleanValue(wsapSwitcher);
+            wsapSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                handleSwitcherChange(wsapSwitcher, wsapKey);
+                return true;
+            });
+
             SwitchPreference skypeSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_skype_switcher));
             String skpKey = getString(R.string.channel_setting_skp);
             skypeSwitcher.setChecked(sharedPreferences.getBoolean(skpKey, false));

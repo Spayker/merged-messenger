@@ -44,6 +44,7 @@ import static com.spandr.meme.core.ui.activity.ActivityConstants.TELEGRAM_HOME_U
 import static com.spandr.meme.core.ui.activity.ActivityConstants.USER_AGENT_STRING;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.VK_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.WSAP_HOME_URL;
 
 public class WebViewActivity extends Activity implements AdvancedWebView.Listener, View.OnTouchListener {
 
@@ -96,6 +97,7 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
                 case TELEGRAM_HOME_URL:
                 case ICQ_HOME_URL:
                 case SKYPE_HOME_URL:
+                case WSAP_HOME_URL:
                     mWebView.getSettings()
                             .setUserAgentString(USER_AGENT_STRING);
             }

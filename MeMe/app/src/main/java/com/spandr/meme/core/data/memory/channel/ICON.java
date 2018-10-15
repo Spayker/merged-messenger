@@ -13,6 +13,7 @@ public enum ICON {
     TL(R.mipmap.telegram),
     PN(R.mipmap.pinterest),
     SK(R.mipmap.skype),
+    WSAP(R.mipmap.whatsapp),
     ICQ(R.mipmap.icq),
     DC(R.mipmap.discord),
     SL(R.mipmap.slack),

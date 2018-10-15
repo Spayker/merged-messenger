@@ -13,6 +13,7 @@ public interface ActivityConstants {
     String FB_HOME_URL = "https://m.facebook.com/";
     String INSTAGRAM_HOME_URL = "https://www.instagram.com/";
     String TELEGRAM_HOME_URL = "https://web.telegram.org";
+    String WSAP_HOME_URL = "https://web.whatsapp.com";
     String ODNOKLASNIKI_HOME_URL = "https://ok.ru/";
     String TUMBLR_HOME_URL = "https://www.tumblr.com/login";
     String PINTEREST_HOME_URL = "https://www.pinterest.com/";

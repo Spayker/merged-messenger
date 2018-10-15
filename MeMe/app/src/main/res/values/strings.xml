@@ -78,8 +78,8 @@
             <string name="main_social_category_vertical_layout">main_social_category_vertical_layout</string>
             <string name="main_chat_category_vertical_layout">main_chat_category_vertical_layout</string>
             <string name="main_email_category_vertical_layout">main_email_category_vertical_layout</string>
-            <string name="main_west_ordered_channel_set">Facebook|Telegram|Gmail|Twitter|Instagram|Youtube|Pinterest|Tumblr|Slack|Discord|Skype|LinkedIn|ICQ</string>
-            <string name="main_east_ordered_channel_set">VKontakte|Facebook|Telegram|Gmail|Twitter|Instagram|Youtube|Tumblr|OK.RU|Discord|ICQ|Mail.ru|Skype</string>
+            <string name="main_west_ordered_channel_set">Facebook|Telegram|Gmail|Twitter|Instagram|Youtube|Pinterest|Tumblr|Slack|Discord|WhatsApp|Skype|LinkedIn|ICQ</string>
+            <string name="main_east_ordered_channel_set">VKontakte|Facebook|Telegram|Gmail|Twitter|Instagram|Youtube|Tumblr|OK.RU|Discord|ICQ|Mail.ru|Skype|WhatsApp</string>
 
         <!--Menu of WebView Screen-->
             <string name="webview_loading_video">Loading…</string>
@@ -122,6 +122,7 @@
             <string name="channel_setting_vk">VKontakte</string>
             <string name="channel_setting_fb">Facebook</string>
             <string name="channel_setting_tl">Telegram</string>
+            <string name="channel_setting_wsap">WhatsApp</string>
             <string name="channel_setting_skp">Skype</string>
             <string name="channel_setting_ok">OK.RU</string>
             <string name="channel_setting_tmb">Tumblr</string>
@@ -146,6 +147,7 @@
             <string name="channel_setting_key_telegram_switcher">key_telegram_switcher</string>
             <string name="channel_setting_key_discord_switcher">key_discord_switcher</string>
             <string name="channel_setting_key_skype_switcher">key_skype_switcher</string>
+            <string name="channel_setting_key_wsap_switcher">key_wsap_switcher</string>
             <string name="channel_setting_key_icq_switcher">key_icq_switcher</string>
             <string name="channel_setting_key_slack_switcher">key_slack_switcher</string>
             <string name="channel_setting_key_gmail_switcher">key_gmail_switcher</string>

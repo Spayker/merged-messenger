@@ -27,6 +27,7 @@ import static com.spandr.meme.core.data.memory.channel.ICON.TL;
 import static com.spandr.meme.core.data.memory.channel.ICON.TUM;
 import static com.spandr.meme.core.data.memory.channel.ICON.TW;
 import static com.spandr.meme.core.data.memory.channel.ICON.VK;
+import static com.spandr.meme.core.data.memory.channel.ICON.WSAP;
 import static com.spandr.meme.core.data.memory.channel.ICON.YT;
 import static com.spandr.meme.core.data.memory.channel.TYPE.CHAT;
 import static com.spandr.meme.core.data.memory.channel.TYPE.EMAIL;
@@ -47,6 +48,7 @@ import static com.spandr.meme.core.ui.activity.ActivityConstants.TELEGRAM_HOME_U
 import static com.spandr.meme.core.ui.activity.ActivityConstants.TUMBLR_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.TWITTER_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.VK_HOME_URL;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.WSAP_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.YOUTUBE_HOME_URL;
 
 public class Setupper implements Starter {
@@ -172,6 +174,12 @@ public class Setupper implements Starter {
                 !isChannelExcludedByDefault(tlKey, mainActivity));
         channels.add(telegramChannel);
         editor.putBoolean(tlKey, telegramChannel.getActive());
+
+        String wsapKey = mainActivity.getString(R.string.channel_setting_wsap);
+        Channel wsapChannel = createNewChannel(wsapKey, CHAT, WSAP, WSAP_HOME_URL,
+                !isChannelExcludedByDefault(wsapKey, mainActivity));
+        channels.add(wsapChannel);
+        editor.putBoolean(wsapKey, wsapChannel.getActive());
 
         String skpKey = mainActivity.getString(R.string.channel_setting_skp);
         Channel skypeChannel = createNewChannel(skpKey, CHAT, SK, SKYPE_HOME_URL,
