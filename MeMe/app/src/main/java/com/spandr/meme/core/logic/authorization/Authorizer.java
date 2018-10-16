@@ -46,7 +46,7 @@ abstract class Authorizer {
         }
 
         // db init
-        FireBaseDBInitializer.create().init();
+        //FireBaseDBInitializer.create().init();
 
         sharedPreferences = currentActivity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         managePrefs(email, password);

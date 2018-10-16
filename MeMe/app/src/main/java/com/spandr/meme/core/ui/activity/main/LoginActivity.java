@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         // db init
-        FireBaseDBInitializer.create().init();
+        //FireBaseDBInitializer.create().init();
     }
 
     /**
