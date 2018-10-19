@@ -27,12 +27,15 @@ import static com.spandr.meme.core.data.memory.channel.ICON.SL;
 import static com.spandr.meme.core.data.memory.channel.ICON.TL;
 import static com.spandr.meme.core.data.memory.channel.ICON.TUM;
 import static com.spandr.meme.core.data.memory.channel.ICON.TW;
+import static com.spandr.meme.core.data.memory.channel.ICON.TWITCH;
 import static com.spandr.meme.core.data.memory.channel.ICON.VK;
+import static com.spandr.meme.core.data.memory.channel.ICON.WECHAT;
 import static com.spandr.meme.core.data.memory.channel.ICON.WSAP;
 import static com.spandr.meme.core.data.memory.channel.ICON.YT;
 import static com.spandr.meme.core.data.memory.channel.TYPE.CHAT;
 import static com.spandr.meme.core.data.memory.channel.TYPE.EMAIL;
 import static com.spandr.meme.core.data.memory.channel.TYPE.SOCIAL;
+import static com.spandr.meme.core.data.memory.channel.TYPE.VIDEO;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.DISCORD_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.FB_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.GMAIL_HOME_URL;
@@ -46,8 +49,10 @@ import static com.spandr.meme.core.ui.activity.ActivityConstants.SKYPE_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.SLACK_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.TELEGRAM_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.TUMBLR_HOME_URL;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.TWITCH_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.TWITTER_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.VK_HOME_URL;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.WECHAT_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.WSAP_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.YOUTUBE_HOME_URL;
 
@@ -79,10 +84,12 @@ public class Loginner implements Starter {
         if (Arrays.asList(eastCountryCodes).contains(deviceCountryCode)) {
             initSocialGroupChannels(sharedPreferences, mainActivity).
                     initChatGroupChannels(sharedPreferences, mainActivity).
+                    initVideoGroupChannels(sharedPreferences, mainActivity).
                     initEmailGroupChannels(sharedPreferences, mainActivity);
         } else {
             initSocialGroupChannels(sharedPreferences, mainActivity).
                     initChatGroupChannels(sharedPreferences, mainActivity).
+                    initVideoGroupChannels(sharedPreferences, mainActivity).
                     initEmailGroupChannels(sharedPreferences, mainActivity);
         }
     }
@@ -124,12 +131,6 @@ public class Loginner implements Starter {
         editor.putBoolean(okKey, isOkActive);
         channels.add(okChannel);
 
-        String ytKey = mainActivity.getString(R.string.channel_setting_yt);
-        boolean isYtActive = sharedPreferences.getBoolean(ytKey, !isChannelExcludedByDefault(ytKey, mainActivity));
-        Channel youtubeChannel = createNewChannel(ytKey, SOCIAL, YT, YOUTUBE_HOME_URL, isYtActive);
-        editor.putBoolean(ytKey, isYtActive);
-        channels.add(youtubeChannel);
-
         String tmbKey = mainActivity.getString(R.string.channel_setting_tmb);
         boolean isTmbActive = sharedPreferences.getBoolean(tmbKey, !isChannelExcludedByDefault(tmbKey, mainActivity));
         Channel tumblChannel = createNewChannel(tmbKey, SOCIAL, TUM, TUMBLR_HOME_URL, isTmbActive);
@@ -170,6 +171,12 @@ public class Loginner implements Starter {
         editor.putBoolean(wsapKey, isWsapActive);
         channels.add(wsapChannel);
 
+        String wechatKey = mainActivity.getString(R.string.channel_setting_wechat);
+        boolean isWechatActive = sharedPreferences.getBoolean(wechatKey, !isChannelExcludedByDefault(wechatKey, mainActivity));
+        Channel wechatChannel = createNewChannel(wechatKey, CHAT, WECHAT, WECHAT_HOME_URL, isTlActive);
+        editor.putBoolean(wechatKey, isWechatActive);
+        channels.add(wechatChannel);
+
         String skpKey = mainActivity.getString(R.string.channel_setting_skp);
         boolean isSkpActive = sharedPreferences.getBoolean(skpKey, !isChannelExcludedByDefault(skpKey, mainActivity));
         Channel skypeChannel = createNewChannel(skpKey, CHAT, SK, SKYPE_HOME_URL, isSkpActive);
@@ -193,6 +200,28 @@ public class Loginner implements Starter {
         Channel slackChannel = createNewChannel(slKey, CHAT, SL, SLACK_HOME_URL, isSlActive);
         editor.putBoolean(slKey, isSlActive);
         channels.add(slackChannel);
+
+        editor.apply();
+        editor.commit();
+        return instance;
+    }
+
+    private Loginner initVideoGroupChannels(SharedPreferences sharedPreferences,
+                                           AppCompatActivity mainActivity) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        List<Channel> channels = ChannelManager.getInstance().getChannels();
+
+        String ytKey = mainActivity.getString(R.string.channel_setting_yt);
+        boolean isYtActive = sharedPreferences.getBoolean(ytKey, !isChannelExcludedByDefault(ytKey, mainActivity));
+        Channel youtubeChannel = createNewChannel(ytKey, VIDEO, YT, YOUTUBE_HOME_URL, isYtActive);
+        editor.putBoolean(ytKey, isYtActive);
+        channels.add(youtubeChannel);
+
+        String twitchKey = mainActivity.getString(R.string.channel_setting_twitch);
+        boolean isTwitchActive = sharedPreferences.getBoolean(twitchKey, !isChannelExcludedByDefault(twitchKey, mainActivity));
+        Channel twitchChannel = createNewChannel(twitchKey, VIDEO, TWITCH, TWITCH_HOME_URL, isTwitchActive);
+        editor.putBoolean(twitchKey, isTwitchActive);
+        channels.add(twitchChannel);
 
         editor.apply();
         editor.commit();

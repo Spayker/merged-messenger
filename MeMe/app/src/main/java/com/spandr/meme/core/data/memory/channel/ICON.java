@@ -14,6 +14,8 @@ public enum ICON {
     PN(R.mipmap.pinterest),
     SK(R.mipmap.skype),
     WSAP(R.mipmap.whatsapp),
+    WECHAT(R.mipmap.wechat),
+    TWITCH(R.mipmap.twitch),
     ICQ(R.mipmap.icq),
     DC(R.mipmap.discord),
     SL(R.mipmap.slack),

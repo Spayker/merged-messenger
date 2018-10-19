@@ -14,12 +14,14 @@ public interface ActivityConstants {
     String INSTAGRAM_HOME_URL = "https://www.instagram.com/";
     String TELEGRAM_HOME_URL = "https://web.telegram.org";
     String WSAP_HOME_URL = "https://web.whatsapp.com";
+    String WECHAT_HOME_URL = "https://web.wechat.com";
     String ODNOKLASNIKI_HOME_URL = "https://ok.ru/";
     String TUMBLR_HOME_URL = "https://www.tumblr.com/login";
     String PINTEREST_HOME_URL = "https://www.pinterest.com/";
     String SLACK_HOME_URL = "https://m.slack.com/";
     String DISCORD_HOME_URL = "https://discordapp.com/login";
     String YOUTUBE_HOME_URL = "https://m.youtube.com";
+    String TWITCH_HOME_URL = "https://www.twitch.tv/";
     String LINKEDIN_HOME_URL = "https://www.linkedin.com";
     String TWITTER_HOME_URL = "https://twitter.com/";
     String ICQ_HOME_URL = "https://web.icq.com";

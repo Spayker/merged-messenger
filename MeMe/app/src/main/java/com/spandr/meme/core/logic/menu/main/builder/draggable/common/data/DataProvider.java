@@ -21,6 +21,7 @@ import java.util.List;
 import static com.spandr.meme.core.data.memory.channel.TYPE.CHAT;
 import static com.spandr.meme.core.data.memory.channel.TYPE.EMAIL;
 import static com.spandr.meme.core.data.memory.channel.TYPE.SOCIAL;
+import static com.spandr.meme.core.data.memory.channel.TYPE.VIDEO;
 import static com.spandr.meme.core.logic.LogicContants.CHANNEL_SPLITTER;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.PREF_NAME;
@@ -38,6 +39,7 @@ public class DataProvider extends AbstractDataProvider {
     public DataProvider(AppCompatActivity mainActivity) {
         List<Channel> channels = ChannelManager.getActiveChannels(SOCIAL);
         channels.addAll(ChannelManager.getActiveChannels(CHAT));
+        channels.addAll(ChannelManager.getActiveChannels(VIDEO));
         channels.addAll(ChannelManager.getActiveChannels(EMAIL));
         mData = new LinkedList<>();
 

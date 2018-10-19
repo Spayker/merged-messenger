@@ -69,17 +69,9 @@
             <string name="main_menu_social_net_group">Social Networks</string>
             <string name="main_menu_chat_group">Chats</string>
             <string name="main_menu_mail_group">Email Services</string>
-            <string name="main_social_group_container">main_social_group_container</string>
-            <string name="main_chat_group_container">main_chat_group_container</string>
-            <string name="main_email_group_container">main_email_group_container</string>
-            <string name="main_social_category_textView">main_social_category_textView</string>
-            <string name="main_chat_category_textView">main_chat_category_textView</string>
-            <string name="main_email_category_textView">main_email_category_textView</string>
-            <string name="main_social_category_vertical_layout">main_social_category_vertical_layout</string>
-            <string name="main_chat_category_vertical_layout">main_chat_category_vertical_layout</string>
-            <string name="main_email_category_vertical_layout">main_email_category_vertical_layout</string>
-            <string name="main_west_ordered_channel_set">Facebook|Telegram|Gmail|Twitter|Instagram|Youtube|Pinterest|Tumblr|Slack|Discord|WhatsApp|Skype|LinkedIn|ICQ</string>
-            <string name="main_east_ordered_channel_set">VKontakte|Facebook|Telegram|Gmail|Twitter|Instagram|Youtube|Tumblr|OK.RU|Discord|ICQ|Mail.ru|Skype|WhatsApp</string>
+            <string name="main_menu_video_group">Video</string>
+            <string name="main_west_ordered_channel_set">Facebook|WhatsApp|WeChat|Telegram|VKontakte|Tumblr|Discord|Skype|Pinterest|LinkedIn|Slack|Gmail|Mail.ru|Twitter|Youtube|Twitch|Instagram|ICQ</string>
+            <string name="main_east_ordered_channel_set">VKontakte|Facebook|WhatsApp|WeChat|Telegram|OK.RU|Tumblr|Discord|Skype|Pinterest|Gmail|Mail.ru|Twitter|Youtube|Twitch|Instagram|ICQ</string>
 
         <!--Menu of WebView Screen-->
             <string name="webview_loading_video">Loading…</string>
@@ -123,11 +115,13 @@
             <string name="channel_setting_fb">Facebook</string>
             <string name="channel_setting_tl">Telegram</string>
             <string name="channel_setting_wsap">WhatsApp</string>
+            <string name="channel_setting_wechat">WeChat</string>
             <string name="channel_setting_skp">Skype</string>
             <string name="channel_setting_ok">OK.RU</string>
             <string name="channel_setting_tmb">Tumblr</string>
             <string name="channel_setting_dc">Discord</string>
             <string name="channel_setting_yt">Youtube</string>
+            <string name="channel_setting_twitch">Twitch</string>
             <string name="channel_setting_ln">LinkedIn</string>
             <string name="channel_setting_tw">Twitter</string>
             <string name="channel_setting_pn">Pinterest</string>
@@ -148,11 +142,13 @@
             <string name="channel_setting_key_discord_switcher">key_discord_switcher</string>
             <string name="channel_setting_key_skype_switcher">key_skype_switcher</string>
             <string name="channel_setting_key_wsap_switcher">key_wsap_switcher</string>
+            <string name="channel_setting_key_wechat_switcher">key_wechat_switcher</string>
             <string name="channel_setting_key_icq_switcher">key_icq_switcher</string>
             <string name="channel_setting_key_slack_switcher">key_slack_switcher</string>
             <string name="channel_setting_key_gmail_switcher">key_gmail_switcher</string>
             <string name="channel_setting_key_mailru_switcher">key_mailru_switcher</string>
             <string name="channel_setting_key_youtube_switcher">key_youtube_switcher</string>
+            <string name="channel_setting_key_twitch_switcher">key_twitch_switcher</string>
             <string name="channel_settings_log_channel_is_null">channel is null</string>
 
         <!--Menu of Password change Screen-->
@@ -209,6 +205,13 @@
             <item>Telegram</item>
         </string-array>
 
+        <!--West Video Group To Be Excluded By Default-->
+        <string-array name="default_excluded_west_video_group">
+        </string-array>
+        <!--East Video Group To Be Excluded By Default-->
+        <string-array name="default_excluded_east_video_group">
+        </string-array>
+
         <!--West Email Group To Be Excluded By Default-->
         <string-array name="default_excluded_west_email_group">
             <item>Mail.ru</item>
@@ -216,6 +219,7 @@
         <!--East Email Group To Be Excluded By Default-->
         <string-array name="default_excluded_east_email_group">
         </string-array>
+
 
     <string-array name="west_country_codes" formatted="false" translatable="false">
         <item>AF</item>

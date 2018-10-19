@@ -26,7 +26,6 @@ public class EmailAuthorizer extends Authorizer {
         this.userName = name;
         this.emailAddress = email;
         this.password = password;
-        userName = name;
 
         // auth init
         mAuth = FirebaseAuth.getInstance();

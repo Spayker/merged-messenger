@@ -41,12 +41,6 @@
             android:icon="@mipmap/ok"/>
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/channel_setting_key_youtube_switcher"
-            android:summary="@string/channel_setting_switcher_on"
-            android:title="@string/channel_setting_yt"
-            android:icon="@mipmap/youtube"/>
-        <SwitchPreference
-            android:defaultValue="true"
             android:icon="@mipmap/tumblr"
             android:key="@string/channel_setting_key_tumblr_switcher"
             android:summary="@string/channel_setting_switcher_on"
@@ -60,6 +54,20 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/main_menu_chat_group">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/channel_setting_key_wsap_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_wsap"
+            android:icon="@mipmap/whatsapp"/>
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/channel_setting_key_wechat_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_wechat"
+            android:icon="@mipmap/wechat"/>
 
         <SwitchPreference
             android:defaultValue="true"
@@ -93,6 +101,21 @@
             android:title="@string/channel_setting_slack"
             android:icon="@mipmap/slack"/>
 
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/main_menu_video_group">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/channel_setting_key_youtube_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_yt"
+            android:icon="@mipmap/youtube"/>
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/channel_setting_key_twitch_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_twitch"
+            android:icon="@mipmap/twitch"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/main_menu_mail_group">

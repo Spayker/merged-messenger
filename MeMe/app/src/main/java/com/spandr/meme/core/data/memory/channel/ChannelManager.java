@@ -50,6 +50,9 @@ public class ChannelManager {
 
             westExcludedChannels.addAll(new LinkedList<>(Arrays.asList(mainActivity.getResources().getStringArray(R.array.default_excluded_west_email_group))));
             eastExcludedChannels.addAll(new LinkedList<>(Arrays.asList(mainActivity.getResources().getStringArray(R.array.default_excluded_east_email_group))));
+
+            westExcludedChannels.addAll(new LinkedList<>(Arrays.asList(mainActivity.getResources().getStringArray(R.array.default_excluded_west_video_group))));
+            eastExcludedChannels.addAll(new LinkedList<>(Arrays.asList(mainActivity.getResources().getStringArray(R.array.default_excluded_east_video_group))));
         }
         return channelManager;
     }

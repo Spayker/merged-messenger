@@ -26,12 +26,15 @@ import static com.spandr.meme.core.data.memory.channel.ICON.SL;
 import static com.spandr.meme.core.data.memory.channel.ICON.TL;
 import static com.spandr.meme.core.data.memory.channel.ICON.TUM;
 import static com.spandr.meme.core.data.memory.channel.ICON.TW;
+import static com.spandr.meme.core.data.memory.channel.ICON.TWITCH;
 import static com.spandr.meme.core.data.memory.channel.ICON.VK;
+import static com.spandr.meme.core.data.memory.channel.ICON.WECHAT;
 import static com.spandr.meme.core.data.memory.channel.ICON.WSAP;
 import static com.spandr.meme.core.data.memory.channel.ICON.YT;
 import static com.spandr.meme.core.data.memory.channel.TYPE.CHAT;
 import static com.spandr.meme.core.data.memory.channel.TYPE.EMAIL;
 import static com.spandr.meme.core.data.memory.channel.TYPE.SOCIAL;
+import static com.spandr.meme.core.data.memory.channel.TYPE.VIDEO;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.DISCORD_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.FB_HOME_URL;
@@ -46,8 +49,10 @@ import static com.spandr.meme.core.ui.activity.ActivityConstants.SKYPE_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.SLACK_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.TELEGRAM_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.TUMBLR_HOME_URL;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.TWITCH_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.TWITTER_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.VK_HOME_URL;
+import static com.spandr.meme.core.ui.activity.ActivityConstants.WECHAT_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.WSAP_HOME_URL;
 import static com.spandr.meme.core.ui.activity.ActivityConstants.YOUTUBE_HOME_URL;
 
@@ -77,10 +82,12 @@ public class Setupper implements Starter {
         if (Arrays.asList(eastCountryCodes).contains(deviceCountryCode)) {
             initSocialGroupChannels(sharedPreferences, mainActivity).
                     initChatGroupChannels(sharedPreferences, mainActivity).
+                    initVideoGroupChannels(sharedPreferences, mainActivity).
                     initEmailGroupChannels(sharedPreferences, mainActivity);
         } else {
             initSocialGroupChannels(sharedPreferences, mainActivity).
                     initChatGroupChannels(sharedPreferences, mainActivity).
+                    initVideoGroupChannels(sharedPreferences, mainActivity).
                     initEmailGroupChannels(sharedPreferences, mainActivity);
         }
         setupChannelOrder(sharedPreferences);
@@ -136,12 +143,6 @@ public class Setupper implements Starter {
         channels.add(okChannel);
         editor.putBoolean(okKey, okChannel.getActive());
 
-        String ytKey = mainActivity.getString(R.string.channel_setting_yt);
-        Channel youtubeChannel = createNewChannel(ytKey, SOCIAL, YT, YOUTUBE_HOME_URL,
-                !isChannelExcludedByDefault(ytKey, mainActivity));
-        channels.add(youtubeChannel);
-        editor.putBoolean(ytKey, youtubeChannel.getActive());
-
         String tmbKey = mainActivity.getString(R.string.channel_setting_tmb);
         Channel tumblChannel = createNewChannel(tmbKey, SOCIAL, TUM, TUMBLR_HOME_URL,
                 !isChannelExcludedByDefault(tmbKey, mainActivity));
@@ -181,6 +182,12 @@ public class Setupper implements Starter {
         channels.add(wsapChannel);
         editor.putBoolean(wsapKey, wsapChannel.getActive());
 
+        String wechatKey = mainActivity.getString(R.string.channel_setting_wechat);
+        Channel wechatChannel = createNewChannel(wechatKey, CHAT, WECHAT, WECHAT_HOME_URL,
+                !isChannelExcludedByDefault(wechatKey, mainActivity));
+        channels.add(wechatChannel);
+        editor.putBoolean(wechatKey, wechatChannel.getActive());
+
         String skpKey = mainActivity.getString(R.string.channel_setting_skp);
         Channel skypeChannel = createNewChannel(skpKey, CHAT, SK, SKYPE_HOME_URL,
                 !isChannelExcludedByDefault(skpKey, mainActivity));
@@ -204,6 +211,28 @@ public class Setupper implements Starter {
                 !isChannelExcludedByDefault(slKey, mainActivity));
         channels.add(slackChannel);
         editor.putBoolean(slKey, slackChannel.getActive());
+
+        editor.apply();
+        editor.commit();
+        return instance;
+    }
+
+    private Setupper initVideoGroupChannels(SharedPreferences sharedPreferences,
+                                           AppCompatActivity mainActivity) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        List<Channel> channels = ChannelManager.getInstance().getChannels();
+
+        String ytKey = mainActivity.getString(R.string.channel_setting_yt);
+        Channel youtubeChannel = createNewChannel(ytKey, VIDEO, YT, YOUTUBE_HOME_URL,
+                !isChannelExcludedByDefault(ytKey, mainActivity));
+        channels.add(youtubeChannel);
+        editor.putBoolean(ytKey, youtubeChannel.getActive());
+
+        String twitchKey = mainActivity.getString(R.string.channel_setting_twitch);
+        Channel twitchChannel = createNewChannel(twitchKey, VIDEO, TWITCH, TWITCH_HOME_URL,
+                !isChannelExcludedByDefault(twitchKey, mainActivity));
+        channels.add(twitchChannel);
+        editor.putBoolean(twitchKey, twitchChannel.getActive());
 
         editor.apply();
         editor.commit();
