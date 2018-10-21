@@ -15,6 +15,7 @@ import static com.spandr.meme.core.data.memory.channel.ChannelManager.createNewC
 import static com.spandr.meme.core.data.memory.channel.ChannelManager.isChannelExcludedByDefault;
 import static com.spandr.meme.core.data.memory.channel.ICON.DC;
 import static com.spandr.meme.core.data.memory.channel.ICON.FB;
+import static com.spandr.meme.core.data.memory.channel.ICON.GADU;
 import static com.spandr.meme.core.data.memory.channel.ICON.GM;
 import static com.spandr.meme.core.data.memory.channel.ICON.ICQ;
 import static com.spandr.meme.core.data.memory.channel.ICON.IN;
@@ -29,32 +30,29 @@ import static com.spandr.meme.core.data.memory.channel.ICON.TUM;
 import static com.spandr.meme.core.data.memory.channel.ICON.TW;
 import static com.spandr.meme.core.data.memory.channel.ICON.TWITCH;
 import static com.spandr.meme.core.data.memory.channel.ICON.VK;
-import static com.spandr.meme.core.data.memory.channel.ICON.WECHAT;
-import static com.spandr.meme.core.data.memory.channel.ICON.WSAP;
 import static com.spandr.meme.core.data.memory.channel.ICON.YT;
 import static com.spandr.meme.core.data.memory.channel.TYPE.CHAT;
 import static com.spandr.meme.core.data.memory.channel.TYPE.EMAIL;
 import static com.spandr.meme.core.data.memory.channel.TYPE.SOCIAL;
 import static com.spandr.meme.core.data.memory.channel.TYPE.VIDEO;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.DISCORD_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.FB_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.GMAIL_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.ICQ_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.INSTAGRAM_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.LINKEDIN_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.MAIL_RU_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.ODNOKLASNIKI_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.PINTEREST_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.SKYPE_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.SLACK_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.TELEGRAM_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.TUMBLR_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.TWITCH_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.TWITTER_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.VK_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.WECHAT_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.WSAP_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.YOUTUBE_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.DISCORD_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.FB_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.GADU_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.GMAIL_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.ICQ_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.INSTAGRAM_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.LINKEDIN_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.MAIL_RU_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.ODNOKLASNIKI_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.PINTEREST_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.SKYPE_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.SLACK_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.TUMBLR_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.TWITCH_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.TWITTER_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.VK_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.YOUTUBE_HOME_URL;
 
 public class Loginner implements Starter {
 
@@ -165,18 +163,6 @@ public class Loginner implements Starter {
         editor.putBoolean(tlKey, isTlActive);
         channels.add(telegramChannel);
 
-        String wsapKey = mainActivity.getString(R.string.channel_setting_wsap);
-        boolean isWsapActive = sharedPreferences.getBoolean(wsapKey, !isChannelExcludedByDefault(wsapKey, mainActivity));
-        Channel wsapChannel = createNewChannel(wsapKey, CHAT, WSAP, WSAP_HOME_URL, isTlActive);
-        editor.putBoolean(wsapKey, isWsapActive);
-        channels.add(wsapChannel);
-
-        String wechatKey = mainActivity.getString(R.string.channel_setting_wechat);
-        boolean isWechatActive = sharedPreferences.getBoolean(wechatKey, !isChannelExcludedByDefault(wechatKey, mainActivity));
-        Channel wechatChannel = createNewChannel(wechatKey, CHAT, WECHAT, WECHAT_HOME_URL, isTlActive);
-        editor.putBoolean(wechatKey, isWechatActive);
-        channels.add(wechatChannel);
-
         String skpKey = mainActivity.getString(R.string.channel_setting_skp);
         boolean isSkpActive = sharedPreferences.getBoolean(skpKey, !isChannelExcludedByDefault(skpKey, mainActivity));
         Channel skypeChannel = createNewChannel(skpKey, CHAT, SK, SKYPE_HOME_URL, isSkpActive);
@@ -188,6 +174,12 @@ public class Loginner implements Starter {
         Channel icqChannel = createNewChannel(icqKey, CHAT, ICQ, ICQ_HOME_URL, isIcqActive);
         editor.putBoolean(icqKey, isIcqActive);
         channels.add(icqChannel);
+
+        String gaduKey = mainActivity.getString(R.string.channel_setting_gadu);
+        boolean isGaduActive = sharedPreferences.getBoolean(gaduKey, !isChannelExcludedByDefault(gaduKey, mainActivity));
+        Channel gaduChannel = createNewChannel(gaduKey, CHAT, GADU, GADU_HOME_URL, isGaduActive);
+        editor.putBoolean(gaduKey, isGaduActive);
+        channels.add(gaduChannel);
 
         String dcKey = mainActivity.getString(R.string.channel_setting_dc);
         boolean isDcActive = sharedPreferences.getBoolean(dcKey, !isChannelExcludedByDefault(dcKey, mainActivity));

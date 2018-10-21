@@ -57,20 +57,6 @@
 
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/channel_setting_key_wsap_switcher"
-            android:summary="@string/channel_setting_switcher_on"
-            android:title="@string/channel_setting_wsap"
-            android:icon="@mipmap/whatsapp"/>
-
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="@string/channel_setting_key_wechat_switcher"
-            android:summary="@string/channel_setting_switcher_on"
-            android:title="@string/channel_setting_wechat"
-            android:icon="@mipmap/wechat"/>
-
-        <SwitchPreference
-            android:defaultValue="true"
             android:key="@string/channel_setting_key_skype_switcher"
             android:summary="@string/channel_setting_switcher_on"
             android:title="@string/channel_setting_skp"
@@ -93,6 +79,13 @@
             android:summary="@string/channel_setting_switcher_on"
             android:title="@string/channel_setting_icq"
             android:icon="@mipmap/icq"/>
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/channel_setting_key_gadu_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_gadu"
+            android:icon="@mipmap/gadu"/>
 
         <SwitchPreference
             android:defaultValue="true"

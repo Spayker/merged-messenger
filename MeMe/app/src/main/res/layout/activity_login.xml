@@ -12,15 +12,6 @@
     android:background="@null"
     tools:context=".core.ui.activity.main.LoginActivity">
 
-    <!-- Login progress -->
-    <ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone"/>
-
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
@@ -116,6 +107,17 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.1" />
             </LinearLayout>
+
+            <!-- Login progress -->
+            <ProgressBar
+                android:id="@+id/login_progressBar_cyclic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:indeterminateDrawable="@drawable/progress"
+                android:minHeight="100sp"
+                android:minWidth="100sp"
+                android:visibility="invisible" />
 
         </LinearLayout>
     </ScrollView>

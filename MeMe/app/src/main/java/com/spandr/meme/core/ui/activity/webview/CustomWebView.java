@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
-import com.spandr.meme.core.logic.menu.webview.CustomChromeWebClient;
+import com.spandr.meme.core.ui.activity.webview.logic.CustomChromeWebClient;
 
 import java.util.Map;
 

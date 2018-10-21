@@ -12,15 +12,6 @@
     tools:context=".core.ui.activity.main.RegisterActivity"
     android:focusableInTouchMode="true">
 
-    <!-- Login progress -->
-    <ProgressBar
-        android:id="@+id/register_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
-
     <ScrollView
         android:id="@+id/register_form"
         android:layout_width="match_parent"
@@ -121,6 +112,16 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:textStyle="bold" />
 
+            <!-- Register progress -->
+            <ProgressBar
+                android:id="@+id/register_progressBar_cyclic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:indeterminateDrawable="@drawable/progress"
+                android:minHeight="100sp"
+                android:minWidth="100sp"
+                android:visibility="invisible" />
 
         </LinearLayout>
     </ScrollView>

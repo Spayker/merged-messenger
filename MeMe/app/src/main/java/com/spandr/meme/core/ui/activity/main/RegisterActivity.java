@@ -1,6 +1,7 @@
 package com.spandr.meme.core.ui.activity.main;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.VisibleForTesting;
@@ -9,10 +10,12 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.spandr.meme.R;
 import com.spandr.meme.core.logic.authorization.EmailAuthorizer;
@@ -35,13 +38,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText mPasswordView;
     private EditText mPasswordConfirmView;
     private Button mRegister;
+    private ProgressBar progressBar;
 
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = RegisterActivity.class.getSimpleName();
-
-    @VisibleForTesting
-    private ProgressDialog mProgressDialog;
-
 
     /**
      * Perform initialization of all fragments of current activity.
@@ -77,6 +77,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     }
                 }
         );
+
+        progressBar = findViewById(R.id.register_progressBar_cyclic);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -132,6 +135,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.email_sign_up_button) {
+            InputMethodManager inputMethodManager =
+                    (InputMethodManager) getSystemService(
+                            Activity.INPUT_METHOD_SERVICE);
+            if (inputMethodManager != null) {
+                inputMethodManager.hideSoftInputFromWindow(
+                        getCurrentFocus().getWindowToken(), 0);
+            }
             try {
                 String email = mEmailView.getText().toString();
                 String password = mPasswordView.getText().toString();
@@ -149,21 +159,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      * Shows progress dialog while backend action is in progress.
      **/
     public void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(getString(R.string.register_checking));
-            mProgressDialog.setIndeterminate(true);
-        }
-        mProgressDialog.show();
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     /**
      * Hides progress dialog from screen.
      **/
     public void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     /**

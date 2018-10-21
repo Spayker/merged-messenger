@@ -59,14 +59,12 @@ public class EmailAuthorizer extends Authorizer {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, currentActivity.getString(R.string.login_log_sign_in_with_email_success));
-                        ((LoginActivity)currentActivity).updateUI();
                         finishSingInActivity();
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, currentActivity.getString(R.string.login_log_sign_in_with_email_failure), task.getException());
                         Toast.makeText(currentActivity, currentActivity.getString(R.string.login_error_auth_failed),
                                 Toast.LENGTH_SHORT).show();
-                        ((LoginActivity)currentActivity).updateUI();
                     }
                     ((LoginActivity)currentActivity).hideProgressDialog();
                 });

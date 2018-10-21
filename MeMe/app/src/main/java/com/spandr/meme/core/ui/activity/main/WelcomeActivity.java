@@ -47,8 +47,6 @@ public class WelcomeActivity extends AppCompatActivity {
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = WelcomeActivity.class.getSimpleName();
 
-    private ProgressBar progressBar;
-
     private static Boolean isLocaleSet;
 
     /**
@@ -65,7 +63,7 @@ public class WelcomeActivity extends AppCompatActivity {
         Fabric.with(this, new Crashlytics());
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 
-        progressBar = findViewById(R.id.progressBar_cyclic);
+        ProgressBar progressBar = findViewById(R.id.welcome_progressBar_cyclic);
         progressBar.setVisibility(View.INVISIBLE);
         LinearLayout buttonLayer = findViewById(R.id.fullscreen_content_controls);
         buttonLayer.setVisibility(View.INVISIBLE);

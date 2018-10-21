@@ -1,4 +1,4 @@
-package com.spandr.meme.core.logic.menu.webview;
+package com.spandr.meme.core.ui.activity.webview.logic;
 
 import android.media.MediaPlayer;
 import android.view.SurfaceView;

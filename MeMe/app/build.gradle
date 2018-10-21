@@ -16,8 +16,8 @@ android {
         applicationId 'com.spandr.meme'
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 7
-        versionName "1.0.4"
+        versionCode 8
+        versionName "1.0.5.810222018"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -97,8 +97,15 @@ dependencies {
         transitive=true
     }
 
-    // jsoup
-    implementation 'org.jsoup:jsoup:1.11.3'
+    // qrdecoder
+    implementation 'com.google.zxing:core:3.3.0'
+
+    // rest lib
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+
+    // JSON Parsing
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
 
     implementation 'org.jetbrains:annotations:15.0'
 }

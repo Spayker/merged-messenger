@@ -1,6 +1,6 @@
 package com.spandr.meme.core.ui.activity.main;
 
-import android.app.ProgressDialog;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,23 +8,23 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.spandr.meme.R;
-import com.spandr.meme.core.data.database.FireBaseDBInitializer;
 import com.spandr.meme.core.logic.authorization.EmailAuthorizer;
 
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_AUTO_LOGIN;
@@ -51,6 +51,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private CheckBox mAutoLoginView;
     private TextView mForgotPasswordView;
     private TextView mForgotPasswordTimerView;
+    private ProgressBar progressBar;
 
     final int FORGOT_PASSWORD_COOLDOWN_MS = 5000;
     final int FORGOT_PASSWORD_COOLDOWN_INTERVAL = 10;
@@ -60,9 +61,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static long secondsLeft;
 
     private SharedPreferences sharedPreferences;
-
-    @VisibleForTesting
-    private ProgressDialog mProgressDialog;
 
     /**
      * Perform initialization of all fragments of current activity.
@@ -76,6 +74,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         setTitle(R.string.login_title_activity);
         sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+
+        progressBar = findViewById(R.id.login_progressBar_cyclic);
+        progressBar.setVisibility(View.INVISIBLE);
 
         // Views
         mEmailView = findViewById(R.id.login_form_email);
@@ -128,15 +129,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onStart() {
         super.onStart();
-        updateUI();
-    }
-
-    /**
-     * Updates ui according to authorization result.
-     **/
-    public void updateUI() {
-        hideProgressDialog();
-        managePrefs();
     }
 
     /**
@@ -149,6 +141,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.email_sign_in_button) {
+            InputMethodManager inputMethodManager =
+                    (InputMethodManager) getSystemService(
+                            Activity.INPUT_METHOD_SERVICE);
+            if (inputMethodManager != null) {
+                inputMethodManager.hideSoftInputFromWindow(
+                        getCurrentFocus().getWindowToken(), 0);
+            }
             signIn(mEmailView.getText().toString(), mPasswordView.getText().toString());
         }
     }
@@ -170,22 +169,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * Shows progress dialog while backend action is in progress.
      **/
     public void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(getString(R.string.login_checking));
-            mProgressDialog.setIndeterminate(true);
-        }
-
-        mProgressDialog.show();
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     /**
      * Hides progress dialog from screen.
      **/
     public void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     /**

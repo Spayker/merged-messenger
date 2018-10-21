@@ -21,12 +21,12 @@
             app:srcCompat="@mipmap/welcome_logo" />
 
         <ProgressBar
-            android:id="@+id/progressBar_cyclic"
+            android:id="@+id/welcome_progressBar_cyclic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="100sp"
             android:minWidth="100sp"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:indeterminateDrawable="@drawable/progress"/>
 
         <LinearLayout
@@ -35,9 +35,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="15dp"
             android:layout_weight="0.1"
             android:orientation="vertical"
-            android:visibility="invisible"
+            android:visibility="visible"
             tools:ignore="UselessParent">
 
             <Button
@@ -45,6 +46,8 @@
                 style="@style/Base.TextAppearance.AppCompat.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="0.1"
                 android:onClick="singInActivity"
                 android:text="@string/sing_in_button" />
 
@@ -53,6 +56,8 @@
                 style="@style/Base.TextAppearance.AppCompat.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.1"
                 android:onClick="singUpActivity"
                 android:text="@string/sing_up_button" />
 

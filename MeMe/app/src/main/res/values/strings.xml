@@ -69,9 +69,9 @@
             <string name="main_menu_social_net_group">Social Networks</string>
             <string name="main_menu_chat_group">Chats</string>
             <string name="main_menu_mail_group">Email Services</string>
-            <string name="main_menu_video_group">Video</string>
-            <string name="main_west_ordered_channel_set">Facebook|WhatsApp|WeChat|Telegram|VKontakte|Tumblr|Discord|Skype|Pinterest|LinkedIn|Slack|Gmail|Mail.ru|Twitter|Youtube|Twitch|Instagram|ICQ</string>
-            <string name="main_east_ordered_channel_set">VKontakte|Facebook|WhatsApp|WeChat|Telegram|OK.RU|Tumblr|Discord|Skype|Pinterest|Gmail|Mail.ru|Twitter|Youtube|Twitch|Instagram|ICQ</string>
+            <string name="main_menu_video_group">Video Services</string>
+            <string name="main_west_ordered_channel_set">Facebook|Telegram|VKontakte|Tumblr|Discord|Skype|Pinterest|LinkedIn|Slack|Gmail|Mail.ru|Twitter|Youtube|Twitch|Instagram|ICQ</string>
+            <string name="main_east_ordered_channel_set">VKontakte|Facebook|Telegram|OK.RU|Tumblr|Discord|Skype|Pinterest|Gmail|Mail.ru|Twitter|Youtube|Twitch|Instagram|ICQ</string>
 
         <!--Menu of WebView Screen-->
             <string name="webview_loading_video">Loading…</string>
@@ -114,8 +114,6 @@
             <string name="channel_setting_vk">VKontakte</string>
             <string name="channel_setting_fb">Facebook</string>
             <string name="channel_setting_tl">Telegram</string>
-            <string name="channel_setting_wsap">WhatsApp</string>
-            <string name="channel_setting_wechat">WeChat</string>
             <string name="channel_setting_skp">Skype</string>
             <string name="channel_setting_ok">OK.RU</string>
             <string name="channel_setting_tmb">Tumblr</string>
@@ -126,6 +124,7 @@
             <string name="channel_setting_tw">Twitter</string>
             <string name="channel_setting_pn">Pinterest</string>
             <string name="channel_setting_icq">ICQ</string>
+            <string name="channel_setting_gadu">GG</string>
             <string name="channel_setting_slack">Slack</string>
             <string name="channel_setting_inst">Instagram</string>
             <string name="channel_setting_gmail">Gmail</string>
@@ -142,8 +141,8 @@
             <string name="channel_setting_key_discord_switcher">key_discord_switcher</string>
             <string name="channel_setting_key_skype_switcher">key_skype_switcher</string>
             <string name="channel_setting_key_wsap_switcher">key_wsap_switcher</string>
-            <string name="channel_setting_key_wechat_switcher">key_wechat_switcher</string>
             <string name="channel_setting_key_icq_switcher">key_icq_switcher</string>
+            <string name="channel_setting_key_gadu_switcher">key_gadu_switcher</string>
             <string name="channel_setting_key_slack_switcher">key_slack_switcher</string>
             <string name="channel_setting_key_gmail_switcher">key_gmail_switcher</string>
             <string name="channel_setting_key_mailru_switcher">key_mailru_switcher</string>
@@ -199,10 +198,12 @@
 
         <!--West Chat Group To Be Excluded By Default-->
         <string-array name="default_excluded_west_chat_group">
+            <item>GG</item>
         </string-array>
         <!--East Chat Group To Be Excluded By Default-->
         <string-array name="default_excluded_east_chat_group">
             <item>Telegram</item>
+            <item>GG</item>
         </string-array>
 
         <!--West Video Group To Be Excluded By Default-->

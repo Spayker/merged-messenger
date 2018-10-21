@@ -27,24 +27,24 @@ import android.widget.RelativeLayout;
 import com.spandr.meme.R;
 import com.spandr.meme.core.data.memory.channel.Channel;
 import com.spandr.meme.core.data.memory.channel.ChannelManager;
-import com.spandr.meme.core.logic.menu.webview.CustomChromeWebClient;
+import com.spandr.meme.core.ui.activity.webview.logic.CustomChromeWebClient;
 
 import java.util.Calendar;
 
 import im.delight.android.webview.AdvancedWebView;
 
 import static com.spandr.meme.core.logic.starter.SettingsConstants.PREF_NAME;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.CHANNEL_NAME;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.ICQ_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.KEY_LEFT_MARGIN;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.KEY_TOP_MARGIN;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.MEME_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.SKYPE_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.TELEGRAM_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.USER_AGENT_STRING;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.VK_HOME_URL;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS;
-import static com.spandr.meme.core.ui.activity.ActivityConstants.WSAP_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.CHANNEL_NAME;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.ICQ_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.KEY_LEFT_MARGIN;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.KEY_TOP_MARGIN;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.MEME_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.SKYPE_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL_2;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.USER_AGENT_STRING;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.VK_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS;
 
 public class WebViewActivity extends Activity implements AdvancedWebView.Listener, View.OnTouchListener {
 
@@ -64,6 +64,7 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
     private boolean shallVibroNotify;
     private long startClickTime;
 
+    @SuppressLint("AddJavascriptInterface")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,10 +97,11 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
                 case VK_HOME_URL:
                 case TELEGRAM_HOME_URL:
                 case ICQ_HOME_URL:
-                case SKYPE_HOME_URL:
-                case WSAP_HOME_URL:
+                case SKYPE_HOME_URL:{
                     mWebView.getSettings()
                             .setUserAgentString(USER_AGENT_STRING);
+                    break;
+                }
             }
         }
     }
@@ -115,13 +117,26 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         }
     }
 
+    @SuppressLint("JavascriptInterface")
     private void initWebClients() {
         mWebView.setWebChromeClient(initWebChromeClient());
         mWebView.setWebViewClient(new InsideWebViewClient() {
+            @SuppressLint("StaticFieldLeak")
             @Override
             public void onPageFinished(WebView view, String url) {
                 swipeRefreshLayout.setRefreshing(false);
                 super.onPageFinished(view, url);
+            }
+
+            @Override
+            public void onReceivedError(WebView view, int errorCod,String description, String failingUrl) {
+                String url = view.getUrl();
+                switch (url){
+                    case TELEGRAM_HOME_URL:{
+                        mWebView.loadUrl(TELEGRAM_HOME_URL_2);
+                        mWebView.reload();
+                    }
+                }
             }
         });
     }
@@ -393,7 +408,7 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
     public void onPageStarted(String url, Bitmap favicon) { }
 
     @Override
-    public void onPageFinished(String url) { }
+    public void onPageFinished(String url) {    }
 
     @Override
     public void onPageError(int errorCode, String description, String failingUrl) { }

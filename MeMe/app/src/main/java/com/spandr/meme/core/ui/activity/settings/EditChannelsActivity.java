@@ -165,15 +165,6 @@ public class EditChannelsActivity extends AppCompatActivity {
                 return true;
             });
 
-            SwitchPreference wsapSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_skype_switcher));
-            String wsapKey = getString(R.string.channel_setting_wsap);
-            wsapSwitcher.setChecked(sharedPreferences.getBoolean(wsapKey, false));
-            bindGlobalPreferenceToBooleanValue(wsapSwitcher);
-            wsapSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
-                handleSwitcherChange(wsapSwitcher, wsapKey);
-                return true;
-            });
-
             SwitchPreference skypeSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_skype_switcher));
             String skpKey = getString(R.string.channel_setting_skp);
             skypeSwitcher.setChecked(sharedPreferences.getBoolean(skpKey, false));
@@ -189,6 +180,15 @@ public class EditChannelsActivity extends AppCompatActivity {
             bindGlobalPreferenceToBooleanValue(icqSwitcher);
             icqSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
                 handleSwitcherChange(icqSwitcher, icqKey);
+                return true;
+            });
+
+            SwitchPreference gaduSwitcher  = (SwitchPreference) findPreference(getString(R.string.channel_setting_key_gadu_switcher));
+            String gaduKey = getString(R.string.channel_setting_gadu);
+            gaduSwitcher.setChecked(sharedPreferences.getBoolean(gaduKey, false));
+            bindGlobalPreferenceToBooleanValue(gaduSwitcher);
+            gaduSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                handleSwitcherChange(gaduSwitcher, gaduKey);
                 return true;
             });
 
