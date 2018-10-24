@@ -20,8 +20,14 @@ public enum ICON {
     SL(R.mipmap.slack),
     TUM(R.mipmap.tumblr),
     YT(R.mipmap.youtube),
+    REDDIT(R.mipmap.reddit),
+    QUORA(R.mipmap.quora),
+    HABR(R.mipmap.habr),
+    SOUNDC(R.mipmap.soundc),
+    SPOTIFY(R.mipmap.spotify),
     GM(R.mipmap.gmail),
     MAIL_RU(R.mipmap.mail_ru);
+
 
     private int iconId;
 

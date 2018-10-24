@@ -227,6 +227,33 @@ public class EditChannelsActivity extends AppCompatActivity {
                 handleSwitcherChange(youtubeSwitcher, ytKey);
                 return true;
             });
+
+            SwitchPreference redditSwitcher  = (SwitchPreference)findPreference(getString(R.string.channel_setting_key_reddit_switcher));
+            String redditKey = getString(R.string.channel_setting_reddit);
+            redditSwitcher.setChecked(sharedPreferences.getBoolean(redditKey, false));
+            bindGlobalPreferenceToBooleanValue(redditSwitcher);
+            redditSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                handleSwitcherChange(redditSwitcher, redditKey);
+                return true;
+            });
+
+            SwitchPreference quoraSwitcher  = (SwitchPreference)findPreference(getString(R.string.channel_setting_key_quora_switcher));
+            String quoraKey = getString(R.string.channel_setting_quora);
+            quoraSwitcher.setChecked(sharedPreferences.getBoolean(quoraKey, false));
+            bindGlobalPreferenceToBooleanValue(quoraSwitcher);
+            quoraSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                handleSwitcherChange(quoraSwitcher, quoraKey);
+                return true;
+            });
+
+            SwitchPreference habrSwitcher  = (SwitchPreference)findPreference(getString(R.string.channel_setting_key_habr_switcher));
+            String habrKey = getString(R.string.channel_setting_habr);
+            habrSwitcher.setChecked(sharedPreferences.getBoolean(habrKey, false));
+            bindGlobalPreferenceToBooleanValue(habrSwitcher);
+            habrSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                handleSwitcherChange(habrSwitcher, habrKey);
+                return true;
+            });
         }
 
         private void handleSwitcherChange(SwitchPreference preference, String key){

@@ -35,7 +35,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="15dp"
             android:layout_weight="0.1"
             android:orientation="vertical"
             android:visibility="visible"
@@ -46,8 +45,6 @@
                 style="@style/Base.TextAppearance.AppCompat.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="0.1"
                 android:onClick="singInActivity"
                 android:text="@string/sing_in_button" />
 
@@ -56,8 +53,6 @@
                 style="@style/Base.TextAppearance.AppCompat.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_weight="0.1"
                 android:onClick="singUpActivity"
                 android:text="@string/sing_up_button" />
 

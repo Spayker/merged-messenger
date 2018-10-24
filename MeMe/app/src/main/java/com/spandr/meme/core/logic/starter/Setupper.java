@@ -16,12 +16,15 @@ import static com.spandr.meme.core.data.memory.channel.ICON.DC;
 import static com.spandr.meme.core.data.memory.channel.ICON.FB;
 import static com.spandr.meme.core.data.memory.channel.ICON.GADU;
 import static com.spandr.meme.core.data.memory.channel.ICON.GM;
+import static com.spandr.meme.core.data.memory.channel.ICON.HABR;
 import static com.spandr.meme.core.data.memory.channel.ICON.ICQ;
 import static com.spandr.meme.core.data.memory.channel.ICON.IN;
 import static com.spandr.meme.core.data.memory.channel.ICON.LN;
 import static com.spandr.meme.core.data.memory.channel.ICON.MAIL_RU;
 import static com.spandr.meme.core.data.memory.channel.ICON.OK;
 import static com.spandr.meme.core.data.memory.channel.ICON.PN;
+import static com.spandr.meme.core.data.memory.channel.ICON.QUORA;
+import static com.spandr.meme.core.data.memory.channel.ICON.REDDIT;
 import static com.spandr.meme.core.data.memory.channel.ICON.SK;
 import static com.spandr.meme.core.data.memory.channel.ICON.SL;
 import static com.spandr.meme.core.data.memory.channel.ICON.TL;
@@ -32,19 +35,23 @@ import static com.spandr.meme.core.data.memory.channel.ICON.VK;
 import static com.spandr.meme.core.data.memory.channel.ICON.YT;
 import static com.spandr.meme.core.data.memory.channel.TYPE.CHAT;
 import static com.spandr.meme.core.data.memory.channel.TYPE.EMAIL;
+import static com.spandr.meme.core.data.memory.channel.TYPE.INFO_SERVICE;
 import static com.spandr.meme.core.data.memory.channel.TYPE.SOCIAL;
-import static com.spandr.meme.core.data.memory.channel.TYPE.VIDEO;
+import static com.spandr.meme.core.data.memory.channel.TYPE.VIDEO_SERVICE;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.DISCORD_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.FB_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.GADU_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.GMAIL_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.HABR_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.ICQ_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.INSTAGRAM_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.LINKEDIN_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.MAIL_RU_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.ODNOKLASNIKI_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.PINTEREST_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.QUORA_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.REDDIT_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.SKYPE_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.SLACK_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
@@ -81,11 +88,13 @@ public class Setupper implements Starter {
             initSocialGroupChannels(sharedPreferences, mainActivity).
                     initChatGroupChannels(sharedPreferences, mainActivity).
                     initVideoGroupChannels(sharedPreferences, mainActivity).
+                    initInfoGroupChannels(sharedPreferences, mainActivity).
                     initEmailGroupChannels(sharedPreferences, mainActivity);
         } else {
             initSocialGroupChannels(sharedPreferences, mainActivity).
                     initChatGroupChannels(sharedPreferences, mainActivity).
                     initVideoGroupChannels(sharedPreferences, mainActivity).
+                    initInfoGroupChannels(sharedPreferences, mainActivity).
                     initEmailGroupChannels(sharedPreferences, mainActivity);
         }
         setupChannelOrder(sharedPreferences);
@@ -215,16 +224,44 @@ public class Setupper implements Starter {
         List<Channel> channels = ChannelManager.getInstance().getChannels();
 
         String ytKey = mainActivity.getString(R.string.channel_setting_yt);
-        Channel youtubeChannel = createNewChannel(ytKey, VIDEO, YT, YOUTUBE_HOME_URL,
+        Channel youtubeChannel = createNewChannel(ytKey, VIDEO_SERVICE, YT, YOUTUBE_HOME_URL,
                 !isChannelExcludedByDefault(ytKey, mainActivity));
         channels.add(youtubeChannel);
         editor.putBoolean(ytKey, youtubeChannel.getActive());
 
         String twitchKey = mainActivity.getString(R.string.channel_setting_twitch);
-        Channel twitchChannel = createNewChannel(twitchKey, VIDEO, TWITCH, TWITCH_HOME_URL,
+        Channel twitchChannel = createNewChannel(twitchKey, VIDEO_SERVICE, TWITCH, TWITCH_HOME_URL,
                 !isChannelExcludedByDefault(twitchKey, mainActivity));
         channels.add(twitchChannel);
         editor.putBoolean(twitchKey, twitchChannel.getActive());
+
+        editor.apply();
+        editor.commit();
+        return instance;
+    }
+
+    private Setupper initInfoGroupChannels(SharedPreferences sharedPreferences,
+                                           AppCompatActivity mainActivity) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        List<Channel> channels = ChannelManager.getInstance().getChannels();
+
+        String habrKey = mainActivity.getString(R.string.channel_setting_habr);
+        Channel habrChannel = createNewChannel(habrKey, INFO_SERVICE, HABR, HABR_HOME_URL,
+                !isChannelExcludedByDefault(habrKey, mainActivity));
+        channels.add(habrChannel);
+        editor.putBoolean(habrKey, habrChannel.getActive());
+
+        String redditKey = mainActivity.getString(R.string.channel_setting_reddit);
+        Channel redditChannel = createNewChannel(redditKey, INFO_SERVICE, REDDIT, REDDIT_HOME_URL,
+                !isChannelExcludedByDefault(redditKey, mainActivity));
+        channels.add(redditChannel);
+        editor.putBoolean(redditKey, redditChannel.getActive());
+
+        String quoraKey = mainActivity.getString(R.string.channel_setting_quora);
+        Channel quoraChannel = createNewChannel(quoraKey, INFO_SERVICE, QUORA, QUORA_HOME_URL,
+                !isChannelExcludedByDefault(quoraKey, mainActivity));
+        channels.add(quoraChannel);
+        editor.putBoolean(quoraKey, quoraChannel.getActive());
 
         editor.apply();
         editor.commit();

@@ -126,6 +126,11 @@
     <string name="channel_setting_inst">Instagram</string>
     <string name="channel_setting_gmail">Gmail</string>
     <string name="channel_setting_mailru">Mail.ru</string>
+    <string name="channel_setting_reddit">Reddit</string>
+    <string name="channel_setting_quora">Quora</string>
+    <string name="channel_setting_habr">Habr</string>
+    <string name="channel_setting_soundcloud">SoundCloud</string>
+    <string name="channel_setting_spotify">Spotify</string>
     <string name="channel_setting_key_facebook_switcher">key_facebook_switcher</string>
     <string name="channel_setting_key_linkedin_switcher">key_linkedin_switcher</string>
     <string name="channel_setting_key_vkontakte_switcher">key_vkontakte_switcher</string>
@@ -145,6 +150,11 @@
     <string name="channel_setting_key_mailru_switcher">key_mailru_switcher</string>
     <string name="channel_setting_key_youtube_switcher">key_youtube_switcher</string>
     <string name="channel_setting_key_twitch_switcher">key_twitch_switcher</string>
+    <string name="channel_setting_key_reddit_switcher">key_reddit_switcher</string>
+    <string name="channel_setting_key_quora_switcher">key_quora_switcher</string>
+    <string name="channel_setting_key_soundcloud_switcher">key_soundcloud_switcher</string>
+    <string name="channel_setting_key_spotify_switcher">key_spotify_switcher</string>
+    <string name="channel_setting_key_habr_switcher">key_habr_switcher</string>
 
     <!--Menu of Password change Screen-->
     <string name="change_password_action_change_password">Change Password</string>

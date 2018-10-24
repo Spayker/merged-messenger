@@ -111,6 +111,30 @@
             android:icon="@mipmap/twitch"/>
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/main_menu_info_group">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/channel_setting_key_reddit_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_reddit"
+            android:icon="@mipmap/reddit"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/channel_setting_key_quora_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_quora"
+            android:icon="@mipmap/quora"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/channel_setting_key_habr_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_habr"
+            android:icon="@mipmap/habr"/>
+
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/main_menu_mail_group">
 
         <SwitchPreference
