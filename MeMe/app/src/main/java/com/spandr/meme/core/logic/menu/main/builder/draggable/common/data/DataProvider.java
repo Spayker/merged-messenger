@@ -47,12 +47,11 @@ public class DataProvider extends AbstractDataProvider {
         SharedPreferences sharedPreferences = mainActivity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         String savedChannelOrder = sharedPreferences.getString(KEY_CHANNEL_ORDER, null);
 
-
-        final long id = mData.size();
         final int viewType = 0;
-
+        long id;
         if(savedChannelOrder == null || savedChannelOrder.isEmpty()){
             for (int i = 0; i < channels.size(); i++) {
+                id = mData.size();
                 Channel channel = channels.get(i);
                 String text = channel.getName();
                 String homeUrl = channel.getHomeUrl();
@@ -72,6 +71,7 @@ public class DataProvider extends AbstractDataProvider {
             for(String channelName: spitedChannels){
                 for (int i = 0; i < channels.size(); i++) {
                     if (channelName.equalsIgnoreCase(channels.get(i).getName())) {
+                        id = mData.size();
                         Channel channel = channels.get(i);
                         String text = channel.getName();
                         String homeUrl = channel.getHomeUrl();
@@ -89,8 +89,6 @@ public class DataProvider extends AbstractDataProvider {
                 }
             }
         }
-        Drawable transparentDrawable = new ColorDrawable(Color.TRANSPARENT);
-        mData.add(new ConcreteData(id, viewType, transparentDrawable, EMPTY_STRING, null));
     }
 
     @Override
