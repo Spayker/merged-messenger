@@ -27,6 +27,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.spandr.meme.R;
 import com.spandr.meme.core.logic.authorization.EmailAuthorizer;
 
+import java.util.Objects;
+import java.util.Optional;
+
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_AUTO_LOGIN;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_OLD_CHANGE_PASS;
 import static com.spandr.meme.core.logic.starter.SettingsConstants.KEY_PASS;
@@ -112,7 +115,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // init count timer of forgot password
         initForgotPasswordCountTimer();
-        if(secondsLeft > 0){
+        if (secondsLeft > 0) {
             mForgotPasswordView.setEnabled(false);
             mForgotPasswordView.setTextColor(Color.GRAY);
             countDownTimer.start();
@@ -146,7 +149,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Activity.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {
                 inputMethodManager.hideSoftInputFromWindow(
-                        getCurrentFocus().getWindowToken(), 0);
+                        Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
             }
             signIn(mEmailView.getText().toString(), mPasswordView.getText().toString());
         }
@@ -244,7 +247,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editor.commit();
     }
 
-    private void initForgotPasswordCountTimer(){
+    private void initForgotPasswordCountTimer() {
         long startCountDownValue;
         if (secondsLeft == 0) {
             startCountDownValue = FORGOT_PASSWORD_COOLDOWN_MS;
@@ -286,6 +289,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     });
             mForgotPasswordView.setEnabled(false);
             mForgotPasswordView.setTextColor(Color.GRAY);
+            if (countDownTimer == null) {
+                initForgotPasswordCountTimer();
+            }
             countDownTimer.start();
         }
     }

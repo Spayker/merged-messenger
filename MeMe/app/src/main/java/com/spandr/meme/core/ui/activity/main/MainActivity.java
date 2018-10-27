@@ -25,6 +25,7 @@ import com.spandr.meme.R;
 import com.spandr.meme.core.logic.menu.main.builder.draggable.DraggableGridFragment;
 import com.spandr.meme.core.logic.menu.main.builder.draggable.common.data.AbstractDataProvider;
 import com.spandr.meme.core.logic.menu.main.builder.draggable.common.fragment.DataProviderFragment;
+import com.spandr.meme.core.logic.menu.main.updater.AppUpdater;
 import com.spandr.meme.core.ui.activity.settings.EditChannelsActivity;
 import com.spandr.meme.core.ui.activity.settings.GlobalSettingsActivity;
 
@@ -96,6 +97,12 @@ public class MainActivity extends AppCompatActivity {
         initLanguage(sharedPreferences);
         initSloganPart();
         initFragment(savedInstanceState);
+
+        checkNewAppVersion();
+    }
+
+    private void checkNewAppVersion() {
+        new AppUpdater(this).checkAppForUpdate();
     }
 
     private void initVersionNumber(){

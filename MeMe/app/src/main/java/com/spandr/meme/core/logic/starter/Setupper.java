@@ -27,6 +27,7 @@ import static com.spandr.meme.core.data.memory.channel.ICON.QUORA;
 import static com.spandr.meme.core.data.memory.channel.ICON.REDDIT;
 import static com.spandr.meme.core.data.memory.channel.ICON.SK;
 import static com.spandr.meme.core.data.memory.channel.ICON.SL;
+import static com.spandr.meme.core.data.memory.channel.ICON.STACK;
 import static com.spandr.meme.core.data.memory.channel.ICON.TL;
 import static com.spandr.meme.core.data.memory.channel.ICON.TUM;
 import static com.spandr.meme.core.data.memory.channel.ICON.TW;
@@ -54,6 +55,7 @@ import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.QU
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.REDDIT_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.SKYPE_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.SLACK_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.STACKOVERFLOW_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.TUMBLR_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.TWITCH_HOME_URL;
@@ -262,6 +264,12 @@ public class Setupper implements Starter {
                 !isChannelExcludedByDefault(quoraKey, mainActivity));
         channels.add(quoraChannel);
         editor.putBoolean(quoraKey, quoraChannel.getActive());
+
+        String stackKey = mainActivity.getString(R.string.channel_setting_stack);
+        Channel stackChannel = createNewChannel(quoraKey, INFO_SERVICE, STACK, STACKOVERFLOW_HOME_URL,
+                !isChannelExcludedByDefault(stackKey, mainActivity));
+        channels.add(stackChannel);
+        editor.putBoolean(stackKey, stackChannel.getActive());
 
         editor.apply();
         editor.commit();

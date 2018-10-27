@@ -128,6 +128,13 @@
 
         <SwitchPreference
             android:defaultValue="false"
+            android:key="@string/channel_setting_key_stack_switcher"
+            android:summary="@string/channel_setting_switcher_on"
+            android:title="@string/channel_setting_stack"
+            android:icon="@mipmap/stack"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
             android:key="@string/channel_setting_key_habr_switcher"
             android:summary="@string/channel_setting_switcher_on"
             android:title="@string/channel_setting_habr"

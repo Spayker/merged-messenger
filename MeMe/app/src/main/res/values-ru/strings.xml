@@ -70,6 +70,9 @@
     <string name="main_menu_chat_group">Чаты</string>
     <string name="main_menu_mail_group">Почтовые Сервисы</string>
     <string name="main_menu_video_group">Видео Сервисы</string>
+    <string name="main_menu_update_released"> выпущена. Обновиться сейчас?</string>
+    <string name="main_menu_yes">Да</string>
+    <string name="main_menu_no">Потом</string>
 
     <!--Menu of WebView Screen-->
     <string name="webview_loading_video">Загрузка…</string>
@@ -129,6 +132,7 @@
     <string name="channel_setting_pn">Pinterest</string>
     <string name="channel_setting_reddit">Reddit</string>
     <string name="channel_setting_quora">Quora</string>
+    <string name="channel_setting_stack">StackOverflow</string>
     <string name="channel_setting_habr">Habr</string>
     <string name="channel_setting_soundcloud">SoundCloud</string>
     <string name="channel_setting_spotify">Spotify</string>
@@ -153,6 +157,7 @@
     <string name="channel_setting_key_twitch_switcher">key_twitch_switcher</string>
     <string name="channel_setting_key_reddit_switcher">key_reddit_switcher</string>
     <string name="channel_setting_key_quora_switcher">key_quora_switcher</string>
+    <string name="channel_setting_key_stack_switcher">key_stack_switcher</string>
     <string name="channel_setting_key_soundcloud_switcher">key_soundcloud_switcher</string>
     <string name="channel_setting_key_spotify_switcher">key_spotify_switcher</string>
     <string name="channel_setting_key_habr_switcher">key_habr_switcher</string>

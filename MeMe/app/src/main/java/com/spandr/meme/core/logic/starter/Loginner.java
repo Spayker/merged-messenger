@@ -28,6 +28,7 @@ import static com.spandr.meme.core.data.memory.channel.ICON.QUORA;
 import static com.spandr.meme.core.data.memory.channel.ICON.REDDIT;
 import static com.spandr.meme.core.data.memory.channel.ICON.SK;
 import static com.spandr.meme.core.data.memory.channel.ICON.SL;
+import static com.spandr.meme.core.data.memory.channel.ICON.STACK;
 import static com.spandr.meme.core.data.memory.channel.ICON.TL;
 import static com.spandr.meme.core.data.memory.channel.ICON.TUM;
 import static com.spandr.meme.core.data.memory.channel.ICON.TW;
@@ -54,6 +55,7 @@ import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.QU
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.REDDIT_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.SKYPE_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.SLACK_HOME_URL;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.STACKOVERFLOW_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.TUMBLR_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.TWITCH_HOME_URL;
@@ -251,6 +253,12 @@ public class Loginner implements Starter {
         Channel quoraChannel = createNewChannel(quoraKey, INFO_SERVICE, QUORA, QUORA_HOME_URL, isQuoraActive);
         editor.putBoolean(quoraKey, isQuoraActive);
         channels.add(quoraChannel);
+
+        String stackKey = mainActivity.getString(R.string.channel_setting_stack);
+        boolean isStackActive = sharedPreferences.getBoolean(stackKey, !isChannelExcludedByDefault(stackKey, mainActivity));
+        Channel stackChannel = createNewChannel(stackKey, INFO_SERVICE, STACK, STACKOVERFLOW_HOME_URL, isStackActive);
+        editor.putBoolean(stackKey, isStackActive);
+        channels.add(stackChannel);
 
         editor.apply();
         editor.commit();

@@ -22,6 +22,7 @@ public enum ICON {
     YT(R.mipmap.youtube),
     REDDIT(R.mipmap.reddit),
     QUORA(R.mipmap.quora),
+    STACK(R.mipmap.stack),
     HABR(R.mipmap.habr),
     SOUNDC(R.mipmap.soundc),
     SPOTIFY(R.mipmap.spotify),

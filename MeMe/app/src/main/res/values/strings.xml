@@ -71,6 +71,9 @@
             <string name="main_menu_mail_group">Email Services</string>
             <string name="main_menu_video_group">Video Services</string>
             <string name="main_menu_info_group">Info Services</string>
+            <string name="main_menu_update_released"> has released. Update now?</string>
+            <string name="main_menu_yes">Yes</string>
+            <string name="main_menu_no">Later</string>
             <string name="main_west_ordered_channel_set">Facebook|Telegram|VKontakte|Tumblr|Discord|Skype|Pinterest|LinkedIn|Slack|Gmail|Mail.ru|Twitter|Youtube|Twitch|Instagram|ICQ|Reddit|Quora|Habr</string>
             <string name="main_east_ordered_channel_set">VKontakte|Facebook|Telegram|OK.RU|Tumblr|Discord|Skype|Pinterest|Gmail|Mail.ru|Twitter|Youtube|Twitch|Instagram|ICQ|Reddit|Quora|Habr</string>
 
@@ -132,6 +135,7 @@
             <string name="channel_setting_mailru">Mail.ru</string>
             <string name="channel_setting_reddit">Reddit</string>
             <string name="channel_setting_quora">Quora</string>
+            <string name="channel_setting_stack">StackOverflow</string>
             <string name="channel_setting_habr">Habr</string>
             <string name="channel_setting_soundcloud">SoundCloud</string>
             <string name="channel_setting_spotify">Spotify</string>
@@ -156,6 +160,7 @@
             <string name="channel_setting_key_twitch_switcher">key_twitch_switcher</string>
             <string name="channel_setting_key_reddit_switcher">key_reddit_switcher</string>
             <string name="channel_setting_key_quora_switcher">key_quora_switcher</string>
+            <string name="channel_setting_key_stack_switcher">key_stack_switcher</string>
             <string name="channel_setting_key_soundcloud_switcher">key_soundcloud_switcher</string>
             <string name="channel_setting_key_spotify_switcher">key_spotify_switcher</string>
             <string name="channel_setting_key_habr_switcher">key_habr_switcher</string>
