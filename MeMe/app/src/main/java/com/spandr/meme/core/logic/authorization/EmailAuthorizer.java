@@ -2,14 +2,24 @@ package com.spandr.meme.core.logic.authorization;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.spandr.meme.R;
 import com.spandr.meme.core.ui.activity.main.LoginActivity;
 import com.spandr.meme.core.ui.activity.main.MainActivity;
 import com.spandr.meme.core.ui.activity.main.RegisterActivity;
+import com.spandr.meme.core.ui.activity.main.WelcomeActivity;
+
+import java.util.Objects;
 
 public class EmailAuthorizer extends Authorizer {
 
@@ -42,7 +52,7 @@ public class EmailAuthorizer extends Authorizer {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, currentActivity.getString(R.string.register_log_create_user_with_email_success));
-                        finishSingUpActivity(currentActivity, userName, emailAddress, password);
+                        sendEmailVerification();
                     } else {
                         // If sign in fails, display a message to the user.
                         ((RegisterActivity)currentActivity).hideProgressDialog();
@@ -53,13 +63,36 @@ public class EmailAuthorizer extends Authorizer {
                 });
     }
 
+    private void sendEmailVerification() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            user.sendEmailVerification()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Email sent.");
+                            Intent intent = new Intent(currentActivity, LoginActivity.class);
+                            currentActivity.startActivity(intent);
+
+                            Toast.makeText(currentActivity, currentActivity.getString(R.string.register_check_email),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
     public void authorize() {
         mAuth.signInWithEmailAndPassword(emailAddress, password)
                 .addOnCompleteListener(currentActivity, task -> {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, currentActivity.getString(R.string.login_log_sign_in_with_email_success));
-                        finishSingInActivity();
+                        Objects.requireNonNull(mAuth.getCurrentUser()).reload();
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if(user.isEmailVerified()) {
+                            finishSingInActivity();
+                        } else {
+                            createDialogBox();
+                        }
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, currentActivity.getString(R.string.login_log_sign_in_with_email_failure), task.getException());
@@ -68,6 +101,23 @@ public class EmailAuthorizer extends Authorizer {
                     }
                     ((LoginActivity)currentActivity).hideProgressDialog();
                 });
+    }
+
+    private AlertDialog.Builder createDialogBox(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(currentActivity);
+        builder.setTitle(currentActivity.getResources().getString(R.string.));
+        builder.setPositiveButton(currentActivity.getResources().getString(R.string.main_menu_yes),
+                (dialog, which) -> {
+                    currentActivity.startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(APP_PLAY_MARKET_URI)));
+                    dialog.dismiss();
+                });
+
+        builder.setNegativeButton(currentActivity.getResources().getString(R.string.main_menu_no),
+                (dialog, which) -> dialog.dismiss());
+        builder.setCancelable(true);
+        builder.setIcon(R.mipmap.logo);
+        return builder;
     }
 
 

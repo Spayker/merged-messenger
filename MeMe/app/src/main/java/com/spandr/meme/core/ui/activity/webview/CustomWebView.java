@@ -20,8 +20,7 @@ public class CustomWebView extends WebView {
     public class JavascriptInterface {
         @android.webkit.JavascriptInterface
         @SuppressWarnings("unused")
-        public void notifyVideoEnd() // Must match Javascript interface method of VideoEnabledWebChromeClient
-        {
+        public void notifyVideoEnd() {
             // This code is not executed in the UI thread, so we must force that to happen
             new Handler(Looper.getMainLooper()).post(() -> {
                 if (customChromeWebClient != null) {
@@ -29,7 +28,6 @@ public class CustomWebView extends WebView {
                 }
             });
         }
-
     }
 
     @SuppressWarnings("unused")

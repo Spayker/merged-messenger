@@ -24,8 +24,7 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
     private static final String TAG = "DraggableGridAdapter";
 
     // NOTE: Make accessible with short name
-    private interface Draggable extends DraggableItemConstants {
-    }
+    private interface Draggable extends DraggableItemConstants { }
 
     private AbstractDataProvider mProvider;
 

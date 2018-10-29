@@ -219,6 +219,15 @@ public class EditChannelsActivity extends AppCompatActivity {
                 return true;
             });
 
+            SwitchPreference twitchSwitcher  = (SwitchPreference)findPreference(getString(R.string.channel_setting_key_twitch_switcher));
+            String twitchKey = getString(R.string.channel_setting_twitch);
+            twitchSwitcher.setChecked(sharedPreferences.getBoolean(twitchKey, false));
+            bindGlobalPreferenceToBooleanValue(twitchSwitcher);
+            twitchSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                handleSwitcherChange(twitchSwitcher, twitchKey);
+                return true;
+            });
+
             SwitchPreference youtubeSwitcher  = (SwitchPreference)findPreference(getString(R.string.channel_setting_key_youtube_switcher));
             String ytKey = getString(R.string.channel_setting_yt);
             youtubeSwitcher.setChecked(sharedPreferences.getBoolean(ytKey, false));
@@ -252,6 +261,15 @@ public class EditChannelsActivity extends AppCompatActivity {
             bindGlobalPreferenceToBooleanValue(habrSwitcher);
             habrSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
                 handleSwitcherChange(habrSwitcher, habrKey);
+                return true;
+            });
+
+            SwitchPreference stackSwitcher  = (SwitchPreference)findPreference(getString(R.string.channel_setting_key_stack_switcher));
+            String stackKey = getString(R.string.channel_setting_stack);
+            stackSwitcher.setChecked(sharedPreferences.getBoolean(stackKey, false));
+            bindGlobalPreferenceToBooleanValue(stackSwitcher);
+            stackSwitcher.setOnPreferenceChangeListener((preference, newValue) -> {
+                handleSwitcherChange(stackSwitcher, stackKey);
                 return true;
             });
         }

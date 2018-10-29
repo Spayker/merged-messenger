@@ -19,56 +19,51 @@ public class AppUpdater {
     private static final String TAG = AppUpdater.class.getSimpleName();
 
     private AppCompatActivity activity;
-    private static AlertDialog.Builder builder;
     private final String APP_PLAY_MARKET_URI = "market://details?id=com.spandr.meme";
-    private final String SPACE_CHARACTER = " ";
+
+    private static String latestVersion;
 
     public AppUpdater(AppCompatActivity activity) {
         this.activity = activity;
     }
 
     public void checkAppForUpdate() {
-        String currentVersion = "1.0.4"/*getCurrentVersion()*/;
+        String currentVersion = getCurrentVersion();
         Log.d(TAG, "Current version = " + currentVersion);
-        String latestVersion = null;
-        try {
-            latestVersion = new GetLatestVersion().execute().get();
-            Log.d(TAG, "Latest version = " + latestVersion);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
 
-        //If the versions are not the same
-        if (!currentVersion.equals(latestVersion)) {
-            if(builder == null){
-                String finalLatestVersion = latestVersion;
-                activity.runOnUiThread(() -> {
-                    builder = new AlertDialog.Builder(activity);
-                    builder.setTitle(activity.getResources().getString(R.string.app_name) +
-                            SPACE_CHARACTER +
-                            activity.getResources().getString(R.string.app_version) +
-                            finalLatestVersion +
-                            SPACE_CHARACTER +
-                            activity.getResources().getString(R.string.main_menu_update_released));
-                    builder.setPositiveButton(activity.getResources().getString(R.string.main_menu_yes),
-                            (dialog, which) -> {
-                                activity.startActivity(new Intent(Intent.ACTION_VIEW,
-                                        Uri.parse(APP_PLAY_MARKET_URI)));
-                                dialog.dismiss();
-                            });
+        if(latestVersion == null){
+            try {
+                latestVersion = new GetLatestVersion().execute().get();
+                Log.d(TAG, "Latest version = " + latestVersion);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
 
-                    builder.setNegativeButton(activity.getResources().getString(R.string.main_menu_no),
-                            (dialog, which) -> dialog.dismiss());
-                    builder.setCancelable(true);
-                    builder.setIcon(R.mipmap.logo);
-                    builder.show();
-                });
-            } else {
-                builder = null;
+            //If the versions are not the same
+            if (!currentVersion.equals(latestVersion)) {
+                AlertDialog.Builder alertDialog = createDialogBox();
+                activity.runOnUiThread(alertDialog::show);
             }
         }
+    }
+
+    private AlertDialog.Builder createDialogBox(){
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+            builder.setTitle(activity.getResources().getString(R.string.main_menu_update_released));
+            builder.setPositiveButton(activity.getResources().getString(R.string.main_menu_yes),
+                    (dialog, which) -> {
+                        activity.startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse(APP_PLAY_MARKET_URI)));
+                        dialog.dismiss();
+                    });
+
+            builder.setNegativeButton(activity.getResources().getString(R.string.main_menu_no),
+                    (dialog, which) -> dialog.dismiss());
+            builder.setCancelable(true);
+            builder.setIcon(R.mipmap.logo);
+        return builder;
     }
 
     private String getCurrentVersion() {

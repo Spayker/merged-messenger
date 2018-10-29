@@ -53,6 +53,7 @@
     <string name="register_error_empty_password">This password is empty</string>
     <string name="register_error_not_equal_password">Passwords are not equal</string>
     <string name="register_email_field_incorrect_format">Incorrect email format</string>
+    <string name="register_check_email">Please check your email box</string>
     <string name="register_checking">Checking…</string>
     <string name="register_field_required">required</string>
     <string name="register_error_auth_failed">Registration Failed</string>
@@ -69,7 +70,8 @@
     <string name="main_menu_chat_group">Chats</string>
     <string name="main_menu_mail_group">Email Services</string>
     <string name="main_menu_video_group">Video Services</string>
-    <string name="main_menu_update_released"> has released. Update now?</string>
+    <string name="main_menu_info_group">Info Services</string>
+    <string name="main_menu_update_released"> New version has released. Update now?</string>
     <string name="main_menu_yes">Yes</string>
     <string name="main_menu_no">Later</string>
 

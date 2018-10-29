@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.spandr.meme.R;
 
 import java.util.Locale;
@@ -76,7 +77,8 @@ public class WelcomeActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         boolean isAutoLoginEnabled = sharedPreferences.getBoolean(KEY_AUTO_LOGIN, false);
-        if (mAuth.getCurrentUser() != null && isAutoLoginEnabled) {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null && user.isEmailVerified() && isAutoLoginEnabled) {
             String email = sharedPreferences.getString(KEY_USER_EMAIL_OR_PHONE, EMPTY_STRING);
             String password = sharedPreferences.getString(KEY_PASS, EMPTY_STRING);
             if (!email.isEmpty() && !password.isEmpty()) {

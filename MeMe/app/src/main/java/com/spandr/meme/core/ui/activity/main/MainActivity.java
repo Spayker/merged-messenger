@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
@@ -97,7 +98,12 @@ public class MainActivity extends AppCompatActivity {
         initLanguage(sharedPreferences);
         initSloganPart();
         initFragment(savedInstanceState);
+    }
 
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        getDelegate().onPostCreate(savedInstanceState);
         checkNewAppVersion();
     }
 

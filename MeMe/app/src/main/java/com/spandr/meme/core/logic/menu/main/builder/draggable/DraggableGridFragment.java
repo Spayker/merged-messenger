@@ -18,6 +18,8 @@ import com.spandr.meme.core.ui.activity.main.MainActivity;
 
 import java.util.Objects;
 
+import static com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager.ITEM_MOVE_MODE_SWAP;
+
 public class DraggableGridFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
@@ -54,6 +56,7 @@ public class DraggableGridFragment extends Fragment {
         mRecyclerViewDragDropManager.setInitiateOnLongPress(true);
         mRecyclerViewDragDropManager.setInitiateOnMove(false);
         mRecyclerViewDragDropManager.setLongPressTimeout(750);
+        mRecyclerViewDragDropManager.setItemMoveMode(ITEM_MOVE_MODE_SWAP);
 
         // setup dragging item effects (NOTE: DraggableItemAnimator is required)
         mRecyclerViewDragDropManager.setDragStartItemAnimationDuration(250);

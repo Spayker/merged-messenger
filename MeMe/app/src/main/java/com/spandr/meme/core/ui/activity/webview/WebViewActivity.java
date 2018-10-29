@@ -18,6 +18,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -38,6 +39,7 @@ import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.CH
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.ICQ_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.KEY_LEFT_MARGIN;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.KEY_TOP_MARGIN;
+import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.MAIL_RU_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.MEME_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.SKYPE_HOME_URL;
 import static com.spandr.meme.core.ui.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
@@ -91,13 +93,13 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         Intent webViewIntent = getIntent();
         String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
         Channel channel = ChannelManager.getChannelByName(channelName);
-        if(channel != null){
+        if (channel != null) {
             String homeURL = channel.getHomeUrl();
-            switch (homeURL){
+            switch (homeURL) {
                 case VK_HOME_URL:
                 case TELEGRAM_HOME_URL:
                 case ICQ_HOME_URL:
-                case SKYPE_HOME_URL:{
+                case SKYPE_HOME_URL: {
                     mWebView.getSettings()
                             .setUserAgentString(USER_AGENT_STRING);
                     break;
@@ -110,7 +112,7 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         Intent webViewIntent = getIntent();
         String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
         Channel channel = ChannelManager.getChannelByName(channelName);
-        if(channel != null){
+        if (channel != null) {
             mWebView.loadUrl(channel.getHomeUrl());
         } else {
             mWebView.loadUrl(MEME_HOME_URL);
@@ -129,10 +131,10 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
             }
 
             @Override
-            public void onReceivedError(WebView view, int errorCod,String description, String failingUrl) {
+            public void onReceivedError(WebView view, int errorCod, String description, String failingUrl) {
                 String url = view.getUrl();
-                switch (url){
-                    case TELEGRAM_HOME_URL:{
+                switch (url) {
+                    case TELEGRAM_HOME_URL: {
                         mWebView.loadUrl(TELEGRAM_HOME_URL_2);
                         mWebView.reload();
                     }
@@ -174,19 +176,19 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         webSettings.setAllowUniversalAccessFromFileURLs(true);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
-        webSettings.setAppCacheMaxSize( 50 * 1024 * 1024 );
-        webSettings.setAppCachePath( getApplicationContext().getCacheDir().getAbsolutePath() );
+        webSettings.setAppCacheMaxSize(50 * 1024 * 1024);
+        webSettings.setAppCachePath(getApplicationContext().getCacheDir().getAbsolutePath());
         webSettings.setAppCacheEnabled(true);
 
         //This part will load the web page if the network is not available.
         if (!isNetworkAvailable()) {
-            webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK );
+            webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         }
     }
 
     private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService( CONNECTIVITY_SERVICE );
-        if(connectivityManager != null){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
             NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
             return activeNetworkInfo != null && activeNetworkInfo.isConnected();
         }
@@ -228,21 +230,41 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
     @SuppressLint("ClickableViewAccessibility")
     private void initListeners() {
 
-        swipeRefreshLayout.getViewTreeObserver().addOnScrollChangedListener(() -> {
-            if (mWebView.getScrollY() == 0) {
-                swipeRefreshLayout.setEnabled(true);
-                return;
-            }
-            swipeRefreshLayout.setEnabled(false);
-        });
-        swipeRefreshLayout.setOnRefreshListener(() -> mWebView.reload());
-
         mWebView.setOnTouchListener((v, event) -> {
             mBackButton.setAlpha(.45f);
             mWebView.performClick();
             return false;
         });
 
+        Intent webViewIntent = getIntent();
+        String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
+        Channel channel = ChannelManager.getChannelByName(channelName);
+        if (channel != null) {
+            String homeURL = channel.getHomeUrl();
+            switch (homeURL) {
+                case TELEGRAM_HOME_URL:
+                case ICQ_HOME_URL:
+                case MAIL_RU_HOME_URL: {
+                    mWebView.setOnTouchListener((v, event) -> {
+                        swipeRefreshLayout.setEnabled(false);
+                        mBackButton.setAlpha(.45f);
+                        mWebView.performClick();
+                        return false;
+                    });
+                    break;
+                }
+                default: {
+                    swipeRefreshLayout.setOnRefreshListener(() -> mWebView.reload());
+                    mWebView.getViewTreeObserver().addOnScrollChangedListener(() -> {
+                        if (mWebView.getScrollY() == 0) {
+                            swipeRefreshLayout.setEnabled(true);
+                        } else {
+                            swipeRefreshLayout.setEnabled(false);
+                        }
+                    });
+                }
+            }
+        }
         mBackButton.setOnTouchListener(this);
         mBackButton.setOnClickListener(this::clickOnBackToMainMenu);
     }
@@ -405,20 +427,25 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
     }
 
     @Override
-    public void onPageStarted(String url, Bitmap favicon) { }
+    public void onPageStarted(String url, Bitmap favicon) {
+    }
 
     @Override
-    public void onPageFinished(String url) {    }
+    public void onPageFinished(String url) {
+    }
 
     @Override
-    public void onPageError(int errorCode, String description, String failingUrl) { }
+    public void onPageError(int errorCode, String description, String failingUrl) {
+    }
 
     @Override
     public void onDownloadRequested(String url, String suggestedFilename, String mimeType,
                                     long contentLength, String contentDisposition,
-                                    String userAgent) { }
+                                    String userAgent) {
+    }
 
     @Override
-    public void onExternalPageRequest(String url) { }
+    public void onExternalPageRequest(String url) {
+    }
 
 }
