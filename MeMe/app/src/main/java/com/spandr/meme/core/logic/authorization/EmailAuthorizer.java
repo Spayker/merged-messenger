@@ -105,6 +105,8 @@ public class EmailAuthorizer extends Authorizer {
                 (dialog, which) -> {
                     sendEmailVerification();
                     dialog.dismiss();
+                    Toast.makeText(currentActivity, currentActivity.getString(R.string.register_check_email),
+                            Toast.LENGTH_SHORT).show();
                 });
 
         builder.setNegativeButton(currentActivity.getResources().getString(R.string.main_menu_no),

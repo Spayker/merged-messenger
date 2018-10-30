@@ -73,7 +73,8 @@
     <string name="main_menu_info_group">Инфо Сервисы</string>
     <string name="main_menu_update_released">Вышло новое обновление. Обновить сейчас?</string>
     <string name="main_menu_yes">Да</string>
-    <string name="main_menu_no">Позже</string>
+    <string name="main_menu_later">Позже</string>
+    <string name="main_menu_no">Нет</string>
 
     <!--Menu of WebView Screen-->
     <string name="webview_loading_video">Загрузка…</string>

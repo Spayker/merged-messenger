@@ -59,7 +59,7 @@ public class AppUpdater {
                         dialog.dismiss();
                     });
 
-            builder.setNegativeButton(activity.getResources().getString(R.string.main_menu_no),
+            builder.setNegativeButton(activity.getResources().getString(R.string.main_menu_later),
                     (dialog, which) -> dialog.dismiss());
             builder.setCancelable(true);
             builder.setIcon(R.mipmap.logo);

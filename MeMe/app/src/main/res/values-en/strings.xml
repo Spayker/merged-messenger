@@ -73,7 +73,8 @@
     <string name="main_menu_info_group">Info Services</string>
     <string name="main_menu_update_released"> New version has released. Update now?</string>
     <string name="main_menu_yes">Yes</string>
-    <string name="main_menu_no">Later</string>
+    <string name="main_menu_later">Later</string>
+    <string name="main_menu_no">No</string>
 
     <!--Menu of WebView Screen-->
     <string name="webview_loading_video">Loading…</string>
