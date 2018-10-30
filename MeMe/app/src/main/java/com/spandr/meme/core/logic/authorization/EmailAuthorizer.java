@@ -2,22 +2,16 @@ package com.spandr.meme.core.logic.authorization;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spandr.meme.R;
 import com.spandr.meme.core.ui.activity.main.LoginActivity;
 import com.spandr.meme.core.ui.activity.main.MainActivity;
 import com.spandr.meme.core.ui.activity.main.RegisterActivity;
-import com.spandr.meme.core.ui.activity.main.WelcomeActivity;
 
 import java.util.Objects;
 
@@ -91,7 +85,8 @@ public class EmailAuthorizer extends Authorizer {
                         if(user.isEmailVerified()) {
                             finishSingInActivity();
                         } else {
-                            createDialogBox();
+                            AlertDialog.Builder builder = createVerificationDialogBox();
+                            builder.show();
                         }
                     } else {
                         // If sign in fails, display a message to the user.
@@ -103,13 +98,12 @@ public class EmailAuthorizer extends Authorizer {
                 });
     }
 
-    private AlertDialog.Builder createDialogBox(){
+    private AlertDialog.Builder createVerificationDialogBox(){
         AlertDialog.Builder builder = new AlertDialog.Builder(currentActivity);
-        builder.setTitle(currentActivity.getResources().getString(R.string.));
+        builder.setTitle(currentActivity.getResources().getString(R.string.login_info_email_not_verified));
         builder.setPositiveButton(currentActivity.getResources().getString(R.string.main_menu_yes),
                 (dialog, which) -> {
-                    currentActivity.startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse(APP_PLAY_MARKET_URI)));
+                    sendEmailVerification();
                     dialog.dismiss();
                 });
 

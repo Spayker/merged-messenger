@@ -11,8 +11,8 @@ public interface WebViewConstants {
     String VK_HOME_URL = "http://m.vk.com";
     String FB_HOME_URL = "https://m.facebook.com/";
     String INSTAGRAM_HOME_URL = "https://www.instagram.com/";
-    String TELEGRAM_HOME_URL = "https://web.telegram.org";
-    String TELEGRAM_HOME_URL_2 = "http://www.web-telegram.ru/#/login";
+    String TELEGRAM_HOME_URL =  "http://www.web-telegram.ru/#/login";
+    String TELEGRAM_HOME_URL_2 = "https://web.telegram.org";
     String ODNOKLASNIKI_HOME_URL = "https://ok.ru/";
     String TUMBLR_HOME_URL = "https://www.tumblr.com/login";
     String PINTEREST_HOME_URL = "https://www.pinterest.com/";
