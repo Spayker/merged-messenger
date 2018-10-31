@@ -52,8 +52,8 @@ public final class ActivityUtils {
         }
     }
 
-    public static void initSloganPart(AppCompatActivity activity) {
-        TextView mAppStyledName = activity.findViewById(R.id.welcome_app_name_styled);
+    public static void initSloganPart(AppCompatActivity activity, int fieldId) {
+        TextView mAppStyledName = activity.findViewById(fieldId);
         final SpannableStringBuilder sb = new SpannableStringBuilder(activity.getString(R.string.app_name_styled));
         final ForegroundColorSpan fcs = new ForegroundColorSpan(activity.getResources().getColor(R.color.bright_green));
         sb.setSpan(fcs, 0, 2, Spannable.SPAN_INCLUSIVE_INCLUSIVE);

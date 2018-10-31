@@ -55,7 +55,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         initLanguage(sharedPreferences, this);
         Log.d(TAG, "Language init is complete");
-        ActivityUtils.initSloganPart(this);
+        ActivityUtils.initSloganPart(this, R.id.welcome_app_name_styled);
         Log.d(TAG, "Slogan init is complete");
         ActivityUtils.initVersionNumber(this);
         Log.d(TAG, "Version number init is complete");

@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         ActivityUtils.initVersionNumber(this);
         initLanguage(sharedPreferences, this);
-        ActivityUtils.initSloganPart(this);
+        ActivityUtils.initSloganPart(this, R.id.main_app_name_styled);
         initFragment(savedInstanceState);
     }
 
@@ -99,8 +99,6 @@ public class MainActivity extends AppCompatActivity {
     private void checkNewAppVersion() {
         new AppUpdater(this).checkAppForUpdate();
     }
-
-
 
     private void initFragment(Bundle savedInstanceState){
         if (savedInstanceState == null) {

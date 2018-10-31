@@ -19,6 +19,8 @@ import com.spandr.meme.R;
 import com.spandr.meme.core.common.util.ActivityUtils;
 import com.spandr.meme.core.activity.intro.WelcomeActivity;
 
+import java.util.Objects;
+
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_OLD_CHANGE_PASS;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_PASS;
@@ -86,7 +88,7 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
             }
 
             AuthCredential credential = EmailAuthProvider
-                    .getCredential(currentUser.getEmail(), currentPassword);
+                    .getCredential(Objects.requireNonNull(currentUser.getEmail()), currentPassword);
 
             // Prompt the user to re-provide their sign-in credentials
             currentUser.reauthenticate(credential)
