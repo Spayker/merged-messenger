@@ -29,6 +29,8 @@ import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CURRENT_APP_LANGUAGE;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
+import static com.spandr.meme.core.common.util.ActivityUtils.updateResourcesLocale;
+import static com.spandr.meme.core.common.util.ActivityUtils.updateResourcesLocaleLegacy;
 
 /**
  * A class handler is linked to appropriate activity xml file and contains backend logic.
@@ -172,20 +174,6 @@ public class GlobalSettingsActivity extends AppCompatActivity {
             editor.putString(KEY_CURRENT_APP_LANGUAGE, language);
             editor.apply();
             editor.commit();
-        }
-
-        @TargetApi(Build.VERSION_CODES.N)
-        private void updateResourcesLocale(Context context, Locale locale) {
-            Configuration configuration = context.getResources().getConfiguration();
-            configuration.setLocale(locale);
-        }
-
-        @SuppressWarnings("deprecation")
-        private void updateResourcesLocaleLegacy(Context context, Locale locale) {
-            Resources resources = context.getResources();
-            Configuration configuration = resources.getConfiguration();
-            configuration.locale = locale;
-            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
         }
     }
 

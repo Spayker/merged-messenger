@@ -3,22 +3,14 @@ package com.spandr.meme.core.activity.main;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,19 +23,16 @@ import com.spandr.meme.core.activity.authorization.LoginActivity;
 import com.spandr.meme.core.activity.intro.WelcomeActivity;
 import com.spandr.meme.core.activity.settings.channel.EditChannelsActivity;
 import com.spandr.meme.core.activity.settings.global.GlobalSettingsActivity;
-
-import java.util.Locale;
+import com.spandr.meme.core.common.util.ActivityUtils;
 
 import static com.spandr.meme.core.activity.main.logic.starter.Loginner.createLoginner;
-import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.APP_SUPPORTED_LANGUAGES;
-import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.EN;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
-import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CURRENT_APP_LANGUAGE;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.activity.main.logic.starter.Setupper.createSetupper;
 import static com.spandr.meme.core.activity.main.logic.starter.Starter.REGISTRATOR;
 import static com.spandr.meme.core.activity.main.logic.starter.Starter.START_TYPE;
 import static com.spandr.meme.core.activity.main.logic.starter.Starter.USERNAME;
+import static com.spandr.meme.core.common.util.ActivityUtils.initLanguage;
 
 /**
  * A class handler is linked to appropriate activity xml file and contains backend logic.
@@ -52,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String FRAGMENT_TAG_DATA_PROVIDER = "data provider";
     private static final String FRAGMENT_LIST_VIEW = "list view";
-
-    private static Boolean isLocaleSet;
 
     /**
      * Perform initialization of all fragments of current activity.
@@ -96,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        initVersionNumber();
-        initLanguage(sharedPreferences);
-        initSloganPart();
+        ActivityUtils.initVersionNumber(this);
+        initLanguage(sharedPreferences, this);
+        ActivityUtils.initSloganPart(this);
         initFragment(savedInstanceState);
     }
 
@@ -113,40 +100,7 @@ public class MainActivity extends AppCompatActivity {
         new AppUpdater(this).checkAppForUpdate();
     }
 
-    private void initVersionNumber(){
-        TextView mAppVersionView = findViewById(R.id.app_build_version);
-        try {
-            PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
-            String version = pInfo.versionName;
-            mAppVersionView.setText(String.format("%s %s%s", getString(R.string.app_name),
-                    getString(R.string.app_version), version));
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
-    private void initLanguage(SharedPreferences sharedPreferences){
-        String currentLanguage = sharedPreferences.getString(KEY_CURRENT_APP_LANGUAGE, Locale.getDefault().getDisplayLanguage());
-        String shortLanguage = APP_SUPPORTED_LANGUAGES.get(currentLanguage);
-        if(shortLanguage == null){
-            shortLanguage = EN;
-        }
-        Locale locale = new Locale(shortLanguage);
-        Locale.setDefault(locale);
-        updateResourcesLocaleLegacy(this, locale);
-        if(isLocaleSet == null) {
-            recreate();
-            isLocaleSet = true;
-        }
-    }
-
-    private void initSloganPart(){
-        TextView mAppStyledName = findViewById(R.id.main_app_name_styled);
-        final SpannableStringBuilder sb = new SpannableStringBuilder(getString(R.string.app_name_styled));
-        final ForegroundColorSpan fcs = new ForegroundColorSpan(getResources().getColor(R.color.bright_green));
-        sb.setSpan(fcs, 0, 2, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        mAppStyledName.setText(sb);
-    }
 
     private void initFragment(Bundle savedInstanceState){
         if (savedInstanceState == null) {
@@ -229,13 +183,5 @@ public class MainActivity extends AppCompatActivity {
     public AbstractDataProvider getDataProvider() {
         final Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_DATA_PROVIDER);
         return ((DataProviderFragment) fragment).getDataProvider();
-    }
-
-    @SuppressWarnings("deprecation")
-    private void updateResourcesLocaleLegacy(Context context, Locale locale) {
-        Resources resources = context.getResources();
-        Configuration configuration = resources.getConfiguration();
-        configuration.locale = locale;
-        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 }
