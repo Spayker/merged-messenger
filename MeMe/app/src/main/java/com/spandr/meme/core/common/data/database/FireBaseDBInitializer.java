@@ -1,4 +1,4 @@
-package com.spandr.meme.core.activity.common.data.database;
+package com.spandr.meme.core.common.data.database;
 
 import android.support.annotation.NonNull;
 

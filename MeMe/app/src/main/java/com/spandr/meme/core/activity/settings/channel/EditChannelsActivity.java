@@ -12,10 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.spandr.meme.R;
-import com.spandr.meme.core.activity.common.data.memory.channel.Channel;
+import com.spandr.meme.core.common.data.memory.channel.Channel;
 import com.spandr.meme.core.activity.main.MainActivity;
 
-import static com.spandr.meme.core.activity.common.data.memory.channel.ChannelManager.getChannelByName;
+import static com.spandr.meme.core.common.data.memory.channel.ChannelManager.getChannelByName;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 

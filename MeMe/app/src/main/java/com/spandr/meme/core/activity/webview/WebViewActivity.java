@@ -25,8 +25,8 @@ import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 
 import com.spandr.meme.R;
-import com.spandr.meme.core.activity.common.data.memory.channel.Channel;
-import com.spandr.meme.core.activity.common.data.memory.channel.ChannelManager;
+import com.spandr.meme.core.common.data.memory.channel.Channel;
+import com.spandr.meme.core.common.data.memory.channel.ChannelManager;
 import com.spandr.meme.core.activity.webview.logic.CustomChromeWebClient;
 
 import java.util.Calendar;

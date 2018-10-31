@@ -1,4 +1,4 @@
-package com.spandr.meme.core.activity.common;
+package com.spandr.meme.core.common;
 
 public interface ActivityConstants {
 

@@ -1,4 +1,4 @@
-package com.spandr.meme.core.activity.common.util;
+package com.spandr.meme.core.common.util;
 
 import android.content.Context;
 import android.support.v7.app.AlertDialog;

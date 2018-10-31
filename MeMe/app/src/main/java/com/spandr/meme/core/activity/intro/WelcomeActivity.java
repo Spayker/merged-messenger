@@ -40,7 +40,7 @@ import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_PASS;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_EMAIL_OR_PHONE;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
-import static com.spandr.meme.core.activity.common.ActivityConstants.EMPTY_STRING;
+import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.

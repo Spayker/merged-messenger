@@ -7,20 +7,20 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.spandr.meme.core.activity.common.data.memory.channel.Channel;
-import com.spandr.meme.core.activity.common.data.memory.channel.ChannelManager;
-import com.spandr.meme.core.activity.common.data.memory.channel.ICON;
+import com.spandr.meme.core.common.data.memory.channel.Channel;
+import com.spandr.meme.core.common.data.memory.channel.ChannelManager;
+import com.spandr.meme.core.common.data.memory.channel.ICON;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.spandr.meme.core.activity.common.data.memory.channel.TYPE.CHAT;
-import static com.spandr.meme.core.activity.common.data.memory.channel.TYPE.EMAIL;
-import static com.spandr.meme.core.activity.common.data.memory.channel.TYPE.INFO_SERVICE;
-import static com.spandr.meme.core.activity.common.data.memory.channel.TYPE.SOCIAL;
-import static com.spandr.meme.core.activity.common.data.memory.channel.TYPE.VIDEO_SERVICE;
+import static com.spandr.meme.core.common.data.memory.channel.TYPE.CHAT;
+import static com.spandr.meme.core.common.data.memory.channel.TYPE.EMAIL;
+import static com.spandr.meme.core.common.data.memory.channel.TYPE.INFO_SERVICE;
+import static com.spandr.meme.core.common.data.memory.channel.TYPE.SOCIAL;
+import static com.spandr.meme.core.common.data.memory.channel.TYPE.VIDEO_SERVICE;
 import static com.spandr.meme.core.activity.main.logic.LogicContants.CHANNEL_SPLITTER;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;

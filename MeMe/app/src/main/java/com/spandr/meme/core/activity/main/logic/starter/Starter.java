@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-import static com.spandr.meme.core.activity.common.data.memory.channel.ChannelManager.createChannelManager;
+import static com.spandr.meme.core.common.data.memory.channel.ChannelManager.createChannelManager;
 
 public interface Starter {
 

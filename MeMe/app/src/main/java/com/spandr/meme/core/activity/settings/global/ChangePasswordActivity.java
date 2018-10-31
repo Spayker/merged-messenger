@@ -14,9 +14,9 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spandr.meme.R;
-import com.spandr.meme.core.activity.common.util.ActivityUtils;
+import com.spandr.meme.core.common.util.ActivityUtils;
 
-import static com.spandr.meme.core.activity.common.ActivityConstants.EMPTY_STRING;
+import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 
 /**
  * A class handler is linked to appropriate activity xml file and contains backend logic.

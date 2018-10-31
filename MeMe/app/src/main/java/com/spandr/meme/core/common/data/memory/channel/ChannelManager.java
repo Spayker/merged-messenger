@@ -1,4 +1,4 @@
-package com.spandr.meme.core.activity.common.data.memory.channel;
+package com.spandr.meme.core.common.data.memory.channel;
 
 import android.support.v7.app.AppCompatActivity;
 
