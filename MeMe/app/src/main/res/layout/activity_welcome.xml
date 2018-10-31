@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/app_background"
-    tools:context=".core.ui.activity.main.WelcomeActivity">
+    tools:context=".core.activity.intro.WelcomeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

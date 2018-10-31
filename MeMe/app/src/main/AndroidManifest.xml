@@ -33,7 +33,7 @@
 
         <!--Welcome Screen With SignIn and SignUp buttons-->
         <activity
-            android:name=".core.ui.activity.main.WelcomeActivity"
+            android:name=".core.activity.intro.WelcomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/WelcomeScreen"
             android:label="@string/app_name">
@@ -46,66 +46,66 @@
 
         <!--Login Screen-->
         <activity
-            android:name=".core.ui.activity.main.LoginActivity"
+            android:name=".core.activity.authorization.LoginActivity"
             android:theme="@style/MainTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.ui.activity.main.WelcomeActivity" />
+                android:value=".core.activity.intro.WelcomeActivity" />
         </activity>
 
         <!--Register Screen-->
         <activity
-            android:name=".core.ui.activity.main.RegisterActivity"
+            android:name=".core.activity.authorization.RegisterActivity"
             android:theme="@style/MainTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.ui.activity.main.WelcomeActivity" />
+                android:value=".core.activity.intro.WelcomeActivity" />
         </activity>
 
         <!--Main Menu Screen-->
-        <activity android:name=".core.ui.activity.main.MainActivity"
+        <activity android:name=".core.activity.main.MainActivity"
             android:theme="@style/MainTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.ui.activity.main.WelcomeActivity" />
+                android:value=".core.activity.intro.WelcomeActivity" />
         </activity>
 
         <!--Menu of WebView Screen-->
-        <activity android:name=".core.ui.activity.webview.WebViewActivity"
+        <activity android:name=".core.activity.webview.WebViewActivity"
                   android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.ui.activity.main.MainActivity" />
+                android:value=".core.activity.main.MainActivity" />
         </activity>
 
         <!--Menu of Global Settings Screen-->
-        <activity android:name=".core.ui.activity.settings.GlobalSettingsActivity"
+        <activity android:name=".core.activity.settings.global.GlobalSettingsActivity"
             android:theme="@style/MainTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.ui.activity.main.MainActivity" />
+                android:value=".core.activity.main.MainActivity" />
         </activity>
 
         <!--Menu of Channel Settings Screen-->
-        <activity android:name=".core.ui.activity.settings.EditChannelsActivity"
+        <activity android:name=".core.activity.settings.channel.EditChannelsActivity"
             android:theme="@style/MainTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.ui.activity.main.MainActivity" />
+                android:value=".core.activity.main.MainActivity" />
         </activity>
 
         <!--Menu of Password change Screen-->
-        <activity android:name=".core.ui.activity.settings.ChangePasswordActivity">
+        <activity android:name=".core.activity.settings.global.ChangePasswordActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.ui.activity.settings.GlobalSettingsActivity" />
+                android:value=".core.activity.settings.global.GlobalSettingsActivity" />
         </activity>
 
         <!--Menu of Account Remove Screen-->
-        <activity android:name=".core.ui.activity.settings.RemoveAccountActivity">
+        <activity android:name=".core.activity.settings.global.RemoveAccountActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".core.ui.activity.settings.GlobalSettingsActivity" />
+                android:value=".core.activity.settings.global.GlobalSettingsActivity" />
         </activity>
 
         <meta-data
