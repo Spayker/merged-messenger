@@ -24,10 +24,12 @@ public class EmailAuthorizer {
     public Task<AuthResult> createUserWithEmailAndPassword(String emailAddress, String password) throws AppFireBaseAuthException {
 
         if(emailAddress == null || emailAddress.isEmpty()){
+            Log.e(TAG, "createUserWithEmailAndPassword: email is null or empty");
             throw new AppFireBaseAuthException();
         }
 
         if(password == null || password.isEmpty()){
+            Log.e(TAG, "createUserWithEmailAndPassword: password is null or empty");
             throw new AppFireBaseAuthException();
         }
 
@@ -37,7 +39,7 @@ public class EmailAuthorizer {
     public Task<Void> sendEmailVerification() {
         FirebaseUser user = mAuth.getCurrentUser();
         if(user == null){
-            Log.e(TAG, "Fire base user is null. Sending is cancelled. returning null result");
+            Log.e(TAG, "sendEmailVerification: Fire base user is null. Sending is cancelled. returning null as result");
             return null;
         }
 
@@ -47,10 +49,12 @@ public class EmailAuthorizer {
     public Task<AuthResult> signInWithEmailAndPasswordhorize(String emailAddress, String password) throws AppFireBaseAuthException {
 
         if(emailAddress == null || emailAddress.isEmpty()){
+            Log.d(TAG, "signInWithEmailAndPasswordhorize: emailAddress is null or empty");
             throw new AppFireBaseAuthException();
         }
 
         if(password == null || password.isEmpty()){
+            Log.d(TAG, "signInWithEmailAndPasswordhorize: password is null or empty");
             throw new AppFireBaseAuthException();
         }
 

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
+import com.spandr.meme.core.activity.authorization.logic.exception.AppAuthorizationException;
+
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_PASS;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_EMAIL_OR_PHONE;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_NAME;
@@ -21,6 +23,10 @@ public class User {
     private User(){}
 
     public static User getInstance(AppCompatActivity currentActivity) {
+        if(currentActivity == null){
+            throw new AppAuthorizationException();
+        }
+
         if(instance == null){
             SharedPreferences sharedPreferences = currentActivity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
             String userName = sharedPreferences.getString(KEY_USER_NAME, EMPTY_STRING);

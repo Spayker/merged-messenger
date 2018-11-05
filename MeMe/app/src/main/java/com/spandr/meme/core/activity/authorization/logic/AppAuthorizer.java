@@ -50,6 +50,8 @@ public class AppAuthorizer implements ActionAuthorizer {
                 loginActivity,
                 this);
         appAuthorizerListenerStorage = new AppAuthorizerListenerStorage(currentActivity, emailAuthorizer);
+        Log.d(TAG, "AppAuthorizer constructor: created object with currentActivity: " + currentActivity +
+        " user: " + user);
     }
 
     public AppAuthorizer(AppCompatActivity currentActivity) {
@@ -62,16 +64,19 @@ public class AppAuthorizer implements ActionAuthorizer {
                 loginActivity,
                 this);
         appAuthorizerListenerStorage = new AppAuthorizerListenerStorage(currentActivity, emailAuthorizer);
+        Log.d(TAG, "AppAuthorizer constructor: created object with currentActivity: " + currentActivity);
     }
 
     @Override
     public void signUp() throws AppFireBaseAuthException {
+        Log.d(TAG, "signUp: performing user registration");
         emailAuthorizer.createUserWithEmailAndPassword(user.getEmailAddress(), user.getPassword())
                 .addOnCompleteListener(fireBaseAuthorizerListenerStorage.getSignUpWithEmailListener());
     }
 
     @Override
     public void signIn() throws AppFireBaseAuthException {
+        Log.d(TAG, "signIn: performing user authorization");
         emailAuthorizer.signInWithEmailAndPasswordhorize(
                 user.getEmailAddress(),
                 user.getPassword())
@@ -80,6 +85,7 @@ public class AppAuthorizer implements ActionAuthorizer {
 
     @Override
     public void logout() {
+        Log.d(TAG, "logout: performing user logout");
         emailAuthorizer.signOut();
     }
 
@@ -90,8 +96,10 @@ public class AppAuthorizer implements ActionAuthorizer {
         FirebaseUser user = mAuth.getCurrentUser();
         emailAuthorizer.sendEmailVerification();
         if (user.isEmailVerified()) {
+            Log.d(TAG, "sendVerification: user is verified. Finishing process...");
             finishSingInActivity();
         } else {
+            Log.d(TAG, "sendVerification: user is not verified. Invoking dialog to proceed...");
             AlertDialog.Builder builder = ActivityUtils.createVerificationDialogBox(currentActivity, appAuthorizerListenerStorage);
             builder.show();
         }
@@ -103,6 +111,8 @@ public class AppAuthorizer implements ActionAuthorizer {
     public void finishSingInActivity() {
         boolean isSharedPreferencesNotInitialized = checkAuthPreferences();
         if (!isSharedPreferencesNotInitialized) {
+            Log.d(TAG, "finishSingInActivity: user preferences are not initialized yet");
+            Log.d(TAG, "finishSingInActivity: performing user initializing...");
             managePrefs(currentActivity, user.getUserName(), user.getEmailAddress(), user.getPassword());
         }
         Intent intent = new Intent(currentActivity, MainActivity.class);
