@@ -157,8 +157,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 signUp(email, name, password, confirmPassword);
             } catch (Exception e) {
                 e.printStackTrace();
-            } catch (AppFireBaseAuthException e) {
-                e.printStackTrace();
             }
         }
     }
