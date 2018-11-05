@@ -2,6 +2,7 @@ package com.spandr.meme.core.activity.authorization;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -16,7 +17,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.spandr.meme.R;
-import com.spandr.meme.core.activity.authorization.logic.EmailAuthorizer;
+import com.spandr.meme.core.activity.authorization.logic.AppAuthorizer;
+import com.spandr.meme.core.activity.authorization.logic.data.User;
+import com.spandr.meme.core.activity.authorization.logic.firebase.email.EmailAuthorizer;
+import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
+
+import java.util.Objects;
 
 /**
  * A Register screen that offers a registration procedure via email/password.
@@ -97,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      * @param password        a String object which will be used by FireBase module during SignUp
      * @param confirmPassword a String object which will be used during validation form
      **/
-    private void signUp(String email, String name, String password, String confirmPassword) {
+    private void signUp(String email, String name, String password, String confirmPassword) throws AppFireBaseAuthException {
         Log.d(TAG, getString(R.string.register_log_sign_up) + email);
         if (!validateForm()) {
             return;
@@ -120,7 +126,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
         showProgressDialog();
-        EmailAuthorizer.init(this, name, email, password).registerUser();
+        User user = new User(name, email, password);
+        AppAuthorizer appAuthorizer = new AppAuthorizer(this, user);
+        appAuthorizer.signUp();
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -138,7 +149,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             Activity.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {
                 inputMethodManager.hideSoftInputFromWindow(
-                        getCurrentFocus().getWindowToken(), 0);
+                        Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
             }
             try {
                 String email = mEmailView.getText().toString();
@@ -148,6 +159,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                 signUp(email, name, password, confirmPassword);
             } catch (Exception e) {
+                e.printStackTrace();
+            } catch (AppFireBaseAuthException e) {
                 e.printStackTrace();
             }
         }

@@ -25,7 +25,10 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.spandr.meme.R;
-import com.spandr.meme.core.activity.authorization.logic.EmailAuthorizer;
+import com.spandr.meme.core.activity.authorization.logic.AppAuthorizer;
+import com.spandr.meme.core.activity.authorization.logic.data.User;
+import com.spandr.meme.core.activity.authorization.logic.firebase.email.EmailAuthorizer;
+import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
 import com.spandr.meme.core.activity.intro.WelcomeActivity;
 
 import java.util.Objects;
@@ -89,15 +92,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mForgotPasswordView = findViewById(R.id.forgot_password);
         mForgotPasswordTimerView = findViewById(R.id.forgot_password_timer);
 
-        if (sharedPreferences.getBoolean(KEY_REMEMBER, false))
+        if (sharedPreferences.getBoolean(KEY_REMEMBER, false)) {
             mRememberMeView.setChecked(true);
-        else
+        } else {
             mRememberMeView.setChecked(false);
+        }
 
-        if (sharedPreferences.getBoolean(KEY_AUTO_LOGIN, false))
+        if (sharedPreferences.getBoolean(KEY_AUTO_LOGIN, false)) {
             mAutoLoginView.setChecked(true);
-        else
+        } else {
             mAutoLoginView.setChecked(false);
+        }
 
         mEmailView.setText(sharedPreferences.getString(KEY_USER_EMAIL_OR_PHONE, EMPTY_STRING));
         mPasswordView.setText(sharedPreferences.getString(KEY_PASS, EMPTY_STRING));
@@ -151,7 +156,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 inputMethodManager.hideSoftInputFromWindow(
                         Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
             }
-            signIn(mEmailView.getText().toString(), mPasswordView.getText().toString());
+            try {
+                signIn(mEmailView.getText().toString(), mPasswordView.getText().toString());
+            } catch (AppFireBaseAuthException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -188,12 +197,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * @param emailOrPhone a String object which will be checked during authorization procedure
      * @param password     a String object which will be checked during authorization procedure
      **/
-    private void signIn(String emailOrPhone, String password) {
+    private void signIn(String emailOrPhone, String password) throws AppFireBaseAuthException {
         Log.d(TAG, getString(R.string.login_log_sign_in) + emailOrPhone);
         if (!validateForm()) {
             return;
         }
-        EmailAuthorizer.init(this, EMPTY_STRING, emailOrPhone, password).authorize();
+
+        User user = new User(emailOrPhone, password);
+        AppAuthorizer appAuthorizer = new AppAuthorizer(this, user);
+        appAuthorizer.signIn();
+
         showProgressDialog();
     }
 
