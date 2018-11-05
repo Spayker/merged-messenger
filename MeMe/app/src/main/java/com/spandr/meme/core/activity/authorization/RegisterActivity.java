@@ -129,9 +129,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         User user = new User(name, email, password);
         AppAuthorizer appAuthorizer = new AppAuthorizer(this, user);
         appAuthorizer.signUp();
-
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
     }
 
     /**

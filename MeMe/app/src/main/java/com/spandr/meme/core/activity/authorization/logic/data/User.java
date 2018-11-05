@@ -1,6 +1,18 @@
 package com.spandr.meme.core.activity.authorization.logic.data;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.support.v7.app.AppCompatActivity;
+
+import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_PASS;
+import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_EMAIL_OR_PHONE;
+import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_NAME;
+import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
+import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
+
 public class User {
+
+    private static User instance;
 
     private String userName;
     private String password;
@@ -8,38 +20,38 @@ public class User {
 
     private User(){}
 
+    public static User getInstance(AppCompatActivity currentActivity) {
+        if(instance == null){
+            SharedPreferences sharedPreferences = currentActivity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+            String userName = sharedPreferences.getString(KEY_USER_NAME, EMPTY_STRING);
+            String userEmail = sharedPreferences.getString(KEY_USER_EMAIL_OR_PHONE, EMPTY_STRING);
+            String password = sharedPreferences.getString(KEY_PASS, EMPTY_STRING);
+            instance = new User(userName, userEmail, password);
+        }
+        return instance;
+    }
+
     public User(String emailAddress, String password) {
         this.password = password;
         this.emailAddress = emailAddress;
     }
 
-    public User(String userName, String password, String emailAddress) {
+    public User(String userName, String emailAddress, String password) {
         this.userName = userName;
         this.password = password;
         this.emailAddress = emailAddress;
+        instance = this;
     }
 
     public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmailAddress() {
         return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
     }
 }

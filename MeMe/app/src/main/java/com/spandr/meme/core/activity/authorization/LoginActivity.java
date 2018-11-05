@@ -27,7 +27,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.authorization.logic.AppAuthorizer;
 import com.spandr.meme.core.activity.authorization.logic.data.User;
-import com.spandr.meme.core.activity.authorization.logic.firebase.email.EmailAuthorizer;
 import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
 import com.spandr.meme.core.activity.intro.WelcomeActivity;
 
@@ -203,8 +202,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        User user = new User(emailOrPhone, password);
-        AppAuthorizer appAuthorizer = new AppAuthorizer(this, user);
+        AppAuthorizer appAuthorizer = new AppAuthorizer(this);
         appAuthorizer.signIn();
 
         showProgressDialog();

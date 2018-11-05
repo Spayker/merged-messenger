@@ -15,23 +15,22 @@ import android.view.View;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spandr.meme.R;
+import com.spandr.meme.core.activity.authorization.LoginActivity;
+import com.spandr.meme.core.activity.intro.WelcomeActivity;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.DraggableGridFragment;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.data.AbstractDataProvider;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.fragment.DataProviderFragment;
 import com.spandr.meme.core.activity.main.logic.updater.AppUpdater;
-import com.spandr.meme.core.activity.authorization.LoginActivity;
-import com.spandr.meme.core.activity.intro.WelcomeActivity;
 import com.spandr.meme.core.activity.settings.channel.EditChannelsActivity;
 import com.spandr.meme.core.activity.settings.global.GlobalSettingsActivity;
 import com.spandr.meme.core.common.util.ActivityUtils;
 
 import static com.spandr.meme.core.activity.main.logic.starter.Loginner.createLoginner;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
+import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_NAME;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
-import static com.spandr.meme.core.activity.main.logic.starter.Setupper.createSetupper;
-import static com.spandr.meme.core.activity.main.logic.starter.Starter.REGISTRATOR;
-import static com.spandr.meme.core.activity.main.logic.starter.Starter.START_TYPE;
 import static com.spandr.meme.core.activity.main.logic.starter.Starter.USERNAME;
+import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 import static com.spandr.meme.core.common.util.ActivityUtils.initLanguage;
 
 /**
@@ -54,35 +53,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // default settings init
-        Intent intent = getIntent();
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        String startTypeKey = intent.getStringExtra(START_TYPE);
-        if (startTypeKey != null) {
-            switch (startTypeKey) {
-                case REGISTRATOR: {
-                    createSetupper(this).initApplication(sharedPreferences);
-                    String username = intent.getStringExtra(USERNAME);
-                    setTitle(username);
-                    break;
-                }
-                default: {
-                    createLoginner(this).initApplication(sharedPreferences);
-                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                    FirebaseUser currentUser = mAuth.getCurrentUser();
-                    if (currentUser != null) {
-                        setTitle(currentUser.getDisplayName());
-                    }
-                }
-            }
-        } else {
-            createLoginner(this).initApplication(sharedPreferences);
-            FirebaseAuth mAuth = FirebaseAuth.getInstance();
-            FirebaseUser currentUser = mAuth.getCurrentUser();
-            if (currentUser != null) {
-                setTitle(currentUser.getDisplayName());
-            }
-        }
+        String userName = sharedPreferences.getString(KEY_USER_NAME, EMPTY_STRING);
+        setTitle(userName);
 
+        createLoginner(this).initApplication(sharedPreferences);
         ActivityUtils.initVersionNumber(this);
         initLanguage(sharedPreferences, this);
         ActivityUtils.initSloganPart(this, R.id.main_app_name_styled);

@@ -16,6 +16,7 @@ import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
 
 import com.spandr.meme.R;
+import com.spandr.meme.core.activity.authorization.logic.listener.AppAuthorizerListenerStorage;
 import com.spandr.meme.core.activity.intro.WelcomeActivity;
 
 import java.util.Locale;
@@ -29,6 +30,20 @@ public final class ActivityUtils {
     private static Boolean isLocaleSet;
 
     private static final String OK = "OK";
+
+    public static AlertDialog.Builder createVerificationDialogBox(AppCompatActivity currentActivity,
+                                                                   AppAuthorizerListenerStorage appAuthorizerListenerStorage) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(currentActivity);
+        builder.setTitle(currentActivity.getResources().getString(R.string.login_info_email_not_verified));
+        builder.setPositiveButton(currentActivity.getResources().getString(R.string.main_menu_yes),
+                appAuthorizerListenerStorage.getSendVerificationEmailListener());
+
+        builder.setNegativeButton(currentActivity.getResources().getString(R.string.main_menu_no),
+                (dialog, which) -> dialog.dismiss());
+        builder.setCancelable(true);
+        builder.setIcon(R.mipmap.logo);
+        return builder;
+    }
 
     public static void invokeOkAlertMessage(Context context, String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
