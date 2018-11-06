@@ -11,8 +11,8 @@
     <!--UI String Section Start-->
 
         <!--Welcome Screen With SignIn and SignUp buttons-->
-            <string name="sing_in_button">Sing In</string>
-            <string name="sing_up_button">Sing Up</string>
+            <string name="sing_in_button">Sign In</string>
+            <string name="sing_up_button">Sign Up</string>
             <string name="welcome_error_auth_failed">Authentication Failed</string>
             <string name="welcome_connecting">Connecting…</string>
 
