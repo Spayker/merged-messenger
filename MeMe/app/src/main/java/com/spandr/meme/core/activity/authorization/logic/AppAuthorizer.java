@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spandr.meme.core.activity.authorization.LoginActivity;
 import com.spandr.meme.core.activity.authorization.logic.data.User;
-import com.spandr.meme.core.activity.authorization.logic.firebase.email.EmailAuthorizer;
+import com.spandr.meme.core.activity.authorization.logic.firebase.email.FirebaseEmailAuthorizer;
 import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
 import com.spandr.meme.core.activity.authorization.logic.firebase.listener.FireBaseAuthorizerListenerStorage;
 import com.spandr.meme.core.activity.authorization.logic.listener.AppAuthorizerListenerStorage;
@@ -32,7 +32,7 @@ public class AppAuthorizer implements ActionAuthorizer {
     private static final String TAG = AppAuthorizer.class.getSimpleName();
 
     private AppCompatActivity currentActivity;
-    private EmailAuthorizer emailAuthorizer;
+    private FirebaseEmailAuthorizer firebaseEmailAuthorizer;
     private FireBaseAuthorizerListenerStorage fireBaseAuthorizerListenerStorage;
 
     private AppAuthorizerListenerStorage appAuthorizerListenerStorage;
@@ -43,13 +43,13 @@ public class AppAuthorizer implements ActionAuthorizer {
     public AppAuthorizer(AppCompatActivity currentActivity, User user) {
         this.currentActivity = currentActivity;
         this.user = user;
-        emailAuthorizer = new EmailAuthorizer();
+        firebaseEmailAuthorizer = new FirebaseEmailAuthorizer();
         Class<LoginActivity> loginActivity = LoginActivity.class;
 
         fireBaseAuthorizerListenerStorage = new FireBaseAuthorizerListenerStorage(currentActivity,
                 loginActivity,
                 this);
-        appAuthorizerListenerStorage = new AppAuthorizerListenerStorage(currentActivity, emailAuthorizer);
+        appAuthorizerListenerStorage = new AppAuthorizerListenerStorage(currentActivity, firebaseEmailAuthorizer);
         Log.d(TAG, "AppAuthorizer constructor: created object with currentActivity: " + currentActivity +
         " user: " + user);
     }
@@ -57,27 +57,27 @@ public class AppAuthorizer implements ActionAuthorizer {
     public AppAuthorizer(AppCompatActivity currentActivity) {
         this.currentActivity = currentActivity;
         this.user = User.getInstance(currentActivity);
-        emailAuthorizer = new EmailAuthorizer();
+        firebaseEmailAuthorizer = new FirebaseEmailAuthorizer();
         Class<LoginActivity> loginActivity = LoginActivity.class;
 
         fireBaseAuthorizerListenerStorage = new FireBaseAuthorizerListenerStorage(currentActivity,
                 loginActivity,
                 this);
-        appAuthorizerListenerStorage = new AppAuthorizerListenerStorage(currentActivity, emailAuthorizer);
+        appAuthorizerListenerStorage = new AppAuthorizerListenerStorage(currentActivity, firebaseEmailAuthorizer);
         Log.d(TAG, "AppAuthorizer constructor: created object with currentActivity: " + currentActivity);
     }
 
     @Override
     public void signUp() throws AppFireBaseAuthException {
         Log.d(TAG, "signUp: performing user registration");
-        emailAuthorizer.createUserWithEmailAndPassword(user.getEmailAddress(), user.getPassword())
+        firebaseEmailAuthorizer.createUserWithEmailAndPassword(user.getEmailAddress(), user.getPassword())
                 .addOnCompleteListener(fireBaseAuthorizerListenerStorage.getSignUpWithEmailListener());
     }
 
     @Override
     public void signIn() throws AppFireBaseAuthException {
         Log.d(TAG, "signIn: performing user authorization");
-        emailAuthorizer.signInWithEmailAndPasswordhorize(
+        firebaseEmailAuthorizer.signInWithEmailAndPasswordAuthorize(
                 user.getEmailAddress(),
                 user.getPassword())
                 .addOnCompleteListener(fireBaseAuthorizerListenerStorage.getSingInCompleteListener());
@@ -86,7 +86,7 @@ public class AppAuthorizer implements ActionAuthorizer {
     @Override
     public void logout() {
         Log.d(TAG, "logout: performing user logout");
-        emailAuthorizer.signOut();
+        firebaseEmailAuthorizer.signOut();
     }
 
     @Override
@@ -94,7 +94,7 @@ public class AppAuthorizer implements ActionAuthorizer {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         Objects.requireNonNull(mAuth.getCurrentUser()).reload();
         FirebaseUser user = mAuth.getCurrentUser();
-        emailAuthorizer.sendEmailVerification();
+        firebaseEmailAuthorizer.sendEmailVerification();
         if (user.isEmailVerified()) {
             Log.d(TAG, "sendVerification: user is verified. Finishing process...");
             finishSingInActivity();
@@ -144,8 +144,8 @@ public class AppAuthorizer implements ActionAuthorizer {
         return user;
     }
 
-    public EmailAuthorizer getEmailAuthorizer() {
-        return emailAuthorizer;
+    public FirebaseEmailAuthorizer getFirebaseEmailAuthorizer() {
+        return firebaseEmailAuthorizer;
     }
 
 }

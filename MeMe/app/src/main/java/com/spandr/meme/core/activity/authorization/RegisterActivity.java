@@ -2,7 +2,6 @@ package com.spandr.meme.core.activity.authorization;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -19,7 +18,6 @@ import android.widget.ProgressBar;
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.authorization.logic.AppAuthorizer;
 import com.spandr.meme.core.activity.authorization.logic.data.User;
-import com.spandr.meme.core.activity.authorization.logic.firebase.email.EmailAuthorizer;
 import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
 
 import java.util.Objects;

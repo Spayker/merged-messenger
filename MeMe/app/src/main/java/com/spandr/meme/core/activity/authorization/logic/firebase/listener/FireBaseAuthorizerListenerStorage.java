@@ -14,7 +14,7 @@ import com.spandr.meme.R;
 import com.spandr.meme.core.activity.authorization.LoginActivity;
 import com.spandr.meme.core.activity.authorization.RegisterActivity;
 import com.spandr.meme.core.activity.authorization.logic.AppAuthorizer;
-import com.spandr.meme.core.activity.authorization.logic.firebase.email.EmailAuthorizer;
+import com.spandr.meme.core.activity.authorization.logic.firebase.email.FirebaseEmailAuthorizer;
 import com.spandr.meme.core.common.util.ActivityUtils;
 
 import java.util.Objects;
@@ -23,7 +23,7 @@ public class FireBaseAuthorizerListenerStorage {
 
     private AppCompatActivity currentActivity;
     private Class<?> redirectActivity;
-    private EmailAuthorizer emailAuthorizer;
+    private FirebaseEmailAuthorizer firebaseEmailAuthorizer;
     private FirebaseAuth mAuth;
     private AppAuthorizer appAuthorizer;
 
@@ -35,14 +35,14 @@ public class FireBaseAuthorizerListenerStorage {
         this.currentActivity = currentActivity;
         this.redirectActivity = redirectActivity;
         this.appAuthorizer = appAuthorizer;
-        this.emailAuthorizer = appAuthorizer.getEmailAuthorizer();
+        this.firebaseEmailAuthorizer = appAuthorizer.getFirebaseEmailAuthorizer();
         mAuth = FirebaseAuth.getInstance();
     }
 
     private OnCompleteListener<AuthResult> signUpWithEmailListener = task -> {
         if (task.isSuccessful()) {
             Log.d(task.toString(), currentActivity.getString(R.string.register_log_create_user_with_email_success));
-            emailAuthorizer.sendEmailVerification();
+            firebaseEmailAuthorizer.sendEmailVerification();
             Intent intent = new Intent(currentActivity, redirectActivity);
             currentActivity.startActivity(intent);
         } else {

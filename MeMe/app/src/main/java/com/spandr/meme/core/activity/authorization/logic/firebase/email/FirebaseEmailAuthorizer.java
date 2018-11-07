@@ -8,16 +8,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
 
-import java.util.Objects;
-
-public class EmailAuthorizer {
+public class FirebaseEmailAuthorizer {
 
     // tag field is used for logging sub system to identify from coming logs were created
-    private static final String TAG = EmailAuthorizer.class.getSimpleName();
+    private static final String TAG = FirebaseEmailAuthorizer.class.getSimpleName();
 
     private FirebaseAuth mAuth;
 
-    public EmailAuthorizer() {
+    public FirebaseEmailAuthorizer() {
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -46,15 +44,15 @@ public class EmailAuthorizer {
         return user.sendEmailVerification();
     }
 
-    public Task<AuthResult> signInWithEmailAndPasswordhorize(String emailAddress, String password) throws AppFireBaseAuthException {
+    public Task<AuthResult> signInWithEmailAndPasswordAuthorize(String emailAddress, String password) throws AppFireBaseAuthException {
 
         if(emailAddress == null || emailAddress.isEmpty()){
-            Log.d(TAG, "signInWithEmailAndPasswordhorize: emailAddress is null or empty");
+            Log.d(TAG, "signInWithEmailAndPasswordAuthorize: emailAddress is null or empty");
             throw new AppFireBaseAuthException();
         }
 
         if(password == null || password.isEmpty()){
-            Log.d(TAG, "signInWithEmailAndPasswordhorize: password is null or empty");
+            Log.d(TAG, "signInWithEmailAndPasswordAuthorize: password is null or empty");
             throw new AppFireBaseAuthException();
         }
 

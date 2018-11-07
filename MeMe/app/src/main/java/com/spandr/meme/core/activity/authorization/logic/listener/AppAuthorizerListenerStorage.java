@@ -5,22 +5,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.spandr.meme.R;
-import com.spandr.meme.core.activity.authorization.logic.firebase.email.EmailAuthorizer;
+import com.spandr.meme.core.activity.authorization.logic.firebase.email.FirebaseEmailAuthorizer;
 
 public class AppAuthorizerListenerStorage {
 
     private AppCompatActivity currentActivity;
-    private EmailAuthorizer emailAuthorizer;
+    private FirebaseEmailAuthorizer firebaseEmailAuthorizer;
 
     private AppAuthorizerListenerStorage() { }
 
-    public AppAuthorizerListenerStorage(AppCompatActivity currentActivity, EmailAuthorizer emailAuthorizer) {
+    public AppAuthorizerListenerStorage(AppCompatActivity currentActivity, FirebaseEmailAuthorizer firebaseEmailAuthorizer) {
         this.currentActivity = currentActivity;
-        this.emailAuthorizer = emailAuthorizer;
+        this.firebaseEmailAuthorizer = firebaseEmailAuthorizer;
     }
 
     private DialogInterface.OnClickListener sendVerificationEmailListener = (dialog, which) -> {
-        emailAuthorizer.sendEmailVerification();
+        firebaseEmailAuthorizer.sendEmailVerification();
         dialog.dismiss();
         Toast.makeText(currentActivity, currentActivity.getString(R.string.register_check_email),
                 Toast.LENGTH_SHORT).show();

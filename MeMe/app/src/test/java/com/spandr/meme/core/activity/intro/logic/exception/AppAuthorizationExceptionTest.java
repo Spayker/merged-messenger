@@ -58,7 +58,4 @@ public class AppAuthorizationExceptionTest {
         throw new AppAuthorizationException(exceptionMessage, cause);
     }
 
-
-
-
 }
