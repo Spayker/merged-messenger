@@ -13,6 +13,10 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
+
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_PASS;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_EMAIL_OR_PHONE;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_NAME;
@@ -24,6 +28,45 @@ import static junit.framework.TestCase.fail;
 
 @RunWith(RobolectricTestRunner.class)
 public class UserTest {
+
+    @Test(expected = java.lang.IllegalAccessException.class)
+    public void testValidatesThatClassUserIsNotInstantiable() throws NoSuchMethodException,
+            IllegalAccessException, InvocationTargetException, InstantiationException {
+        Constructor<User> constructor = User.class.getDeclaredConstructor();
+        assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+        constructor.setAccessible(true);
+        constructor.newInstance();
+    }
+
+    @Test
+    public void testUserThreeParametrizedConstructor(){
+        // given
+        String userName = "alex";
+        String email    = "alex@gmail.com";
+        String password = "qwerty";
+
+        // when
+        User user = new User(userName, email, password);
+
+        // then
+        assertEquals(user.getUserName(), userName);
+        assertEquals(user.getEmailAddress(), email);
+        assertEquals(user.getPassword(), password);
+    }
+
+    @Test
+    public void testUserTwoParametrizedConstructor(){
+        // given
+        String email    = "alex@gmail.com";
+        String password = "qwerty";
+
+        // when
+        User user = new User(email, password);
+
+        // then
+        assertEquals(user.getEmailAddress(), email);
+        assertEquals(user.getPassword(), password);
+    }
 
     @Test(expected = AppAuthorizationException.class)
     public void getUserInstanceWithNullActivityAndAppAuthorizationException() {

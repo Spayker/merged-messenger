@@ -63,4 +63,8 @@ public class FirebaseEmailAuthorizer {
         mAuth.signOut();
     }
 
+    public FirebaseAuth getmAuth() {
+        return mAuth;
+    }
+
 }
