@@ -36,9 +36,13 @@ public class FirebaseEmailAuthorizer {
 
     public Task<Void> sendEmailVerification() {
         FirebaseUser user = mAuth.getCurrentUser();
+        return sendEmailVerification(user);
+    }
+
+    public Task<Void> sendEmailVerification(FirebaseUser user) {
         if(user == null){
             Log.e(TAG, "sendEmailVerification: Fire base user is null. Sending is cancelled. returning null as result");
-            return null;
+            throw new AppFireBaseAuthException();
         }
 
         return user.sendEmailVerification();

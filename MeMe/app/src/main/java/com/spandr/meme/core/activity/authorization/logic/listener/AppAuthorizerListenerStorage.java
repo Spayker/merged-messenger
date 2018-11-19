@@ -20,6 +20,7 @@ public class AppAuthorizerListenerStorage {
     }
 
     private DialogInterface.OnClickListener sendVerificationEmailListener = (dialog, which) -> {
+
         firebaseEmailAuthorizer.sendEmailVerification();
         dialog.dismiss();
         Toast.makeText(currentActivity, currentActivity.getString(R.string.register_check_email),

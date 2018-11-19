@@ -94,7 +94,7 @@ public class AppAuthorizer implements ActionAuthorizer {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         Objects.requireNonNull(mAuth.getCurrentUser()).reload();
         FirebaseUser user = mAuth.getCurrentUser();
-        firebaseEmailAuthorizer.sendEmailVerification();
+        firebaseEmailAuthorizer.sendEmailVerification(user);
         if (user.isEmailVerified()) {
             Log.d(TAG, "sendVerification: user is verified. Finishing process...");
             finishSingInActivity();

@@ -42,7 +42,8 @@ public class FireBaseAuthorizerListenerStorage {
     private OnCompleteListener<AuthResult> signUpWithEmailListener = task -> {
         if (task.isSuccessful()) {
             Log.d(task.toString(), currentActivity.getString(R.string.register_log_create_user_with_email_success));
-            firebaseEmailAuthorizer.sendEmailVerification();
+            FirebaseUser user = mAuth.getCurrentUser();
+            firebaseEmailAuthorizer.sendEmailVerification(user);
             Intent intent = new Intent(currentActivity, redirectActivity);
             currentActivity.startActivity(intent);
         } else {
