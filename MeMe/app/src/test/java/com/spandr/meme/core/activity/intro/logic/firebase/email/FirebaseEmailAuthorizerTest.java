@@ -6,6 +6,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.spandr.meme.core.activity.authorization.LoginActivity;
 import com.spandr.meme.core.activity.authorization.logic.firebase.email.FirebaseEmailAuthorizer;
 import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
@@ -13,7 +14,6 @@ import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppF
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
@@ -25,24 +25,6 @@ import static junit.framework.Assert.fail;
 
 @RunWith(RobolectricTestRunner.class)
 public class FirebaseEmailAuthorizerTest {
-
-    /*
-        createUserWithEmailAndPassword
-        sendEmailVerification
-        signInWithEmailAndPasswordAuthorize
-        signOut
-    */
-
-    /*--- Approximate Service Test Structure:
-        1. test input parameters for wrong values
-        - max/min limits
-        - negative values
-        - null vlues
-        - logically incorrect values
-        - parameter object is incorrect
-        2. test business exception calles
-        3. test business logic (green scenario)
-    */
 
     @Before
     public void setupTestEnv() {
@@ -122,20 +104,88 @@ public class FirebaseEmailAuthorizerTest {
         assertNotNull(task);
     }
 
-    @Test
-    public void createUserWithEmailAndPasswordAndReturnTaskObjectWithUnverifiedStatus() {
-        // given
-        String email = "spykerstar@gmail.com";
+    @Test(expected = AppFireBaseAuthException.class)
+    public void sendEmailVerificationWithNullUserAndThrowExceptionTest(){
+        //given
+        FirebaseUser user = null;
+        FirebaseEmailAuthorizer firebaseEmailAuthorizer = new FirebaseEmailAuthorizer();
+
+        // when
+        firebaseEmailAuthorizer.sendEmailVerification(user);
+
+        // then
+        fail("sendEmailVerification: Fire base user is null. Sending is cancelled. returning null as result");
+    }
+
+
+    @Test(expected = AppFireBaseAuthException.class)
+    public void signInWithEmailAndPasswordAuthorizeWithNullEmailAndThrowExceptionTest(){
+        //given
+        String email = null;
         String password = "qwerty";
         FirebaseEmailAuthorizer firebaseEmailAuthorizer = new FirebaseEmailAuthorizer();
 
         // when
-        Task<AuthResult> task = firebaseEmailAuthorizer.createUserWithEmailAndPassword(email, password);
+        firebaseEmailAuthorizer.signInWithEmailAndPasswordAuthorize(email, password);
+
+        // then
+        fail("signInWithEmailAndPasswordAuthorize: emailAddress is null or empty");
+    }
+
+    @Test(expected = AppFireBaseAuthException.class)
+    public void signInWithEmailAndPasswordAuthorizeWithEmptyEmailAndThrowExceptionTest(){
+        //given
+        String email = "";
+        String password = "qwerty";
+        FirebaseEmailAuthorizer firebaseEmailAuthorizer = new FirebaseEmailAuthorizer();
+
+        // when
+        firebaseEmailAuthorizer.signInWithEmailAndPasswordAuthorize(email, password);
+
+        // then
+        fail("signInWithEmailAndPasswordAuthorize: emailAddress is null or empty");
+    }
+
+    @Test(expected = AppFireBaseAuthException.class)
+    public void signInWithEmailAndPasswordAuthorizeWithNullPasswordAndThrowExceptionTest(){
+        //given
+        String email = "example_email@gmail.com";
+        String password = null;
+        FirebaseEmailAuthorizer firebaseEmailAuthorizer = new FirebaseEmailAuthorizer();
+
+        // when
+        firebaseEmailAuthorizer.signInWithEmailAndPasswordAuthorize(email, password);
+
+        // then
+        fail("signInWithEmailAndPasswordAuthorize: password is null or empty");
+    }
+
+    @Test(expected = AppFireBaseAuthException.class)
+    public void signInWithEmailAndPasswordAuthorizeWithEmptyPasswordAndThrowExceptionTest(){
+        //given
+        String email = "example_email@gmail.com";
+        String password = "";
+        FirebaseEmailAuthorizer firebaseEmailAuthorizer = new FirebaseEmailAuthorizer();
+
+        // when
+        firebaseEmailAuthorizer.signInWithEmailAndPasswordAuthorize(email, password);
+
+        // then
+        fail("signInWithEmailAndPasswordAuthorize: password is null or empty");
+    }
+
+    @Test
+    public void signInWithEmailAndPasswordAuthorizeAndReturnTaskObject() {
+        // given
+        String email = "testUser" + new Date() + "@gmail.com";
+        String password = "qwerty";
+        FirebaseEmailAuthorizer firebaseEmailAuthorizer = new FirebaseEmailAuthorizer();
+
+        // when
+        Task<AuthResult> task = firebaseEmailAuthorizer.signInWithEmailAndPasswordAuthorize(email, password);
 
         // then
         assertNotNull(task);
-
     }
-
 
 }

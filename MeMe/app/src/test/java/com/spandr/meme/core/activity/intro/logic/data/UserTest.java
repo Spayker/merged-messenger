@@ -10,6 +10,7 @@ import com.spandr.meme.core.activity.authorization.logic.exception.AppAuthorizat
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
@@ -29,7 +30,7 @@ import static junit.framework.TestCase.fail;
 @RunWith(RobolectricTestRunner.class)
 public class UserTest {
 
-    @Test(expected = java.lang.IllegalAccessException.class)
+    @Test
     public void testValidatesThatClassUserIsNotInstantiable() throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException, InstantiationException {
         Constructor<User> constructor = User.class.getDeclaredConstructor();
