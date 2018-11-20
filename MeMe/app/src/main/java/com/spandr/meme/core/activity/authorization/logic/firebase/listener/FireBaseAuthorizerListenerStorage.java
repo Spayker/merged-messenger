@@ -77,12 +77,6 @@ public class FireBaseAuthorizerListenerStorage {
         ((LoginActivity) currentActivity).hideProgressDialog();
     };
 
-
-
-    private OnCompleteListener<Void> sendEmailVerificationListener = task -> {
-
-    };
-
     public OnCompleteListener<AuthResult> getSignUpWithEmailListener() {
         return signUpWithEmailListener;
     }
@@ -90,8 +84,4 @@ public class FireBaseAuthorizerListenerStorage {
     public OnCompleteListener<AuthResult> getSingInCompleteListener() {
         return singInCompleteListener;
     }
-
-    /*public OnCompleteListener<Void> getSendEmailVerificationListener() {
-        return sendEmailVerificationListener;
-    }*/
 }
