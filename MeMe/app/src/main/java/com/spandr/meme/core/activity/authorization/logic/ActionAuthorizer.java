@@ -6,7 +6,7 @@ interface ActionAuthorizer {
 
     void signUp() throws AppFireBaseAuthException;
 
-    void signIn() throws AppFireBaseAuthException;
+    void signIn(String login, String password) throws AppFireBaseAuthException;
 
     void logout();
 

@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.authorization.logic.AppAuthorizer;
 import com.spandr.meme.core.activity.authorization.logic.data.User;
+import com.spandr.meme.core.activity.authorization.logic.exception.AppAuthorizationException;
 import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
 import com.spandr.meme.core.activity.intro.WelcomeActivity;
 
@@ -173,7 +174,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        managePrefs();
+        String email = mEmailView.getText().toString().trim();
+        String password = mPasswordView.getText().toString().trim();
+        managePrefs(email, password);
     }
 
     /**
@@ -193,39 +196,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /**
      * Performs Sign In operation.
      *
-     * @param emailOrPhone a String object which will be checked during authorization procedure
+     * @param login a String object which will be checked during authorization procedure
      * @param password     a String object which will be checked during authorization procedure
      **/
-    private void signIn(String emailOrPhone, String password) throws AppFireBaseAuthException {
-        Log.d(TAG, getString(R.string.login_log_sign_in) + emailOrPhone);
-        if (!validateForm()) {
+    public void signIn(String login, String password) {
+        if (!validateForm(login, password)) {
             return;
         }
 
         AppAuthorizer appAuthorizer = new AppAuthorizer(this);
-        appAuthorizer.signIn();
+        appAuthorizer.signIn(login, password);
 
         showProgressDialog();
     }
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        managePrefs();
+        String email = mEmailView.getText().toString().trim();
+        String password = mPasswordView.getText().toString().trim();
+        managePrefs(email, password);
     }
 
     /**
      * Performs validation procedure before Sign In operation.
      **/
-    private boolean validateForm() {
+    public boolean validateForm(String login, String password) {
         boolean valid = true;
 
-        String email = mEmailView.getText().toString();
-        if (TextUtils.isEmpty(email)) {
+        if (TextUtils.isEmpty(login)) {
             mEmailView.setError(getString(R.string.login_field_required));
             valid = false;
         }
 
-        String password = mPasswordView.getText().toString();
         if (TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.login_field_required));
             valid = false;
@@ -235,12 +237,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return valid;
     }
 
-    private void managePrefs() {
+    public void managePrefs(String email, String password) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_OLD_CHANGE_PASS, mPasswordView.getText().toString().trim());
+        editor.putString(KEY_OLD_CHANGE_PASS, password);
         if (mRememberMeView.isChecked()) {
-            editor.putString(KEY_USER_EMAIL_OR_PHONE, mEmailView.getText().toString().trim());
-            editor.putString(KEY_PASS, mPasswordView.getText().toString().trim());
+            editor.putString(KEY_USER_EMAIL_OR_PHONE, email);
+            editor.putString(KEY_PASS, password);
             editor.putBoolean(KEY_REMEMBER, true);
         } else {
             editor.putBoolean(KEY_REMEMBER, false);
@@ -258,7 +260,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editor.commit();
     }
 
-    private void initForgotPasswordCountTimer() {
+    public void initForgotPasswordCountTimer() {
         long startCountDownValue;
         if (secondsLeft == 0) {
             startCountDownValue = FORGOT_PASSWORD_COOLDOWN_MS;

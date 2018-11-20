@@ -75,11 +75,11 @@ public class AppAuthorizer implements ActionAuthorizer {
     }
 
     @Override
-    public void signIn() throws AppFireBaseAuthException {
+    public void signIn(String login, String password) throws AppFireBaseAuthException {
         Log.d(TAG, "signIn: performing user authorization");
         firebaseEmailAuthorizer.signInWithEmailAndPasswordAuthorize(
-                user.getEmailAddress(),
-                user.getPassword())
+                login,
+                password)
                 .addOnCompleteListener(fireBaseAuthorizerListenerStorage.getSingInCompleteListener());
     }
 

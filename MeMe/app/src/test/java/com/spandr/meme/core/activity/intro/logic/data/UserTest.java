@@ -10,7 +10,6 @@ import com.spandr.meme.core.activity.authorization.logic.exception.AppAuthorizat
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
