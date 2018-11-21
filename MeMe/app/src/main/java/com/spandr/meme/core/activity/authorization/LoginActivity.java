@@ -26,8 +26,6 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.authorization.logic.AppAuthorizer;
-import com.spandr.meme.core.activity.authorization.logic.data.User;
-import com.spandr.meme.core.activity.authorization.logic.exception.AppAuthorizationException;
 import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
 import com.spandr.meme.core.activity.intro.WelcomeActivity;
 

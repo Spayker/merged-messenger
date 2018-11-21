@@ -74,9 +74,10 @@ dependencies {
     implementation "com.android.support.constraint:constraint-layout:${constraint_layout_library_verion}"
 
     // For test only
-    testImplementation 'junit:junit:4.12'
+    testImplementation "junit:junit:4.12"
     testImplementation "org.robolectric:robolectric:4.0.1"
     testImplementation "org.robolectric:multidex:3.4.2"
+    testImplementation "org.mockito:mockito-core:2.6.3"
 
     // FireBase module
     implementation 'com.google.firebase:firebase-core:16.0.4'
