@@ -1,12 +1,11 @@
-package com.spandr.meme.core.activity.intro.logic.data;
+package com.spandr.meme.core.activity.authorization.logic.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
 import com.spandr.meme.core.activity.authorization.LoginActivity;
-import com.spandr.meme.core.activity.authorization.logic.data.User;
-import com.spandr.meme.core.activity.authorization.logic.exception.AppAuthorizationException;
+import com.spandr.meme.core.activity.authorization.logic.exception.AppAuthorizationActivityException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -68,7 +67,7 @@ public class UserTest {
         assertEquals(user.getPassword(), password);
     }
 
-    @Test(expected = AppAuthorizationException.class)
+    @Test(expected = AppAuthorizationActivityException.class)
     public void getUserInstanceWithNullActivityAndAppAuthorizationException() {
         // given
         AppCompatActivity appCompatActivity = null;

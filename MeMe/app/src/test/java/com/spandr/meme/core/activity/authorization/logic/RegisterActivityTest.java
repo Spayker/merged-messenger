@@ -1,4 +1,4 @@
-package com.spandr.meme.core.activity.intro.logic;
+package com.spandr.meme.core.activity.authorization.logic;
 
 import com.spandr.meme.core.activity.authorization.RegisterActivity;
 

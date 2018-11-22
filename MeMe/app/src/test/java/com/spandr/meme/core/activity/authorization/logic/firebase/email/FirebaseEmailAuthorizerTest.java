@@ -1,4 +1,4 @@
-package com.spandr.meme.core.activity.intro.logic.firebase.email;
+package com.spandr.meme.core.activity.authorization.logic.firebase.email;
 
 import android.support.v7.app.AppCompatActivity;
 

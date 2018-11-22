@@ -2,7 +2,6 @@ package com.spandr.meme.core.activity.intro.logic;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -12,6 +11,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spandr.meme.R;
+import com.spandr.meme.core.activity.intro.WelcomeActivity;
+import com.spandr.meme.core.activity.intro.logic.exception.AppIntroActivityException;
 import com.spandr.meme.core.activity.main.MainActivity;
 
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_PASS;
@@ -23,11 +24,22 @@ public class AutoLoginner {
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = AutoLoginner.class.getSimpleName();
 
-    public void performAutoLogin(AppCompatActivity activity, SharedPreferences sharedPreferences, ProgressBar progressBar, LinearLayout buttonLayer) {
+    public void performAutoLogin(WelcomeActivity activity) {
+
+        if (activity == null){
+            throw new AppIntroActivityException("AutoLoginner, performAutoLogin: Activity can not be null");
+        }
+
+        validateActivity(activity);
+
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
         if (user != null && user.isEmailVerified()) {
+            SharedPreferences sharedPreferences = activity.getSharedPreferences();
+            ProgressBar progressBar = activity.getProgressBar();
+            LinearLayout buttonLayer = activity.getButtonLayer();
+
             String email = sharedPreferences.getString(KEY_USER_EMAIL_OR_PHONE, EMPTY_STRING);
             String password = sharedPreferences.getString(KEY_PASS, EMPTY_STRING);
             if (!email.isEmpty() && !password.isEmpty()) {
@@ -48,6 +60,22 @@ public class AutoLoginner {
                             }
                         });
             }
+        }
+    }
+
+    private void validateActivity(WelcomeActivity activity) {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences();
+        if(sharedPreferences == null){
+            throw new AppIntroActivityException("AutoLoginner, isActivityValid: sharedPreferences is null");
+        }
+        LinearLayout buttonLayer = activity.getButtonLayer();
+        if(buttonLayer == null){
+            throw new AppIntroActivityException("AutoLoginner, isActivityValid: buttonLayer is null");
+        }
+
+        ProgressBar progressBar = activity.getProgressBar();
+        if(progressBar == null){
+            throw new AppIntroActivityException("AutoLoginner, isActivityValid: progressBar is null");
         }
     }
 

@@ -1,7 +1,6 @@
-package com.spandr.meme.core.activity.intro.logic.firebase.exception;
+package com.spandr.meme.core.activity.authorization.logic.firebase.exception;
 
-import com.spandr.meme.core.activity.authorization.logic.exception.AppAuthorizationException;
-import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
+import com.spandr.meme.core.activity.authorization.logic.exception.AppAuthorizationActivityException;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.core.IsEqual;
@@ -48,14 +47,14 @@ public class AppFireBaseAuthExceptionTest {
     public void throwAppFireBaseAuthExceptionThenCheckMessageAndCauseTest() {
         // given
         String exceptionMessage = "Test Exception Run";
-        Throwable cause = new AppAuthorizationException();
+        Throwable cause = new AppAuthorizationActivityException();
 
         // when
-        thrown.expect(AppAuthorizationException.class);
+        thrown.expect(AppAuthorizationActivityException.class);
         thrown.expectMessage(CoreMatchers.containsString(exceptionMessage));
 
         // then
-        throw new AppAuthorizationException(exceptionMessage, cause);
+        throw new AppAuthorizationActivityException(exceptionMessage, cause);
     }
 
 }

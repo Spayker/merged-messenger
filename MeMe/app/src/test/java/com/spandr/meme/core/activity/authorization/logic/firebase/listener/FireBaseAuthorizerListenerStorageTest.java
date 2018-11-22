@@ -1,4 +1,4 @@
-package com.spandr.meme.core.activity.intro.logic.firebase.listener;
+package com.spandr.meme.core.activity.authorization.logic.firebase.listener;
 
 import com.spandr.meme.core.activity.authorization.logic.firebase.listener.FireBaseAuthorizerListenerStorage;
 

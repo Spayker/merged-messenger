@@ -34,6 +34,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private AutoLoginner autoLoginner = new AutoLoginner();
 
+    private SharedPreferences sharedPreferences;
+    private ProgressBar progressBar;
+    private LinearLayout buttonLayer;
+
     /**
      * Perform initialization of all fragments of current activity.
      *
@@ -46,11 +50,11 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         Fabric.with(this, new Crashlytics());
-        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 
-        ProgressBar progressBar = findViewById(R.id.welcome_progressBar_cyclic);
+        progressBar = findViewById(R.id.welcome_progressBar_cyclic);
         progressBar.setVisibility(View.INVISIBLE);
-        LinearLayout buttonLayer = findViewById(R.id.fullscreen_content_controls);
+        buttonLayer = findViewById(R.id.fullscreen_content_controls);
         buttonLayer.setVisibility(View.INVISIBLE);
 
         initLanguage(sharedPreferences, this);
@@ -59,16 +63,14 @@ public class WelcomeActivity extends AppCompatActivity {
         Log.d(TAG, "Slogan init is complete");
         ActivityUtils.initVersionNumber(this);
         Log.d(TAG, "Version number init is complete");
-        checkAutoLogin(sharedPreferences, progressBar, buttonLayer);
+        checkAutoLogin();
         Log.d(TAG, "Auto login is checked");
     }
 
-    private void checkAutoLogin(SharedPreferences sharedPreferences,
-                                ProgressBar progressBar,
-                                LinearLayout buttonLayer) {
+    private void checkAutoLogin() {
         boolean isAutoLoginEnabled = sharedPreferences.getBoolean(KEY_AUTO_LOGIN, false);
         if (isAutoLoginEnabled) {
-            autoLoginner.performAutoLogin(this, sharedPreferences, progressBar, buttonLayer);
+            autoLoginner.performAutoLogin(this);
         }
         buttonLayer.setVisibility(View.VISIBLE);
     }
@@ -101,5 +103,17 @@ public class WelcomeActivity extends AppCompatActivity {
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    public LinearLayout getButtonLayer() {
+        return buttonLayer;
+    }
+
+    public SharedPreferences getSharedPreferences() {
+        return sharedPreferences;
+    }
+
+    public ProgressBar getProgressBar() {
+        return progressBar;
     }
 }
