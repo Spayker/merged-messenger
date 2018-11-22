@@ -187,7 +187,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     /**
      * Validates filled values in all fields of current activity on screen.
      **/
-    public boolean validateRegisterForm(String email, String password, String confirmedPassword) {
+    boolean validateRegisterForm(String email, String password, String confirmedPassword) {
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.register_field_required));
             return false;
