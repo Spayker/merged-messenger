@@ -13,46 +13,46 @@ import static junit.framework.Assert.assertFalse;
 public class LoginActivityTest {
 
     @Test
-    public void validateFormWithEmptyLoginAndReturnFalse(){
+    public void validateLoginFormWithEmptyLoginAndReturnFalse(){
         // given
         LoginActivity activity = Robolectric.setupActivity(LoginActivity.class);
         String password = "password";
         String login = "";
 
-        boolean isValidated = activity.validateForm(login, password);
+        boolean isValidated = activity.validateLoginForm(login, password);
         assertFalse(isValidated);
     }
 
     @Test
-    public void validateFormWithNullLoginAndReturnFalse(){
+    public void validateLoginFormWithNullLoginAndReturnFalse(){
         // given
         LoginActivity activity = Robolectric.setupActivity(LoginActivity.class);
         String password = "password";
         String login = null;
 
-        boolean isValidated = activity.validateForm(login, password);
+        boolean isValidated = activity.validateLoginForm(login, password);
         assertFalse(isValidated);
     }
 
     @Test
-    public void validateFormWithNullPasswordAndReturnFalse(){
+    public void validateLoginFormWithNullPasswordAndReturnFalse(){
         // given
         LoginActivity activity = Robolectric.setupActivity(LoginActivity.class);
         String password = null;
         String login = "loginMeMe@gmail.com";
 
-        boolean isValidated = activity.validateForm(login, password);
+        boolean isValidated = activity.validateLoginForm(login, password);
         assertFalse(isValidated);
     }
 
     @Test
-    public void validateFormWithEmptyPasswordAndReturnFalse(){
+    public void validateLoginFormWithEmptyPasswordAndReturnFalse(){
         // given
         LoginActivity activity = Robolectric.setupActivity(LoginActivity.class);
         String password = "";
         String login = "loginMeMe@gmail.com";
 
-        boolean isValidated = activity.validateForm(login, password);
+        boolean isValidated = activity.validateLoginForm(login, password);
         assertFalse(isValidated);
     }
 

@@ -103,7 +103,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      **/
     private void signUp(String email, String name, String password, String confirmPassword) throws AppFireBaseAuthException {
         Log.d(TAG, getString(R.string.register_log_sign_up) + email);
-        if (!validateForm()) {
+
+        if (!validateRegisterForm(email, password, confirmPassword)) {
             return;
         }
 
@@ -186,8 +187,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     /**
      * Validates filled values in all fields of current activity on screen.
      **/
-    private boolean validateForm() {
-        String email = mEmailView.getText().toString();
+    public boolean validateRegisterForm(String email, String password, String confirmedPassword) {
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.register_field_required));
             return false;
@@ -198,14 +198,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return false;
         }
 
-        String password = mPasswordView.getText().toString();
         if (TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.register_field_required));
             return false;
         }
 
-        String confirmPassword = mPasswordConfirmView.getText().toString();
-        if (TextUtils.isEmpty(confirmPassword)) {
+        if (TextUtils.isEmpty(confirmedPassword)) {
             mPasswordView.setError(getString(R.string.register_field_required));
             return false;
         }

@@ -198,7 +198,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * @param password     a String object which will be checked during authorization procedure
      **/
     public void signIn(String login, String password) {
-        if (!validateForm(login, password)) {
+        if (!validateLoginForm(login, password)) {
             return;
         }
 
@@ -218,7 +218,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /**
      * Performs validation procedure before Sign In operation.
      **/
-    public boolean validateForm(String login, String password) {
+    public boolean validateLoginForm(String login, String password) {
         boolean valid = true;
 
         if (TextUtils.isEmpty(login)) {
