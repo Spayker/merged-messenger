@@ -25,5 +25,17 @@ public class AutoLoginnerTest {
         fail("AutoLoginner, performAutoLogin: Activity can not be null");
     }
 
+    @Test(expected = AppIntroActivityException.class)
+    public void validateActivityWithNullActivityObjectTest() {
+        // given
+        WelcomeActivity activity = null;
+        AutoLoginner autoLoginner = new AutoLoginner();
+
+        // when
+        autoLoginner.validateActivity(activity);
+
+        // then
+        fail("AutoLoginner, validateActivity: sharedPreferences is null");
+    }
 
 }
