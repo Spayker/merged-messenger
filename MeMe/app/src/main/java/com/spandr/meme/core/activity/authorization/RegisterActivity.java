@@ -128,12 +128,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         }
 
-        // Check for a valid password confirmation, if the user entered one.
-        if (TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword)) {
-            mPasswordConfirmView.setError(getString(R.string.register_error_empty_password));
-            return;
-        }
-
         if (!password.equalsIgnoreCase(confirmPassword)) {
             mPasswordView.setError(getString(R.string.register_error_not_equal_password));
             mPasswordConfirmView.setError(getString(R.string.register_error_not_equal_password));

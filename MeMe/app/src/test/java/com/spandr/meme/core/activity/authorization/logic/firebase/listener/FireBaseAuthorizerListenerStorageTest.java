@@ -1,7 +1,5 @@
 package com.spandr.meme.core.activity.authorization.logic.firebase.listener;
 
-import com.spandr.meme.core.activity.authorization.logic.firebase.listener.FireBaseAuthorizerListenerStorage;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
