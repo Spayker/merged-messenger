@@ -5,11 +5,12 @@ import com.spandr.meme.core.activity.intro.logic.exception.AppIntroActivityExcep
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import org.robolectric.RobolectricTestRunner;
 
 import static junit.framework.Assert.fail;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(JUnit4.class)
 public class AutoLoginnerTest {
 
     @Test(expected = AppIntroActivityException.class)

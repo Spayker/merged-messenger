@@ -14,6 +14,7 @@ import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppF
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
@@ -23,7 +24,7 @@ import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(JUnit4.class)
 public class FirebaseEmailAuthorizerTest {
 
     @Before

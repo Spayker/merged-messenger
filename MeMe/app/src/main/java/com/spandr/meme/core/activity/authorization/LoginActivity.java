@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +26,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.authorization.logic.AppAuthorizer;
 import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
+import com.spandr.meme.core.activity.authorization.logic.validator.FormValidator;
+import com.spandr.meme.core.activity.authorization.logic.validator.LoginFormValidator;
 import com.spandr.meme.core.activity.intro.WelcomeActivity;
 
 import java.util.Objects;
@@ -65,6 +66,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static long secondsLeft;
 
     private SharedPreferences sharedPreferences;
+    private FormValidator formValidator;
 
     /**
      * Perform initialization of all fragments of current activity.
@@ -123,6 +125,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             mForgotPasswordView.setTextColor(Color.GRAY);
             countDownTimer.start();
         }
+
+        // init form validator
+        formValidator = new LoginFormValidator();
 
         // db init
         //FireBaseDBInitializer.create().init();
@@ -198,13 +203,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * @param password     a String object which will be checked during authorization procedure
      **/
     public void signIn(String login, String password) {
-        if (!validateLoginForm(login, password)) {
-            return;
+        switch(formValidator.validateInputForm(login, password)){
+            case EMPTY_LOGIN:{
+                mEmailView.setError(getString(R.string.login_field_required));
+                return;
+            }
+            case EMPTY_PASSWORD:{
+                mPasswordView.setError(getString(R.string.login_field_required));
+                return;
+            }
+            case OK:{
+                mPasswordView.setError(null);
+            }
         }
 
         AppAuthorizer appAuthorizer = new AppAuthorizer(this);
         appAuthorizer.signIn(login, password);
-
         showProgressDialog();
     }
 
@@ -213,26 +227,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String email = mEmailView.getText().toString().trim();
         String password = mPasswordView.getText().toString().trim();
         managePrefs(email, password);
-    }
-
-    /**
-     * Performs validation procedure before Sign In operation.
-     **/
-    public boolean validateLoginForm(String login, String password) {
-        boolean valid = true;
-
-        if (TextUtils.isEmpty(login)) {
-            mEmailView.setError(getString(R.string.login_field_required));
-            valid = false;
-        }
-
-        if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.login_field_required));
-            valid = false;
-        } else {
-            mPasswordView.setError(null);
-        }
-        return valid;
     }
 
     public void managePrefs(String email, String password) {

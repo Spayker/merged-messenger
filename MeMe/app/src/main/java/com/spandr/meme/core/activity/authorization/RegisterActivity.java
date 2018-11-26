@@ -19,6 +19,8 @@ import com.spandr.meme.R;
 import com.spandr.meme.core.activity.authorization.logic.AppAuthorizer;
 import com.spandr.meme.core.activity.authorization.logic.data.User;
 import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
+import com.spandr.meme.core.activity.authorization.logic.validator.FormValidator;
+import com.spandr.meme.core.activity.authorization.logic.validator.RegisterFormValidator;
 
 import java.util.Objects;
 
@@ -41,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText mPasswordConfirmView;
     private Button mRegister;
     private ProgressBar progressBar;
+    private FormValidator formValidator;
 
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = RegisterActivity.class.getSimpleName();
@@ -80,6 +83,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
         );
 
+        formValidator = new RegisterFormValidator();
+
         progressBar = findViewById(R.id.register_progressBar_cyclic);
         progressBar.setVisibility(View.INVISIBLE);
     }
@@ -104,8 +109,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private void signUp(String email, String name, String password, String confirmPassword) throws AppFireBaseAuthException {
         Log.d(TAG, getString(R.string.register_log_sign_up) + email);
 
-        if (!validateRegisterForm(email, password, confirmPassword)) {
-            return;
+        switch(formValidator.validateInputForm(email, password, confirmPassword)){
+            case EMPTY_LOGIN:{
+                mEmailView.setError(getString(R.string.register_field_required));
+                return;
+            }
+            case EMAIL_INCORRECT_FORMAT:{
+                mEmailView.setError(getString(R.string.register_email_field_incorrect_format));
+                return;
+            }
+            case EMPTY_PASSWORD:{
+                mPasswordView.setError(getString(R.string.login_field_required));
+                return;
+            }
+            case EMPTY_CONFIRM_PASSWORD:{
+                mPasswordView.setError(getString(R.string.login_field_required));
+                return;
+            }
         }
 
         // Check for a valid password confirmation, if the user entered one.
@@ -184,29 +204,5 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         return (!password.isEmpty() && password.length() > 4);
     }
 
-    /**
-     * Validates filled values in all fields of current activity on screen.
-     **/
-    boolean validateRegisterForm(String email, String password, String confirmedPassword) {
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.register_field_required));
-            return false;
-        }
 
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            mEmailView.setError(getString(R.string.register_email_field_incorrect_format));
-            return false;
-        }
-
-        if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.register_field_required));
-            return false;
-        }
-
-        if (TextUtils.isEmpty(confirmedPassword)) {
-            mPasswordView.setError(getString(R.string.register_field_required));
-            return false;
-        }
-        return true;
-    }
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -63,12 +64,12 @@ public class WelcomeActivity extends AppCompatActivity {
         Log.d(TAG, "Slogan init is complete");
         ActivityUtils.initVersionNumber(this);
         Log.d(TAG, "Version number init is complete");
-        checkAutoLogin();
+        boolean isAutoLoginEnabled = sharedPreferences.getBoolean(KEY_AUTO_LOGIN, false);
+        checkAutoLogin(isAutoLoginEnabled);
         Log.d(TAG, "Auto login is checked");
     }
 
-    private void checkAutoLogin() {
-        boolean isAutoLoginEnabled = sharedPreferences.getBoolean(KEY_AUTO_LOGIN, false);
+    private void checkAutoLogin(boolean isAutoLoginEnabled) {
         if (isAutoLoginEnabled) {
             autoLoginner.performAutoLogin(this);
         }
