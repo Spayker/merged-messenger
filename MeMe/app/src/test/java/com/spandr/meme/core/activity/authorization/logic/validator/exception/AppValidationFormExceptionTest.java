@@ -15,7 +15,7 @@ public class AppValidationFormExceptionTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void throwAppValidationFormExceptionAndCheckMessageTest() {
+    public void throw_AppValidationFormException_And_Check_Message_Test() {
         // given
         String exceptionMessage = "Test Exception Run";
 
@@ -28,7 +28,7 @@ public class AppValidationFormExceptionTest {
     }
 
     @Test
-    public void throwAppValidationFormExceptionThenCheckCauseTest() {
+    public void throw_AppValidationFormException_Then_Check_Cause_Test() {
         // given
         String exceptionMessage = "Test Exception Run";
         Throwable expectedCause = new AppValidationFormException(exceptionMessage);
@@ -42,7 +42,7 @@ public class AppValidationFormExceptionTest {
     }
 
     @Test
-    public void throwAppAuthorizationExceptionThenCheckMessageAndCauseTest() {
+    public void throw_AppAuthorizationException_Then_CheckMessage_And_Cause_Test() {
         // given
         String exceptionMessage = "Test Exception Run";
         Throwable cause = new AppValidationFormException();

@@ -28,13 +28,13 @@ import static junit.framework.Assert.fail;
 public class FirebaseEmailAuthorizerTest {
 
     @Before
-    public void setupTestEnv() {
+    public void setup_Test_Env() {
         AppCompatActivity activity = Robolectric.setupActivity(LoginActivity.class);
         FirebaseApp.initializeApp(activity);
     }
 
     @Test
-    public void checkInitOfPublicConstructor() {
+    public void check_Init_Of_Public_Constructor() {
         // given
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         // when
@@ -44,7 +44,7 @@ public class FirebaseEmailAuthorizerTest {
     }
 
     @Test(expected = AppFireBaseAuthException.class)
-    public void createUserWithEmailAndPasswordWithNullEmailParameterAndThrowExceptionTest() {
+    public void create_User_With_Email_And_Password_With_Null_Email_Parameter_And_ThrowException_Test() {
         // given
         String password = "password";
         String email = null;
@@ -56,7 +56,7 @@ public class FirebaseEmailAuthorizerTest {
     }
 
     @Test(expected = AppFireBaseAuthException.class)
-    public void createUserWithEmailAndPasswordWithEmptyEmailParameterAndThrowExceptionTest() {
+    public void create_User_With_Email_And_Password_With_Empty_Email_Parameter_And_Throw_Exception_Test() {
         // given
         String password = "password";
         String email = "";
@@ -68,7 +68,7 @@ public class FirebaseEmailAuthorizerTest {
     }
 
     @Test(expected = AppFireBaseAuthException.class)
-    public void createUserWithEmailAndPasswordWithNullPasswordParameterAndThrowExceptionTest() {
+    public void create_User_With_Email_And_Password_With_Null_Password_Parameter_And_Throw_Exception_Test() {
         // given
         String password = null;
         String email = "example_email@gmail.com";
@@ -80,7 +80,7 @@ public class FirebaseEmailAuthorizerTest {
     }
 
     @Test(expected = AppFireBaseAuthException.class)
-    public void createUserWithEmailAndPasswordWithEmptyPasswordParameterAndThrowExceptionTest() {
+    public void create_User_With_Email_And_Password_With_Empty_Password_Parameter_And_Throw_Exception_Test() {
         // given
         String password = "";
         String email = "example_email@gmail.com";
@@ -92,7 +92,7 @@ public class FirebaseEmailAuthorizerTest {
     }
 
     @Test
-    public void createUserWithEmailAndPasswordAndReturnTaskObject() {
+    public void create_User_With_Email_And_Password_And_Return_Task_Object() {
         // given
         String email = "testUser" + new Date() + "@gmail.com";
         String password = "qwerty";
@@ -106,7 +106,7 @@ public class FirebaseEmailAuthorizerTest {
     }
 
     @Test(expected = AppFireBaseAuthException.class)
-    public void sendEmailVerificationWithNullUserAndThrowExceptionTest(){
+    public void send_Email_Verification_With_Null_User_And_Throw_Exception_Test(){
         //given
         FirebaseUser user = null;
         FirebaseEmailAuthorizer firebaseEmailAuthorizer = new FirebaseEmailAuthorizer();
@@ -120,7 +120,7 @@ public class FirebaseEmailAuthorizerTest {
 
 
     @Test(expected = AppFireBaseAuthException.class)
-    public void signInWithEmailAndPasswordAuthorizeWithNullEmailAndThrowExceptionTest(){
+    public void sign_In_With_Email_And_Password_Authorize_With_Null_Email_And_Throw_Exception_Test(){
         //given
         String email = null;
         String password = "qwerty";
@@ -134,7 +134,7 @@ public class FirebaseEmailAuthorizerTest {
     }
 
     @Test(expected = AppFireBaseAuthException.class)
-    public void signInWithEmailAndPasswordAuthorizeWithEmptyEmailAndThrowExceptionTest(){
+    public void sign_In_With_Email_And_Password_Authorize_With_Empty_Email_And_Throw_Exception_Test(){
         //given
         String email = "";
         String password = "qwerty";
@@ -148,7 +148,7 @@ public class FirebaseEmailAuthorizerTest {
     }
 
     @Test(expected = AppFireBaseAuthException.class)
-    public void signInWithEmailAndPasswordAuthorizeWithNullPasswordAndThrowExceptionTest(){
+    public void sign_In_With_Email_And_Password_Authorize_With_Null_Password_And_Throw_Exception_Test(){
         //given
         String email = "example_email@gmail.com";
         String password = null;
@@ -162,7 +162,7 @@ public class FirebaseEmailAuthorizerTest {
     }
 
     @Test(expected = AppFireBaseAuthException.class)
-    public void signInWithEmailAndPasswordAuthorizeWithEmptyPasswordAndThrowExceptionTest(){
+    public void sign_In_With_Email_And_Password_Authorize_With_Empty_Password_And_Throw_Exception_Test(){
         //given
         String email = "example_email@gmail.com";
         String password = "";
@@ -176,7 +176,7 @@ public class FirebaseEmailAuthorizerTest {
     }
 
     @Test
-    public void signInWithEmailAndPasswordAuthorizeAndReturnTaskObject() {
+    public void sign_In_With_Email_And_Password_Authorize_And_Return_Task_Object() {
         // given
         String email = "testUser" + new Date() + "@gmail.com";
         String password = "qwerty";

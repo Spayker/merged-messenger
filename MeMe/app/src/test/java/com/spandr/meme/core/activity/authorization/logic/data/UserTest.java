@@ -30,7 +30,7 @@ import static junit.framework.TestCase.fail;
 public class UserTest {
 
     @Test
-    public void testValidatesThatClassUserIsNotInstantiable() throws NoSuchMethodException,
+    public void test_Validates_That_Class_User_Is_Not_Instantiable() throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException, InstantiationException {
         Constructor<User> constructor = User.class.getDeclaredConstructor();
         assertTrue(Modifier.isPrivate(constructor.getModifiers()));
@@ -39,7 +39,7 @@ public class UserTest {
     }
 
     @Test
-    public void testUserThreeParametrizedConstructor(){
+    public void test_User_Three_Parametrized_Constructor(){
         // given
         String userName = "alex";
         String email    = "alex@gmail.com";
@@ -55,7 +55,7 @@ public class UserTest {
     }
 
     @Test
-    public void testUserTwoParametrizedConstructor(){
+    public void test_User_Two_Parametrized_Constructor(){
         // given
         String email    = "alex@gmail.com";
         String password = "qwerty";
@@ -69,7 +69,7 @@ public class UserTest {
     }
 
     @Test(expected = AppAuthorizationActivityException.class)
-    public void getUserInstanceWithNullActivityAndAppAuthorizationException() {
+    public void get_User_Instance_With_Null_Activity_And_AppAuthorizationException() {
         // given
         AppCompatActivity appCompatActivity = null;
         // when
@@ -79,7 +79,7 @@ public class UserTest {
     }
 
     @Test
-    public void getUserInstanceWithNonNullActivityTest() {
+    public void get_UserInstance_With_Non_Null_Activity_Test() {
         // given
         AppCompatActivity activity = Robolectric.setupActivity(LoginActivity.class);
 
@@ -90,7 +90,7 @@ public class UserTest {
     }
 
     @Test
-    public void getUserInstanceWithEmptyFieldsTest(){
+    public void get_User_Instance_With_Empty_Fields_Test(){
         // given
         AppCompatActivity activity = Robolectric.setupActivity(LoginActivity.class);
 
@@ -107,7 +107,7 @@ public class UserTest {
     }
 
     @Test
-    public void getUserInstanceWithFieldsTest(){
+    public void get_User_Instance_With_Fields_Test(){
         // given
         AppCompatActivity activity = Robolectric.setupActivity(LoginActivity.class);
         SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);

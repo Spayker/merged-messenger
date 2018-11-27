@@ -15,7 +15,7 @@ public class AppAuthorizationActivityExceptionTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void throwAppAuthorizationExceptionAndCheckMessageTest() {
+    public void throw_App_Authorization_Exception_And_Check_Message_Test() {
         // given
         String exceptionMessage = "Test Exception Run";
 
@@ -28,7 +28,7 @@ public class AppAuthorizationActivityExceptionTest {
     }
 
     @Test
-    public void throwAppAuthorizationExceptionThenCheckCauseTest() {
+    public void throw_AppAuthorization_Exception_Then_Check_Cause_Test() {
         // given
         String exceptionMessage = "Test Exception Run";
         Throwable expectedCause = new AppAuthorizationActivityException(exceptionMessage);
@@ -42,7 +42,7 @@ public class AppAuthorizationActivityExceptionTest {
     }
 
     @Test
-    public void throwAppAuthorizationExceptionThenCheckMessageAndCauseTest() {
+    public void throw_AppAuthorizationException_Then_Check_Message_And_Cause_Test() {
         // given
         String exceptionMessage = "Test Exception Run";
         Throwable cause = new AppAuthorizationActivityException();

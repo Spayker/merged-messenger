@@ -14,7 +14,7 @@ import static junit.framework.Assert.fail;
 public class AutoLoginnerTest {
 
     @Test(expected = AppIntroActivityException.class)
-    public void performAutoLoginWithNullActivityTest() {
+    public void perform_Auto_Login_With_Null_Activity_Test() {
         // given
         WelcomeActivity activity = null;
         AutoLoginner autoLoginner = new AutoLoginner();
@@ -27,7 +27,7 @@ public class AutoLoginnerTest {
     }
 
     @Test(expected = AppIntroActivityException.class)
-    public void validateActivityWithNullActivityObjectTest() {
+    public void validate_Activity_With_Null_Activity_Object_Test() {
         // given
         WelcomeActivity activity = null;
         AutoLoginner autoLoginner = new AutoLoginner();

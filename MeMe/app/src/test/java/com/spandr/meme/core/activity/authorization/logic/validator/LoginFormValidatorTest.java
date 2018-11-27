@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class LoginFormValidatorTest {
 
     @Test
-    public void validateFormWithEmptyLoginAndReturnEmptyLoginCode(){
+    public void validate_Form_With_Empty_Login_And_Return_Empty_Login_Code(){
         LoginFormValidator loginFormValidator = new LoginFormValidator();
         String password = "password";
         String login = "";
@@ -22,7 +22,7 @@ public class LoginFormValidatorTest {
     }
 
     @Test
-    public void validateFormWithEmptyPasswordAndReturnEmptyPasswordCode(){
+    public void validate_Form_With_Empty_Password_And_Return_Empty_Password_Code(){
         LoginFormValidator loginFormValidator = new LoginFormValidator();
         String password = "";
         String login = "login";
@@ -32,7 +32,7 @@ public class LoginFormValidatorTest {
     }
 
     @Test(expected = AppValidationFormException.class)
-    public void validateFormWithNullLoginAndAppValidationFormException(){
+    public void validate_Form_With_Null_Login_And_AppValidationForm_Exception(){
         LoginFormValidator loginFormValidator = new LoginFormValidator();
         String password = "password";
         String login = null;
@@ -40,20 +40,20 @@ public class LoginFormValidatorTest {
     }
 
     @Test(expected = AppValidationFormException.class)
-    public void validateFormWithNullParameterAndThrowAppValidationFormException(){
+    public void validate_Form_With_Null_Parameter_And_Throw_AppValidationForm_Exception(){
         LoginFormValidator loginFormValidator = new LoginFormValidator();
         loginFormValidator.validateInputForm(null);
     }
 
     @Test(expected = AppValidationFormException.class)
-    public void validateFormWithEmptyStringArrayOfInputParametersAndThrowAppValidationFormException(){
+    public void validate_Form_With_Empty_String_Array_Of_Input_Parameters_And_Throw_AppValidationForm_Exception(){
         LoginFormValidator loginFormValidator = new LoginFormValidator();
         String[] inputStringArray = new String[]{};
         loginFormValidator.validateInputForm(inputStringArray);
     }
 
     @Test(expected = AppValidationFormException.class)
-    public void validateFormWithThreeParametersAndThrowAppValidationFormException(){
+    public void validate_Form_With_Three_Parameters_And_Throw_AppValidationForm_Exception(){
         LoginFormValidator loginFormValidator = new LoginFormValidator();
         String password = "password";
         String confirmPassword = "confirmPassword";
@@ -63,7 +63,7 @@ public class LoginFormValidatorTest {
 
 
     @Test
-    public void validateFormWithAndReturnOkCode(){
+    public void validate_Form_With_And_Return_Ok_Code(){
         LoginFormValidator loginFormValidator = new LoginFormValidator();
         String login = "login";
         String password = "password";

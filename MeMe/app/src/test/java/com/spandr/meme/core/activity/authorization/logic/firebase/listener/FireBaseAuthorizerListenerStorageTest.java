@@ -13,7 +13,7 @@ import static junit.framework.Assert.assertTrue;
 public class FireBaseAuthorizerListenerStorageTest {
 
     @Test
-    public void testValidatesThatClassFireBaseAuthorizerListenerStorageIsNotInstantiable() throws Exception  {
+    public void test_Validates_That_Class_FireBase_Authorizer_Listener_Storage_Is_Not_Instantiable() throws Exception  {
         Constructor<FireBaseAuthorizerListenerStorage> constructor =
                 FireBaseAuthorizerListenerStorage.class.getDeclaredConstructor();
         assertTrue(Modifier.isPrivate(constructor.getModifiers()));
