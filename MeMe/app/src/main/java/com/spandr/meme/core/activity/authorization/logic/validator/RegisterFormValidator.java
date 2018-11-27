@@ -8,7 +8,9 @@ import static com.spandr.meme.core.activity.authorization.logic.validator.Valida
 import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.EMPTY_CONFIRM_PASSWORD;
 import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.EMPTY_LOGIN;
 import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.EMPTY_PASSWORD;
+import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.NON_EQUAL_PASSWORDS;
 import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.OK;
+import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.SHORT_PASSWORD;
 
 public class RegisterFormValidator implements FormValidator {
 
@@ -46,12 +48,20 @@ public class RegisterFormValidator implements FormValidator {
                     return EMPTY_PASSWORD;
                 }
 
-                String confirmedPassword = fieldsToCheck[2];
-                if(confirmedPassword == null){
+                String confirmPassword = fieldsToCheck[2];
+                if(confirmPassword == null){
                     throw new AppValidationFormException("validateInputForm: confirmed password can not be null");
                 }
-                if (TextUtils.isEmpty(confirmedPassword)) {
+                if (TextUtils.isEmpty(confirmPassword)) {
                     return EMPTY_CONFIRM_PASSWORD;
+                }
+
+                if (!isPasswordValid(password)) {
+                    return SHORT_PASSWORD;
+                }
+
+                if (!password.equalsIgnoreCase(confirmPassword)) {
+                    return NON_EQUAL_PASSWORDS;
                 }
 
                 break;
@@ -61,5 +71,15 @@ public class RegisterFormValidator implements FormValidator {
             }
         }
         return OK;
+    }
+
+    /**
+     * Returns true or false if a password is valid or not.
+     *
+     * @param password a String object which must be validated
+     * @return a boolean value. Depends on validation result
+     **/
+    private boolean isPasswordValid(String password) {
+        return (!password.isEmpty() && password.length() > 4);
     }
 }

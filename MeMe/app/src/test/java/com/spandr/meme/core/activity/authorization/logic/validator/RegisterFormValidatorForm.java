@@ -112,13 +112,33 @@ registerFormValidator.validateInputForm(login, password, confirmPassword);
     }
 
     @Test
-    public void validateFormWithAndReturnOkCode(){
+    public void validateFormReturnOkCode(){
         RegisterFormValidator registerFormValidator = new RegisterFormValidator();
         String login = "login@gmail.com";
         String password = "password";
         String confirmPassword = "password";
         ValidationReturnCode returnCode = registerFormValidator.validateInputForm(login, password, confirmPassword);
         assertTrue(returnCode.equals(ValidationReturnCode.OK));
+    }
+
+    @Test
+    public void validateFormWithDifferentPasswordsAndReturnNonEqualPasswordsCode(){
+        RegisterFormValidator registerFormValidator = new RegisterFormValidator();
+        String login = "login@gmail.com";
+        String password = "password1";
+        String confirmPassword = "password2";
+        ValidationReturnCode returnCode = registerFormValidator.validateInputForm(login, password, confirmPassword);
+        assertTrue(returnCode.equals(ValidationReturnCode.NON_EQUAL_PASSWORDS));
+    }
+
+    @Test
+    public void validateFormWithShortPasswordsAndReturnShortPasswordCode(){
+        RegisterFormValidator registerFormValidator = new RegisterFormValidator();
+        String login = "login@gmail.com";
+        String password = "pas";
+        String confirmPassword = "pas";
+        ValidationReturnCode returnCode = registerFormValidator.validateInputForm(login, password, confirmPassword);
+        assertTrue(returnCode.equals(ValidationReturnCode.SHORT_PASSWORD));
     }
 
 }

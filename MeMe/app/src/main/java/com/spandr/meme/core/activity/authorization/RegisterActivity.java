@@ -126,18 +126,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 mPasswordView.setError(getString(R.string.login_field_required));
                 return;
             }
+            case NON_EQUAL_PASSWORDS:{
+                mPasswordView.setError(getString(R.string.register_error_not_equal_password));
+                mPasswordConfirmView.setError(getString(R.string.register_error_not_equal_password));
+                return;
+            }
+            case SHORT_PASSWORD:{
+                mPasswordConfirmView.setError(getString(R.string.register_error_invalid_password));
+                return;
+            }
         }
 
-        if (!password.equalsIgnoreCase(confirmPassword)) {
-            mPasswordView.setError(getString(R.string.register_error_not_equal_password));
-            mPasswordConfirmView.setError(getString(R.string.register_error_not_equal_password));
-            return;
-        }
-
-        if (!isPasswordValid(password)) {
-            mPasswordConfirmView.setError(getString(R.string.register_error_invalid_password));
-            return;
-        }
         showProgressDialog();
         User user = new User(name, email, password);
         AppAuthorizer appAuthorizer = new AppAuthorizer(this, user);
@@ -187,16 +186,4 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void hideProgressDialog() {
         progressBar.setVisibility(View.INVISIBLE);
     }
-
-    /**
-     * Returns true or false if a password is valid or not.
-     *
-     * @param password a String object which must be validated
-     * @return a boolean value. Depends on validation result
-     **/
-    private boolean isPasswordValid(String password) {
-        return (!password.isEmpty() && password.length() > 4);
-    }
-
-
 }
