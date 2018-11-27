@@ -82,7 +82,7 @@ public class WelcomeActivity extends AppCompatActivity {
      * @param view an instance of View class
      *             ( represents the basic building block for user interface components )
      **/
-    public void singInActivity(View view) {
+    public void signInActivity(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
@@ -93,7 +93,7 @@ public class WelcomeActivity extends AppCompatActivity {
      * @param view an instance of View class
      *             ( represents the basic building block for user interface components )
      **/
-    public void singUpActivity(View view) {
+    public void signUpActivity(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
