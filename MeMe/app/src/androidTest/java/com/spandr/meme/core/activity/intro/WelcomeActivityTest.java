@@ -6,6 +6,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.authorization.LoginActivity;
+import com.spandr.meme.core.activity.authorization.RegisterActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -21,13 +22,19 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 public class WelcomeActivityTest {
 
     @Rule
-    public IntentsTestRule <WelcomeActivity> mLoginActivityActivityTestRule =
+    public IntentsTestRule <WelcomeActivity> welcomeActivityTestRule =
             new IntentsTestRule<>(WelcomeActivity.class);
 
     @Test
-    public void clickLoginButton_ShowsSnackBarRightCredentials() {
+    public void click_Sign_In_Button_Shows_LoginActivity() {
         onView(withId(R.id.sign_button)).perform(click());
         intended(hasComponent(LoginActivity.class.getName()));
+    }
+
+    @Test
+    public void click_Sign_Up_Button_Shows_RegistryActivity() {
+        onView(withId(R.id.sign_up_button)).perform(click());
+        intended(hasComponent(RegisterActivity.class.getName()));
     }
 
 }
