@@ -95,14 +95,16 @@
         </activity>
 
         <!--Menu of Password change Screen-->
-        <activity android:name=".core.activity.settings.global.ChangePasswordActivity">
+        <activity android:name=".core.activity.settings.global.ChangePasswordActivity"
+            android:theme="@style/MainTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.activity.settings.global.GlobalSettingsActivity" />
         </activity>
 
         <!--Menu of Account Remove Screen-->
-        <activity android:name=".core.activity.settings.global.RemoveAccountActivity">
+        <activity android:name=".core.activity.settings.global.RemoveAccountActivity"
+            android:theme="@style/MainTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.activity.settings.global.GlobalSettingsActivity" />
