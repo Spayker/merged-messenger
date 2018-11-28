@@ -17,7 +17,7 @@ import static android.support.test.espresso.intent.matcher.IntentMatchers.hasCom
 public class EditChannelActivityTest {
 
     @Rule
-    public IntentsTestRule <EditChannelsActivity> welcomeActivityTestRule =
+    public IntentsTestRule <EditChannelsActivity> editChannelActivityTestRule =
             new IntentsTestRule<>(EditChannelsActivity.class);
 
     @Test

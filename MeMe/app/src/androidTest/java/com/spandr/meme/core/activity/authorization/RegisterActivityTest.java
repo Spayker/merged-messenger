@@ -17,7 +17,7 @@ import static android.support.test.espresso.intent.matcher.IntentMatchers.hasCom
 public class RegisterActivityTest {
 
     @Rule
-    public IntentsTestRule<RegisterActivity> mActivityRule =
+    public IntentsTestRule<RegisterActivity> registerActivityRule =
             new IntentsTestRule<>(RegisterActivity.class);
 
     @Test

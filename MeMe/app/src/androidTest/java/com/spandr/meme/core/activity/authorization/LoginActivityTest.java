@@ -17,7 +17,7 @@ import static android.support.test.espresso.intent.matcher.IntentMatchers.hasCom
 public class LoginActivityTest {
 
     @Rule
-    public IntentsTestRule<LoginActivity> mActivityRule =
+    public IntentsTestRule<LoginActivity> loginActivityRule =
             new IntentsTestRule<>(LoginActivity.class);
 
     @Test
