@@ -27,6 +27,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 
+    private static final int ACCEPTABLE_CHANNEL_ICON_AMOUNT_ON_SCREEN = 15;
+
     @Rule
     public IntentsTestRule<MainActivity> mainIntentTestRule =
             new IntentsTestRule<>(MainActivity.class);
@@ -52,8 +54,8 @@ public class MainActivityTest {
     public void click_Each_Channel_From_Half_Available_Shows_WebViewActivity() {
         MainActivity targetContext = mainIntentTestRule.getActivity();
         DataProvider dataProvider = (DataProvider) targetContext.getDataProvider();
-        int displayedChannelAmount = dataProvider.getCount();
-        for (int i = 0; i != displayedChannelAmount/2; i++) {
+        //int displayedChannelAmount = dataProvider.getCount();
+        for (int i = 0; i != ACCEPTABLE_CHANNEL_ICON_AMOUNT_ON_SCREEN; i++) {
             onView(withText(dataProvider.getItem(i).getText())).perform(click());
             intended(hasComponent(WebViewActivity.class.getName()));
             release();

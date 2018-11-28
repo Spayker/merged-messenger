@@ -25,6 +25,7 @@ import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 
 import com.spandr.meme.R;
+import com.spandr.meme.core.activity.main.MainActivity;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
 import com.spandr.meme.core.common.data.memory.channel.ChannelManager;
 import com.spandr.meme.core.activity.webview.logic.CustomChromeWebClient;
@@ -91,17 +92,19 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
     private void initUserAgent() {
         Intent webViewIntent = getIntent();
         String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
-        Channel channel = ChannelManager.getChannelByName(channelName);
-        if (channel != null) {
-            String homeURL = channel.getHomeUrl();
-            switch (homeURL) {
-                case VK_HOME_URL:
-                case TELEGRAM_HOME_URL:
-                case ICQ_HOME_URL:
-                case SKYPE_HOME_URL: {
-                    mWebView.getSettings()
-                            .setUserAgentString(USER_AGENT_STRING);
-                    break;
+        if (channelName != null){
+            Channel channel = ChannelManager.getChannelByName(channelName);
+            if (channel != null) {
+                String homeURL = channel.getHomeUrl();
+                switch (homeURL) {
+                    case VK_HOME_URL:
+                    case TELEGRAM_HOME_URL:
+                    case ICQ_HOME_URL:
+                    case SKYPE_HOME_URL: {
+                        mWebView.getSettings()
+                                .setUserAgentString(USER_AGENT_STRING);
+                        break;
+                    }
                 }
             }
         }
@@ -110,11 +113,15 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
     private void loadStartURL() {
         Intent webViewIntent = getIntent();
         String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
-        Channel channel = ChannelManager.getChannelByName(channelName);
-        if (channel != null) {
-            mWebView.loadUrl(channel.getHomeUrl());
-        } else {
+        if(channelName == null){
             mWebView.loadUrl(MEME_HOME_URL);
+        } else {
+            Channel channel = ChannelManager.getChannelByName(channelName);
+            if (channel != null) {
+                mWebView.loadUrl(channel.getHomeUrl());
+            } else {
+                mWebView.loadUrl(MEME_HOME_URL);
+            }
         }
     }
 
@@ -237,35 +244,43 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
 
         Intent webViewIntent = getIntent();
         String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
-        Channel channel = ChannelManager.getChannelByName(channelName);
-        if (channel != null) {
-            String homeURL = channel.getHomeUrl();
-            switch (homeURL) {
-                case TELEGRAM_HOME_URL:
-                case ICQ_HOME_URL:
-                case MAIL_RU_HOME_URL: {
-                    mWebView.setOnTouchListener((v, event) -> {
-                        swipeRefreshLayout.setEnabled(false);
-                        mBackButton.setAlpha(.45f);
-                        mWebView.performClick();
-                        return false;
-                    });
-                    break;
-                }
-                default: {
-                    swipeRefreshLayout.setOnRefreshListener(() -> mWebView.reload());
-                    mWebView.getViewTreeObserver().addOnScrollChangedListener(() -> {
-                        if (mWebView.getScrollY() == 0) {
-                            swipeRefreshLayout.setEnabled(true);
-                        } else {
+        if (channelName == null) {
+            initWebViewListeners();
+        } else {
+            Channel channel = ChannelManager.getChannelByName(channelName);
+            if (channel != null) {
+                String homeURL = channel.getHomeUrl();
+                switch (homeURL) {
+                    case TELEGRAM_HOME_URL:
+                    case ICQ_HOME_URL:
+                    case MAIL_RU_HOME_URL: {
+                        mWebView.setOnTouchListener((v, event) -> {
                             swipeRefreshLayout.setEnabled(false);
-                        }
-                    });
+                            mBackButton.setAlpha(.45f);
+                            mWebView.performClick();
+                            return false;
+                        });
+                        break;
+                    }
+                    default: {
+                        initWebViewListeners();
+                    }
                 }
             }
         }
         mBackButton.setOnTouchListener(this);
         mBackButton.setOnClickListener(this::clickOnBackToMainMenu);
+    }
+
+    private void initWebViewListeners() {
+        swipeRefreshLayout.setOnRefreshListener(() -> mWebView.reload());
+        mWebView.getViewTreeObserver().addOnScrollChangedListener(() -> {
+            if (mWebView.getScrollY() == 0) {
+                swipeRefreshLayout.setEnabled(true);
+            } else {
+                swipeRefreshLayout.setEnabled(false);
+            }
+        });
     }
 
     @Override
@@ -277,7 +292,8 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
             mWebView.clearHistory();
             mWebView.onPause();
             mWebView.removeAllViews();
-            super.onBackPressed();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
     }
 

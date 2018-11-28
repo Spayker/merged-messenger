@@ -9,10 +9,6 @@ import static com.spandr.meme.core.common.data.memory.channel.ChannelManager.cre
 
 public interface Starter {
 
-    String START_TYPE = "startType";
-    String REGISTRATOR = "registrator";
-    String USERNAME = "username";
-
     void initApplication(SharedPreferences sharedPreferences);
 
     default void initChannelManager(AppCompatActivity mainActivity){
