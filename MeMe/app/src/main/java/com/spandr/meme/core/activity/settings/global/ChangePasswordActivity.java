@@ -165,4 +165,10 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         Intent intent = new Intent(this, GlobalSettingsActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, GlobalSettingsActivity.class));
+        finish();
+    }
 }

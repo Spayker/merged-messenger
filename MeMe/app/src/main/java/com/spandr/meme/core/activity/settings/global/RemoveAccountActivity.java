@@ -146,4 +146,10 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
         editor.apply();
         editor.commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, GlobalSettingsActivity.class));
+        finish();
+    }
 }
