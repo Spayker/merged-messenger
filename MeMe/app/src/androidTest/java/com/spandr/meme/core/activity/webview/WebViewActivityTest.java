@@ -5,8 +5,6 @@ import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.spandr.meme.core.activity.main.MainActivity;
-import com.spandr.meme.core.activity.settings.global.GlobalSettingsActivity;
-import com.spandr.meme.core.activity.settings.global.RemoveAccountActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
