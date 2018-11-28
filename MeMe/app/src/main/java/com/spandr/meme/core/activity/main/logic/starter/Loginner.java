@@ -70,8 +70,7 @@ public class Loginner implements Starter {
     @SuppressLint("StaticFieldLeak")
     private static AppCompatActivity mainActivity;
 
-    private Loginner() {
-    }
+    private Loginner() { }
 
     public static Loginner createLoginner(AppCompatActivity mA) {
         if (instance == null) {

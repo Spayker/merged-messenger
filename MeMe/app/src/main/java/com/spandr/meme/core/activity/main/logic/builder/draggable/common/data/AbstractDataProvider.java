@@ -6,7 +6,7 @@ import android.view.View;
 public abstract class AbstractDataProvider {
 
     public static abstract class Data {
-        public abstract long getId();
+        public abstract int getId();
 
         public abstract boolean isSectionHeader();
 

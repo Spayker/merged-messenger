@@ -64,7 +64,7 @@ public class ChannelManager {
         return new Channel(name, type, icon, homeUrl, active);
     }
 
-    public static List<Channel> getActiveChannels(TYPE type) {
+    public static List<Channel> getActiveChannelsByType(TYPE type) {
         List<Channel> channels = new ArrayList<>();
         for (Channel chn : channelManager.getChannels()) {
             if (chn.getType().equals(type) && chn.getActive()) {

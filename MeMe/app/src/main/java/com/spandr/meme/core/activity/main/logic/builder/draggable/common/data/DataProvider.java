@@ -34,18 +34,18 @@ public class DataProvider extends AbstractDataProvider {
     private int mLastRemovedPosition = -1;
 
     public DataProvider(AppCompatActivity mainActivity) {
-        List<Channel> channels = ChannelManager.getActiveChannels(SOCIAL);
-        channels.addAll(ChannelManager.getActiveChannels(CHAT));
-        channels.addAll(ChannelManager.getActiveChannels(VIDEO_SERVICE));
-        channels.addAll(ChannelManager.getActiveChannels(INFO_SERVICE));
-        channels.addAll(ChannelManager.getActiveChannels(EMAIL));
+        List<Channel> channels = ChannelManager.getActiveChannelsByType(SOCIAL);
+        channels.addAll(ChannelManager.getActiveChannelsByType(CHAT));
+        channels.addAll(ChannelManager.getActiveChannelsByType(VIDEO_SERVICE));
+        channels.addAll(ChannelManager.getActiveChannelsByType(INFO_SERVICE));
+        channels.addAll(ChannelManager.getActiveChannelsByType(EMAIL));
         mData = new LinkedList<>();
 
         SharedPreferences sharedPreferences = mainActivity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         String savedChannelOrder = sharedPreferences.getString(KEY_CHANNEL_ORDER, null);
 
         final int viewType = 0;
-        long id;
+        int id;
         if(savedChannelOrder == null || savedChannelOrder.isEmpty()){
             for (int i = 0; i < channels.size(); i++) {
                 id = mData.size();
@@ -158,14 +158,14 @@ public class DataProvider extends AbstractDataProvider {
 
     public static final class ConcreteData extends Data {
 
-        private final long mId;
+        private final int mId;
         private final String mText;
         private final Drawable mIcon;
         private final int mViewType;
         private boolean mPinned;
         private View.OnClickListener mClickOnListener;
 
-        ConcreteData(long id, int viewType, Drawable icon, String text, View.OnClickListener clickOnListener) {
+        ConcreteData(int id, int viewType, Drawable icon, String text, View.OnClickListener clickOnListener) {
             mId = id;
             mViewType = viewType;
             mIcon = icon;
@@ -184,7 +184,7 @@ public class DataProvider extends AbstractDataProvider {
         }
 
         @Override
-        public long getId() {
+        public int getId() {
             return mId;
         }
 
