@@ -29,7 +29,6 @@ import static com.spandr.meme.core.activity.main.logic.starter.Loginner.createLo
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_NAME;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
-import static com.spandr.meme.core.activity.main.logic.starter.Starter.USERNAME;
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 import static com.spandr.meme.core.common.util.ActivityUtils.initLanguage;
 
