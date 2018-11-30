@@ -32,7 +32,7 @@ public class RegisterActivityTest {
             new IntentsTestRule<>(RegisterActivity.class);
 
     @Test
-    public void click_Back_Button_Shows_LoginActivity(){
+    public void click_Back_Button_Shows_WelcomeActivity(){
         Espresso.pressBack();
         intended(hasComponent(WelcomeActivity.class.getName()));
     }
@@ -56,6 +56,5 @@ public class RegisterActivityTest {
         onView(withId(R.id.email_sign_up_button)).perform(scrollTo()).perform(click());
         intended(hasComponent(LoginActivity.class.getName()));
     }
-
 
 }

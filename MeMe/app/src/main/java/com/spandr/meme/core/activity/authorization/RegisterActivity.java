@@ -2,6 +2,7 @@ package com.spandr.meme.core.activity.authorization;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -21,6 +22,7 @@ import com.spandr.meme.core.activity.authorization.logic.data.User;
 import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
 import com.spandr.meme.core.activity.authorization.logic.validator.FormValidator;
 import com.spandr.meme.core.activity.authorization.logic.validator.RegisterFormValidator;
+import com.spandr.meme.core.activity.intro.WelcomeActivity;
 
 import java.util.Objects;
 
@@ -171,6 +173,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        startActivity(intent);
     }
 
     /**
