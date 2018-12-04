@@ -1,22 +1,14 @@
 package com.spandr.meme.core.activity.authorization.logic.firebase.email;
 
-import android.support.v7.app.AppCompatActivity;
-
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.spandr.meme.core.activity.authorization.LoginActivity;
-import com.spandr.meme.core.activity.authorization.logic.firebase.email.FirebaseEmailAuthorizer;
 import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 
 import java.util.Date;
 
@@ -26,12 +18,6 @@ import static junit.framework.Assert.fail;
 
 @RunWith(JUnit4.class)
 public class FirebaseEmailAuthorizerTest {
-
-    @Before
-    public void setup_Test_Env() {
-        AppCompatActivity activity = Robolectric.setupActivity(LoginActivity.class);
-        FirebaseApp.initializeApp(activity);
-    }
 
     @Test
     public void check_Init_Of_Public_Constructor() {

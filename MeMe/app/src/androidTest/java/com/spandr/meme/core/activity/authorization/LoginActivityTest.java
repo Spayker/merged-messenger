@@ -35,7 +35,6 @@ public class LoginActivityTest {
 
     @Test
     public void click_Sign_In_Button_Shows_MainActivity(){
-
         onView(withId(R.id.login_form_email))
                 .perform(clearText(), typeText("spykerstar@gmail.com"));
 

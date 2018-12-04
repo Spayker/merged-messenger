@@ -1,28 +1,18 @@
 package com.spandr.meme.core.activity.authorization.logic.data;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
-import com.spandr.meme.core.activity.authorization.LoginActivity;
 import com.spandr.meme.core.activity.authorization.logic.exception.AppAuthorizationActivityException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
-import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_PASS;
-import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_EMAIL_OR_PHONE;
-import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_NAME;
-import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.TestCase.fail;
 
@@ -78,7 +68,7 @@ public class UserTest {
         fail("app compat activity: object is null");
     }
 
-    @Test
+    /*@Test
     public void get_UserInstance_With_Non_Null_Activity_Test() {
         // given
         AppCompatActivity activity = Robolectric.setupActivity(LoginActivity.class);
@@ -133,7 +123,7 @@ public class UserTest {
         assertEquals(user.getUserName(), userName);
         assertEquals(user.getEmailAddress(), email);
         assertEquals(user.getPassword(), password);
-    }
+    }*/
 
 
 }
