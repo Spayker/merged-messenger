@@ -7,6 +7,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +23,7 @@ import com.spandr.meme.core.activity.intro.WelcomeActivity;
 
 import java.util.Locale;
 
+import static android.content.Context.CONNECTIVITY_SERVICE;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.APP_SUPPORTED_LANGUAGES;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.EN;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CURRENT_APP_LANGUAGE;
@@ -32,7 +35,7 @@ public final class ActivityUtils {
     private static final String OK = "OK";
 
     public static AlertDialog.Builder createVerificationDialogBox(AppCompatActivity currentActivity,
-                                                                   AppAuthorizerListenerStorage appAuthorizerListenerStorage) {
+                                                                  AppAuthorizerListenerStorage appAuthorizerListenerStorage) {
         AlertDialog.Builder builder = new AlertDialog.Builder(currentActivity);
         builder.setTitle(currentActivity.getResources().getString(R.string.login_info_email_not_verified));
         builder.setPositiveButton(currentActivity.getResources().getString(R.string.main_menu_yes),
@@ -45,11 +48,12 @@ public final class ActivityUtils {
         return builder;
     }
 
-    public static void invokeOkAlertMessage(Context context, String message){
+    public static void invokeOkAlertMessage(Context context, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message)
                 .setCancelable(false)
-                .setPositiveButton(OK, (dialog, id) -> {});
+                .setPositiveButton(OK, (dialog, id) -> {
+                });
         AlertDialog alert = builder.create();
         alert.show();
     }
@@ -75,10 +79,10 @@ public final class ActivityUtils {
         mAppStyledName.setText(sb);
     }
 
-    public static void initLanguage(SharedPreferences sharedPreferences, AppCompatActivity activity){
+    public static void initLanguage(SharedPreferences sharedPreferences, AppCompatActivity activity) {
         String currentLanguage = sharedPreferences.getString(KEY_CURRENT_APP_LANGUAGE, Locale.getDefault().getDisplayLanguage());
         String shortLanguage = APP_SUPPORTED_LANGUAGES.get(currentLanguage);
-        if(shortLanguage == null){
+        if (shortLanguage == null) {
             shortLanguage = EN;
         }
         Locale locale = new Locale(shortLanguage);
@@ -110,6 +114,15 @@ public final class ActivityUtils {
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) context.getSystemService(CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
+    }
 
 
 }

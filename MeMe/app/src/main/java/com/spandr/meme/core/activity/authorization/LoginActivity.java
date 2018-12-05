@@ -156,8 +156,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     (InputMethodManager) getSystemService(
                             Activity.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {
-                inputMethodManager.hideSoftInputFromWindow(
-                        Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
+                View currentFocus = getCurrentFocus();
+                if(currentFocus != null) {
+                    inputMethodManager.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
+                }
             }
             try {
                 signIn(mEmailView.getText().toString(), mPasswordView.getText().toString());

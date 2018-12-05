@@ -111,7 +111,7 @@
         <item>1</item>
     </string-array>
 
-    <!--Menu of Channel Settings Screen-->
+    <!--Menu of WebViewChannel Settings Screen-->
     <string name="channel_setting_switcher_on">On</string>
     <string name="channel_setting_switcher_off">Off</string>
     <string name="channel_setting_vk">VKontakte</string>

@@ -75,9 +75,7 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-    }
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { }
 
     public void removeAccount(String currentPassword) {
         FirebaseUser currentUser = mAuth.getCurrentUser();

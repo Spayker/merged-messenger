@@ -116,7 +116,7 @@
                 <item>1</item>
             </string-array>
 
-        <!--Menu of Channel Settings Screen-->
+        <!--Menu of WebViewChannel Settings Screen-->
             <string name="channel_setting_switcher_on">On</string>
             <string name="channel_setting_switcher_off">Off</string>
             <string name="channel_setting_vk">VKontakte</string>
@@ -201,6 +201,7 @@
             <string name="remove_account_finished">Remove Account Finished</string>
             <string name="remove_account_log_remove_account">removing account: </string>
             <string name="remove_account_log_remove_account_successful">removing account successful</string>
+            <string name="remove_account_user_is_null">user is null</string>
     <!--UI String Section End-->
 
     <!--Backend Section Start-->
