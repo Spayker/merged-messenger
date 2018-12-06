@@ -19,6 +19,7 @@ import com.spandr.meme.core.common.data.memory.channel.ChannelManager;
 import im.delight.android.webview.AdvancedWebView;
 
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.MEME_HOME_URL;
+import static java.lang.Thread.sleep;
 
 public abstract class WebViewChannel {
 
@@ -101,6 +102,7 @@ public abstract class WebViewChannel {
         @Override
         public void onPageFinished(WebView view, String url) {
             activity.getSwipeRefreshLayout().setRefreshing(false);
+            mWebView.loadUrl("javascript:window.HTMLOUT.processHTML('<head>'+document.getElementsByTagName('html')[0].innerHTML+'</head>');");
             super.onPageFinished(view, url);
         }
 

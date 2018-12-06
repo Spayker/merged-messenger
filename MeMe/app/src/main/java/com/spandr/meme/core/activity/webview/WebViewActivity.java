@@ -20,6 +20,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -41,6 +42,8 @@ import com.spandr.meme.core.common.data.memory.channel.ChannelManager;
 
 import java.util.Calendar;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import im.delight.android.webview.AdvancedWebView;
 
@@ -79,7 +82,6 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
     private boolean shallVibroNotify;
     private long startClickTime;
 
-    @SuppressLint("AddJavascriptInterface")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +122,7 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
             mWebView.setScrollbarFadingEnabled(false);
             availableWebViewActivities.put(channelName, mWebView);
         }
+
     }
 
     private void applyChannelRelatedConfiguration() {
@@ -363,6 +366,8 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
     @Override
     public void onExternalPageRequest(String url) {
     }
+
+
 
     public AdvancedWebView getmWebView() {
         return mWebView;
