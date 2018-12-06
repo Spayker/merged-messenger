@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,43 +23,55 @@ import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.MainActivity;
+import com.spandr.meme.core.activity.webview.logic.CustomChromeWebClient;
+import com.spandr.meme.core.activity.webview.logic.init.channel.DefaultWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.fb.FacebookWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.icq.IcqWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.skype.SkypeWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.telegram.TelegramWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.vk.VkontakteWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.manager.WebViewActivityManager;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
 import com.spandr.meme.core.common.data.memory.channel.ChannelManager;
-import com.spandr.meme.core.activity.webview.logic.CustomChromeWebClient;
 
 import java.util.Calendar;
+import java.util.Map;
 
 import im.delight.android.webview.AdvancedWebView;
 
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.CHANNEL_NAME;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.FB_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.ICQ_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_LEFT_MARGIN;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_TOP_MARGIN;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.MAIL_RU_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.MEME_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.SKYPE_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL_2;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.USER_AGENT_STRING;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.VK_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS;
+import static com.spandr.meme.core.activity.webview.logic.manager.WebViewActivityManager.getWebViewChannelManager;
+import static com.spandr.meme.core.common.util.ActivityUtils.isNetworkAvailable;
 
-public class WebViewActivity extends Activity implements AdvancedWebView.Listener, View.OnTouchListener {
+public class WebViewActivity extends AppCompatActivity implements AdvancedWebView.Listener, View.OnTouchListener {
 
     private static final int BACK_BUTTON_MIN_CLICK_DURATION = 500;
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private AdvancedWebView mWebView;
+
     private FloatingActionButton mBackButton;
     private RelativeLayout.LayoutParams relativeLayoutParams;
     private SharedPreferences sharedPreferences;
 
     private ViewGroup webViewRelativeLayout;
+    private RelativeLayout nonVideoLayout;
     private int _xDelta;
     private int _yDelta;
     private boolean longClicked;
@@ -75,78 +88,73 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         webViewRelativeLayout = findViewById(R.id.webview_relative_layout);
         swipeRefreshLayout = findViewById(R.id.swipeContainer);
-        mWebView = findViewById(R.id.webView);
+        nonVideoLayout = findViewById(R.id.nonVideoLayout);
         mBackButton = findViewById(R.id.backToMainMenu);
 
-        initListeners();
-        initWebClients();
-        initWebSettings();
-        initUserAgent();
-        loadStartURL();
-        initBackButtonStartPosition();
-
-        mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-        mWebView.setScrollbarFadingEnabled(false);
-    }
-
-    private void initUserAgent() {
+        WebViewActivityManager webViewActivityManager = getWebViewChannelManager();
+        Map<String, AdvancedWebView> availableWebViewActivities = webViewActivityManager.getWebViewActivities();
         Intent webViewIntent = getIntent();
         String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
-        if (channelName != null){
+
+        if (availableWebViewActivities.containsKey(channelName)) {
+            mWebView = availableWebViewActivities.get(channelName);
+            nonVideoLayout.removeAllViews();
+
+            ViewGroup parent = (ViewGroup) mWebView.getParent();
+            if (parent != null) {
+                parent.removeView(mWebView);
+            }
+            RelativeLayout.LayoutParams newRelativeLayoutParams =
+                    new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                            RelativeLayout.LayoutParams.MATCH_PARENT);
+            mWebView.setLayoutParams(newRelativeLayoutParams);
+            nonVideoLayout.addView(mWebView);
+        } else {
+            mWebView = findViewById(R.id.webView);
+            initListeners();
+            initWebSettings();
+            initBackButtonStartPosition();
+            applyChannelRelatedConfiguration();
+
+            mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+            mWebView.setScrollbarFadingEnabled(false);
+            availableWebViewActivities.put(channelName, mWebView);
+        }
+    }
+
+    private void applyChannelRelatedConfiguration() {
+        Intent webViewIntent = getIntent();
+        String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
+        if (channelName != null) {
             Channel channel = ChannelManager.getChannelByName(channelName);
             if (channel != null) {
                 String homeURL = channel.getHomeUrl();
                 switch (homeURL) {
-                    case VK_HOME_URL:
-                    case TELEGRAM_HOME_URL:
-                    case ICQ_HOME_URL:
-                    case SKYPE_HOME_URL: {
-                        mWebView.getSettings()
-                                .setUserAgentString(USER_AGENT_STRING);
+                    case FB_HOME_URL: {
+                        new FacebookWebViewChannel(this, homeURL, channelName);
                         break;
                     }
-                }
-            }
-        }
-    }
-
-    private void loadStartURL() {
-        Intent webViewIntent = getIntent();
-        String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
-        if(channelName == null){
-            mWebView.loadUrl(MEME_HOME_URL);
-        } else {
-            Channel channel = ChannelManager.getChannelByName(channelName);
-            if (channel != null) {
-                mWebView.loadUrl(channel.getHomeUrl());
-            } else {
-                mWebView.loadUrl(MEME_HOME_URL);
-            }
-        }
-    }
-
-    @SuppressLint("JavascriptInterface")
-    private void initWebClients() {
-        mWebView.setWebChromeClient(initWebChromeClient());
-        mWebView.setWebViewClient(new InsideWebViewClient() {
-            @SuppressLint("StaticFieldLeak")
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                swipeRefreshLayout.setRefreshing(false);
-                super.onPageFinished(view, url);
-            }
-
-            @Override
-            public void onReceivedError(WebView view, int errorCod, String description, String failingUrl) {
-                String url = view.getUrl();
-                switch (url) {
-                    case TELEGRAM_HOME_URL: {
-                        mWebView.loadUrl(TELEGRAM_HOME_URL_2);
-                        mWebView.reload();
+                    case VK_HOME_URL: {
+                        new VkontakteWebViewChannel(this, homeURL, channelName);
+                        break;
                     }
+                    case TELEGRAM_HOME_URL: {
+                        new TelegramWebViewChannel(this, homeURL, channelName);
+                        break;
+                    }
+                    case ICQ_HOME_URL: {
+                        new IcqWebViewChannel(this, homeURL, channelName);
+                        break;
+                    }
+                    case SKYPE_HOME_URL: {
+                        new SkypeWebViewChannel(this, homeURL, channelName);
+                        break;
+                    }
+                    default:
+                        new DefaultWebViewChannel(this, homeURL, channelName);
                 }
             }
-        });
+        }
     }
 
     private void initBackButtonStartPosition() {
@@ -175,7 +183,6 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         webSettings.setUseWideViewPort(true);
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
-        webSettings.setDomStorageEnabled(true);
         webSettings.setAllowFileAccess(true);
         webSettings.setAllowContentAccess(true);
         webSettings.setAllowFileAccessFromFileURLs(true);
@@ -187,100 +194,20 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         webSettings.setAppCacheEnabled(true);
 
         //This part will load the web page if the network is not available.
-        if (!isNetworkAvailable()) {
+        if (!isNetworkAvailable(this)) {
             webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         }
     }
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        if (connectivityManager != null) {
-            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-        }
-        return false;
-    }
-
-    private CustomChromeWebClient initWebChromeClient() {
-        View nonVideoLayout = findViewById(R.id.nonVideoLayout);
-        ViewGroup videoLayout = findViewById(R.id.videoLayout);
-
-        View loadingView = getLayoutInflater().inflate(R.layout.view_loading_video, null);
-        CustomChromeWebClient webChromeClient = new CustomChromeWebClient(nonVideoLayout,
-                videoLayout, loadingView, mWebView) {
-            @Override
-            public void onProgressChanged(WebView view, int progress) {
-            }
-        };
-
-        webChromeClient.setOnToggledFullscreen(fullscreen -> {
-            if (fullscreen) {
-                WindowManager.LayoutParams attrs = getWindow().getAttributes();
-                attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-                attrs.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
-                getWindow().setAttributes(attrs);
-                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-                mBackButton.setVisibility(View.INVISIBLE);
-            } else {
-                WindowManager.LayoutParams attrs = getWindow().getAttributes();
-                attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
-                attrs.flags &= ~WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
-                getWindow().setAttributes(attrs);
-                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-                mBackButton.setVisibility(View.VISIBLE);
-            }
-        });
-        return webChromeClient;
-    }
-
     @SuppressLint("ClickableViewAccessibility")
     private void initListeners() {
-
         mWebView.setOnTouchListener((v, event) -> {
             mBackButton.setAlpha(.45f);
             mWebView.performClick();
             return false;
         });
-
-        Intent webViewIntent = getIntent();
-        String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
-        if (channelName == null) {
-            initWebViewListeners();
-        } else {
-            Channel channel = ChannelManager.getChannelByName(channelName);
-            if (channel != null) {
-                String homeURL = channel.getHomeUrl();
-                switch (homeURL) {
-                    case TELEGRAM_HOME_URL:
-                    case ICQ_HOME_URL:
-                    case MAIL_RU_HOME_URL: {
-                        mWebView.setOnTouchListener((v, event) -> {
-                            swipeRefreshLayout.setEnabled(false);
-                            mBackButton.setAlpha(.45f);
-                            mWebView.performClick();
-                            return false;
-                        });
-                        break;
-                    }
-                    default: {
-                        initWebViewListeners();
-                    }
-                }
-            }
-        }
         mBackButton.setOnTouchListener(this);
         mBackButton.setOnClickListener(this::clickOnBackToMainMenu);
-    }
-
-    private void initWebViewListeners() {
-        swipeRefreshLayout.setOnRefreshListener(() -> mWebView.reload());
-        mWebView.getViewTreeObserver().addOnScrollChangedListener(() -> {
-            if (mWebView.getScrollY() == 0) {
-                swipeRefreshLayout.setEnabled(true);
-            } else {
-                swipeRefreshLayout.setEnabled(false);
-            }
-        });
     }
 
     @Override
@@ -288,10 +215,10 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         if (mWebView.canGoBack()) {
             mWebView.goBack();
         } else {
-            mWebView.removeAllViews();
+            /*mWebView.removeAllViews();
             mWebView.clearHistory();
             mWebView.onPause();
-            mWebView.removeAllViews();
+            mWebView.removeAllViews();*/
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
@@ -401,38 +328,12 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
         return true;
     }
 
-    private class InsideWebViewClient extends WebViewClient {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
-        }
-    }
-
     public void clickOnBackToMainMenu(View view) {
-        mWebView.removeAllViews();
+        /*mWebView.removeAllViews();
         mWebView.clearHistory();
         mWebView.onPause();
-        mWebView.removeAllViews();
+        mWebView.removeAllViews();*/
         onBackPressed();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mWebView.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        mWebView.onPause();
-        super.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        mWebView.onDestroy();
-        super.onDestroy();
     }
 
     @Override
@@ -463,4 +364,15 @@ public class WebViewActivity extends Activity implements AdvancedWebView.Listene
     public void onExternalPageRequest(String url) {
     }
 
+    public AdvancedWebView getmWebView() {
+        return mWebView;
+    }
+
+    public FloatingActionButton getBackButton() {
+        return mBackButton;
+    }
+
+    public SwipeRefreshLayout getSwipeRefreshLayout() {
+        return swipeRefreshLayout;
+    }
 }

@@ -32,8 +32,7 @@ public class CustomChromeWebClient extends WebChromeClient
      * This constructor allows this class to be defined as an inline inner class in which the user can override methods
      */
     @SuppressWarnings("unused")
-    public CustomChromeWebClient() {
-    }
+    public CustomChromeWebClient() { }
 
     /**
      * Builds a video enabled WebChromeClient.
@@ -165,8 +164,7 @@ public class CustomChromeWebClient extends WebChromeClient
 
     @Override
     @SuppressWarnings("deprecation")
-    public void onShowCustomView(View view, int requestedOrientation, CustomViewCallback callback) // Available in API level 14+, deprecated in API level 18+
-    {
+    public void onShowCustomView(View view, int requestedOrientation, CustomViewCallback callback) {
         onShowCustomView(view, callback);
     }
 
@@ -218,14 +216,12 @@ public class CustomChromeWebClient extends WebChromeClient
     }
 
     @Override
-    public void onCompletion(MediaPlayer mp) // Video finished playing, only called in the case of android.widget.VideoView (typically API level <11)
-    {
+    public void onCompletion(MediaPlayer mp) {
         onHideCustomView();
     }
 
     @Override
-    public boolean onError(MediaPlayer mp, int what, int extra) // Error while playing video, only called in the case of android.widget.VideoView (typically API level <11)
-    {
+    public boolean onError(MediaPlayer mp, int what, int extra) {
         return false; // By returning false, onCompletion() will be called
     }
 

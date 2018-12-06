@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:logo="@mipmap/back"
-        android:hardwareAccelerated="true">
+        android:hardwareAccelerated="true"
+        android:usesCleartextTraffic="true">
 
         <!--Meta data section of project start-->
         <meta-data android:name="main_folder_name"
@@ -86,7 +87,7 @@
                 android:value=".core.activity.main.MainActivity" />
         </activity>
 
-        <!--Menu of Channel Settings Screen-->
+        <!--Menu of WebViewChannel Settings Screen-->
         <activity android:name=".core.activity.settings.channel.EditChannelsActivity"
             android:theme="@style/MainTheme">
             <meta-data
