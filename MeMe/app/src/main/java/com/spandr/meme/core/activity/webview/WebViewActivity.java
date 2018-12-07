@@ -25,6 +25,7 @@ import com.spandr.meme.core.activity.main.MainActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.DefaultWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.fb.FacebookWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.icq.IcqWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.linkedin.LinkedInWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.skype.SkypeWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.telegram.TelegramWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.vk.VkontakteWebViewChannel;
@@ -43,6 +44,7 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.FB_HO
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.ICQ_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_LEFT_MARGIN;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_TOP_MARGIN;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.LINKEDIN_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.SKYPE_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.VK_HOME_URL;
@@ -138,6 +140,10 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
                     }
                     case SKYPE_HOME_URL: {
                         new SkypeWebViewChannel(this, homeURL, channelName);
+                        break;
+                    }
+                    case LINKEDIN_HOME_URL: {
+                        new LinkedInWebViewChannel(this, homeURL, channelName);
                         break;
                     }
                     default:

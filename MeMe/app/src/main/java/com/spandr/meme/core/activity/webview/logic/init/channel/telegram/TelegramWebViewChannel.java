@@ -1,11 +1,15 @@
 package com.spandr.meme.core.activity.webview.logic.init.channel.telegram;
 
 import android.annotation.SuppressLint;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL_2;
@@ -28,12 +32,14 @@ public class TelegramWebViewChannel extends WebViewChannel {
         init();
     }
 
+    @SuppressLint("AddJavascriptInterface")
     protected TelegramWebViewChannel init() {
         initUserAgent();
         initStartURL();
         initWebChromeClient();
         initListeners();
         initWebClients();
+        mWebView.addJavascriptInterface(new TlJavaScriptInterface(), "HTMLOUT");
         return this;
     }
 
@@ -85,6 +91,24 @@ public class TelegramWebViewChannel extends WebViewChannel {
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             return true;
+        }
+    }
+
+    class TlJavaScriptInterface {
+
+        private final String MESSAGE_NOTIFICATION_REGEX = "muted-class=\"im_dialog_badge_muted\" style=\"\">([0-9]+)</span>";
+
+        @JavascriptInterface
+        @SuppressWarnings("unused")
+        public void processHTML(String html) {
+            mWebView.post(() -> {
+                Matcher m = Pattern.compile(MESSAGE_NOTIFICATION_REGEX).matcher(html);
+                int notificationCounter = 0;
+                while(m.find()) {
+                    notificationCounter += Integer.valueOf(m.group(1));
+                }
+                System.out.println("Telegram notifications: " + notificationCounter);
+            });
         }
     }
 }

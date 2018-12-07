@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                                 .subscribeWith(webViewObserver));
             };
 
-            scheduler.scheduleAtFixedRate(notificationRunnable,1,5,TimeUnit.SECONDS);
+            scheduler.scheduleAtFixedRate(notificationRunnable,1,10,TimeUnit.SECONDS);
         }
     }
 
@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
         return new DisposableObserver<AdvancedWebView>() {
             @Override
             public void onNext(AdvancedWebView advancedWebView) {
-                System.out.println(advancedWebView.getTitle());
                 advancedWebView.loadUrl(getJavascriptHtmlGrabber());
             }
 
@@ -118,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onComplete() {
-                System.out.println("All items are emitted!");
+                System.out.println("All channels are processed!");
             }
         };
     }
