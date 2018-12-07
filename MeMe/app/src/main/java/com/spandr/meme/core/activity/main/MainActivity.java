@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.authorization.LoginActivity;
 import com.spandr.meme.core.activity.intro.WelcomeActivity;
@@ -23,12 +22,23 @@ import com.spandr.meme.core.activity.main.logic.builder.draggable.common.fragmen
 import com.spandr.meme.core.activity.main.logic.updater.AppUpdater;
 import com.spandr.meme.core.activity.settings.channel.EditChannelsActivity;
 import com.spandr.meme.core.activity.settings.global.GlobalSettingsActivity;
+import com.spandr.meme.core.activity.webview.logic.manager.WebViewManager;
 import com.spandr.meme.core.common.util.ActivityUtils;
+
+import java.util.Iterator;
+
+import im.delight.android.webview.AdvancedWebView;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.spandr.meme.core.activity.main.logic.starter.Loginner.createLoginner;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_NAME;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
+import static com.spandr.meme.core.activity.webview.logic.manager.WebViewManager.getWebViewChannelManager;
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 import static com.spandr.meme.core.common.util.ActivityUtils.initLanguage;
 
@@ -39,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String FRAGMENT_TAG_DATA_PROVIDER = "data provider";
     private static final String FRAGMENT_LIST_VIEW = "list view";
+
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     /**
      * Perform initialization of all fragments of current activity.
@@ -61,6 +73,43 @@ public class MainActivity extends AppCompatActivity {
         initLanguage(sharedPreferences, this);
         ActivityUtils.initSloganPart(this, R.id.main_app_name_styled);
         initFragment(savedInstanceState);
+        initRX();
+    }
+
+    private void initRX() {
+
+        Observable<AdvancedWebView> webViewObservable = getWebViewsObservable();
+        DisposableObserver<AdvancedWebView> webViewObserver = getWebViewsObserver();
+
+        compositeDisposable.add(
+                webViewObservable
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(webViewObserver));
+
+    }
+
+    private Observable<AdvancedWebView> getWebViewsObservable() {
+        return Observable.fromIterable(getWebViewChannelManager().getWebViewChannelsIterator());
+    }
+
+    private DisposableObserver<AdvancedWebView> getWebViewsObserver() {
+        return new DisposableObserver<AdvancedWebView>() {
+            @Override
+            public void onNext(AdvancedWebView advancedWebView) {
+                System.out.println(advancedWebView.getTitle());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                System.out.println("onError: " + e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                System.out.println("All items are emitted!");
+            }
+        };
     }
 
     @Override
@@ -74,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         new AppUpdater(this).checkAppForUpdate();
     }
 
-    private void initFragment(Bundle savedInstanceState){
+    private void initFragment(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(new DataProviderFragment().initActivity(this), FRAGMENT_TAG_DATA_PROVIDER)
@@ -129,13 +178,19 @@ public class MainActivity extends AppCompatActivity {
         performSignOut();
     }
 
+    @Override
+    public void onDestroy(){
+        compositeDisposable.clear();
+        super.onDestroy();
+    }
+
     private void saveChannelOrder() {
         AbstractDataProvider channelProvider = getDataProvider();
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         StringBuilder currentChannelOrder = new StringBuilder();
         int channelCount = channelProvider.getCount();
-        for(int i = 0; i != channelCount; i++){
+        for (int i = 0; i != channelCount; i++) {
             AbstractDataProvider.Data item = channelProvider.getItem(i);
             currentChannelOrder.append(item.getText()).append("|");
         }

@@ -1,7 +1,6 @@
 package com.spandr.meme.core.activity.webview;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,8 +8,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
@@ -19,31 +16,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.MainActivity;
-import com.spandr.meme.core.activity.webview.logic.CustomChromeWebClient;
 import com.spandr.meme.core.activity.webview.logic.init.channel.DefaultWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.fb.FacebookWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.icq.IcqWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.skype.SkypeWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.telegram.TelegramWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.vk.VkontakteWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.manager.WebViewActivityManager;
+import com.spandr.meme.core.activity.webview.logic.manager.WebViewManager;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
 import com.spandr.meme.core.common.data.memory.channel.ChannelManager;
 
 import java.util.Calendar;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import im.delight.android.webview.AdvancedWebView;
 
@@ -53,13 +43,11 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.FB_HO
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.ICQ_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_LEFT_MARGIN;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_TOP_MARGIN;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.MAIL_RU_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.SKYPE_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL_2;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.VK_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS;
-import static com.spandr.meme.core.activity.webview.logic.manager.WebViewActivityManager.getWebViewChannelManager;
+import static com.spandr.meme.core.activity.webview.logic.manager.WebViewManager.getWebViewChannelManager;
 import static com.spandr.meme.core.common.util.ActivityUtils.isNetworkAvailable;
 
 public class WebViewActivity extends AppCompatActivity implements AdvancedWebView.Listener, View.OnTouchListener {
@@ -93,8 +81,8 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
         nonVideoLayout = findViewById(R.id.nonVideoLayout);
         mBackButton = findViewById(R.id.backToMainMenu);
 
-        WebViewActivityManager webViewActivityManager = getWebViewChannelManager();
-        Map<String, AdvancedWebView> availableWebViewActivities = webViewActivityManager.getWebViewActivities();
+        WebViewManager webViewManager = getWebViewChannelManager();
+        Map<String, AdvancedWebView> availableWebViewActivities = webViewManager.getWebViewChannels();
         Intent webViewIntent = getIntent();
         String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
 
@@ -122,7 +110,6 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
             mWebView.setScrollbarFadingEnabled(false);
             availableWebViewActivities.put(channelName, mWebView);
         }
-
     }
 
     private void applyChannelRelatedConfiguration() {

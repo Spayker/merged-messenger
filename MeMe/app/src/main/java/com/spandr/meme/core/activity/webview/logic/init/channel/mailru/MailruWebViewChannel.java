@@ -26,6 +26,7 @@ public class MailruWebViewChannel extends WebViewChannel {
         initStartURL();
         initWebChromeClient();
         initListeners();
+        initWebClients();
         return this;
     }
 

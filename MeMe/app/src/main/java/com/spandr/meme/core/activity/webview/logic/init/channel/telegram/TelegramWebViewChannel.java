@@ -33,6 +33,7 @@ public class TelegramWebViewChannel extends WebViewChannel {
         initStartURL();
         initWebChromeClient();
         initListeners();
+        initWebClients();
         return this;
     }
 

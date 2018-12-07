@@ -26,6 +26,7 @@ public class VkontakteWebViewChannel extends WebViewChannel {
         initStartURL();
         initWebChromeClient();
         initListeners();
+        initWebClients();
         return this;
     }
 

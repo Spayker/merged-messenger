@@ -26,6 +26,7 @@ public class SkypeWebViewChannel extends WebViewChannel {
         initStartURL();
         initWebChromeClient();
         initListeners();
+        initWebClients();
         return this;
     }
 

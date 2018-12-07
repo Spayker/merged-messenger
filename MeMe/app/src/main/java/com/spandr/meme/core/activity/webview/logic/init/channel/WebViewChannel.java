@@ -24,6 +24,7 @@ import static java.lang.Thread.sleep;
 public abstract class WebViewChannel {
 
     private final static String DEFAULT_USER_AGENT_STRING = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36";
+    private final static String JAVASCRIPT_HTML_GRABBER = "javascript:window.HTMLOUT.processHTML('<head>'+document.getElementsByTagName('html')[0].innerHTML+'</head>');";
 
     protected String url = MEME_HOME_URL;
     protected String channelName;
@@ -102,7 +103,7 @@ public abstract class WebViewChannel {
         @Override
         public void onPageFinished(WebView view, String url) {
             activity.getSwipeRefreshLayout().setRefreshing(false);
-            mWebView.loadUrl("javascript:window.HTMLOUT.processHTML('<head>'+document.getElementsByTagName('html')[0].innerHTML+'</head>');");
+            mWebView.loadUrl(JAVASCRIPT_HTML_GRABBER);
             super.onPageFinished(view, url);
         }
 
