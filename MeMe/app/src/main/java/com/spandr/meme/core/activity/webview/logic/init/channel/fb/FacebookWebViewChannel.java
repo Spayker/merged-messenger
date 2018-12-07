@@ -42,16 +42,18 @@ public class FacebookWebViewChannel extends WebViewChannel {
 
     class FbJavaScriptInterface {
 
-        private final String NOTIFICATION_REGEX = "data-sigil=\"count\">([0-9]+)</span>";
+        private final String MESSAGE_NOTIFICATION_REGEX = "\"_59tg\" data-sigil=\"count\">([0-9]+)</span>";
 
         @JavascriptInterface
         @SuppressWarnings("unused")
         public void processHTML(String html) {
             mWebView.post(() -> {
-                Matcher m = Pattern.compile(NOTIFICATION_REGEX).matcher(html);
-                if (m.find()) {
-                    m.group(1);
+                Matcher m = Pattern.compile(MESSAGE_NOTIFICATION_REGEX).matcher(html);
+                int notificationCounter = 0;
+                while(m.find()) {
+                    notificationCounter += Integer.valueOf(m.group(1));
                 }
+                System.out.println("Facebook notifications: " + notificationCounter);
             });
         }
     }

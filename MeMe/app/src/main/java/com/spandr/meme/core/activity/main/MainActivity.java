@@ -22,10 +22,11 @@ import com.spandr.meme.core.activity.main.logic.builder.draggable.common.fragmen
 import com.spandr.meme.core.activity.main.logic.updater.AppUpdater;
 import com.spandr.meme.core.activity.settings.channel.EditChannelsActivity;
 import com.spandr.meme.core.activity.settings.global.GlobalSettingsActivity;
-import com.spandr.meme.core.activity.webview.logic.manager.WebViewManager;
 import com.spandr.meme.core.common.util.ActivityUtils;
 
-import java.util.Iterator;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import im.delight.android.webview.AdvancedWebView;
 import io.reactivex.Observable;
@@ -38,6 +39,7 @@ import static com.spandr.meme.core.activity.main.logic.starter.Loginner.createLo
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_NAME;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
+import static com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel.getJavascriptHtmlGrabber;
 import static com.spandr.meme.core.activity.webview.logic.manager.WebViewManager.getWebViewChannelManager;
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 import static com.spandr.meme.core.common.util.ActivityUtils.initLanguage;
@@ -51,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String FRAGMENT_LIST_VIEW = "list view";
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private Runnable notificationRunnable;
+
 
     /**
      * Perform initialization of all fragments of current activity.
@@ -77,16 +82,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRX() {
+        // init periodical command
+        if(notificationRunnable == null){
+            notificationRunnable = () -> {
+                Observable<AdvancedWebView> webViewObservable = getWebViewsObservable();
+                DisposableObserver<AdvancedWebView> webViewObserver = getWebViewsObserver();
 
-        Observable<AdvancedWebView> webViewObservable = getWebViewsObservable();
-        DisposableObserver<AdvancedWebView> webViewObserver = getWebViewsObserver();
+                compositeDisposable.add(
+                        webViewObservable
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribeWith(webViewObserver));
+            };
 
-        compositeDisposable.add(
-                webViewObservable
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(webViewObserver));
-
+            scheduler.scheduleAtFixedRate(notificationRunnable,1,5,TimeUnit.SECONDS);
+        }
     }
 
     private Observable<AdvancedWebView> getWebViewsObservable() {
@@ -98,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onNext(AdvancedWebView advancedWebView) {
                 System.out.println(advancedWebView.getTitle());
+                advancedWebView.loadUrl(getJavascriptHtmlGrabber());
             }
 
             @Override
@@ -179,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         compositeDisposable.clear();
         super.onDestroy();
     }
