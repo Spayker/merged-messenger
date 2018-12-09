@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
 
 public class FacebookWebViewChannel extends WebViewChannel {
 
+    private final static String FACEBOOK_USER_AGENT_STRING = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36";
+
     private FacebookWebViewChannel(){}
 
     public FacebookWebViewChannel(WebViewActivity activity,
@@ -34,6 +36,11 @@ public class FacebookWebViewChannel extends WebViewChannel {
         initListeners();
         mWebView.addJavascriptInterface(new FbJavaScriptInterface(), "HTMLOUT");
         return this;
+    }
+
+    @Override
+    protected void initUserAgent() {
+        mWebView.getSettings().setUserAgentString(FACEBOOK_USER_AGENT_STRING);
     }
 
     public String getUrl() {

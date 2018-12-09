@@ -208,16 +208,16 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
 
     @Override
     public void onBackPressed() {
-        if (mWebView.canGoBack()) {
+        /*if (mWebView.canGoBack()) {
             mWebView.goBack();
         } else {
-            /*mWebView.removeAllViews();
+            mWebView.removeAllViews();
             mWebView.clearHistory();
             mWebView.onPause();
             mWebView.removeAllViews();*/
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-        }
+        /*}*/
     }
 
     @Override
@@ -325,10 +325,6 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
     }
 
     public void clickOnBackToMainMenu(View view) {
-        /*mWebView.removeAllViews();
-        mWebView.clearHistory();
-        mWebView.onPause();
-        mWebView.removeAllViews();*/
         onBackPressed();
     }
 
@@ -339,28 +335,21 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
     }
 
     @Override
-    public void onPageStarted(String url, Bitmap favicon) {
-    }
+    public void onPageStarted(String url, Bitmap favicon) { }
 
     @Override
-    public void onPageFinished(String url) {
-    }
+    public void onPageFinished(String url) { }
 
     @Override
-    public void onPageError(int errorCode, String description, String failingUrl) {
-    }
+    public void onPageError(int errorCode, String description, String failingUrl) { }
 
     @Override
     public void onDownloadRequested(String url, String suggestedFilename, String mimeType,
                                     long contentLength, String contentDisposition,
-                                    String userAgent) {
-    }
+                                    String userAgent) { }
 
     @Override
-    public void onExternalPageRequest(String url) {
-    }
-
-
+    public void onExternalPageRequest(String url) { }
 
     public AdvancedWebView getmWebView() {
         return mWebView;
