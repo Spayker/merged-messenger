@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme"
         android:logo="@mipmap/back"
         android:hardwareAccelerated="true"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"        android:largeHeap="true">
 
         <!--Meta data section of project start-->
         <meta-data android:name="main_folder_name"

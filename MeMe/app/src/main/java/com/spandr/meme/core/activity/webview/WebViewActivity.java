@@ -25,6 +25,7 @@ import com.spandr.meme.core.activity.main.MainActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.DefaultWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.fb.FacebookWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.icq.IcqWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.instagram.InstagramWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.linkedin.LinkedInWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.skype.SkypeWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.telegram.TelegramWebViewChannel;
@@ -42,6 +43,7 @@ import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.CHANNEL_NAME;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.FB_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.ICQ_HOME_URL;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.INSTAGRAM_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_LEFT_MARGIN;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_TOP_MARGIN;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.LINKEDIN_HOME_URL;
@@ -146,6 +148,10 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
                         new LinkedInWebViewChannel(this, homeURL, channelName);
                         break;
                     }
+                    case INSTAGRAM_HOME_URL:{
+                        new InstagramWebViewChannel(this, homeURL, channelName);
+                        break;
+                    }
                     default:
                         new DefaultWebViewChannel(this, homeURL, channelName);
                 }
@@ -178,13 +184,13 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setUseWideViewPort(true);
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
         webSettings.setAllowFileAccess(true);
         webSettings.setAllowContentAccess(true);
         webSettings.setAllowFileAccessFromFileURLs(true);
         webSettings.setAllowUniversalAccessFromFileURLs(true);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
+        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
         webSettings.setAppCacheMaxSize(50 * 1024 * 1024);
         webSettings.setAppCachePath(getApplicationContext().getCacheDir().getAbsolutePath());
         webSettings.setAppCacheEnabled(true);
