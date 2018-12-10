@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -24,8 +23,6 @@ import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppF
 import com.spandr.meme.core.activity.authorization.logic.validator.FormValidator;
 import com.spandr.meme.core.activity.authorization.logic.validator.RegisterFormValidator;
 import com.spandr.meme.core.activity.intro.WelcomeActivity;
-
-import java.util.Objects;
 
 /**
  * A Register screen that offers a registration procedure via email/password.
