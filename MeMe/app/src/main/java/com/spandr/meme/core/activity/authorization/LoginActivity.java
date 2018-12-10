@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.authorization.logic.AppAuthorizer;
+import com.spandr.meme.core.activity.authorization.logic.data.User;
 import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
 import com.spandr.meme.core.activity.authorization.logic.validator.FormValidator;
 import com.spandr.meme.core.activity.authorization.logic.validator.LoginFormValidator;
@@ -104,8 +105,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             mAutoLoginView.setChecked(false);
         }
 
-        mEmailView.setText(sharedPreferences.getString(KEY_USER_EMAIL_OR_PHONE, EMPTY_STRING));
-        mPasswordView.setText(sharedPreferences.getString(KEY_PASS, EMPTY_STRING));
+        String userEmail = User.getInstance(this).getEmailAddress();
+        String userPassword = User.getInstance(this).getPassword();
+        if (userEmail == null){
+            userEmail = sharedPreferences.getString(KEY_USER_EMAIL_OR_PHONE, EMPTY_STRING);
+        }
+
+        if (userPassword == null){
+            userPassword = sharedPreferences.getString(KEY_PASS, EMPTY_STRING);
+        }
+
+        mEmailView.setText(userEmail);
+        mPasswordView.setText(userPassword);
 
         mEmailView.addTextChangedListener(this);
         mPasswordView.addTextChangedListener(this);
