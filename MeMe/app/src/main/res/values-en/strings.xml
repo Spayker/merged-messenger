@@ -30,6 +30,7 @@
     <string name="login_field_short_seconds">s</string>
     <string name="login_forgot_password_link_color">#ff0099cc</string>
     <string name="login_info_email_sent">Please Check Your email</string>
+    <string name="login_info_email_not_verified">Email is not verified yet. Resend verification email?</string>
     <string name="login_error_auth_failed">Authentication Failed</string>
     <string name="login_error_email_empty">Email Is Empty</string>
     <string name="login_notification_email_sent">Email Is Sent</string>
@@ -77,6 +78,9 @@
     <string name="main_menu_yes">Yes</string>
     <string name="main_menu_later">Later</string>
     <string name="main_menu_no">No</string>
+    <string name="main_west_ordered_channel_set">Facebook|Telegram|VKontakte|Tumblr|Discord|Skype|Pinterest|LinkedIn|Slack|Gmail|Mail.ru|Twitter|Youtube|Twitch|Instagram|ICQ|Reddit|Quora|Habr</string>
+    <string name="main_east_ordered_channel_set">VKontakte|Facebook|Telegram|OK.RU|Tumblr|Discord|Skype|Pinterest|Gmail|Mail.ru|Twitter|Youtube|Twitch|Instagram|ICQ|Reddit|Quora|Habr</string>
+
 
     <!--Menu of WebView Screen-->
     <string name="webview_loading_video">Loading…</string>
@@ -165,6 +169,7 @@
     <string name="channel_setting_key_soundcloud_switcher">key_soundcloud_switcher</string>
     <string name="channel_setting_key_spotify_switcher">key_spotify_switcher</string>
     <string name="channel_setting_key_habr_switcher">key_habr_switcher</string>
+    <string name="channel_settings_log_channel_is_null">channel is null</string>
 
     <!--Menu of Password change Screen-->
     <string name="change_password_action_change_password">Change Password</string>

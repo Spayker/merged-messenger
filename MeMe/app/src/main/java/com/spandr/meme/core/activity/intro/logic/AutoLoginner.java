@@ -43,21 +43,23 @@ public class AutoLoginner {
             String email = sharedPreferences.getString(KEY_USER_EMAIL_OR_PHONE, EMPTY_STRING);
             String password = sharedPreferences.getString(KEY_PASS, EMPTY_STRING);
             progressBar.setVisibility(View.VISIBLE);
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(activity, task -> {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, activity.getString(R.string.login_log_sign_in_with_email_success));
-                            Intent intent = new Intent(activity, MainActivity.class);
-                            activity.startActivity(intent);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, activity.getString(R.string.login_log_sign_in_with_email_failure), task.getException());
-                            Toast.makeText(activity, activity.getString(R.string.welcome_error_auth_failed),
-                                    Toast.LENGTH_SHORT).show();
-                            buttonLayer.setVisibility(View.VISIBLE);
-                        }
-                    });
+            if(!email.isEmpty() && !password.isEmpty()){
+                mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(activity, task -> {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, activity.getString(R.string.login_log_sign_in_with_email_success));
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, activity.getString(R.string.login_log_sign_in_with_email_failure), task.getException());
+                                Toast.makeText(activity, activity.getString(R.string.welcome_error_auth_failed),
+                                        Toast.LENGTH_SHORT).show();
+                                buttonLayer.setVisibility(View.VISIBLE);
+                            }
+                        });
+            }
         }
     }
 

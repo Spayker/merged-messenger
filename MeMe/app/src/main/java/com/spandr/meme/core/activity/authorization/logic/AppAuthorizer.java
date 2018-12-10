@@ -140,7 +140,7 @@ public class AppAuthorizer implements ActionAuthorizer {
     private boolean checkAuthPreferences() {
         SharedPreferences sharedPreferences = currentActivity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         String userName = sharedPreferences.getString(KEY_USER_NAME, EMPTY_STRING);
-        return !userName.isEmpty();
+        return !Objects.requireNonNull(userName).isEmpty();
     }
 
     public AppAuthorizerListenerStorage getAppAuthorizerListenerStorage() {

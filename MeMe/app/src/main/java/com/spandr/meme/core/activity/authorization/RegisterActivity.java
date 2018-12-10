@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.authorization.logic.AppAuthorizer;
@@ -143,6 +144,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         User user = new User(name, email, password);
         AppAuthorizer appAuthorizer = new AppAuthorizer(this, user);
         appAuthorizer.signUp();
+        Toast.makeText(this, getString(R.string.register_check_email),
+                Toast.LENGTH_SHORT).show();
     }
 
     /**
