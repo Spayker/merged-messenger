@@ -16,7 +16,7 @@ android {
         applicationId 'com.spandr.meme'
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 13
+        versionCode 14
         versionName "1.0.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true

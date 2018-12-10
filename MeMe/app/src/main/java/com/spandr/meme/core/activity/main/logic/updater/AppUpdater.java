@@ -21,20 +21,22 @@ public class AppUpdater {
     private AppCompatActivity activity;
     private final String APP_PLAY_MARKET_URI = "market://details?id=com.spandr.meme";
 
-    private static String latestVersion;
+    private static String fullLatestVersion;
 
     public AppUpdater(AppCompatActivity activity) {
         this.activity = activity;
     }
 
     public void checkAppForUpdate() {
-        String currentVersion = getCurrentVersion();
-        Log.d(TAG, "Current version = " + currentVersion);
+        String formattedCurrentVersion = getCurrentVersion();
+        Log.d(TAG, "Current version = " + formattedCurrentVersion);
 
-        if(latestVersion == null){
+        String formattedLatestVersion = null;
+        if(fullLatestVersion == null){
             try {
-                latestVersion = new GetLatestVersion().execute().get();
-                Log.d(TAG, "Latest version = " + latestVersion);
+                fullLatestVersion = new GetLatestVersion().execute().get();
+                formattedLatestVersion = fullLatestVersion.replace(".","");
+                Log.d(TAG, "Latest version = " + fullLatestVersion);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -42,9 +44,11 @@ public class AppUpdater {
             }
 
             //If the versions are not the same
-            if (!currentVersion.equals(latestVersion)) {
-                AlertDialog.Builder alertDialog = createDialogBox();
-                activity.runOnUiThread(alertDialog::show);
+            if(formattedLatestVersion.length() <= 4 && formattedCurrentVersion.length() <= 4){
+                if (!formattedCurrentVersion.equals(fullLatestVersion)) {
+                    AlertDialog.Builder alertDialog = createDialogBox();
+                    activity.runOnUiThread(alertDialog::show);
+                }
             }
         }
     }
@@ -74,7 +78,8 @@ public class AppUpdater {
         } catch (PackageManager.NameNotFoundException e1) {
             e1.printStackTrace();
         }
-        return Objects.requireNonNull(pInfo).versionName;
+        String fullVersionName = Objects.requireNonNull(pInfo).versionName;
+        return fullVersionName.replace(".", "");
     }
 
 }
