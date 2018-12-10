@@ -31,18 +31,18 @@
             android:textStyle="normal"
             tools:ignore="RtlHardcoded"/>
 
-    <TextView
+        <TextView
             android:id="@+id/badge_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="75dp"
+            android:layout_marginLeft="80dp"
             android:background="@drawable/badge_circle"
             android:layout_gravity="top"
             android:gravity="center"
             android:elevation="7dp"
             android:paddingRight="8dp"
-            android:visibility="invisible"
-            android:textColor="#FFF"
+            android:text="10"
+            android:visibility="visible"
             android:textSize="12sp" />
 
     </FrameLayout>

@@ -3,6 +3,7 @@ package com.spandr.meme.core.activity.webview.logic.init.channel.fb;
 import android.annotation.SuppressLint;
 import android.webkit.JavascriptInterface;
 
+import com.spandr.meme.R;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 
@@ -60,6 +61,12 @@ public class FacebookWebViewChannel extends WebViewChannel {
                 while(m.find()) {
                     notificationCounter += Integer.valueOf(m.group(1));
                 }
+                /*if(notificationCounter > 0){
+                    activity.findViewById(R.id.channel_icon_badge);
+                } else {
+
+                }*/
+
                 System.out.println("Facebook notifications: " + notificationCounter);
             });
         }
