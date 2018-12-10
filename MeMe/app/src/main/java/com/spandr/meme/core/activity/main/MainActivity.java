@@ -35,10 +35,12 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.spandr.meme.core.activity.authorization.logic.ActionAuthorizer.IS_REGISTER_SCENARIO_RUNNING;
 import static com.spandr.meme.core.activity.main.logic.starter.Loginner.createLoginner;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_NAME;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
+import static com.spandr.meme.core.activity.main.logic.starter.Setupper.createSetupper;
 import static com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel.getJavascriptHtmlGrabber;
 import static com.spandr.meme.core.activity.webview.logic.manager.WebViewManager.getWebViewChannelManager;
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
@@ -73,7 +75,13 @@ public class MainActivity extends AppCompatActivity {
         String userName = sharedPreferences.getString(KEY_USER_NAME, EMPTY_STRING);
         setTitle(userName);
 
-        createLoginner(this).initApplication(sharedPreferences);
+        boolean isRegisterScenarioRunning = getIntent().getBooleanExtra(IS_REGISTER_SCENARIO_RUNNING, false);
+        if(isRegisterScenarioRunning){
+            createSetupper(this).initApplication(sharedPreferences);
+        } else {
+            createLoginner(this).initApplication(sharedPreferences);
+        }
+
         ActivityUtils.initVersionNumber(this);
         initLanguage(sharedPreferences, this);
         ActivityUtils.initSloganPart(this, R.id.main_app_name_styled);

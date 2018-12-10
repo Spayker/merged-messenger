@@ -2,7 +2,9 @@ package com.spandr.meme.core.activity.authorization.logic;
 
 import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
 
-interface ActionAuthorizer {
+public interface ActionAuthorizer {
+
+    String IS_REGISTER_SCENARIO_RUNNING = "isRegisterScenarioRunning";
 
     void signUp() throws AppFireBaseAuthException;
 

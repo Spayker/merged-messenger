@@ -159,8 +159,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     (InputMethodManager) getSystemService(
                             Activity.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {
-                inputMethodManager.hideSoftInputFromWindow(
-                        Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
+                View currentFocus = getCurrentFocus();
+                if(currentFocus != null) {
+                    inputMethodManager.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
+                }
             }
             try {
                 String email = mEmailView.getText().toString();

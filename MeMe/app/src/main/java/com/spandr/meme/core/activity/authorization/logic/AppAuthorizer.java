@@ -37,6 +37,7 @@ public class AppAuthorizer implements ActionAuthorizer {
 
     private AppAuthorizerListenerStorage appAuthorizerListenerStorage;
     private User user;
+    private static boolean isRegisterScenarioRunning = false;
 
     private AppAuthorizer() { }
 
@@ -52,6 +53,7 @@ public class AppAuthorizer implements ActionAuthorizer {
         appAuthorizerListenerStorage = new AppAuthorizerListenerStorage(currentActivity, firebaseEmailAuthorizer);
         Log.d(TAG, "AppAuthorizer constructor: created object with currentActivity: " + currentActivity +
         " user: " + user);
+        isRegisterScenarioRunning = true;
     }
 
     public AppAuthorizer(AppCompatActivity currentActivity) {
@@ -116,6 +118,11 @@ public class AppAuthorizer implements ActionAuthorizer {
             managePrefs(currentActivity, user.getUserName(), user.getEmailAddress(), user.getPassword());
         }
         Intent intent = new Intent(currentActivity, MainActivity.class);
+        if(isRegisterScenarioRunning){
+            intent.putExtra(IS_REGISTER_SCENARIO_RUNNING, true);
+            isRegisterScenarioRunning = false;
+        }
+
         currentActivity.startActivity(intent);
     }
 
