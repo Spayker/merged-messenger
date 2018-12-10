@@ -39,6 +39,7 @@ public class AppAuthorizer implements ActionAuthorizer {
     private User user;
     private static boolean isRegisterScenarioRunning = false;
 
+    @SuppressWarnings("unused")
     private AppAuthorizer() { }
 
     public AppAuthorizer(AppCompatActivity currentActivity, User user) {

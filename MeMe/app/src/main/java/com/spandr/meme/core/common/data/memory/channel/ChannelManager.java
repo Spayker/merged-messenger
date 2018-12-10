@@ -84,7 +84,7 @@ public class ChannelManager {
     }
 
     public static Boolean isChannelExcludedByDefault(String key, AppCompatActivity mainActivity) {
-        String deviceCountryCode = mainActivity.getResources().getConfiguration().locale.getCountry();
+        String deviceCountryCode = mainActivity.getResources().getConfiguration().locale.toString().toUpperCase();
         String[] eastCountryCodes = mainActivity.getResources().getStringArray(R.array.east_country_codes);
 
         if (Arrays.asList(eastCountryCodes).contains(deviceCountryCode)) {

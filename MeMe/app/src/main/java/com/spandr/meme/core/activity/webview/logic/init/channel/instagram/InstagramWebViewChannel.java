@@ -5,6 +5,7 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 
 public class InstagramWebViewChannel extends WebViewChannel {
 
+    @SuppressWarnings("unused")
     private InstagramWebViewChannel(){}
 
     public InstagramWebViewChannel(WebViewActivity activity,

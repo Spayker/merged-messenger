@@ -32,11 +32,13 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
     static class CustomViewHolder extends AbstractDraggableItemViewHolder {
         private FrameLayout mContainer;
         private Button mChannelButton;
+        private TextView mBadgeTextView;
 
         private CustomViewHolder(View v) {
             super(v);
             mContainer = v.findViewById(R.id.container);
             mChannelButton = v.findViewById(R.id.channel_icon);
+            mBadgeTextView = v.findViewById(R.id.badge_textView);
         }
     }
 
@@ -73,6 +75,7 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
         // set icon
         Drawable icon = item.getIcon();
         holder.mChannelButton.setCompoundDrawablesWithIntrinsicBounds(null, icon, null, null);
+        holder.mBadgeTextView.setId(item.getText().hashCode());
 
         View.OnClickListener listener = item.getOnClickListener();
         if(listener != null){

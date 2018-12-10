@@ -27,6 +27,7 @@ public class FireBaseAuthorizerListenerStorage {
     private FirebaseAuth mAuth;
     private AppAuthorizer appAuthorizer;
 
+    @SuppressWarnings("unused")
     private FireBaseAuthorizerListenerStorage() { }
 
     public FireBaseAuthorizerListenerStorage(AppCompatActivity currentActivity,

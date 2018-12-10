@@ -7,6 +7,7 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 
 public class MailruWebViewChannel extends WebViewChannel {
 
+    @SuppressWarnings("unused")
     private MailruWebViewChannel(){}
 
     public MailruWebViewChannel(WebViewActivity activity,

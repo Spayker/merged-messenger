@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 public class LinkedInWebViewChannel extends WebViewChannel {
 
+    @SuppressWarnings("unused")
     private LinkedInWebViewChannel(){}
 
     public LinkedInWebViewChannel(WebViewActivity activity,

@@ -42,12 +42,9 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="25dp"
             android:background="@drawable/badge_circle"
-            android:text="10"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:layout_gravity="top|right"
             android:textSize="12sp" />
-
-
     </FrameLayout>
 
 </FrameLayout>

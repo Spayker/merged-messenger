@@ -20,6 +20,7 @@ public class User {
     private String password;
     private String emailAddress;
 
+    @SuppressWarnings("unused")
     private User(){}
 
     public static User getInstance(AppCompatActivity currentActivity) {

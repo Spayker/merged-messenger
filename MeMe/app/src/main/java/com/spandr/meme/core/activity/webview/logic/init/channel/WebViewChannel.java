@@ -117,5 +117,4 @@ public abstract class WebViewChannel {
     public static String getJavascriptHtmlGrabber() {
         return JAVASCRIPT_HTML_GRABBER;
     }
-
 }

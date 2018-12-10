@@ -1,9 +1,10 @@
 package com.spandr.meme.core.activity.webview.logic.init.channel.fb;
 
 import android.annotation.SuppressLint;
+import android.view.View;
 import android.webkit.JavascriptInterface;
+import android.widget.TextView;
 
-import com.spandr.meme.R;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 
@@ -14,6 +15,7 @@ public class FacebookWebViewChannel extends WebViewChannel {
 
     private final static String FACEBOOK_USER_AGENT_STRING = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36";
 
+    @SuppressWarnings("unused")
     private FacebookWebViewChannel(){}
 
     public FacebookWebViewChannel(WebViewActivity activity,
@@ -35,7 +37,7 @@ public class FacebookWebViewChannel extends WebViewChannel {
         initWebChromeClient();
         initWebClients();
         initListeners();
-        mWebView.addJavascriptInterface(new FbJavaScriptInterface(), "HTMLOUT");
+        mWebView.addJavascriptInterface(new FbJavaScriptInterface(channelName), "HTMLOUT");
         return this;
     }
 
@@ -50,25 +52,37 @@ public class FacebookWebViewChannel extends WebViewChannel {
 
     class FbJavaScriptInterface {
 
+        private String chlName;
+
+        private FbJavaScriptInterface(String channelName){
+            this.chlName = channelName;
+        }
+
         private final String MESSAGE_NOTIFICATION_REGEX = "\"_59tg\" data-sigil=\"count\">([0-9]+)</span>";
 
         @JavascriptInterface
         @SuppressWarnings("unused")
         public void processHTML(String html) {
+            String channelNAme = getChlName();
+            TextView foundBadgeTextView = activity.findViewById(channelNAme.hashCode());
             mWebView.post(() -> {
                 Matcher m = Pattern.compile(MESSAGE_NOTIFICATION_REGEX).matcher(html);
                 int notificationCounter = 0;
                 while(m.find()) {
                     notificationCounter += Integer.valueOf(m.group(1));
                 }
-                /*if(notificationCounter > 0){
-                    activity.findViewById(R.id.channel_icon_badge);
-                } else {
-
-                }*/
+                if(notificationCounter > 0){
+                    if(foundBadgeTextView != null){
+                        System.out.println(foundBadgeTextView);
+                    }
+                }
 
                 System.out.println("Facebook notifications: " + notificationCounter);
             });
+        }
+
+        public String getChlName() {
+            return chlName;
         }
     }
 

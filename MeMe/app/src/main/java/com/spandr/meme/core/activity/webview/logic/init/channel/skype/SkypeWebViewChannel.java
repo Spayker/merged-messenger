@@ -7,6 +7,7 @@ public class SkypeWebViewChannel extends WebViewChannel {
 
     private String SKYPE_USER_AGENT_STRING = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36";
 
+    @SuppressWarnings("unused")
     private SkypeWebViewChannel(){}
 
     public SkypeWebViewChannel(WebViewActivity activity,

@@ -12,6 +12,7 @@ public class AppAuthorizerListenerStorage {
     private AppCompatActivity currentActivity;
     private FirebaseEmailAuthorizer firebaseEmailAuthorizer;
 
+    @SuppressWarnings("unused")
     private AppAuthorizerListenerStorage() { }
 
     public AppAuthorizerListenerStorage(AppCompatActivity currentActivity, FirebaseEmailAuthorizer firebaseEmailAuthorizer) {

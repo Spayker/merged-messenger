@@ -4,6 +4,9 @@ import com.spandr.meme.core.activity.webview.WebViewActivity;
 
 public class DefaultWebViewChannel extends WebViewChannel{
 
+    @SuppressWarnings("unused")
+    private DefaultWebViewChannel(){}
+
     public DefaultWebViewChannel(WebViewActivity activity,
                                    String url, String channelName) {
         if(url.isEmpty()){

@@ -5,7 +5,6 @@ public interface WebViewConstants {
     //// CHANNEL RELATED
     // WEB URL RELATED CONSTANTS
     String HOME_URL = "homeUrl";
-    String SHALL_LOAD_URL = "shallLoadUrl";
     String CHANNEL_NAME = "channelName";
     String MEME_HOME_URL = "https://www.patreon.com/merged_messenger";
     String VK_HOME_URL = "http://m.vk.com";
