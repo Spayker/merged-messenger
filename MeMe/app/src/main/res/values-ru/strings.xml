@@ -31,7 +31,10 @@
     <string name="login_forgot_password_link_color">#ff0099cc</string>
     <string name="login_info_email_sent">Пожалуйста проверьте свою почту</string>
     <string name="login_error_auth_failed">Ошибка Авторизации</string>
-    <string name="login_error_email_empty">Не Указан Email</string>
+    <string name="login_error_email_empty">Не указан Email</string>
+    <string name="login_info_email_not_verified">Email не подвтержден. Переслать подтверждающее письмо?</string>
+    <string name="login_notification_email_sent">Email выслан</string>
+    <string name="login_notification_email_not_verified">Ваш email еще не проверен.</string>
     <string name="login_log_sign_in">signIn:</string>
     <string name="login_log_sign_in_with_email_success">signInWithEmail: success</string>
     <string name="login_log_sign_in_with_email_failure">signInWithEmail: failure</string>

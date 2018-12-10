@@ -30,8 +30,10 @@
     <string name="login_field_short_seconds">s</string>
     <string name="login_forgot_password_link_color">#ff0099cc</string>
     <string name="login_info_email_sent">Please Check Your email</string>
-    <string name="login_notification_email_sent">Email Is Sent</string>
     <string name="login_error_auth_failed">Authentication Failed</string>
+    <string name="login_error_email_empty">Email Is Empty</string>
+    <string name="login_notification_email_sent">Email Is Sent</string>
+    <string name="login_notification_email_not_verified">Your email is not verified yet.</string>
     <string name="login_log_sign_in">signIn:</string>
     <string name="login_log_sign_in_with_email_success">signInWithEmail: success</string>
     <string name="login_log_sign_in_with_email_failure">signInWithEmail: failure</string>

@@ -71,17 +71,6 @@ public class AutoLoginner {
             throw new AppIntroActivityException("AutoLoginner, validateActivity: sharedPreferences is null");
         }
 
-        String email = sharedPreferences.getString(KEY_USER_EMAIL_OR_PHONE, EMPTY_STRING);
-        String password = sharedPreferences.getString(KEY_PASS, EMPTY_STRING);
-
-        if(email.isEmpty()){
-            throw new AppIntroActivityException("AutoLoginner, validateActivity: email from sharedPreferences object with key KEY_USER_EMAIL_OR_PHONE is empty");
-        }
-
-        if(password.isEmpty()){
-            throw new AppIntroActivityException("AutoLoginner, validateActivity: password from sharedPreferences object with key KEY_USER_EMAIL_OR_PHONE is empty");
-        }
-
         LinearLayout buttonLayer = activity.getButtonLayer();
         if(buttonLayer == null){
             throw new AppIntroActivityException("AutoLoginner, validateActivity: buttonLayer is null");
