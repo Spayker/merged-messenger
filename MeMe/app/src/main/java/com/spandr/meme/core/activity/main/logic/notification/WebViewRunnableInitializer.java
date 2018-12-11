@@ -44,7 +44,7 @@ public class WebViewRunnableInitializer {
                                 .subscribeWith(webViewObserver));
             };
 
-            scheduler.scheduleAtFixedRate(notificationRunnable, 1, 10, TimeUnit.SECONDS);
+            scheduler.scheduleAtFixedRate(notificationRunnable, 1, 2, TimeUnit.SECONDS);
         }
         initViewChannelManager();
     }
@@ -70,9 +70,7 @@ public class WebViewRunnableInitializer {
             }
 
             @Override
-            public void onComplete() {
-                System.out.println("All channels are processed!");
-            }
+            public void onComplete() { }
         };
     }
 

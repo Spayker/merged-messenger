@@ -19,6 +19,7 @@ import com.spandr.meme.core.activity.intro.WelcomeActivity;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.DraggableGridFragment;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.data.AbstractDataProvider;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.fragment.DataProviderFragment;
+import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
 import com.spandr.meme.core.activity.main.logic.notification.WebViewRunnableInitializer;
 import com.spandr.meme.core.activity.main.logic.updater.AppUpdater;
 import com.spandr.meme.core.activity.settings.channel.EditChannelsActivity;
@@ -72,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
         initLanguage(sharedPreferences, this);
         ActivityUtils.initSloganPart(this, R.id.main_app_name_styled);
         initFragment(savedInstanceState);
+        initNotifications();
+    }
+
+    private void initNotifications() {
         webViewRunnableInitializer = WebViewRunnableInitializer.getInstance();
         if(webViewRunnableInitializer == null){
             webViewRunnableInitializer = new WebViewRunnableInitializer();

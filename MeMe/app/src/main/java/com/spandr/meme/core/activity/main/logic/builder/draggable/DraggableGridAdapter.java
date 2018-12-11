@@ -108,7 +108,7 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
             holder.mContainer.setBackgroundResource(bgResId);
         }
 
-        Map<String, View> channelViews = ViewChannelManager.getInstance().getChannelViews();
+        Map<String, TextView> channelViews = ViewChannelManager.getInstance().getChannelViews();
         channelViews.put(item.getText(), holder.mBadgeTextView);
     }
 
