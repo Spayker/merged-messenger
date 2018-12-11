@@ -15,6 +15,7 @@ import io.reactivex.schedulers.Schedulers;
 import static com.spandr.meme.core.activity.main.logic.notification.ViewChannelManager.createChannelViewManager;
 import static com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel.getJavascriptHtmlGrabber;
 import static com.spandr.meme.core.activity.webview.logic.manager.WebViewManager.getWebViewChannelManager;
+import static io.reactivex.schedulers.Schedulers.computation;
 
 public class WebViewRunnableInitializer {
 
@@ -29,7 +30,7 @@ public class WebViewRunnableInitializer {
         initViewChannelManager();
     }
 
-    public void initRX() {
+    private void initRX() {
         // init periodical command
         if (notificationRunnable == null) {
             notificationRunnable = () -> {
@@ -38,7 +39,7 @@ public class WebViewRunnableInitializer {
 
                 compositeDisposable.add(
                         webViewObservable
-                                .subscribeOn(Schedulers.io())
+                                .subscribeOn(Schedulers.newThread())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribeWith(webViewObserver));
             };

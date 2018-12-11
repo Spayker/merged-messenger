@@ -1,12 +1,20 @@
 package com.spandr.meme.core.activity.webview.logic.init.channel.vk;
 
+import android.view.View;
 import android.webkit.JavascriptInterface;
+import android.widget.TextView;
 
+import com.spandr.meme.core.activity.main.logic.notification.ViewChannelManager;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.EMPTY_STRING;
 
 public class VkontakteWebViewChannel extends WebViewChannel {
 
@@ -48,7 +56,7 @@ public class VkontakteWebViewChannel extends WebViewChannel {
 
     class VkJavaScriptInterface {
 
-        private final String MESSAGE_NOTIFICATION_REGEX = "\"_59tg\" data-sigil=\"count\">([0-9]+)</span>";
+        private final String MESSAGE_NOTIFICATION_REGEX = "<em class=\"mm_counter\">([0-9]+)</em>";
 
         @JavascriptInterface
         @SuppressWarnings("unused")
@@ -59,7 +67,24 @@ public class VkontakteWebViewChannel extends WebViewChannel {
                 while(m.find()) {
                     notificationCounter += Integer.valueOf(m.group(1));
                 }
-                System.out.println("Vkontakte notifications: " + notificationCounter);
+
+                ViewChannelManager viewChannelManager = ViewChannelManager.getInstance();
+                Map<String, View> channelViews = viewChannelManager.getChannelViews();
+                TextView channelTextView = (TextView) channelViews.get(channelName);
+                if(channelTextView != null){
+                    if(notificationCounter > 0) {
+                        String formattedNotificationCounter = String.valueOf(notificationCounter);
+                        if(notificationCounter < 9){
+                            channelTextView.setText(String.format(" %s", formattedNotificationCounter));
+                        } else {
+                            channelTextView.setText(formattedNotificationCounter);
+                        }
+                        channelTextView.setVisibility(VISIBLE);
+                    } else {
+                        channelTextView.setText(EMPTY_STRING);
+                        channelTextView.setVisibility(INVISIBLE);
+                    }
+                }
             });
         }
     }
