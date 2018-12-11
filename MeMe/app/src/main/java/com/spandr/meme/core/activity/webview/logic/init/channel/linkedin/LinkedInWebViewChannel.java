@@ -5,6 +5,7 @@ import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.widget.TextView;
 
+import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
 import com.spandr.meme.core.activity.main.logic.notification.ViewChannelManager;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
@@ -71,23 +72,7 @@ public class LinkedInWebViewChannel extends WebViewChannel {
                     notificationCounter += Integer.valueOf(m.group(1));
                 }
 
-                ViewChannelManager viewChannelManager = ViewChannelManager.getInstance();
-                Map<String, View> channelViews = viewChannelManager.getChannelViews();
-                TextView channelTextView = (TextView) channelViews.get(channelName);
-                if(channelTextView != null){
-                    if(notificationCounter > 0) {
-                        String formattedNotificationCounter = String.valueOf(notificationCounter);
-                        if(notificationCounter < 9){
-                            channelTextView.setText(String.format(" %s", formattedNotificationCounter));
-                        } else {
-                            channelTextView.setText(formattedNotificationCounter);
-                        }
-                        channelTextView.setVisibility(VISIBLE);
-                    } else {
-                        channelTextView.setText(EMPTY_STRING);
-                        channelTextView.setVisibility(INVISIBLE);
-                    }
-                }
+                NotificationDisplayer.getInstance().display(channelName, notificationCounter);
             });
         }
     }

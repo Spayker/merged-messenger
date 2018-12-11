@@ -34,7 +34,7 @@ public class ViewChannelManager {
     }
 
 
-    public static ViewChannelManager createChannelViewManager(Map<String, View> channelViews) {
+    static ViewChannelManager createChannelViewManager(Map<String, View> channelViews) {
         if (viewChannelManager == null) {
             viewChannelManager = new ViewChannelManager(channelViews);
         }
