@@ -1,5 +1,6 @@
-package com.spandr.meme.core.activity.webview.logic.init.channel.vk;
+package com.spandr.meme.core.activity.webview.logic.init.channel.social;
 
+import android.annotation.SuppressLint;
 import android.webkit.JavascriptInterface;
 
 import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
@@ -9,14 +10,14 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class VkontakteWebViewChannel extends WebViewChannel {
+public class FacebookWebViewChannel extends WebViewChannel {
 
-    private String VKONTAKTE_USER_AGENT_STRING = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36";
+    private final static String FACEBOOK_USER_AGENT_STRING = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36";
 
     @SuppressWarnings("unused")
-    private VkontakteWebViewChannel(){}
+    private FacebookWebViewChannel(){}
 
-    public VkontakteWebViewChannel(WebViewActivity activity,
+    public FacebookWebViewChannel(WebViewActivity activity,
                                   String url, String channelName) {
         if(url.isEmpty()){
             return;
@@ -28,28 +29,35 @@ public class VkontakteWebViewChannel extends WebViewChannel {
         init();
     }
 
-    protected VkontakteWebViewChannel init() {
-        //initUserAgent();
+    @SuppressLint("AddJavascriptInterface")
+    protected FacebookWebViewChannel init() {
+        initUserAgent();
         initStartURL();
         initWebChromeClient();
-        initListeners();
         initWebClients();
-        mWebView.addJavascriptInterface(new VkJavaScriptInterface(), "HTMLOUT");
+        initListeners();
+        mWebView.addJavascriptInterface(new FbJavaScriptInterface(channelName), "HTMLOUT");
         return this;
     }
 
     @Override
     protected void initUserAgent() {
-        mWebView.getSettings().setUserAgentString(VKONTAKTE_USER_AGENT_STRING);
+        mWebView.getSettings().setUserAgentString(FACEBOOK_USER_AGENT_STRING);
     }
 
     public String getUrl() {
         return url;
     }
 
-    class VkJavaScriptInterface {
+    class FbJavaScriptInterface {
 
-        private final String MESSAGE_NOTIFICATION_REGEX = "<em class=\"mm_counter\">([0-9]+)</em>";
+        private String channelName;
+
+        private FbJavaScriptInterface(String channelName){
+            this.channelName = channelName;
+        }
+
+        private final String MESSAGE_NOTIFICATION_REGEX = "\"_59tg\" data-sigil=\"count\">([0-9]+)</span>";
 
         @JavascriptInterface
         @SuppressWarnings("unused")

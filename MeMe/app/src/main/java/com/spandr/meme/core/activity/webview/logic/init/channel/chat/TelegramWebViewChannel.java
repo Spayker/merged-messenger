@@ -1,4 +1,4 @@
-package com.spandr.meme.core.activity.webview.logic.init.channel.telegram;
+package com.spandr.meme.core.activity.webview.logic.init.channel.chat;
 
 import android.annotation.SuppressLint;
 import android.webkit.JavascriptInterface;

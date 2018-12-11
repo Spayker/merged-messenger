@@ -1,14 +1,16 @@
-package com.spandr.meme.core.activity.webview.logic.init.channel.instagram;
+package com.spandr.meme.core.activity.webview.logic.init.channel.chat;
 
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 
-public class InstagramWebViewChannel extends WebViewChannel {
+public class SkypeWebViewChannel extends WebViewChannel {
+
+    private String SKYPE_USER_AGENT_STRING = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36";
 
     @SuppressWarnings("unused")
-    private InstagramWebViewChannel(){}
+    private SkypeWebViewChannel(){}
 
-    public InstagramWebViewChannel(WebViewActivity activity,
+    public SkypeWebViewChannel(WebViewActivity activity,
                                   String url, String channelName) {
         if(url.isEmpty()){
             return;
@@ -20,18 +22,22 @@ public class InstagramWebViewChannel extends WebViewChannel {
         init();
     }
 
-    protected InstagramWebViewChannel init() {
+    protected SkypeWebViewChannel init() {
         initUserAgent();
         initStartURL();
         initWebChromeClient();
-        initWebClients();
         initListeners();
+        initWebClients();
         return this;
+    }
+
+    @Override
+    protected void initUserAgent() {
+        mWebView.getSettings().setUserAgentString(SKYPE_USER_AGENT_STRING);
     }
 
     public String getUrl() {
         return url;
     }
-
 
 }

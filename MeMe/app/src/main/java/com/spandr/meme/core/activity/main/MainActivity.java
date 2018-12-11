@@ -19,7 +19,6 @@ import com.spandr.meme.core.activity.intro.WelcomeActivity;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.DraggableGridFragment;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.data.AbstractDataProvider;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.fragment.DataProviderFragment;
-import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
 import com.spandr.meme.core.activity.main.logic.notification.WebViewRunnableInitializer;
 import com.spandr.meme.core.activity.main.logic.updater.AppUpdater;
 import com.spandr.meme.core.activity.settings.channel.EditChannelsActivity;

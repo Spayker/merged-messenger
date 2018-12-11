@@ -1,6 +1,5 @@
-package com.spandr.meme.core.activity.webview.logic.init.channel.linkedin;
+package com.spandr.meme.core.activity.webview.logic.init.channel.social;
 
-import android.annotation.SuppressLint;
 import android.webkit.JavascriptInterface;
 
 import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
@@ -10,12 +9,14 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LinkedInWebViewChannel extends WebViewChannel {
+public class VkontakteWebViewChannel extends WebViewChannel {
+
+    private String VKONTAKTE_USER_AGENT_STRING = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36";
 
     @SuppressWarnings("unused")
-    private LinkedInWebViewChannel(){}
+    private VkontakteWebViewChannel(){}
 
-    public LinkedInWebViewChannel(WebViewActivity activity,
+    public VkontakteWebViewChannel(WebViewActivity activity,
                                   String url, String channelName) {
         if(url.isEmpty()){
             return;
@@ -27,37 +28,33 @@ public class LinkedInWebViewChannel extends WebViewChannel {
         init();
     }
 
-    @SuppressLint("AddJavascriptInterface")
-    protected LinkedInWebViewChannel init() {
-        initUserAgent();
+    protected VkontakteWebViewChannel init() {
+        //initUserAgent();
         initStartURL();
         initWebChromeClient();
-        initWebClients();
         initListeners();
-        mWebView.addJavascriptInterface(new LnJavaScriptInterface(channelName), "HTMLOUT");
+        initWebClients();
+        mWebView.addJavascriptInterface(new VkJavaScriptInterface(), "HTMLOUT");
         return this;
+    }
+
+    @Override
+    protected void initUserAgent() {
+        mWebView.getSettings().setUserAgentString(VKONTAKTE_USER_AGENT_STRING);
     }
 
     public String getUrl() {
         return url;
     }
 
-    class LnJavaScriptInterface {
+    class VkJavaScriptInterface {
 
-        private String channelName;
-
-        private LnJavaScriptInterface(String channelName){
-            this.channelName = channelName;
-        }
-
-        private final String MESSAGE_NOTIFICATION_REGEX = "class=\"nav-item__badge\">([0-9]+)</span>";
+        private final String MESSAGE_NOTIFICATION_REGEX = "<em class=\"mm_counter\">([0-9]+)</em>";
 
         @JavascriptInterface
         @SuppressWarnings("unused")
         public void processHTML(String html) {
             mWebView.post(() -> {
-                // LinkedIn does not update notifications dynamically. Page refresh can help.
-                // However period of time for page must be bigger
                 Matcher m = Pattern.compile(MESSAGE_NOTIFICATION_REGEX).matcher(html);
                 int notificationCounter = 0;
                 while(m.find()) {
@@ -68,16 +65,5 @@ public class LinkedInWebViewChannel extends WebViewChannel {
             });
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }
