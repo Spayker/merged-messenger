@@ -18,6 +18,9 @@ import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractDraggableItemView
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.data.AbstractDataProvider;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.utils.DrawableUtils;
+import com.spandr.meme.core.activity.main.logic.notification.ViewChannelManager;
+
+import java.util.Map;
 
 public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdapter.CustomViewHolder>
         implements DraggableItemAdapter<DraggableGridAdapter.CustomViewHolder> {
@@ -75,7 +78,6 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
         // set icon
         Drawable icon = item.getIcon();
         holder.mChannelButton.setCompoundDrawablesWithIntrinsicBounds(null, icon, null, null);
-        holder.mBadgeTextView.setId(item.getText().hashCode());
 
         View.OnClickListener listener = item.getOnClickListener();
         if(listener != null){
@@ -105,6 +107,9 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
 
             holder.mContainer.setBackgroundResource(bgResId);
         }
+
+        Map<String, View> channelViews = ViewChannelManager.getInstance().getChannelViews();
+        channelViews.put(item.getText(), holder.mBadgeTextView);
     }
 
     @Override

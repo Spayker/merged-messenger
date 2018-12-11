@@ -32,7 +32,7 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.telegram.Telegra
 import com.spandr.meme.core.activity.webview.logic.init.channel.vk.VkontakteWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.manager.WebViewManager;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
-import com.spandr.meme.core.common.data.memory.channel.ChannelManager;
+import com.spandr.meme.core.common.data.memory.channel.DataChannelManager;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -120,7 +120,7 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
         Intent webViewIntent = getIntent();
         String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
         if (channelName != null) {
-            Channel channel = ChannelManager.getChannelByName(channelName);
+            Channel channel = DataChannelManager.getChannelByName(channelName);
             if (channel != null) {
                 String homeURL = channel.getHomeUrl();
                 switch (homeURL) {

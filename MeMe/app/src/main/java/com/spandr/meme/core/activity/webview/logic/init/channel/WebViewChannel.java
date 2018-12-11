@@ -14,7 +14,7 @@ import com.spandr.meme.R;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.CustomChromeWebClient;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
-import com.spandr.meme.core.common.data.memory.channel.ChannelManager;
+import com.spandr.meme.core.common.data.memory.channel.DataChannelManager;
 
 import im.delight.android.webview.AdvancedWebView;
 
@@ -38,7 +38,7 @@ public abstract class WebViewChannel {
     protected void initStartURL() {
         String urlToBeLoaded = MEME_HOME_URL;
         if (channelName != null) {
-            Channel channel = ChannelManager.getChannelByName(channelName);
+            Channel channel = DataChannelManager.getChannelByName(channelName);
             if (channel != null) {
                 urlToBeLoaded = channel.getHomeUrl();
             }

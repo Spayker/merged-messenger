@@ -14,7 +14,7 @@ import com.spandr.meme.core.common.data.memory.channel.Channel;
 
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
-import static com.spandr.meme.core.common.data.memory.channel.ChannelManager.getChannelByName;
+import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 
 public class ChannelSettingsInitializer {
 

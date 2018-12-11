@@ -19,6 +19,7 @@ import com.spandr.meme.core.activity.intro.WelcomeActivity;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.DraggableGridFragment;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.data.AbstractDataProvider;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.fragment.DataProviderFragment;
+import com.spandr.meme.core.activity.main.logic.notification.WebViewRunnableInitializer;
 import com.spandr.meme.core.activity.main.logic.updater.AppUpdater;
 import com.spandr.meme.core.activity.settings.channel.EditChannelsActivity;
 import com.spandr.meme.core.activity.settings.global.GlobalSettingsActivity;
@@ -53,11 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String FRAGMENT_TAG_DATA_PROVIDER = "data provider";
     private static final String FRAGMENT_LIST_VIEW = "list view";
-
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    private Runnable notificationRunnable;
-
+    private WebViewRunnableInitializer webViewRunnableInitializer;
 
     /**
      * Perform initialization of all fragments of current activity.
@@ -76,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         setTitle(userName);
 
         boolean isRegisterScenarioRunning = getIntent().getBooleanExtra(IS_REGISTER_SCENARIO_RUNNING, false);
-        if(isRegisterScenarioRunning){
+        if (isRegisterScenarioRunning) {
             createSetupper(this).initApplication(sharedPreferences);
         } else {
             createLoginner(this).initApplication(sharedPreferences);
@@ -86,48 +83,10 @@ public class MainActivity extends AppCompatActivity {
         initLanguage(sharedPreferences, this);
         ActivityUtils.initSloganPart(this, R.id.main_app_name_styled);
         initFragment(savedInstanceState);
-        initRX();
-    }
-
-    private void initRX() {
-        // init periodical command
-        if(notificationRunnable == null){
-            notificationRunnable = () -> {
-                Observable<AdvancedWebView> webViewObservable = getWebViewsObservable();
-                DisposableObserver<AdvancedWebView> webViewObserver = getWebViewsObserver();
-
-                compositeDisposable.add(
-                        webViewObservable
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribeWith(webViewObserver));
-            };
-
-            scheduler.scheduleAtFixedRate(notificationRunnable,1,10,TimeUnit.SECONDS);
+        webViewRunnableInitializer = WebViewRunnableInitializer.getInstance();
+        if(webViewRunnableInitializer == null){
+            webViewRunnableInitializer = new WebViewRunnableInitializer();
         }
-    }
-
-    private Observable<AdvancedWebView> getWebViewsObservable() {
-        return Observable.fromIterable(getWebViewChannelManager().getWebViewChannelsIterator());
-    }
-
-    private DisposableObserver<AdvancedWebView> getWebViewsObserver() {
-        return new DisposableObserver<AdvancedWebView>() {
-            @Override
-            public void onNext(AdvancedWebView advancedWebView) {
-                advancedWebView.loadUrl(getJavascriptHtmlGrabber());
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                System.out.println("onError: " + e.getMessage());
-            }
-
-            @Override
-            public void onComplete() {
-                System.out.println("All channels are processed!");
-            }
-        };
     }
 
     @Override
@@ -198,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onDestroy() {
-        compositeDisposable.clear();
+        webViewRunnableInitializer.getCompositeDisposable().clear();
         super.onDestroy();
     }
 

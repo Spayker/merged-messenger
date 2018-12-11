@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.spandr.meme.core.common.data.memory.channel.Channel;
-import com.spandr.meme.core.common.data.memory.channel.ChannelManager;
+import com.spandr.meme.core.common.data.memory.channel.DataChannelManager;
 import com.spandr.meme.core.common.data.memory.channel.ICON;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 
@@ -34,11 +34,11 @@ public class DataProvider extends AbstractDataProvider {
     private int mLastRemovedPosition = -1;
 
     public DataProvider(AppCompatActivity mainActivity) {
-        List<Channel> channels = ChannelManager.getActiveChannelsByType(SOCIAL);
-        channels.addAll(ChannelManager.getActiveChannelsByType(CHAT));
-        channels.addAll(ChannelManager.getActiveChannelsByType(VIDEO_SERVICE));
-        channels.addAll(ChannelManager.getActiveChannelsByType(INFO_SERVICE));
-        channels.addAll(ChannelManager.getActiveChannelsByType(EMAIL));
+        List<Channel> channels = DataChannelManager.getActiveChannelsByType(SOCIAL);
+        channels.addAll(DataChannelManager.getActiveChannelsByType(CHAT));
+        channels.addAll(DataChannelManager.getActiveChannelsByType(VIDEO_SERVICE));
+        channels.addAll(DataChannelManager.getActiveChannelsByType(INFO_SERVICE));
+        channels.addAll(DataChannelManager.getActiveChannelsByType(EMAIL));
         mData = new LinkedList<>();
 
         SharedPreferences sharedPreferences = mainActivity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);

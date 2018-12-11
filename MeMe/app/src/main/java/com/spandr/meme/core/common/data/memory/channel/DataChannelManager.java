@@ -9,22 +9,23 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ChannelManager {
+public class DataChannelManager {
 
-    private static ChannelManager channelManager;
+    private static DataChannelManager dataChannelManager;
     private static List<String> westExcludedChannels;
     private static List<String> eastExcludedChannels;
     private static List<Channel> channels;
 
-    private ChannelManager() {
+    @SuppressWarnings("unused")
+    private DataChannelManager() {
     }
 
-    private ChannelManager(List<Channel> chnls) {
+    private DataChannelManager(List<Channel> chnls) {
         channels = chnls;
     }
 
-    public static ChannelManager getInstance() {
-        return channelManager;
+    public static DataChannelManager getInstance() {
+        return dataChannelManager;
     }
 
     public static Boolean clearChannels() {
@@ -39,9 +40,9 @@ public class ChannelManager {
         return channels;
     }
 
-    public static ChannelManager createChannelManager(AppCompatActivity mainActivity, List<Channel> channels) {
-        if (channelManager == null) {
-            channelManager = new ChannelManager(channels);
+    public static DataChannelManager createChannelManager(AppCompatActivity mainActivity, List<Channel> channels) {
+        if (dataChannelManager == null) {
+            dataChannelManager = new DataChannelManager(channels);
             westExcludedChannels = new LinkedList<>(Arrays.asList(mainActivity.getResources().getStringArray(R.array.default_excluded_west_social_group)));
             eastExcludedChannels = new LinkedList<>(Arrays.asList(mainActivity.getResources().getStringArray(R.array.default_excluded_east_social_group)));
 
@@ -57,7 +58,7 @@ public class ChannelManager {
             westExcludedChannels.addAll(new LinkedList<>(Arrays.asList(mainActivity.getResources().getStringArray(R.array.default_excluded_west_video_group))));
             eastExcludedChannels.addAll(new LinkedList<>(Arrays.asList(mainActivity.getResources().getStringArray(R.array.default_excluded_east_video_group))));
         }
-        return channelManager;
+        return dataChannelManager;
     }
 
     public static Channel createNewChannel(String name, TYPE type, ICON icon, String homeUrl, Boolean active) {
@@ -66,7 +67,7 @@ public class ChannelManager {
 
     public static List<Channel> getActiveChannelsByType(TYPE type) {
         List<Channel> channels = new ArrayList<>();
-        for (Channel chn : channelManager.getChannels()) {
+        for (Channel chn : dataChannelManager.getChannels()) {
             if (chn.getType().equals(type) && chn.getActive()) {
                 channels.add(chn);
             }
@@ -75,7 +76,7 @@ public class ChannelManager {
     }
 
     public static Channel getChannelByName(String name) {
-        for (Channel chn : channelManager.getChannels()) {
+        for (Channel chn : dataChannelManager.getChannels()) {
             if (chn.getName().equals(name)) {
                 return chn;
             }

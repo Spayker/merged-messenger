@@ -5,14 +5,15 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
 import com.spandr.meme.R;
+import com.spandr.meme.core.activity.main.logic.notification.ViewChannelManager;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
-import com.spandr.meme.core.common.data.memory.channel.ChannelManager;
+import com.spandr.meme.core.common.data.memory.channel.DataChannelManager;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static com.spandr.meme.core.common.data.memory.channel.ChannelManager.createNewChannel;
-import static com.spandr.meme.core.common.data.memory.channel.ChannelManager.isChannelExcludedByDefault;
+import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.createNewChannel;
+import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.isChannelExcludedByDefault;
 import static com.spandr.meme.core.common.data.memory.channel.ICON.DC;
 import static com.spandr.meme.core.common.data.memory.channel.ICON.FB;
 import static com.spandr.meme.core.common.data.memory.channel.ICON.GADU;
@@ -82,7 +83,8 @@ public class Loginner implements Starter {
 
     @Override
     public void initApplication(SharedPreferences sharedPreferences) {
-        ChannelManager.clearChannels();
+        DataChannelManager.clearChannels();
+        ViewChannelManager.clearChannelViews();
         initChannelManager(mainActivity);
         String deviceCountryCode = mainActivity.getResources().getConfiguration().locale.getCountry();
         String[] eastCountryCodes = mainActivity.getResources().getStringArray(R.array.east_country_codes);
@@ -104,7 +106,7 @@ public class Loginner implements Starter {
 
     private Loginner initSocialGroupChannels(SharedPreferences sharedPreferences,
                                              AppCompatActivity mainActivity) {
-        List<Channel> channels = ChannelManager.getInstance().getChannels();
+        List<Channel> channels = DataChannelManager.getInstance().getChannels();
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         String fbKey = mainActivity.getString(R.string.channel_setting_fb);
@@ -165,7 +167,7 @@ public class Loginner implements Starter {
     private Loginner initChatGroupChannels(SharedPreferences sharedPreferences,
                                            AppCompatActivity mainActivity) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        List<Channel> channels = ChannelManager.getInstance().getChannels();
+        List<Channel> channels = DataChannelManager.getInstance().getChannels();
 
         String tlKey = mainActivity.getString(R.string.channel_setting_tl);
         boolean isTlActive = sharedPreferences.getBoolean(tlKey, !isChannelExcludedByDefault(tlKey, mainActivity));
@@ -211,7 +213,7 @@ public class Loginner implements Starter {
     private Loginner initVideoGroupChannels(SharedPreferences sharedPreferences,
                                            AppCompatActivity mainActivity) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        List<Channel> channels = ChannelManager.getInstance().getChannels();
+        List<Channel> channels = DataChannelManager.getInstance().getChannels();
 
         String ytKey = mainActivity.getString(R.string.channel_setting_yt);
         boolean isYtActive = sharedPreferences.getBoolean(ytKey, !isChannelExcludedByDefault(ytKey, mainActivity));
@@ -233,7 +235,7 @@ public class Loginner implements Starter {
     private Loginner initInfoGroupChannels(SharedPreferences sharedPreferences,
                                            AppCompatActivity mainActivity) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        List<Channel> channels = ChannelManager.getInstance().getChannels();
+        List<Channel> channels = DataChannelManager.getInstance().getChannels();
 
         String habrKey = mainActivity.getString(R.string.channel_setting_habr);
         boolean isHabrActive = sharedPreferences.getBoolean(habrKey, !isChannelExcludedByDefault(habrKey, mainActivity));
@@ -268,7 +270,7 @@ public class Loginner implements Starter {
     private void initEmailGroupChannels(SharedPreferences sharedPreferences,
                                         AppCompatActivity mainActivity) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        List<Channel> channels = ChannelManager.getInstance().getChannels();
+        List<Channel> channels = DataChannelManager.getInstance().getChannels();
 
         String gmailKey = mainActivity.getString(R.string.channel_setting_gmail);
         boolean isGmailActive = sharedPreferences.getBoolean(gmailKey, !isChannelExcludedByDefault(gmailKey, mainActivity));
