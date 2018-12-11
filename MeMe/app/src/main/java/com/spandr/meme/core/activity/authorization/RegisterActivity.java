@@ -83,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
         );
 
-        formValidator = new RegisterFormValidator();
+        formValidator = new RegisterFormValidator(this);
 
         progressBar = findViewById(R.id.register_progressBar_cyclic);
         progressBar.setVisibility(View.INVISIBLE);
@@ -133,6 +133,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
             case SHORT_PASSWORD:{
                 mPasswordConfirmView.setError(getString(R.string.register_error_invalid_password));
+                return;
+            }
+            case UNSUPPORTED_EMAIL_DOMAIN:{
+                Toast.makeText(this, getString(R.string.register_check_email_unsupported_domain),
+                        Toast.LENGTH_SHORT).show();
                 return;
             }
         }

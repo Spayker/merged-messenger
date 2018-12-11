@@ -61,6 +61,7 @@
             <string name="register_error_auth_failed">Registration Failed</string>
             <string name="register_error_auth_passed">Registration Passed</string>
             <string name="register_check_email">Please check your email box</string>
+            <string name="register_check_email_unsupported_domain">Unsupported email domain</string>
             <string name="register_log_sign_up">signUp:</string>
             <string name="register_agreement">I agree to the <a href="https://termsfeed.com/terms-conditions/99d4182b95758e526419909a033278d6">Terms and Conditions</a> \n and the <a href="https://termsfeed.com/privacy-policy/d4f0a4d7f7f46ffea23399daee7f9274">Privacy Policy</a> of application</string>
             <string name="register_log_create_user_with_email_success">createUserWithEmail: success</string>
@@ -460,6 +461,109 @@
         <item>UZ</item>
         <item>TM</item>
         <item>GE</item>
+    </string-array>
+
+    <string-array name="supported_email_domains" formatted="false" translatable="false">
+        <item>gmail.com</item>
+        <item>yahoo.com</item>
+        <item>hotmail.com</item>
+        <item>aol.com</item>
+        <item>hotmail.co.uk</item>
+        <item>hotmail.fr</item>
+        <item>msn.com</item>
+        <item>yahoo.fr</item>
+        <item>wanadoo.fr</item>
+        <item>orange.fr</item>
+        <item>comcast.net</item>
+        <item>yahoo.co.uk</item>
+        <item>yahoo.com.br</item>
+        <item>yahoo.co.in</item>
+        <item>live.com</item>
+        <item>rediffmail.com</item>
+        <item>free.fr</item>
+        <item>gmx.de</item>
+        <item>web.de</item>
+        <item>yandex.ru</item>
+        <item>ymail.com</item>
+        <item>libero.it</item>
+        <item>outlook.com</item>
+        <item>uol.com.br</item>
+        <item>bol.com.br</item>
+        <item>mail.ru</item>
+        <item>cox.net</item>
+        <item>hotmail.it</item>
+        <item>sbcglobal.net</item>
+        <item>sfr.fr</item>
+        <item>live.fr</item>
+        <item>verizon.net</item>
+        <item>live.co.uk</item>
+        <item>googlemail.com</item>
+        <item>yahoo.es</item>
+        <item>ig.com.br</item>
+        <item>live.nl</item>
+        <item>bigpond.com</item>
+        <item>terra.com.br</item>
+        <item>yahoo.it</item>
+        <item>neuf.fr</item>
+        <item>yahoo.de</item>
+        <item>alice.it</item>
+        <item>rocketmail.com</item>
+        <item>att.net</item>
+        <item>laposte.net</item>
+        <item>facebook.com</item>
+        <item>bellsouth.net</item>
+        <item>yahoo.in</item>
+        <item>hotmail.es</item>
+        <item>charter.net</item>
+        <item>yahoo.ca</item>
+        <item>yahoo.com.au</item>
+        <item>rambler.ru</item>
+        <item>hotmail.de</item>
+        <item>tiscali.it</item>
+        <item>shaw.ca</item>
+        <item>yahoo.co.jp</item>
+        <item>sky.com</item>
+        <item>earthlink.net</item>
+        <item>optonline.net</item>
+        <item>freenet.de</item>
+        <item>t-online.de</item>
+        <item>aliceadsl.fr</item>
+        <item>virgilio.it</item>
+        <item>home.nl</item>
+        <item>qq.com</item>
+        <item>telenet.be</item>
+        <item>me.com</item>
+        <item>yahoo.com.ar</item>
+        <item>tiscali.co.uk</item>
+        <item>yahoo.com.mx</item>
+        <item>voila.fr</item>
+        <item>gmx.net</item>
+        <item>mail.com</item>
+        <item>planet.nl</item>
+        <item>tin.it</item>
+        <item>live.it</item>
+        <item>ntlworld.com</item>
+        <item>arcor.de</item>
+        <item>yahoo.co.id</item>
+        <item>frontiernet.net</item>
+        <item>hetnet.nl</item>
+        <item>live.com.au</item>
+        <item>yahoo.com.sg</item>
+        <item>zonnet.nl</item>
+        <item>club-internet.fr</item>
+        <item>juno.com</item>
+        <item>optusnet.com.au</item>
+        <item>blueyonder.co.uk</item>
+        <item>bluewin.ch</item>
+        <item>skynet.be</item>
+        <item>sympatico.ca</item>
+        <item>windstream.net</item>
+        <item>mac.com</item>
+        <item>centurytel.net</item>
+        <item>chello.nl</item>
+        <item>live.ca</item>
+        <item>aim.com</item>
+        <item>bigpond.net.au</item>
     </string-array>
 
     <!--Backend Section End-->

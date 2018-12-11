@@ -1,8 +1,15 @@
 package com.spandr.meme.core.activity.authorization.logic.validator;
 
+import android.content.Context;
 import android.text.TextUtils;
 
+import com.spandr.meme.R;
+import com.spandr.meme.core.activity.authorization.RegisterActivity;
 import com.spandr.meme.core.activity.authorization.logic.validator.exception.AppValidationFormException;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.EMAIL_INCORRECT_FORMAT;
 import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.EMPTY_CONFIRM_PASSWORD;
@@ -11,8 +18,15 @@ import static com.spandr.meme.core.activity.authorization.logic.validator.Valida
 import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.NON_EQUAL_PASSWORDS;
 import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.OK;
 import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.SHORT_PASSWORD;
+import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.UNSUPPORTED_EMAIL_DOMAIN;
 
 public class RegisterFormValidator implements FormValidator {
+
+    private Context currentActivity;
+
+    public RegisterFormValidator(Context activity){
+        currentActivity = activity;
+    }
 
     @Override
     public ValidationReturnCode validateInputForm(String... fieldsToCheck) {
@@ -37,6 +51,13 @@ public class RegisterFormValidator implements FormValidator {
 
                 if (!android.util.Patterns.EMAIL_ADDRESS.matcher(login).matches()) {
                     return EMAIL_INCORRECT_FORMAT;
+                }
+                String emailDomainPart = login.substring(login.indexOf("@") + 1);;
+                List<String> supportedEmailDomains =
+                        Arrays.asList(currentActivity.getResources().getStringArray(R.array.supported_email_domains));
+
+                if(!supportedEmailDomains.contains(emailDomainPart)){
+                    return UNSUPPORTED_EMAIL_DOMAIN;
                 }
 
                 String password = fieldsToCheck[1];

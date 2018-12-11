@@ -61,6 +61,7 @@
     <string name="register_error_not_equal_password">Введенные пароли должны совпадать</string>
     <string name="register_email_field_incorrect_format">Некорректный формат Email</string>
     <string name="register_check_email">Проверьте Вашу Почту</string>
+    <string name="register_check_email_unsupported_domain">Указан неподдерживаемый домен почты</string>
     <string name="register_log_sign_up">signUp:</string>
     <string name="register_agreement">Я принимаю <a href="https://termsfeed.com/terms-conditions/99d4182b95758e526419909a033278d6">условия использования</a> \n и <a href="https://termsfeed.com/privacy-policy/d4f0a4d7f7f46ffea23399daee7f9274">политику конфиденциальности</a> приложения</string>
     <string name="register_log_create_user_with_email_success">createUserWithEmail: success</string>

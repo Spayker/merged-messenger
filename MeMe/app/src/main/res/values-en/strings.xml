@@ -57,6 +57,7 @@
     <string name="register_error_not_equal_password">Passwords are not equal</string>
     <string name="register_email_field_incorrect_format">Incorrect email format</string>
     <string name="register_check_email">Please check your email box</string>
+    <string name="register_check_email_unsupported_domain">Unsupported email domain</string>
     <string name="register_checking">Checking…</string>
     <string name="register_field_required">required</string>
     <string name="register_error_auth_failed">Registration Failed</string>
