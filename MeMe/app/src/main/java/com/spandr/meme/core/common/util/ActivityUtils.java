@@ -1,7 +1,11 @@
 package com.spandr.meme.core.common.util;
 
 import android.annotation.TargetApi;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -24,6 +28,7 @@ import com.spandr.meme.core.activity.intro.WelcomeActivity;
 import java.util.Locale;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
+import static android.content.Context.NOTIFICATION_SERVICE;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.APP_SUPPORTED_LANGUAGES;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.EN;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CURRENT_APP_LANGUAGE;
@@ -46,6 +51,27 @@ public final class ActivityUtils {
         builder.setCancelable(true);
         builder.setIcon(R.mipmap.logo);
         return builder;
+    }
+
+    public static void sendNotification(Context context){
+        Intent intent = new Intent("com.spandr.meme");
+        Context applicationContext = context.getApplicationContext();
+        PendingIntent mPendingIntent = PendingIntent.getActivity(applicationContext, 1, intent, 0);
+        Notification.Builder mBuilder = new Notification.Builder(applicationContext);
+        NotificationManager notificationManager = (NotificationManager) applicationContext.getSystemService(NOTIFICATION_SERVICE);
+
+        mBuilder.setAutoCancel(false);
+        mBuilder.setContentTitle("MeMe");
+        mBuilder.setTicker("ticker text here");
+        mBuilder.setContentText("Received new messages");
+        mBuilder.setSmallIcon(R.mipmap.logo);
+        mBuilder.setContentIntent(mPendingIntent);
+        mBuilder.setOngoing(true);
+        mBuilder.setSubText("Got new content to check");
+        mBuilder.setNumber(150);
+        mBuilder.build();
+        Notification mNotification = mBuilder.getNotification();
+        notificationManager.notify(11, mNotification);
     }
 
     public static void invokeOkAlertMessage(Context context, String message) {
