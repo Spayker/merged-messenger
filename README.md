@@ -1,24 +1,24 @@
 # MeMe
 
 Приложение призвано объеденить доступ ко всем наиболее известным каналам связи, включая 
-социальные сети, чаты с активной перепиской.
+социальные сети, чаты, видео, инфо сервисы и почтовые службы.
 
 ## Подготовка рабочей среды
 
 Для установки рабочей среды необходимо установить следующий софт:<br />
 #Android версия: API 21: Android 5.0 (Lollipop) - 71.3% покрытие устройств<br />
-#IDE: Android Studio v3.0.1<br />
-#JDK: openJDK v8.0 или выше<br />
-#SDK: Android SDK (обычно встроен в Android Studio)<br />
-#Сборщик: Gradle<br />
+#IDE: Android Studio v3.0.1 или выше<br />
+#JDK: OracleJDK v8.0 или выше<br />
+#SDK: Android SDK 16 или выше (обычно встроен в Android Studio)<br />
+#Сборщик: Gradle 3<br />
 #Репозитарий: git<br />
 
 ## Сборщик приложения
 
-Для сборки проекта необходимо использовать Gradle сборщик.
+Для сборки проекта необходимо использовать Gradle v3.0 сборщик.
 
 ## Авторы
-Spayker, Andrey
+Spayker
 
 ## Лицензия
 
@@ -34,3 +34,5 @@ Spayker, Andrey
 Сценарий работы: https://docs.google.com/document/d/1CUAZx6p2-LLXaYxsBlA5QsGbYIlLISNBt6RecBN8Q5I/edit <br />
 ChatSDK: https://github.com/chat-sdk/chat-sdk-android <br />
 FireBase: https://firebase.google.com/ <br />
+Patreon: 
+Google PlayMarket:
