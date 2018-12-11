@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.MainActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.DefaultWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.chat.DiscordWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.FacebookWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.IcqWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.InstagramWebViewChannel;
@@ -41,6 +42,7 @@ import im.delight.android.webview.AdvancedWebView;
 
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.CHANNEL_NAME;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.DISCORD_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.FB_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.ICQ_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.INSTAGRAM_HOME_URL;
@@ -152,6 +154,10 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
                         new InstagramWebViewChannel(this, homeURL, channelName);
                         break;
                     }
+                    case DISCORD_HOME_URL:{
+                        new DiscordWebViewChannel(this, homeURL, channelName);
+                        break;
+                    }
                     default:
                         new DefaultWebViewChannel(this, homeURL, channelName);
                 }
@@ -209,21 +215,12 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
             return false;
         });
         mBackButton.setOnTouchListener(this);
-        mBackButton.setOnClickListener(this::clickOnBackToMainMenu);
+        mBackButton.setOnClickListener((view) ->  startActivity(new Intent(this, MainActivity.class)));
     }
 
     @Override
     public void onBackPressed() {
-        /*if (mWebView.canGoBack()) {
-            mWebView.goBack();
-        } else {
-            mWebView.removeAllViews();
-            mWebView.clearHistory();
-            mWebView.onPause();
-            mWebView.removeAllViews();*/
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        /*}*/
+        mWebView.goBack();
     }
 
     @Override
@@ -328,10 +325,6 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
         }
         webViewRelativeLayout.invalidate();
         return true;
-    }
-
-    public void clickOnBackToMainMenu(View view) {
-        onBackPressed();
     }
 
     @Override
