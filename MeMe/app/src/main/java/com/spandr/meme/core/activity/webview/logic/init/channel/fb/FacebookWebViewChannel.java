@@ -1,22 +1,14 @@
 package com.spandr.meme.core.activity.webview.logic.init.channel.fb;
 
 import android.annotation.SuppressLint;
-import android.view.View;
 import android.webkit.JavascriptInterface;
-import android.widget.TextView;
 
 import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
-import com.spandr.meme.core.activity.main.logic.notification.ViewChannelManager;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static android.view.View.INVISIBLE;
-import static android.view.View.VISIBLE;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.EMPTY_STRING;
 
 public class FacebookWebViewChannel extends WebViewChannel {
 
