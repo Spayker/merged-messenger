@@ -1,16 +1,23 @@
 package com.spandr.meme.core.activity.webview.logic.init.channel.telegram;
 
 import android.annotation.SuppressLint;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
+import com.spandr.meme.core.activity.main.logic.notification.ViewChannelManager;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.EMPTY_STRING;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL_2;
 
@@ -40,7 +47,7 @@ public class TelegramWebViewChannel extends WebViewChannel {
         initWebChromeClient();
         initListeners();
         initWebClients();
-        mWebView.addJavascriptInterface(new TlJavaScriptInterface(), "HTMLOUT");
+        mWebView.addJavascriptInterface(new TlJavaScriptInterface(channelName), "HTMLOUT");
         return this;
     }
 
@@ -97,7 +104,13 @@ public class TelegramWebViewChannel extends WebViewChannel {
 
     class TlJavaScriptInterface {
 
+        private String channelName;
+
         private final String MESSAGE_NOTIFICATION_REGEX = "muted-class=\"im_dialog_badge_muted\" style=\"\">([0-9]+)</span>";
+
+        private TlJavaScriptInterface(String channelName){
+            this.channelName = channelName;
+        }
 
         @JavascriptInterface
         @SuppressWarnings("unused")
@@ -108,7 +121,24 @@ public class TelegramWebViewChannel extends WebViewChannel {
                 while(m.find()) {
                     notificationCounter += Integer.valueOf(m.group(1));
                 }
-                System.out.println("Telegram notifications: " + notificationCounter);
+
+                ViewChannelManager viewChannelManager = ViewChannelManager.getInstance();
+                Map<String, View> channelViews = viewChannelManager.getChannelViews();
+                TextView channelTextView = (TextView) channelViews.get(channelName);
+                if(channelTextView != null){
+                    if(notificationCounter > 0) {
+                        String formattedNotificationCounter = String.valueOf(notificationCounter);
+                        if(notificationCounter < 9){
+                            channelTextView.setText(String.format(" %s", formattedNotificationCounter));
+                        } else {
+                            channelTextView.setText(formattedNotificationCounter);
+                        }
+                        channelTextView.setVisibility(VISIBLE);
+                    } else {
+                        channelTextView.setText(EMPTY_STRING);
+                        channelTextView.setVisibility(INVISIBLE);
+                    }
+                }
             });
         }
     }

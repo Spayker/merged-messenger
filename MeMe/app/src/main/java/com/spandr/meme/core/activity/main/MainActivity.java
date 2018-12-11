@@ -25,16 +25,7 @@ import com.spandr.meme.core.activity.settings.channel.EditChannelsActivity;
 import com.spandr.meme.core.activity.settings.global.GlobalSettingsActivity;
 import com.spandr.meme.core.common.util.ActivityUtils;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
-import im.delight.android.webview.AdvancedWebView;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
+import java.util.Objects;
 
 import static com.spandr.meme.core.activity.authorization.logic.ActionAuthorizer.IS_REGISTER_SCENARIO_RUNNING;
 import static com.spandr.meme.core.activity.main.logic.starter.Loginner.createLoginner;
@@ -42,8 +33,6 @@ import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_NAME;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.activity.main.logic.starter.Setupper.createSetupper;
-import static com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel.getJavascriptHtmlGrabber;
-import static com.spandr.meme.core.activity.webview.logic.manager.WebViewManager.getWebViewChannelManager;
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 import static com.spandr.meme.core.common.util.ActivityUtils.initLanguage;
 
@@ -186,6 +175,6 @@ public class MainActivity extends AppCompatActivity {
 
     public AbstractDataProvider getDataProvider() {
         final Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_DATA_PROVIDER);
-        return ((DataProviderFragment) fragment).getDataProvider();
+        return ((DataProviderFragment) Objects.requireNonNull(fragment)).getDataProvider();
     }
 }

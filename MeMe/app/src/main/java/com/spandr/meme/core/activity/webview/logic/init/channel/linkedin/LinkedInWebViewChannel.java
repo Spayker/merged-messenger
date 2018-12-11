@@ -1,13 +1,21 @@
 package com.spandr.meme.core.activity.webview.logic.init.channel.linkedin;
 
 import android.annotation.SuppressLint;
+import android.view.View;
 import android.webkit.JavascriptInterface;
+import android.widget.TextView;
 
+import com.spandr.meme.core.activity.main.logic.notification.ViewChannelManager;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.EMPTY_STRING;
 
 public class LinkedInWebViewChannel extends WebViewChannel {
 
@@ -33,7 +41,7 @@ public class LinkedInWebViewChannel extends WebViewChannel {
         initWebChromeClient();
         initWebClients();
         initListeners();
-        mWebView.addJavascriptInterface(new LnJavaScriptInterface(), "HTMLOUT");
+        mWebView.addJavascriptInterface(new LnJavaScriptInterface(channelName), "HTMLOUT");
         return this;
     }
 
@@ -42,6 +50,12 @@ public class LinkedInWebViewChannel extends WebViewChannel {
     }
 
     class LnJavaScriptInterface {
+
+        private String channelName;
+
+        private LnJavaScriptInterface(String channelName){
+            this.channelName = channelName;
+        }
 
         private final String MESSAGE_NOTIFICATION_REGEX = "class=\"nav-item__badge\">([0-9]+)</span>";
 
@@ -56,7 +70,24 @@ public class LinkedInWebViewChannel extends WebViewChannel {
                 while(m.find()) {
                     notificationCounter += Integer.valueOf(m.group(1));
                 }
-                System.out.println("LinkedIn notifications: " + notificationCounter);
+
+                ViewChannelManager viewChannelManager = ViewChannelManager.getInstance();
+                Map<String, View> channelViews = viewChannelManager.getChannelViews();
+                TextView channelTextView = (TextView) channelViews.get(channelName);
+                if(channelTextView != null){
+                    if(notificationCounter > 0) {
+                        String formattedNotificationCounter = String.valueOf(notificationCounter);
+                        if(notificationCounter < 9){
+                            channelTextView.setText(String.format(" %s", formattedNotificationCounter));
+                        } else {
+                            channelTextView.setText(formattedNotificationCounter);
+                        }
+                        channelTextView.setVisibility(VISIBLE);
+                    } else {
+                        channelTextView.setText(EMPTY_STRING);
+                        channelTextView.setVisibility(INVISIBLE);
+                    }
+                }
             });
         }
     }

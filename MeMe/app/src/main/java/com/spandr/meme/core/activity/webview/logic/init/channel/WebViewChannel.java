@@ -19,7 +19,6 @@ import com.spandr.meme.core.common.data.memory.channel.DataChannelManager;
 import im.delight.android.webview.AdvancedWebView;
 
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.MEME_HOME_URL;
-import static java.lang.Thread.sleep;
 
 public abstract class WebViewChannel {
 
@@ -66,14 +65,14 @@ public abstract class WebViewChannel {
                 attrs.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
                 window.setAttributes(attrs);
                 window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-                backButton.setVisibility(View.INVISIBLE);
+                backButton.show();
             } else {
                 WindowManager.LayoutParams attrs = window.getAttributes();
                 attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
                 attrs.flags &= ~WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
                 window.setAttributes(attrs);
                 window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-                backButton.setVisibility(View.VISIBLE);
+                backButton.hide();
             }
         });
     }
