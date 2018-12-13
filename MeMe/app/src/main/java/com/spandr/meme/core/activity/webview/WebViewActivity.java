@@ -35,6 +35,7 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.social.LinkedInW
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.OkWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.PinterestWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.TumblrWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.social.TwitterWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.VkontakteWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.manager.WebViewManager;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
@@ -63,6 +64,7 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.SKYPE
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.STACKOVERFLOW_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TUMBLR_HOME_URL;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TWITTER_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.VK_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS;
 import static com.spandr.meme.core.activity.webview.logic.manager.WebViewManager.getWebViewChannelManager;
@@ -193,6 +195,10 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
                     }
                     case TUMBLR_HOME_URL:{
                         new TumblrWebViewChannel(this, homeURL, channelName);
+                        break;
+                    }
+                    case TWITTER_HOME_URL:{
+                        new TwitterWebViewChannel(this, homeURL, channelName);
                         break;
                     }
                     default:
