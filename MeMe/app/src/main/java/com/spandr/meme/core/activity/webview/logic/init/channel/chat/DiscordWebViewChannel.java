@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 public class DiscordWebViewChannel extends WebViewChannel {
 
     private final static String DISCORD_USER_AGENT_STRING = "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0";
+    private final static String DISCORD_SCALE_JAVASCRIPT = "javascript: var metaList = document.getElementsByTagName(\"META\");metaList[1].setAttribute(\"content\",\"width=900, user-scalable=yes\");";
 
     @SuppressWarnings("unused")
     private DiscordWebViewChannel(){}
@@ -87,17 +88,17 @@ public class DiscordWebViewChannel extends WebViewChannel {
             this.channelName = channelName;
         }
 
-        private final String MESSAGE_NOTIFICATION_REGEX = "\"_59tg\" data-sigil=\"count\">([0-9]+)</span>";
+        private final String MESSAGE_NOTIFICATION_REGEX = "guild-1EfMGQ (unread-qLkInr)\"";
 
         @JavascriptInterface
         @SuppressWarnings("unused")
         public void processHTML(String html) {
             mWebView.post(() -> {
-                mWebView.loadUrl("javascript: var metaList = document.getElementsByTagName(\"META\");metaList[1].setAttribute(\"content\",\"width=900, user-scalable=yes\");");
+                mWebView.loadUrl(DISCORD_SCALE_JAVASCRIPT);
                 Matcher m = Pattern.compile(MESSAGE_NOTIFICATION_REGEX).matcher(html);
                 int notificationCounter = 0;
                 while(m.find()) {
-                    notificationCounter += Integer.valueOf(m.group(1));
+                    notificationCounter ++;
                 }
                 NotificationDisplayer.getInstance().display(channelName, notificationCounter);
             });
