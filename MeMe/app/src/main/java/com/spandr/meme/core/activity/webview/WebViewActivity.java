@@ -32,6 +32,7 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.info.StackOverfl
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.FacebookWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.InstagramWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.LinkedInWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.social.OkWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.VkontakteWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.manager.WebViewManager;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
@@ -52,6 +53,7 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.INSTA
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_LEFT_MARGIN;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_TOP_MARGIN;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.LINKEDIN_HOME_URL;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.ODNOKLASNIKI_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.QUORA_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.REDDIT_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.SKYPE_HOME_URL;
@@ -175,6 +177,10 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
                     }
                     case HABR_HOME_URL:{
                         new HabrWebViewChannel(this, homeURL, channelName);
+                        break;
+                    }
+                    case ODNOKLASNIKI_HOME_URL:{
+                        new OkWebViewChannel(this, homeURL, channelName);
                         break;
                     }
                     default:
