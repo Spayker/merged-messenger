@@ -53,27 +53,6 @@ public final class ActivityUtils {
         return builder;
     }
 
-    public static void sendNotification(Context context){
-        Intent intent = new Intent("com.spandr.meme");
-        Context applicationContext = context.getApplicationContext();
-        PendingIntent mPendingIntent = PendingIntent.getActivity(applicationContext, 1, intent, 0);
-        Notification.Builder mBuilder = new Notification.Builder(applicationContext);
-        NotificationManager notificationManager = (NotificationManager) applicationContext.getSystemService(NOTIFICATION_SERVICE);
-
-        mBuilder.setAutoCancel(false);
-        mBuilder.setContentTitle("MeMe");
-        mBuilder.setTicker("ticker text here");
-        mBuilder.setContentText("Received new messages");
-        mBuilder.setSmallIcon(R.mipmap.logo);
-        mBuilder.setContentIntent(mPendingIntent);
-        mBuilder.setOngoing(true);
-        mBuilder.setSubText("Got new content to check");
-        mBuilder.setNumber(150);
-        mBuilder.build();
-        Notification mNotification = mBuilder.getNotification();
-        notificationManager.notify(11, mNotification);
-    }
-
     public static void invokeOkAlertMessage(Context context, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message)

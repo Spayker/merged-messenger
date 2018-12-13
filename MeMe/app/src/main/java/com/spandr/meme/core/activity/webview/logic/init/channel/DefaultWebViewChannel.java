@@ -24,6 +24,7 @@ public class DefaultWebViewChannel extends WebViewChannel{
         initStartURL();
         initWebChromeClient();
         initListeners();
+        initWebSettings();
         return this;
     }
 

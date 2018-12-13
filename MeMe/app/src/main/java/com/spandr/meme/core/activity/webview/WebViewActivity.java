@@ -108,7 +108,6 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
         } else {
             mWebView = findViewById(R.id.webView);
             initListeners();
-            initWebSettings();
             initBackButtonStartPosition();
             applyChannelRelatedConfiguration();
 
@@ -179,34 +178,6 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
         }
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
-    private void initWebSettings() {
-        WebSettings webSettings = mWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setSupportZoom(true);
-        webSettings.setBuiltInZoomControls(true);
-        webSettings.setDisplayZoomControls(false);
-        webSettings.setDomStorageEnabled(true);
-        webSettings.setLoadWithOverviewMode(true);
-        webSettings.setUseWideViewPort(true);
-        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webSettings.setAllowFileAccess(true);
-        webSettings.setAllowContentAccess(true);
-        webSettings.setAllowFileAccessFromFileURLs(true);
-        webSettings.setAllowUniversalAccessFromFileURLs(true);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-
-        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
-        webSettings.setAppCacheMaxSize(50 * 1024 * 1024);
-        webSettings.setAppCachePath(getApplicationContext().getCacheDir().getAbsolutePath());
-        webSettings.setAppCacheEnabled(true);
-
-        //This part will load the web page if the network is not available.
-        if (!isNetworkAvailable(this)) {
-            webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        }
-    }
-
     @SuppressLint("ClickableViewAccessibility")
     private void initListeners() {
         mWebView.setOnTouchListener((v, event) -> {
@@ -215,7 +186,11 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
             return false;
         });
         mBackButton.setOnTouchListener(this);
-        mBackButton.setOnClickListener((view) ->  startActivity(new Intent(this, MainActivity.class)));
+        mBackButton.setOnClickListener(this::clickOnBackToMainMenu);
+    }
+
+    public void clickOnBackToMainMenu(View view){
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     @Override

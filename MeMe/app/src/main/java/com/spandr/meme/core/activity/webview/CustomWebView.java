@@ -64,8 +64,6 @@ public class CustomWebView extends WebView {
     @Override
     @SuppressLint("SetJavaScriptEnabled")
     public void setWebChromeClient(WebChromeClient client) {
-        getSettings().setJavaScriptEnabled(true);
-
         if (client instanceof CustomChromeWebClient) {
             this.customChromeWebClient = (CustomChromeWebClient) client;
         }

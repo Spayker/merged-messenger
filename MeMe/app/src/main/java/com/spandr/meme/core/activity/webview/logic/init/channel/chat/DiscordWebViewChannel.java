@@ -1,14 +1,23 @@
 package com.spandr.meme.core.activity.webview.logic.init.channel.chat;
 
 import android.annotation.SuppressLint;
+import android.content.pm.ActivityInfo;
+import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
+import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class DiscordWebViewChannel extends WebViewChannel {
 
-    private final static String DISCORD_USER_AGENT_STRING = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36";
+    private final static String DISCORD_USER_AGENT_STRING = "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0";
 
     @SuppressWarnings("unused")
     private DiscordWebViewChannel(){}
@@ -28,21 +37,37 @@ public class DiscordWebViewChannel extends WebViewChannel {
     @SuppressLint("AddJavascriptInterface")
     protected DiscordWebViewChannel init() {
         initUserAgent();
-        initStartURL();
         initWebChromeClient();
         initWebClients();
         initListeners();
-//        mWebView.setDesktopMode(true);
-//        mWebView.getSettings().setLoadWithOverviewMode(true);
-//        mWebView.getSettings().setUseWideViewPort(true);
-//
-//        mWebView.getSettings().setSupportZoom(true);
-//        mWebView.getSettings().setBuiltInZoomControls(true);
-//        mWebView.getSettings().setDisplayZoomControls(false);
-//
-//        mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-//        mWebView.setScrollbarFadingEnabled(false);
+        initWebSettings();
+        initStartURL();
+        mWebView.addJavascriptInterface(new DsJavaScriptInterface(channelName), "HTMLOUT");
         return this;
+    }
+
+    @Override
+    @SuppressLint("SetJavaScriptEnabled")
+    protected void initWebSettings() {
+        WebSettings webSettings = mWebView.getSettings();
+        mWebView.setCookiesEnabled(true);
+        mWebView.setThirdPartyCookiesEnabled(true);
+        mWebView.setScrollbarFadingEnabled(false);
+
+        mWebView.setHorizontalScrollBarEnabled(true);
+        mWebView.setVerticalScrollBarEnabled(true);
+
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setUseWideViewPort(false);
+        webSettings.setDomStorageEnabled(false);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setAllowContentAccess(true);
+        webSettings.setAllowFileAccessFromFileURLs(true);
+        webSettings.setAllowUniversalAccessFromFileURLs(true);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        mWebView.setDesktopMode(true);
     }
 
     @Override
@@ -52,6 +77,31 @@ public class DiscordWebViewChannel extends WebViewChannel {
 
     public String getUrl() {
         return url;
+    }
+
+    class DsJavaScriptInterface {
+
+        private String channelName;
+
+        private DsJavaScriptInterface(String channelName){
+            this.channelName = channelName;
+        }
+
+        private final String MESSAGE_NOTIFICATION_REGEX = "\"_59tg\" data-sigil=\"count\">([0-9]+)</span>";
+
+        @JavascriptInterface
+        @SuppressWarnings("unused")
+        public void processHTML(String html) {
+            mWebView.post(() -> {
+                mWebView.loadUrl("javascript: var metaList = document.getElementsByTagName(\"META\");metaList[1].setAttribute(\"content\",\"width=900, user-scalable=yes\");");
+                Matcher m = Pattern.compile(MESSAGE_NOTIFICATION_REGEX).matcher(html);
+                int notificationCounter = 0;
+                while(m.find()) {
+                    notificationCounter += Integer.valueOf(m.group(1));
+                }
+                NotificationDisplayer.getInstance().display(channelName, notificationCounter);
+            });
+        }
     }
 
 }

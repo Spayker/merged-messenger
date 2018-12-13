@@ -1,12 +1,14 @@
 package com.spandr.meme.core.activity.webview.logic.init.channel;
 
 import android.annotation.SuppressLint;
+import android.content.pm.ActivityInfo;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -19,6 +21,7 @@ import com.spandr.meme.core.common.data.memory.channel.DataChannelManager;
 import im.delight.android.webview.AdvancedWebView;
 
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.MEME_HOME_URL;
+import static com.spandr.meme.core.common.util.ActivityUtils.isNetworkAvailable;
 
 public abstract class WebViewChannel {
 
@@ -43,6 +46,34 @@ public abstract class WebViewChannel {
             }
         }
         mWebView.loadUrl(urlToBeLoaded);
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    protected void initWebSettings() {
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setSupportZoom(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setDisplayZoomControls(false);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setAllowContentAccess(true);
+        webSettings.setAllowFileAccessFromFileURLs(true);
+        webSettings.setAllowUniversalAccessFromFileURLs(true);
+        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+
+        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        webSettings.setAppCacheMaxSize(50 * 1024 * 1024);
+        webSettings.setAppCachePath(activity.getApplicationContext().getCacheDir().getAbsolutePath());
+        webSettings.setAppCacheEnabled(true);
+
+        //This part will load the web page if the network is not available.
+        if (!isNetworkAvailable(activity)) {
+            webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        }
     }
 
     protected void initWebChromeClient() {
@@ -75,6 +106,7 @@ public abstract class WebViewChannel {
                 backButton.hide();
             }
         });
+        mWebView.setWebChromeClient(webChromeClient);
     }
 
     @SuppressLint("ClickableViewAccessibility")
