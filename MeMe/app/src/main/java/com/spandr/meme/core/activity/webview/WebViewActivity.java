@@ -25,8 +25,10 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.chat.DiscordWebV
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.IcqWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.SkypeWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.TelegramWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.info.HabrWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.info.QuoraWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.info.RedditWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.info.StackOverflowWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.FacebookWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.InstagramWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.LinkedInWebViewChannel;
@@ -44,6 +46,7 @@ import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.CHANNEL_NAME;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.DISCORD_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.FB_HOME_URL;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.HABR_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.ICQ_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.INSTAGRAM_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_LEFT_MARGIN;
@@ -52,6 +55,7 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.LINKE
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.QUORA_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.REDDIT_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.SKYPE_HOME_URL;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.STACKOVERFLOW_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.VK_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS;
@@ -163,6 +167,14 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
                     }
                     case QUORA_HOME_URL:{
                         new QuoraWebViewChannel(this, homeURL, channelName);
+                        break;
+                    }
+                    case STACKOVERFLOW_HOME_URL:{
+                        new StackOverflowWebViewChannel(this, homeURL, channelName);
+                        break;
+                    }
+                    case HABR_HOME_URL:{
+                        new HabrWebViewChannel(this, homeURL, channelName);
                         break;
                     }
                     default:
