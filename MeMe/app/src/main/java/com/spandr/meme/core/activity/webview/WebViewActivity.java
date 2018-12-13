@@ -25,6 +25,7 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.chat.DiscordWebV
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.IcqWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.SkypeWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.TelegramWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.info.QuoraWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.info.RedditWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.FacebookWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.InstagramWebViewChannel;
@@ -48,6 +49,7 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.INSTA
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_LEFT_MARGIN;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_TOP_MARGIN;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.LINKEDIN_HOME_URL;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.QUORA_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.REDDIT_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.SKYPE_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
@@ -157,6 +159,10 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
                     }
                     case REDDIT_HOME_URL:{
                         new RedditWebViewChannel(this, homeURL, channelName);
+                        break;
+                    }
+                    case QUORA_HOME_URL:{
+                        new QuoraWebViewChannel(this, homeURL, channelName);
                         break;
                     }
                     default:
