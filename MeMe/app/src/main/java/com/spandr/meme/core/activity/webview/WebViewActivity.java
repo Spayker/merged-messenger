@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -16,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
 
@@ -24,12 +22,13 @@ import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.MainActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.DefaultWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.DiscordWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.social.FacebookWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.IcqWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.social.InstagramWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.social.LinkedInWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.SkypeWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.TelegramWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.info.RedditWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.social.FacebookWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.social.InstagramWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.social.LinkedInWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.VkontakteWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.manager.WebViewManager;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
@@ -49,12 +48,12 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.INSTA
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_LEFT_MARGIN;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_TOP_MARGIN;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.LINKEDIN_HOME_URL;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.REDDIT_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.SKYPE_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.VK_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS;
 import static com.spandr.meme.core.activity.webview.logic.manager.WebViewManager.getWebViewChannelManager;
-import static com.spandr.meme.core.common.util.ActivityUtils.isNetworkAvailable;
 
 public class WebViewActivity extends AppCompatActivity implements AdvancedWebView.Listener, View.OnTouchListener {
 
@@ -68,7 +67,6 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
     private SharedPreferences sharedPreferences;
 
     private ViewGroup webViewRelativeLayout;
-    private RelativeLayout nonVideoLayout;
     private int _xDelta;
     private int _yDelta;
     private boolean longClicked;
@@ -84,7 +82,7 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
         sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         webViewRelativeLayout = findViewById(R.id.webview_relative_layout);
         swipeRefreshLayout = findViewById(R.id.swipeContainer);
-        nonVideoLayout = findViewById(R.id.nonVideoLayout);
+        RelativeLayout nonVideoLayout = findViewById(R.id.nonVideoLayout);
         mBackButton = findViewById(R.id.backToMainMenu);
 
         WebViewManager webViewManager = getWebViewChannelManager();
@@ -155,6 +153,10 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
                     }
                     case DISCORD_HOME_URL:{
                         new DiscordWebViewChannel(this, homeURL, channelName);
+                        break;
+                    }
+                    case REDDIT_HOME_URL:{
+                        new RedditWebViewChannel(this, homeURL, channelName);
                         break;
                     }
                     default:

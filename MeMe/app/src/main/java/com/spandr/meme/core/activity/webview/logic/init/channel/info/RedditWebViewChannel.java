@@ -1,4 +1,4 @@
-package com.spandr.meme.core.activity.webview.logic.init.channel.chat;
+package com.spandr.meme.core.activity.webview.logic.init.channel.info;
 
 import android.annotation.SuppressLint;
 import android.webkit.JavascriptInterface;
@@ -10,16 +10,13 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DiscordWebViewChannel extends WebViewChannel {
-
-    private final static String DISCORD_USER_AGENT_STRING = "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0";
-    private final static String DISCORD_SCALE_JAVASCRIPT = "javascript: var metaList = document.getElementsByTagName(\"META\");metaList[1].setAttribute(\"content\",\"width=900, user-scalable=yes\");";
+public class RedditWebViewChannel extends WebViewChannel {
 
     @SuppressWarnings("unused")
-    private DiscordWebViewChannel(){}
+    private RedditWebViewChannel(){}
 
-    public DiscordWebViewChannel(WebViewActivity activity,
-                                 String url, String channelName) {
+    public RedditWebViewChannel(WebViewActivity activity,
+                                  String url, String channelName) {
         if(url.isEmpty()){
             return;
         }
@@ -31,49 +28,44 @@ public class DiscordWebViewChannel extends WebViewChannel {
     }
 
     @SuppressLint("AddJavascriptInterface")
-    protected DiscordWebViewChannel init() {
+    protected RedditWebViewChannel init() {
         initUserAgent();
+        initStartURL();
         initWebChromeClient();
         initWebClients();
         initListeners();
-        initWebSettings();
-        initStartURL();
-        mWebView.addJavascriptInterface(new DsJavaScriptInterface(channelName), "HTMLOUT");
+        mWebView.addJavascriptInterface(new RedditJavaScriptInterface(channelName), "HTMLOUT");
         return this;
-    }
-
-    @Override
-    protected void initUserAgent(){
-        mWebView.getSettings().setUserAgentString(DISCORD_USER_AGENT_STRING);
     }
 
     public String getUrl() {
         return url;
     }
 
-    class DsJavaScriptInterface {
+    class RedditJavaScriptInterface {
 
         private String channelName;
 
-        private DsJavaScriptInterface(String channelName){
+        private RedditJavaScriptInterface(String channelName){
             this.channelName = channelName;
         }
 
-        private final String MESSAGE_NOTIFICATION_REGEX = "guild-1EfMGQ (unread-qLkInr)\"";
+        private final String MESSAGE_NOTIFICATION_REGEX = "\"inboxCount\":([0-9]+)";
 
         @JavascriptInterface
         @SuppressWarnings("unused")
         public void processHTML(String html) {
             mWebView.post(() -> {
-                mWebView.loadUrl(DISCORD_SCALE_JAVASCRIPT);
                 Matcher m = Pattern.compile(MESSAGE_NOTIFICATION_REGEX).matcher(html);
                 int notificationCounter = 0;
                 while(m.find()) {
-                    notificationCounter ++;
+                    notificationCounter += Integer.valueOf(m.group(1));
                 }
+
                 NotificationDisplayer.getInstance().display(channelName, notificationCounter);
             });
         }
     }
+
 
 }
