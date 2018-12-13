@@ -33,6 +33,8 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.social.FacebookW
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.InstagramWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.LinkedInWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.OkWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.social.PinterestWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.social.TumblrWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.VkontakteWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.manager.WebViewManager;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
@@ -54,11 +56,13 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_L
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_TOP_MARGIN;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.LINKEDIN_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.ODNOKLASNIKI_HOME_URL;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.PINTEREST_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.QUORA_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.REDDIT_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.SKYPE_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.STACKOVERFLOW_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TUMBLR_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.VK_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS;
 import static com.spandr.meme.core.activity.webview.logic.manager.WebViewManager.getWebViewChannelManager;
@@ -181,6 +185,14 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
                     }
                     case ODNOKLASNIKI_HOME_URL:{
                         new OkWebViewChannel(this, homeURL, channelName);
+                        break;
+                    }
+                    case PINTEREST_HOME_URL:{
+                        new PinterestWebViewChannel(this, homeURL, channelName);
+                        break;
+                    }
+                    case TUMBLR_HOME_URL:{
+                        new TumblrWebViewChannel(this, homeURL, channelName);
                         break;
                     }
                     default:

@@ -50,7 +50,7 @@ public class InstagramWebViewChannel extends WebViewChannel {
             this.channelName = channelName;
         }
 
-        private final String MESSAGE_NOTIFICATION_REGEX = "\"Activity\">([0-9]*)</span>";
+        private final String MESSAGE_NOTIFICATION_REGEX = "\"></span><span>([0-9]+)</span></div>";
 
         @JavascriptInterface
         @SuppressWarnings("unused")
