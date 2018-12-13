@@ -60,13 +60,14 @@ public class DiscordWebViewChannel extends WebViewChannel {
         }
 
         private final String MESSAGE_NOTIFICATION_REGEX = "guild-1EfMGQ (unread-qLkInr)\"";
+        private Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
 
         @JavascriptInterface
         @SuppressWarnings("unused")
         public void processHTML(String html) {
             mWebView.post(() -> {
                 mWebView.loadUrl(DISCORD_SCALE_JAVASCRIPT);
-                Matcher m = Pattern.compile(MESSAGE_NOTIFICATION_REGEX).matcher(html);
+                Matcher m = pattern.matcher(html);
                 int notificationCounter = 0;
                 while(m.find()) {
                     notificationCounter ++;
