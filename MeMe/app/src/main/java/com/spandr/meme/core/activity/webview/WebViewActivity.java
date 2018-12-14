@@ -41,6 +41,7 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.social.TumblrWeb
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.TwitterWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.VkontakteWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.video.TwitchWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.video.YoutubeWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.manager.WebViewManager;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
 import com.spandr.meme.core.common.data.memory.channel.DataChannelManager;
@@ -75,6 +76,7 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TWITC
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TWITTER_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.VK_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.YOUTUBE_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.manager.WebViewManager.getWebViewChannelManager;
 
 public class WebViewActivity extends AppCompatActivity implements AdvancedWebView.Listener, View.OnTouchListener {
@@ -223,6 +225,10 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
                     }
                     case TWITCH_HOME_URL:{
                         new TwitchWebViewChannel(this, homeURL, channelName);
+                        break;
+                    }
+                    case YOUTUBE_HOME_URL:{
+                        new YoutubeWebViewChannel(this, homeURL, channelName);
                         break;
                     }
                     default:
