@@ -30,6 +30,7 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.info.HabrWebView
 import com.spandr.meme.core.activity.webview.logic.init.channel.info.QuoraWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.info.RedditWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.info.StackOverflowWebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.mail.GmailWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.FacebookWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.InstagramWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.LinkedInWebViewChannel;
@@ -51,6 +52,7 @@ import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.CHANNEL_NAME;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.DISCORD_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.FB_HOME_URL;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.GMAIL_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.HABR_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.ICQ_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.INSTAGRAM_HOME_URL;
@@ -205,6 +207,10 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
                     }
                     case SLACK_HOME_URL:{
                         new SlackWebViewChannel(this, homeURL, channelName);
+                        break;
+                    }
+                    case GMAIL_HOME_URL:{
+                        new GmailWebViewChannel(this, homeURL, channelName);
                         break;
                     }
                     default:
