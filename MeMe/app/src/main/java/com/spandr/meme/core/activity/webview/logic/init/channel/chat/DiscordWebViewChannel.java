@@ -51,7 +51,7 @@ public class DiscordWebViewChannel extends WebViewChannel {
         return url;
     }
 
-    class DsJavaScriptInterface {
+    private class DsJavaScriptInterface {
 
         private String channelName;
 
@@ -60,7 +60,7 @@ public class DiscordWebViewChannel extends WebViewChannel {
         }
 
         private final String MESSAGE_NOTIFICATION_REGEX = "guild-1EfMGQ (unread-qLkInr)\"";
-        private Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
+        private final Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
 
         @JavascriptInterface
         @SuppressWarnings("unused")

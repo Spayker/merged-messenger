@@ -42,7 +42,7 @@ public class LinkedInWebViewChannel extends WebViewChannel {
         return url;
     }
 
-    class LnJavaScriptInterface {
+    private class LnJavaScriptInterface {
 
         private String channelName;
 
@@ -51,6 +51,7 @@ public class LinkedInWebViewChannel extends WebViewChannel {
         }
 
         private final String MESSAGE_NOTIFICATION_REGEX = "class=\"nav-item__badge\">([0-9]+)</span>";
+        private final Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
 
         @JavascriptInterface
         @SuppressWarnings("unused")
@@ -58,7 +59,7 @@ public class LinkedInWebViewChannel extends WebViewChannel {
             mWebView.post(() -> {
                 // LinkedIn does not update notifications dynamically. Page refresh can help.
                 // However period of time for page must be bigger
-                Matcher m = Pattern.compile(MESSAGE_NOTIFICATION_REGEX).matcher(html);
+                Matcher m = pattern.matcher(html);
                 int notificationCounter = 0;
                 while(m.find()) {
                     notificationCounter += Integer.valueOf(m.group(1));

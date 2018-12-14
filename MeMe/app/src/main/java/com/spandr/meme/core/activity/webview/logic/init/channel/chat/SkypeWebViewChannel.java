@@ -49,12 +49,14 @@ public class SkypeWebViewChannel extends WebViewChannel {
         return url;
     }
 
-    class SkJavaScriptInterface {
+    private class SkJavaScriptInterface {
 
         private String channelName;
 
         private final String MESSAGE_NOTIFICATION_REGEX = "with ([0-9]+) unread message";
         private final String MESSAGE_NOTIFICATION_REGEX_2 = ", ([0-9]+) unread message";
+        private final Pattern patternOfFirstRegex = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
+        private final Pattern patternOfSecondRegex = Pattern.compile(MESSAGE_NOTIFICATION_REGEX_2);
 
         private SkJavaScriptInterface(String channelName){
             this.channelName = channelName;
@@ -71,12 +73,12 @@ public class SkypeWebViewChannel extends WebViewChannel {
 
         private int parseHtml(String html){
             int notificationCounter = 0;
-            Matcher firstMatcher = Pattern.compile(MESSAGE_NOTIFICATION_REGEX).matcher(html);
+            Matcher firstMatcher = patternOfFirstRegex.matcher(html);
             while(firstMatcher.find()) {
                 notificationCounter += Integer.valueOf(firstMatcher.group(1));
             }
             if (notificationCounter == 0){
-                Matcher secondMatcher = Pattern.compile(MESSAGE_NOTIFICATION_REGEX_2).matcher(html);
+                Matcher secondMatcher = patternOfSecondRegex.matcher(html);
                 while(secondMatcher.find()) {
                     notificationCounter += Integer.valueOf(secondMatcher.group(1));
                 }

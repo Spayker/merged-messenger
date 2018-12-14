@@ -42,7 +42,7 @@ public class InstagramWebViewChannel extends WebViewChannel {
         return url;
     }
 
-    class InstJavaScriptInterface {
+    private class InstJavaScriptInterface {
 
         private String channelName;
 
@@ -51,12 +51,13 @@ public class InstagramWebViewChannel extends WebViewChannel {
         }
 
         private final String MESSAGE_NOTIFICATION_REGEX = "\"></span><span>([0-9]+)</span></div>";
+        private final Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
 
         @JavascriptInterface
         @SuppressWarnings("unused")
         public void processHTML(String html) {
             mWebView.post(() -> {
-                Matcher m = Pattern.compile(MESSAGE_NOTIFICATION_REGEX).matcher(html);
+                Matcher m = pattern.matcher(html);
                 int notificationCounter = 0;
                 while(m.find()) {
                     String foundNotification = m.group(1);

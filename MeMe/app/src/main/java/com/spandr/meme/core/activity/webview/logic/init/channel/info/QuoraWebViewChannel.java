@@ -42,7 +42,7 @@ public class QuoraWebViewChannel extends WebViewChannel {
         return url;
     }
 
-    class QuoraJavaScriptInterface {
+    private class QuoraJavaScriptInterface {
 
         private String channelName;
 
@@ -51,12 +51,13 @@ public class QuoraWebViewChannel extends WebViewChannel {
         }
 
         private final String MESSAGE_NOTIFICATION_REGEX = "_badge\">([0-9]+)</div>";
+        private final Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
 
         @JavascriptInterface
         @SuppressWarnings("unused")
         public void processHTML(String html) {
             mWebView.post(() -> {
-                Matcher m = Pattern.compile(MESSAGE_NOTIFICATION_REGEX).matcher(html);
+                Matcher m = pattern.matcher(html);
                 int notificationCounter = 0;
                 while(m.find()) {
                     notificationCounter += Integer.valueOf(m.group(1));

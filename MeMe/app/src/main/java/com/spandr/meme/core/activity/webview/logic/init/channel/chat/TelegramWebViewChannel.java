@@ -96,11 +96,12 @@ public class TelegramWebViewChannel extends WebViewChannel {
         }
     }
 
-    class TlJavaScriptInterface {
+    private class TlJavaScriptInterface {
 
         private String channelName;
 
         private final String MESSAGE_NOTIFICATION_REGEX = "muted-class=\"im_dialog_badge_muted\" style=\"\">([0-9]+)</span>";
+        private final Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
 
         private TlJavaScriptInterface(String channelName){
             this.channelName = channelName;
@@ -110,7 +111,7 @@ public class TelegramWebViewChannel extends WebViewChannel {
         @SuppressWarnings("unused")
         public void processHTML(String html) {
             mWebView.post(() -> {
-                Matcher m = Pattern.compile(MESSAGE_NOTIFICATION_REGEX).matcher(html);
+                Matcher m = pattern.matcher(html);
                 int notificationCounter = 0;
                 while(m.find()) {
                     notificationCounter += Integer.valueOf(m.group(1));

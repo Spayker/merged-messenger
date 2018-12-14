@@ -50,7 +50,7 @@ public class SlackWebViewChannel extends WebViewChannel {
         return url;
     }
 
-    class SlackJavaScriptInterface {
+    private class SlackJavaScriptInterface {
 
         private String channelName;
 
@@ -59,12 +59,13 @@ public class SlackWebViewChannel extends WebViewChannel {
         }
 
         private final String MESSAGE_NOTIFICATION_REGEX = "c-mention_badge\">([0-9]+)</span>";
+        private final Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
 
         @JavascriptInterface
         @SuppressWarnings("unused")
         public void processHTML(String html) {
             mWebView.post(() -> {
-                Matcher m = Pattern.compile(MESSAGE_NOTIFICATION_REGEX).matcher(html);
+                Matcher m = pattern.matcher(html);
                 int notificationCounter = 0;
                 while(m.find()) {
                     notificationCounter += Integer.valueOf(m.group(1));
