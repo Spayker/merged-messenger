@@ -15,7 +15,7 @@ public interface WebViewConstants {
     String ODNOKLASNIKI_HOME_URL = "https://ok.ru/";
     String TUMBLR_HOME_URL = "https://www.tumblr.com/login";
     String PINTEREST_HOME_URL = "https://www.pinterest.com/";
-    String SLACK_HOME_URL = "https://m.slack.com/";
+    String SLACK_HOME_URL = "https://slack.com/signin";
     String DISCORD_HOME_URL = "https://discordapp.com/login";
     String YOUTUBE_HOME_URL = "https://m.youtube.com";
     String TWITCH_HOME_URL = "https://www.twitch.tv/";
