@@ -3,12 +3,14 @@
 
     <PreferenceCategory android:title="@string/main_menu_social_net_group">
 
-        <SwitchPreference
+        <com.spandr.meme.core.activity.settings.channel.component.SwitchCheckboxPreference
             android:defaultValue="true"
             android:key="@string/channel_setting_key_facebook_switcher"
             android:summary="@string/channel_setting_switcher_on"
             android:title="@string/channel_setting_fb"
+            android:widgetLayout="@layout/switch_checkbox_preference"
             android:icon="@mipmap/fb"/>
+
         <SwitchPreference
             android:defaultValue="true"
             android:key="@string/channel_setting_key_linkedin_switcher"

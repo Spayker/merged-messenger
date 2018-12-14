@@ -25,7 +25,7 @@ import static com.spandr.meme.core.common.util.ActivityUtils.isNetworkAvailable;
 
 public abstract class WebViewChannel {
 
-    private final static String DEFAULT_USER_AGENT_STRING = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36";
+    //private final static String DEFAULT_USER_AGENT_STRING = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36";
     private final static String JAVASCRIPT_HTML_GRABBER = "javascript:window.HTMLOUT.processHTML('<head>'+document.getElementsByTagName('html')[0].innerHTML+'</head>');";
 
     protected String url = MEME_HOME_URL;

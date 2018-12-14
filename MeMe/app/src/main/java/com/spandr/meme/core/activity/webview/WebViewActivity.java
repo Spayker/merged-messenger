@@ -20,7 +20,6 @@ import android.widget.RelativeLayout;
 
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.MainActivity;
-import com.spandr.meme.core.activity.webview.logic.init.channel.DefaultWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.DiscordWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.GGWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.IcqWebViewChannel;
@@ -237,8 +236,6 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
                         new YoutubeWebViewChannel(this, homeURL, channelName);
                         break;
                     }
-                    default:
-                        new DefaultWebViewChannel(this, homeURL, channelName);
                 }
             }
         }
