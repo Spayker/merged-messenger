@@ -1,10 +1,7 @@
 package com.spandr.meme.core.activity.settings.channel.component;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.LayoutInflater.from;
-import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
-import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 
 public class MultiTypeCheckGenreAdapter
         extends MultiTypeExpandableRecyclerViewAdapter<ChannelViewHolder, ChildViewHolder>

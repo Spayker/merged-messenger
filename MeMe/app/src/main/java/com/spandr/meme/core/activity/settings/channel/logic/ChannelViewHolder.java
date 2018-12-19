@@ -131,7 +131,7 @@ public class ChannelViewHolder extends GroupViewHolder {
 
         String okKey = appResources.getString(R.string.channel_setting_ok);
         if(channelName.equalsIgnoreCase(okKey)){
-            return context.getString(R.string.channel_setting_key_odnoklassniki_switcher);
+            return okKey;
         }
 
         String tmbKey = appResources.getString(R.string.channel_setting_tmb);
