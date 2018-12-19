@@ -23,12 +23,6 @@ public class SwitchOptionViewHolder extends CheckableChildViewHolder {
                 SwitcherChannelSettingListenerStorage.getInstance();
         CompoundButton.OnCheckedChangeListener checkedChangeListener;
         switch (channelName){
-            case "Activate":{
-                checkedChangeListener =
-                        switcherChannelSettingListenerStorage.getChangeChannelActivationListener();
-                childSwitchView.setOnCheckedChangeListener(checkedChangeListener);
-                break;
-            }
             case "Notifications":{
                 checkedChangeListener =
                         switcherChannelSettingListenerStorage.getChangeChannelNotificationListener();

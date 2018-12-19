@@ -6,19 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.spandr.meme.R;
-import com.spandr.meme.core.activity.settings.channel.logic.CheckOptionViewHolder;
 import com.spandr.meme.core.activity.settings.channel.logic.ChannelViewHolder;
-import com.spandr.meme.core.activity.settings.channel.logic.SwitchOptionViewHolder;
+import com.spandr.meme.core.activity.settings.channel.logic.CheckOptionViewHolder;
+import com.spandr.meme.core.activity.settings.channel.model.Option;
 import com.thoughtbot.expandablecheckrecyclerview.ChildCheckController;
 import com.thoughtbot.expandablecheckrecyclerview.listeners.OnCheckChildClickListener;
 import com.thoughtbot.expandablecheckrecyclerview.listeners.OnChildCheckChangedListener;
 import com.thoughtbot.expandablecheckrecyclerview.listeners.OnChildrenCheckStateChangedListener;
-import com.thoughtbot.expandablecheckrecyclerview.models.CheckedExpandableGroup;
 import com.thoughtbot.expandablerecyclerview.MultiTypeExpandableRecyclerViewAdapter;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableListPosition;
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
-import com.spandr.meme.core.activity.settings.channel.model.Option;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +73,7 @@ public class MultiTypeCheckGenreAdapter
     public void onBindGroupViewHolder(ChannelViewHolder holder, int flatPosition,
                                       ExpandableGroup group) {
         holder.setChannelTitle(group);
+        holder.setStateValue(group);
     }
 
     @Override
