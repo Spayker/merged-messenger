@@ -1,6 +1,10 @@
 package com.spandr.meme.core.activity.settings.channel.component;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.LayoutInflater.from;
+import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
+import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 
 public class MultiTypeCheckGenreAdapter
         extends MultiTypeExpandableRecyclerViewAdapter<ChannelViewHolder, ChildViewHolder>
@@ -34,17 +40,20 @@ public class MultiTypeCheckGenreAdapter
 
     private ChildCheckController childCheckController;
     private OnCheckChildClickListener childClickListener;
+    private AppCompatActivity activity;
 
-    public MultiTypeCheckGenreAdapter(List<? extends ExpandableGroup> groups) {
+
+    public MultiTypeCheckGenreAdapter(List<? extends ExpandableGroup> groups, AppCompatActivity activity) {
         super(groups);
         childCheckController = new ChildCheckController(expandableList, this);
+        this.activity = activity;
     }
 
     @Override
     public ChannelViewHolder onCreateGroupViewHolder(ViewGroup parent, int viewType) {
         View view = from(parent.getContext())
                 .inflate(R.layout.list_item_channel_setting, parent, false);
-        return new ChannelViewHolder(view);
+        return new ChannelViewHolder(view, activity);
     }
 
     @Override
@@ -74,6 +83,7 @@ public class MultiTypeCheckGenreAdapter
                                       ExpandableGroup group) {
         holder.setChannelTitle(group);
         holder.setStateValue(group);
+        holder.setSwitcherChangeListener(group);
     }
 
     @Override

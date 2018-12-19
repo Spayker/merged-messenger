@@ -2,6 +2,7 @@ package com.spandr.meme.core.activity.settings.channel;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,9 +20,6 @@ public class EditChannelsActivity extends AppCompatActivity {
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = EditChannelsActivity.class.getSimpleName();
 
-    @SuppressLint("StaticFieldLeak")
-    private static AppCompatActivity editChannelActivity;
-
     private MultiTypeCheckGenreAdapter adapter;
 
     /**
@@ -38,7 +36,7 @@ public class EditChannelsActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.edit_channel_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
-        adapter = new MultiTypeCheckGenreAdapter(makeSocialChannels(this));
+        adapter = new MultiTypeCheckGenreAdapter(makeSocialChannels(this), this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }

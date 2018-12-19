@@ -3,21 +3,22 @@ package com.spandr.meme.core.activity.settings.channel.logic;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.support.v7.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.RotateAnimation;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.spandr.meme.R;
+import com.spandr.meme.core.common.data.memory.channel.Channel;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 
 import static android.view.animation.Animation.RELATIVE_TO_SELF;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
+import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 
 public class ChannelViewHolder extends GroupViewHolder {
 
@@ -26,15 +27,24 @@ public class ChannelViewHolder extends GroupViewHolder {
     private ImageView icon;
     private Switch switcher;
 
-    private SharedPreferences sharedPreferences;
+    private AppCompatActivity activity;
 
-    public ChannelViewHolder(View itemView) {
+
+    // secondary fields
+    private static String switcherOn;
+    private static String switcherOff;
+
+    public ChannelViewHolder(View itemView, AppCompatActivity activity) {
         super(itemView);
         channelName = itemView.findViewById(R.id.list_item_channel_name);
         arrow = itemView.findViewById(R.id.list_item_channel_arrow);
         icon = itemView.findViewById(R.id.list_item_channel_icon);
         switcher = itemView.findViewById(R.id.list_item_channel_switcher);
 
+        Context context = switcher.getContext();
+        switcherOn = context.getString(R.string.channel_setting_switcher_on);
+        switcherOff = context.getString(R.string.channel_setting_switcher_off);
+        this.activity = activity;
     }
 
     public void setChannelTitle(ExpandableGroup channel) {
@@ -43,18 +53,28 @@ public class ChannelViewHolder extends GroupViewHolder {
     }
 
     public void setStateValue(ExpandableGroup channel){
-        Context context = itemView.getContext();
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-
-        String key = getChannelActivateValueIdByName(context, channel.getTitle());
+        String key = getChannelActivateValueIdByName(switcher.getContext(), channel.getTitle());
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         switcher.setChecked(sharedPreferences.getBoolean(key, false));
+        boolean switched = switcher.isChecked();
+        switcher.setText(switched ? switcherOn : switcherOff);
     }
 
-    public void setSwitcherListener() {
-        switcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+    public void setSwitcherChangeListener(ExpandableGroup expandableGroupChannel){
+        String title = expandableGroupChannel.getTitle();
+        switcher.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            boolean switched = switcher.isChecked();
+            switcher.setText(switched ? switcherOn : switcherOff);
 
+            Channel channel = getChannelByName(title);
+            if(channel != null){
+                channel.setActive(switched);
+                SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                String key = getChannelActivateValueIdByName(activity, title);
+                editor.putBoolean(key, switched);
+                editor.apply();
+                editor.commit();
             }
         });
     }
@@ -91,22 +111,22 @@ public class ChannelViewHolder extends GroupViewHolder {
 
         String fbKey = appResources.getString(R.string.channel_setting_fb);
         if(channelName.equalsIgnoreCase(fbKey)){
-            return context.getString(R.string.channel_setting_key_facebook_switcher);
+            return fbKey;
         }
 
         String vkKey = appResources.getString(R.string.channel_setting_vk);
         if(channelName.equalsIgnoreCase(vkKey)){
-            return context.getString(R.string.channel_setting_key_vkontakte_switcher);
+            return vkKey;
         }
 
         String twKey = appResources.getString(R.string.channel_setting_tw);
         if(channelName.equalsIgnoreCase(twKey)){
-            return context.getString(R.string.channel_setting_key_twitch_switcher);
+            return twKey;
         }
 
         String instKey = appResources.getString(R.string.channel_setting_inst);
         if(channelName.equalsIgnoreCase(instKey)){
-            return context.getString(R.string.channel_setting_key_instagram_switcher);
+            return instKey;
         }
 
         String okKey = appResources.getString(R.string.channel_setting_ok);
@@ -116,77 +136,77 @@ public class ChannelViewHolder extends GroupViewHolder {
 
         String tmbKey = appResources.getString(R.string.channel_setting_tmb);
         if(channelName.equalsIgnoreCase(tmbKey)){
-            return context.getString(R.string.channel_setting_key_tumblr_switcher);
+            return tmbKey;
         }
 
         String lnKey = appResources.getString(R.string.channel_setting_ln);
         if(channelName.equalsIgnoreCase(lnKey)){
-            return context.getString(R.string.channel_setting_key_linkedin_switcher);
+            return lnKey;
         }
 
         String tlKey = appResources.getString(R.string.channel_setting_tl);
         if(channelName.equalsIgnoreCase(tlKey)){
-            return context.getString(R.string.channel_setting_key_telegram_switcher);
+            return tlKey;
         }
 
         String skpKey = appResources.getString(R.string.channel_setting_skp);
         if(channelName.equalsIgnoreCase(skpKey)){
-            return context.getString(R.string.channel_setting_key_skype_switcher);
+            return skpKey;
         }
 
         String icqKey = appResources.getString(R.string.channel_setting_icq);
         if(channelName.equalsIgnoreCase(icqKey)){
-            return context.getString(R.string.channel_setting_key_icq_switcher);
+            return icqKey;
         }
 
         String gaduKey = appResources.getString(R.string.channel_setting_gadu);
         if(channelName.equalsIgnoreCase(gaduKey)){
-            return context.getString(R.string.channel_setting_key_gadu_switcher);
+            return gaduKey;
         }
 
         String dcKey = appResources.getString(R.string.channel_setting_dc);
         if(channelName.equalsIgnoreCase(dcKey)){
-            return context.getString(R.string.channel_setting_key_discord_switcher);
+            return dcKey;
         }
 
         String ytKey = appResources.getString(R.string.channel_setting_yt);
         if(channelName.equalsIgnoreCase(ytKey)){
-            return context.getString(R.string.channel_setting_key_youtube_switcher);
+            return ytKey;
         }
 
         String twitchKey = appResources.getString(R.string.channel_setting_twitch);
         if(channelName.equalsIgnoreCase(twitchKey)){
-            return context.getString(R.string.channel_setting_key_twitch_switcher);
+            return twitchKey;
         }
 
         String habrKey = appResources.getString(R.string.channel_setting_habr);
         if(channelName.equalsIgnoreCase(habrKey)){
-            return context.getString(R.string.channel_setting_key_habr_switcher);
+            return habrKey;
         }
 
         String redditKey = appResources.getString(R.string.channel_setting_reddit);
         if(channelName.equalsIgnoreCase(redditKey)){
-            return context.getString(R.string.channel_setting_key_reddit_switcher);
+            return redditKey;
         }
 
         String quoraKey = appResources.getString(R.string.channel_setting_quora);
         if(channelName.equalsIgnoreCase(quoraKey)){
-            return context.getString(R.string.channel_setting_key_quora_switcher);
+            return quoraKey;
         }
 
         String stackKey = appResources.getString(R.string.channel_setting_stack);
         if(channelName.equalsIgnoreCase(stackKey)){
-            return context.getString(R.string.channel_setting_key_stack_switcher);
+            return stackKey;
         }
 
         String gmailKey = appResources.getString(R.string.channel_setting_gmail);
         if(channelName.equalsIgnoreCase(gmailKey)){
-            return context.getString(R.string.channel_setting_key_gmail_switcher);
+            return gmailKey;
         }
 
         String mailruKey = appResources.getString(R.string.channel_setting_mailru);
         if(channelName.equalsIgnoreCase(mailruKey)){
-            return context.getString(R.string.channel_setting_key_mailru_switcher);
+            return mailruKey;
         }
 
         return EMPTY_STRING;
