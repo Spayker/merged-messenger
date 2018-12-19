@@ -3,6 +3,7 @@ package com.spandr.meme.core.activity.settings.channel;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,9 +33,7 @@ public class EditChannelsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_channels);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getClass().getSimpleName());
+        setTitle(R.string.channel_setting_title);
 
         RecyclerView recyclerView = findViewById(R.id.edit_channel_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -42,7 +41,6 @@ public class EditChannelsActivity extends AppCompatActivity {
         adapter = new MultiTypeCheckGenreAdapter(makeSocialChannels(this));
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
     }
 
     @Override

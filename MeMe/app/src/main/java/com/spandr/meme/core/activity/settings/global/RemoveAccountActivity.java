@@ -55,6 +55,7 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remove_account);
+        setTitle(R.string.remove_account_title);
 
         mPasswordView = findViewById(R.id.confirm_password);
 

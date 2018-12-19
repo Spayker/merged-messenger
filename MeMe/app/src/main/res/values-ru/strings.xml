@@ -87,6 +87,7 @@
     <string name="webview_loading_video">Загрузка…</string>
 
     <!--Menu of Global Settings Screen-->
+    <string name="global_setting_title">Общие Настройки</string>
     <string name="global_settings_list_preference_notification_type">Уведомление</string>
     <string name="global_settings_list_preference_melody_type">Мелодия</string>
     <string name="global_settings_list_preference_language_type">Язык</string>
@@ -119,6 +120,7 @@
     </string-array>
 
     <!--Menu of WebViewChannel Settings Screen-->
+    <string name="channel_setting_title">Настройки Протоколов</string>
     <string name="channel_setting_switcher_on">Вкл.</string>
     <string name="channel_setting_switcher_off">Выкл.</string>
     <string name="channel_setting_vk">VKontakte</string>
@@ -173,6 +175,7 @@
     <string name="channel_settings_log_channel_is_null">channel is null</string>
 
     <!--Menu of Password change Screen-->
+    <string name="change_password_title">Изменение Пароля</string>
     <string name="change_password_action_change_password">Изменить Пароль</string>
     <string name="change_password_old_password">Старый Пароль</string>
     <string name="change_password_current_password">Текущий Пароль</string>
@@ -195,6 +198,7 @@
     <string name="change_password_log_user_is_null">email is null</string>
 
     <!--Menu of Account Remove Screen-->
+    <string name="remove_account_title">Удаление Аккаунта</string>
     <string name="remove_account_action_remove_account">Удалить Аккант</string>
     <string name="remove_account_confirm_button">Подтвердить</string>
     <string name="remove_account_action">Введите Текущий Пароль</string>
