@@ -4,14 +4,13 @@
     android:layout_height="@dimen/list_item_height">
 
     <Switch
-        android:id="@+id/list_item_switcher_artist_name"
+        android:id="@+id/list_item_switcher_option_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginEnd="@dimen/horizontal_margin"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="@dimen/horizontal_margin"
         android:layout_marginStart="12dp"
-        android:checkMark="?android:attr/listChoiceIndicatorSingle"
         android:gravity="start|center"
         android:textAllCaps="false" >
     </Switch>

@@ -136,9 +136,8 @@ public class ChannelDataFactory {
     }
 
     private static List<Option> makeChannelOptions() {
-        Option activate = new Option("Activate", true);
         Option notifications = new Option("Notifications", true);
-        return Arrays.asList(activate, notifications);
+        return Arrays.asList(notifications);
     }
 
 }

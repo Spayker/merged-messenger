@@ -13,7 +13,7 @@ public class CheckOptionViewHolder extends CheckableChildViewHolder {
 
     public CheckOptionViewHolder(View itemView) {
         super(itemView);
-        childCheckedTextView = itemView.findViewById(R.id.list_item_check_artist_name);
+        childCheckedTextView = itemView.findViewById(R.id.list_item_check_option_name);
     }
 
     @Override
@@ -21,8 +21,8 @@ public class CheckOptionViewHolder extends CheckableChildViewHolder {
         return childCheckedTextView;
     }
 
-    public void setArtistName(String artistName) {
-        childCheckedTextView.setText(artistName);
+    public void setOptionName(String optionName) {
+        childCheckedTextView.setText(optionName);
     }
 
 }

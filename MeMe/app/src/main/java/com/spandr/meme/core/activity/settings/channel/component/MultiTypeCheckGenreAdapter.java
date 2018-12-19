@@ -31,8 +31,8 @@ public class MultiTypeCheckGenreAdapter
 
     private static final String CHECKED_STATE_MAP = "child_check_controller_checked_state_map";
 
-    public static final int SWITCHER_VIEW_TYPE = 3;
-    public static final int CHECKBOX_VIEW_TYPE = 4;
+    private static final int SWITCHER_VIEW_TYPE = 3;
+    private static final int CHECKBOX_VIEW_TYPE = 4;
 
     private ChildCheckController childCheckController;
     private OnCheckChildClickListener childClickListener;
@@ -51,11 +51,9 @@ public class MultiTypeCheckGenreAdapter
 
     @Override
     public ChildViewHolder onCreateChildViewHolder(ViewGroup parent, int viewType) {
-        View view;
-        SwitchOptionViewHolder holder;
-        view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_switcher_channel_setting, parent, false);
-        holder = new SwitchOptionViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.list_item_check_channel_setting, parent, false);
+        CheckOptionViewHolder holder = new CheckOptionViewHolder(view);
         holder.setOnChildCheckedListener(this);
         return holder;
     }
@@ -66,34 +64,21 @@ public class MultiTypeCheckGenreAdapter
         Option option = (Option) group.getItems().get(childIndex);
         ExpandableListPosition listPosition;
         listPosition = expandableList.getUnflattenedPosition(flatPosition);
-
-        if (holder instanceof CheckOptionViewHolder) {
-            ((CheckOptionViewHolder) holder)
-                    .onBindViewHolder(flatPosition, childCheckController.isChildChecked(listPosition));
-            ((CheckOptionViewHolder) holder).setArtistName(option.getName());
-        } else {
-            listPosition = expandableList.getUnflattenedPosition(flatPosition);
-            ((SwitchOptionViewHolder) holder)
-                    .onBindViewHolder(flatPosition, childCheckController.isChildChecked(listPosition));
-            ((SwitchOptionViewHolder) holder).setArtistName(option.getName());
-        }
+        String optionName = option.getName();
+        ((CheckOptionViewHolder) holder)
+                .onBindViewHolder(flatPosition, childCheckController.isChildChecked(listPosition));
+        ((CheckOptionViewHolder) holder).setOptionName(optionName);
+        /*((CheckOptionViewHolder) holder).initListener(optionName);*/
     }
 
     @Override
     public void onBindGroupViewHolder(ChannelViewHolder holder, int flatPosition,
                                       ExpandableGroup group) {
-        holder.setGenreTitle(group);
+        holder.setChannelTitle(group);
     }
 
     @Override
-    public void onChildCheckChanged(View view, boolean checked, int flatPos) {
-        ExpandableListPosition listPos = expandableList.getUnflattenedPosition(flatPos);
-        childCheckController.onChildCheckChanged(checked, listPos);
-        if (childClickListener != null) {
-            childClickListener.onCheckChildCLick(view, checked,
-                    (CheckedExpandableGroup) expandableList.getExpandableGroup(listPos), listPos.childPos);
-        }
-    }
+    public void onChildCheckChanged(View view, boolean checked, int flatPos) { }
 
     @Override
     public void updateChildrenCheckState(int firstChildFlattenedIndex, int numChildren) {
