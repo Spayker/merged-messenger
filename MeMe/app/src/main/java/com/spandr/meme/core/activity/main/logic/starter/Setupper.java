@@ -63,6 +63,7 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TWITC
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TWITTER_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.VK_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.YOUTUBE_HOME_URL;
+import static com.spandr.meme.core.common.util.SettingsUtils.getChannelNotificationValueIdByName;
 
 public class Setupper implements Starter {
 
@@ -120,55 +121,70 @@ public class Setupper implements Starter {
     }
 
     private Setupper initSocialGroupChannels(SharedPreferences sharedPreferences,
-                                                   AppCompatActivity mainActivity) {
+                                             AppCompatActivity mainActivity) {
         List<Channel> channels = DataChannelManager.getInstance().getChannels();
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        String notificationPrefix = mainActivity.getString(R.string.channel_setting_notifications_prefix);
 
         String fbKey = mainActivity.getString(R.string.channel_setting_fb);
+        String fbKeyNotification = fbKey + notificationPrefix;
         Channel facebookChannel = createNewChannel(fbKey, SOCIAL, FB, FB_HOME_URL,
-                !isChannelExcludedByDefault(fbKey, mainActivity));
+                !isChannelExcludedByDefault(fbKey, mainActivity), true);
         channels.add(facebookChannel);
         editor.putBoolean(fbKey, facebookChannel.getActive());
+        editor.putBoolean(fbKeyNotification, facebookChannel.getNotificationsEnabled());
 
         String vkKey = mainActivity.getString(R.string.channel_setting_vk);
+        String vkKeyNotification = vkKey + notificationPrefix;
         Channel vkontakteChannel = createNewChannel(vkKey, SOCIAL, VK, VK_HOME_URL,
-                !isChannelExcludedByDefault(vkKey, mainActivity));
+                !isChannelExcludedByDefault(vkKey, mainActivity), true);
         channels.add(vkontakteChannel);
         editor.putBoolean(vkKey, vkontakteChannel.getActive());
+        editor.putBoolean(vkKeyNotification, vkontakteChannel.getNotificationsEnabled());
 
         String twKey = mainActivity.getString(R.string.channel_setting_tw);
+        String twKeyNotification = twKey + notificationPrefix;
         Channel twitterChannel = createNewChannel(twKey, SOCIAL, TW, TWITTER_HOME_URL,
-                !isChannelExcludedByDefault(twKey, mainActivity));
+                !isChannelExcludedByDefault(twKey, mainActivity), true);
         channels.add(twitterChannel);
         editor.putBoolean(twKey, twitterChannel.getActive());
+        editor.putBoolean(twKeyNotification, twitterChannel.getNotificationsEnabled());
 
         String instKey = mainActivity.getString(R.string.channel_setting_inst);
+        String instKeyNotification = instKey + notificationPrefix;
         Channel instagramChannel = createNewChannel(instKey, SOCIAL, IN, INSTAGRAM_HOME_URL,
-                !isChannelExcludedByDefault(instKey, mainActivity));
+                !isChannelExcludedByDefault(instKey, mainActivity), true);
         channels.add(instagramChannel);
         editor.putBoolean(instKey, instagramChannel.getActive());
+        editor.putBoolean(instKeyNotification, instagramChannel.getNotificationsEnabled());
 
         String okKey = mainActivity.getString(R.string.channel_setting_ok);
+        String okKeyNotification = okKey + notificationPrefix;
         Channel okChannel = createNewChannel(okKey, SOCIAL, OK, ODNOKLASNIKI_HOME_URL,
-                !isChannelExcludedByDefault(okKey, mainActivity));
+                !isChannelExcludedByDefault(okKey, mainActivity), true);
         channels.add(okChannel);
         editor.putBoolean(okKey, okChannel.getActive());
+        editor.putBoolean(okKeyNotification, okChannel.getNotificationsEnabled());
 
         String tmbKey = mainActivity.getString(R.string.channel_setting_tmb);
+        String tmbKeyNotification = tmbKey + notificationPrefix;
         Channel tumblChannel = createNewChannel(tmbKey, SOCIAL, TUM, TUMBLR_HOME_URL,
-                !isChannelExcludedByDefault(tmbKey, mainActivity));
+                !isChannelExcludedByDefault(tmbKey, mainActivity), true);
         channels.add(tumblChannel);
         editor.putBoolean(tmbKey, tumblChannel.getActive());
+        editor.putBoolean(tmbKeyNotification, tumblChannel.getNotificationsEnabled());
 
         String pnKey = mainActivity.getString(R.string.channel_setting_pn);
+        String pnKeyNotification = pnKey + notificationPrefix;
         Channel pinterestChannel = createNewChannel(pnKey, SOCIAL, PN, PINTEREST_HOME_URL,
-                !isChannelExcludedByDefault(pnKey, mainActivity));
+                !isChannelExcludedByDefault(pnKey, mainActivity), true);
         channels.add(pinterestChannel);
         editor.putBoolean(pnKey, pinterestChannel.getActive());
+        editor.putBoolean(pnKeyNotification, tumblChannel.getNotificationsEnabled());
 
         String lnKey = mainActivity.getString(R.string.channel_setting_ln);
         Channel linkedinChannel = createNewChannel(lnKey, SOCIAL, LN, LINKEDIN_HOME_URL,
-                !isChannelExcludedByDefault(lnKey, mainActivity));
+                !isChannelExcludedByDefault(lnKey, mainActivity), true);
         channels.add(linkedinChannel);
         editor.putBoolean(lnKey, linkedinChannel.getActive());
         editor.apply();
@@ -177,43 +193,43 @@ public class Setupper implements Starter {
     }
 
     private Setupper initChatGroupChannels(SharedPreferences sharedPreferences,
-                                                 AppCompatActivity mainActivity) {
+                                           AppCompatActivity mainActivity) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = DataChannelManager.getInstance().getChannels();
 
         String tlKey = mainActivity.getString(R.string.channel_setting_tl);
         Channel telegramChannel = createNewChannel(tlKey, CHAT, TL, TELEGRAM_HOME_URL,
-                !isChannelExcludedByDefault(tlKey, mainActivity));
+                !isChannelExcludedByDefault(tlKey, mainActivity), true);
         channels.add(telegramChannel);
         editor.putBoolean(tlKey, telegramChannel.getActive());
 
         String skpKey = mainActivity.getString(R.string.channel_setting_skp);
         Channel skypeChannel = createNewChannel(skpKey, CHAT, SK, SKYPE_HOME_URL,
-                !isChannelExcludedByDefault(skpKey, mainActivity));
+                !isChannelExcludedByDefault(skpKey, mainActivity), true);
         channels.add(skypeChannel);
         editor.putBoolean(skpKey, skypeChannel.getActive());
 
         String icqKey = mainActivity.getString(R.string.channel_setting_icq);
         Channel icqChannel = createNewChannel(icqKey, CHAT, ICQ, ICQ_HOME_URL,
-                !isChannelExcludedByDefault(icqKey, mainActivity));
+                !isChannelExcludedByDefault(icqKey, mainActivity), true);
         channels.add(icqChannel);
         editor.putBoolean(icqKey, icqChannel.getActive());
 
         String gaduKey = mainActivity.getString(R.string.channel_setting_gadu);
         Channel gaduChannel = createNewChannel(gaduKey, CHAT, GADU, GADU_HOME_URL,
-                !isChannelExcludedByDefault(gaduKey, mainActivity));
+                !isChannelExcludedByDefault(gaduKey, mainActivity), true);
         channels.add(gaduChannel);
         editor.putBoolean(gaduKey, icqChannel.getActive());
 
         String dcKey = mainActivity.getString(R.string.channel_setting_dc);
         Channel discordChannel = createNewChannel(dcKey, CHAT, DC, DISCORD_HOME_URL,
-                !isChannelExcludedByDefault(dcKey, mainActivity));
+                !isChannelExcludedByDefault(dcKey, mainActivity), true);
         channels.add(discordChannel);
         editor.putBoolean(dcKey, discordChannel.getActive());
 
         String slKey = mainActivity.getString(R.string.channel_setting_slack);
         Channel slackChannel = createNewChannel(slKey, CHAT, SL, SLACK_HOME_URL,
-                !isChannelExcludedByDefault(slKey, mainActivity));
+                !isChannelExcludedByDefault(slKey, mainActivity), true);
         channels.add(slackChannel);
         editor.putBoolean(slKey, slackChannel.getActive());
 
@@ -223,19 +239,19 @@ public class Setupper implements Starter {
     }
 
     private Setupper initVideoGroupChannels(SharedPreferences sharedPreferences,
-                                           AppCompatActivity mainActivity) {
+                                            AppCompatActivity mainActivity) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = DataChannelManager.getInstance().getChannels();
 
         String ytKey = mainActivity.getString(R.string.channel_setting_yt);
         Channel youtubeChannel = createNewChannel(ytKey, VIDEO_SERVICE, YT, YOUTUBE_HOME_URL,
-                !isChannelExcludedByDefault(ytKey, mainActivity));
+                !isChannelExcludedByDefault(ytKey, mainActivity), true);
         channels.add(youtubeChannel);
         editor.putBoolean(ytKey, youtubeChannel.getActive());
 
         String twitchKey = mainActivity.getString(R.string.channel_setting_twitch);
         Channel twitchChannel = createNewChannel(twitchKey, VIDEO_SERVICE, TWITCH, TWITCH_HOME_URL,
-                !isChannelExcludedByDefault(twitchKey, mainActivity));
+                !isChannelExcludedByDefault(twitchKey, mainActivity), true);
         channels.add(twitchChannel);
         editor.putBoolean(twitchKey, twitchChannel.getActive());
 
@@ -251,25 +267,25 @@ public class Setupper implements Starter {
 
         String habrKey = mainActivity.getString(R.string.channel_setting_habr);
         Channel habrChannel = createNewChannel(habrKey, INFO_SERVICE, HABR, HABR_HOME_URL,
-                !isChannelExcludedByDefault(habrKey, mainActivity));
+                !isChannelExcludedByDefault(habrKey, mainActivity), true);
         channels.add(habrChannel);
         editor.putBoolean(habrKey, habrChannel.getActive());
 
         String redditKey = mainActivity.getString(R.string.channel_setting_reddit);
         Channel redditChannel = createNewChannel(redditKey, INFO_SERVICE, REDDIT, REDDIT_HOME_URL,
-                !isChannelExcludedByDefault(redditKey, mainActivity));
+                !isChannelExcludedByDefault(redditKey, mainActivity), true);
         channels.add(redditChannel);
         editor.putBoolean(redditKey, redditChannel.getActive());
 
         String quoraKey = mainActivity.getString(R.string.channel_setting_quora);
         Channel quoraChannel = createNewChannel(quoraKey, INFO_SERVICE, QUORA, QUORA_HOME_URL,
-                !isChannelExcludedByDefault(quoraKey, mainActivity));
+                !isChannelExcludedByDefault(quoraKey, mainActivity), true);
         channels.add(quoraChannel);
         editor.putBoolean(quoraKey, quoraChannel.getActive());
 
         String stackKey = mainActivity.getString(R.string.channel_setting_stack);
         Channel stackChannel = createNewChannel(quoraKey, INFO_SERVICE, STACK, STACKOVERFLOW_HOME_URL,
-                !isChannelExcludedByDefault(stackKey, mainActivity));
+                !isChannelExcludedByDefault(stackKey, mainActivity), true);
         channels.add(stackChannel);
         editor.putBoolean(stackKey, stackChannel.getActive());
 
@@ -279,19 +295,19 @@ public class Setupper implements Starter {
     }
 
     private void initEmailGroupChannels(SharedPreferences sharedPreferences,
-                                                  AppCompatActivity mainActivity) {
+                                        AppCompatActivity mainActivity) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = DataChannelManager.getInstance().getChannels();
 
         String gmailKey = mainActivity.getString(R.string.channel_setting_gmail);
         Channel gmailChannel = createNewChannel(gmailKey, EMAIL, GM, GMAIL_HOME_URL,
-                !isChannelExcludedByDefault(gmailKey, mainActivity));
+                !isChannelExcludedByDefault(gmailKey, mainActivity), true);
         channels.add(gmailChannel);
         editor.putBoolean(gmailKey, gmailChannel.getActive());
 
         String mainRuKey = mainActivity.getString(R.string.channel_setting_mailru);
         Channel mailruChannel = createNewChannel(mainRuKey, EMAIL, MAIL_RU, MAIL_RU_HOME_URL,
-                !isChannelExcludedByDefault(mainRuKey, mainActivity));
+                !isChannelExcludedByDefault(mainRuKey, mainActivity), true);
         channels.add(mailruChannel);
         editor.putBoolean(mainRuKey, mailruChannel.getActive());
         editor.apply();

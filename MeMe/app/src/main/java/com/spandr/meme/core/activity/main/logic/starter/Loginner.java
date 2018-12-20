@@ -111,52 +111,52 @@ public class Loginner implements Starter {
 
         String fbKey = mainActivity.getString(R.string.channel_setting_fb);
         boolean isFbActive = sharedPreferences.getBoolean(fbKey, !isChannelExcludedByDefault(fbKey, mainActivity));
-        Channel facebookChannel = createNewChannel(fbKey, SOCIAL, FB, FB_HOME_URL, isFbActive);
+        Channel facebookChannel = createNewChannel(fbKey, SOCIAL, FB, FB_HOME_URL, isFbActive, true);
         editor.putBoolean(fbKey, isFbActive);
         channels.add(facebookChannel);
 
         String vkKey = mainActivity.getString(R.string.channel_setting_vk);
         boolean isVkActive = sharedPreferences.getBoolean(vkKey, !isChannelExcludedByDefault(vkKey, mainActivity));
         Channel vkontakteChannel = createNewChannel(vkKey,
-                SOCIAL, VK, VK_HOME_URL, isVkActive);
+                SOCIAL, VK, VK_HOME_URL, isVkActive, true);
         editor.putBoolean(vkKey, isVkActive);
         channels.add(vkontakteChannel);
 
         String twKey = mainActivity.getString(R.string.channel_setting_tw);
         boolean isTwActive = sharedPreferences.getBoolean(twKey, !isChannelExcludedByDefault(twKey, mainActivity));
         Channel twitterChannel = createNewChannel(twKey,
-                SOCIAL, TW, TWITTER_HOME_URL, isTwActive);
+                SOCIAL, TW, TWITTER_HOME_URL, isTwActive, true);
         editor.putBoolean(twKey, isTwActive);
         channels.add(twitterChannel);
 
         String instKey = mainActivity.getString(R.string.channel_setting_inst);
         boolean isInstActive = sharedPreferences.getBoolean(instKey, !isChannelExcludedByDefault(instKey, mainActivity));
-        Channel instagramChannel = createNewChannel(instKey, SOCIAL, IN, INSTAGRAM_HOME_URL, isInstActive);
+        Channel instagramChannel = createNewChannel(instKey, SOCIAL, IN, INSTAGRAM_HOME_URL, isInstActive, true);
         editor.putBoolean(instKey, isInstActive);
         channels.add(instagramChannel);
 
         String okKey = mainActivity.getString(R.string.channel_setting_ok);
         boolean isOkActive = sharedPreferences.getBoolean(okKey, !isChannelExcludedByDefault(okKey, mainActivity));
-        Channel okChannel = createNewChannel(okKey, SOCIAL, OK, ODNOKLASNIKI_HOME_URL, isOkActive);
+        Channel okChannel = createNewChannel(okKey, SOCIAL, OK, ODNOKLASNIKI_HOME_URL, isOkActive, true);
         editor.putBoolean(okKey, isOkActive);
         channels.add(okChannel);
 
         String tmbKey = mainActivity.getString(R.string.channel_setting_tmb);
         boolean isTmbActive = sharedPreferences.getBoolean(tmbKey, !isChannelExcludedByDefault(tmbKey, mainActivity));
-        Channel tumblChannel = createNewChannel(tmbKey, SOCIAL, TUM, TUMBLR_HOME_URL, isTmbActive);
+        Channel tumblChannel = createNewChannel(tmbKey, SOCIAL, TUM, TUMBLR_HOME_URL, isTmbActive, true);
         editor.putBoolean(tmbKey, isTmbActive);
         channels.add(tumblChannel);
 
         String pnKey = mainActivity.getString(R.string.channel_setting_pn);
         boolean isPnActive = sharedPreferences.getBoolean(pnKey, !isChannelExcludedByDefault(pnKey, mainActivity));
-        Channel pnChannel = createNewChannel(pnKey, SOCIAL, PN, PINTEREST_HOME_URL, isPnActive);
+        Channel pnChannel = createNewChannel(pnKey, SOCIAL, PN, PINTEREST_HOME_URL, isPnActive, true);
         editor.putBoolean(pnKey, isPnActive);
         channels.add(pnChannel);
 
         String lnKey = mainActivity.getString(R.string.channel_setting_ln);
         boolean isLnActive = sharedPreferences.getBoolean(lnKey, !isChannelExcludedByDefault(lnKey, mainActivity));
         Channel linkedinChannel = createNewChannel(lnKey,
-                SOCIAL, LN, LINKEDIN_HOME_URL, isLnActive);
+                SOCIAL, LN, LINKEDIN_HOME_URL, isLnActive, true);
         channels.add(linkedinChannel);
         editor.putBoolean(lnKey, isLnActive);
         editor.apply();
@@ -171,37 +171,37 @@ public class Loginner implements Starter {
 
         String tlKey = mainActivity.getString(R.string.channel_setting_tl);
         boolean isTlActive = sharedPreferences.getBoolean(tlKey, !isChannelExcludedByDefault(tlKey, mainActivity));
-        Channel telegramChannel = createNewChannel(tlKey, CHAT, TL, TELEGRAM_HOME_URL, isTlActive);
+        Channel telegramChannel = createNewChannel(tlKey, CHAT, TL, TELEGRAM_HOME_URL, isTlActive, true);
         editor.putBoolean(tlKey, isTlActive);
         channels.add(telegramChannel);
 
         String skpKey = mainActivity.getString(R.string.channel_setting_skp);
         boolean isSkpActive = sharedPreferences.getBoolean(skpKey, !isChannelExcludedByDefault(skpKey, mainActivity));
-        Channel skypeChannel = createNewChannel(skpKey, CHAT, SK, SKYPE_HOME_URL, isSkpActive);
+        Channel skypeChannel = createNewChannel(skpKey, CHAT, SK, SKYPE_HOME_URL, isSkpActive, true);
         editor.putBoolean(skpKey, isSkpActive);
         channels.add(skypeChannel);
 
         String icqKey = mainActivity.getString(R.string.channel_setting_icq);
         boolean isIcqActive = sharedPreferences.getBoolean(icqKey, !isChannelExcludedByDefault(icqKey, mainActivity));
-        Channel icqChannel = createNewChannel(icqKey, CHAT, ICQ, ICQ_HOME_URL, isIcqActive);
+        Channel icqChannel = createNewChannel(icqKey, CHAT, ICQ, ICQ_HOME_URL, isIcqActive, true);
         editor.putBoolean(icqKey, isIcqActive);
         channels.add(icqChannel);
 
         String gaduKey = mainActivity.getString(R.string.channel_setting_gadu);
         boolean isGaduActive = sharedPreferences.getBoolean(gaduKey, !isChannelExcludedByDefault(gaduKey, mainActivity));
-        Channel gaduChannel = createNewChannel(gaduKey, CHAT, GADU, GADU_HOME_URL, isGaduActive);
+        Channel gaduChannel = createNewChannel(gaduKey, CHAT, GADU, GADU_HOME_URL, isGaduActive, true);
         editor.putBoolean(gaduKey, isGaduActive);
         channels.add(gaduChannel);
 
         String dcKey = mainActivity.getString(R.string.channel_setting_dc);
         boolean isDcActive = sharedPreferences.getBoolean(dcKey, !isChannelExcludedByDefault(dcKey, mainActivity));
-        Channel discordChannel = createNewChannel(dcKey, CHAT, DC, DISCORD_HOME_URL, isDcActive);
+        Channel discordChannel = createNewChannel(dcKey, CHAT, DC, DISCORD_HOME_URL, isDcActive, true);
         editor.putBoolean(dcKey, isDcActive);
         channels.add(discordChannel);
 
         String slKey = mainActivity.getString(R.string.channel_setting_slack);
         boolean isSlActive = sharedPreferences.getBoolean(slKey, !isChannelExcludedByDefault(slKey, mainActivity));
-        Channel slackChannel = createNewChannel(slKey, CHAT, SL, SLACK_HOME_URL, isSlActive);
+        Channel slackChannel = createNewChannel(slKey, CHAT, SL, SLACK_HOME_URL, isSlActive, true);
         editor.putBoolean(slKey, isSlActive);
         channels.add(slackChannel);
 
@@ -217,13 +217,13 @@ public class Loginner implements Starter {
 
         String ytKey = mainActivity.getString(R.string.channel_setting_yt);
         boolean isYtActive = sharedPreferences.getBoolean(ytKey, !isChannelExcludedByDefault(ytKey, mainActivity));
-        Channel youtubeChannel = createNewChannel(ytKey, VIDEO_SERVICE, YT, YOUTUBE_HOME_URL, isYtActive);
+        Channel youtubeChannel = createNewChannel(ytKey, VIDEO_SERVICE, YT, YOUTUBE_HOME_URL, isYtActive, true);
         editor.putBoolean(ytKey, isYtActive);
         channels.add(youtubeChannel);
 
         String twitchKey = mainActivity.getString(R.string.channel_setting_twitch);
         boolean isTwitchActive = sharedPreferences.getBoolean(twitchKey, !isChannelExcludedByDefault(twitchKey, mainActivity));
-        Channel twitchChannel = createNewChannel(twitchKey, VIDEO_SERVICE, TWITCH, TWITCH_HOME_URL, isTwitchActive);
+        Channel twitchChannel = createNewChannel(twitchKey, VIDEO_SERVICE, TWITCH, TWITCH_HOME_URL, isTwitchActive, true);
         editor.putBoolean(twitchKey, isTwitchActive);
         channels.add(twitchChannel);
 
@@ -239,25 +239,25 @@ public class Loginner implements Starter {
 
         String habrKey = mainActivity.getString(R.string.channel_setting_habr);
         boolean isHabrActive = sharedPreferences.getBoolean(habrKey, !isChannelExcludedByDefault(habrKey, mainActivity));
-        Channel habrChannel = createNewChannel(habrKey, INFO_SERVICE, HABR, HABR_HOME_URL, isHabrActive);
+        Channel habrChannel = createNewChannel(habrKey, INFO_SERVICE, HABR, HABR_HOME_URL, isHabrActive, true);
         editor.putBoolean(habrKey, isHabrActive);
         channels.add(habrChannel);
 
         String redditKey = mainActivity.getString(R.string.channel_setting_reddit);
         boolean isRedditActive = sharedPreferences.getBoolean(redditKey, !isChannelExcludedByDefault(redditKey, mainActivity));
-        Channel redditChannel = createNewChannel(redditKey, INFO_SERVICE, REDDIT, REDDIT_HOME_URL, isRedditActive);
+        Channel redditChannel = createNewChannel(redditKey, INFO_SERVICE, REDDIT, REDDIT_HOME_URL, isRedditActive, true);
         editor.putBoolean(redditKey, isRedditActive);
         channels.add(redditChannel);
 
         String quoraKey = mainActivity.getString(R.string.channel_setting_quora);
         boolean isQuoraActive = sharedPreferences.getBoolean(quoraKey, !isChannelExcludedByDefault(quoraKey, mainActivity));
-        Channel quoraChannel = createNewChannel(quoraKey, INFO_SERVICE, QUORA, QUORA_HOME_URL, isQuoraActive);
+        Channel quoraChannel = createNewChannel(quoraKey, INFO_SERVICE, QUORA, QUORA_HOME_URL, isQuoraActive, true);
         editor.putBoolean(quoraKey, isQuoraActive);
         channels.add(quoraChannel);
 
         String stackKey = mainActivity.getString(R.string.channel_setting_stack);
         boolean isStackActive = sharedPreferences.getBoolean(stackKey, !isChannelExcludedByDefault(stackKey, mainActivity));
-        Channel stackChannel = createNewChannel(stackKey, INFO_SERVICE, STACK, STACKOVERFLOW_HOME_URL, isStackActive);
+        Channel stackChannel = createNewChannel(stackKey, INFO_SERVICE, STACK, STACKOVERFLOW_HOME_URL, isStackActive, true);
         editor.putBoolean(stackKey, isStackActive);
         channels.add(stackChannel);
 
@@ -274,13 +274,13 @@ public class Loginner implements Starter {
 
         String gmailKey = mainActivity.getString(R.string.channel_setting_gmail);
         boolean isGmailActive = sharedPreferences.getBoolean(gmailKey, !isChannelExcludedByDefault(gmailKey, mainActivity));
-        Channel gmailChannel = createNewChannel(gmailKey, EMAIL, GM, GMAIL_HOME_URL, isGmailActive);
+        Channel gmailChannel = createNewChannel(gmailKey, EMAIL, GM, GMAIL_HOME_URL, isGmailActive, true);
         editor.putBoolean(gmailKey, isGmailActive);
         channels.add(gmailChannel);
 
         String mailRuKey = mainActivity.getString(R.string.channel_setting_mailru);
         boolean isMailRuActive = sharedPreferences.getBoolean(mailRuKey, !isChannelExcludedByDefault(mailRuKey, mainActivity));
-        Channel mailruChannel = createNewChannel(mailRuKey, EMAIL, MAIL_RU, MAIL_RU_HOME_URL, isMailRuActive);
+        Channel mailruChannel = createNewChannel(mailRuKey, EMAIL, MAIL_RU, MAIL_RU_HOME_URL, isMailRuActive, true);
         editor.putBoolean(mailRuKey, isMailRuActive);
         channels.add(mailruChannel);
         editor.apply();

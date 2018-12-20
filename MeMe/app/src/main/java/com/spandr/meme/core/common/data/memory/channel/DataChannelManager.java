@@ -61,8 +61,8 @@ public class DataChannelManager {
         return dataChannelManager;
     }
 
-    public static Channel createNewChannel(String name, TYPE type, ICON icon, String homeUrl, Boolean active) {
-        return new Channel(name, type, icon, homeUrl, active);
+    public static Channel createNewChannel(String name, TYPE type, ICON icon, String homeUrl, boolean active, boolean notifications) {
+        return new Channel(name, type, icon, homeUrl, active, notifications);
     }
 
     public static List<Channel> getActiveChannelsByType(TYPE type) {

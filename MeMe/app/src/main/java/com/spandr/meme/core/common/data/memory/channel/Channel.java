@@ -4,18 +4,21 @@ public final class Channel {
 
     private String name;
     private TYPE type;
-    private Boolean active;
     private String homeUrl;
     private ICON icon;
+    private boolean active;
+
+    private boolean isNotificationsEnabled;
 
     private Channel() { }
 
-    Channel(String name, TYPE type, ICON icon, String homeUrl, Boolean active) {
+    Channel(String name, TYPE type, ICON icon, String homeUrl, boolean active, boolean isNotificationsEnabled) {
         this.name = name;
         this.type = type;
         this.homeUrl = homeUrl;
         this.active = active;
         this.icon = icon;
+        this.isNotificationsEnabled = isNotificationsEnabled;
     }
 
     public String getName() {
@@ -32,6 +35,14 @@ public final class Channel {
 
     public String getHomeUrl() {
         return homeUrl;
+    }
+
+    public boolean getNotificationsEnabled() {
+        return isNotificationsEnabled;
+    }
+
+    public void setNotificationsEnabled(boolean notificationsEnabled) {
+        isNotificationsEnabled = notificationsEnabled;
     }
 
     public Boolean getActive() {

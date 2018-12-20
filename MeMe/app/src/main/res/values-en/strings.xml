@@ -123,30 +123,6 @@
     <string name="channel_setting_title">Channel Settings</string>
     <string name="channel_setting_switcher_on">On</string>
     <string name="channel_setting_switcher_off">Off</string>
-    <string name="channel_setting_vk">VKontakte</string>
-    <string name="channel_setting_fb">Facebook</string>
-    <string name="channel_setting_tl">Telegram</string>
-    <string name="channel_setting_skp">Skype</string>
-    <string name="channel_setting_ok">OK.RU</string>
-    <string name="channel_setting_tmb">Tumblr</string>
-    <string name="channel_setting_dc">Discord</string>
-    <string name="channel_setting_yt">Youtube</string>
-    <string name="channel_setting_twitch">Twitch</string>
-    <string name="channel_setting_ln">LinkedIn</string>
-    <string name="channel_setting_tw">Twitter</string>
-    <string name="channel_setting_pn">Pinterest</string>
-    <string name="channel_setting_icq">ICQ</string>
-    <string name="channel_setting_gadu">GG</string>
-    <string name="channel_setting_slack">Slack</string>
-    <string name="channel_setting_inst">Instagram</string>
-    <string name="channel_setting_gmail">Gmail</string>
-    <string name="channel_setting_mailru">Mail.ru</string>
-    <string name="channel_setting_reddit">Reddit</string>
-    <string name="channel_setting_quora">Quora</string>
-    <string name="channel_setting_stack">StackOverflow</string>
-    <string name="channel_setting_habr">Habr</string>
-    <string name="channel_setting_soundcloud">SoundCloud</string>
-    <string name="channel_setting_spotify">Spotify</string>
     <string name="channel_settings_log_channel_is_null">channel is null</string>
 
     <!--Menu of Password change Screen-->
