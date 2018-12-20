@@ -46,12 +46,15 @@ public class MultiTypeCheckGenreAdapter
     private static final int SWITCHER_VIEW_TYPE = 3;
     private static final int CHECKBOX_VIEW_TYPE = 4;
 
+    private static String notificationPrefix;
+
     private AppCompatActivity activity;
 
 
     public MultiTypeCheckGenreAdapter(List<? extends ExpandableGroup> groups, AppCompatActivity activity) {
         super(groups);
         this.activity = activity;
+        notificationPrefix = activity.getString(R.string.channel_setting_notifications_prefix);
     }
 
     @Override
@@ -105,8 +108,12 @@ public class MultiTypeCheckGenreAdapter
         FrameLayout frameLayout = (FrameLayout)view;
         CheckedTextView child = (CheckedTextView) frameLayout.getChildAt(frameLayout.getChildCount()-1);
         String channelName = child.getTag().toString();
-        Channel channel = getChannelByName(channelName);
-        channel.setNotificationsEnabled(checked);
+        String channelKeyNotification = channelName + notificationPrefix;
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(channelKeyNotification, checked);
+        editor.apply();
+        editor.commit();
     }
 
     @Override
