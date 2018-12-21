@@ -68,6 +68,7 @@ public abstract class WebViewChannel {
         webSettings.setAllowContentAccess(true);
         webSettings.setAllowFileAccessFromFileURLs(true);
         webSettings.setAllowUniversalAccessFromFileURLs(true);
+        webSettings.setLoadsImagesAutomatically(false);
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);

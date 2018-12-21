@@ -18,9 +18,11 @@ import static com.spandr.meme.core.common.data.memory.channel.ICON.IN;
 import static com.spandr.meme.core.common.data.memory.channel.ICON.LN;
 import static com.spandr.meme.core.common.data.memory.channel.ICON.MAIL_RU;
 import static com.spandr.meme.core.common.data.memory.channel.ICON.OK;
+import static com.spandr.meme.core.common.data.memory.channel.ICON.PN;
 import static com.spandr.meme.core.common.data.memory.channel.ICON.QUORA;
 import static com.spandr.meme.core.common.data.memory.channel.ICON.REDDIT;
 import static com.spandr.meme.core.common.data.memory.channel.ICON.SK;
+import static com.spandr.meme.core.common.data.memory.channel.ICON.SL;
 import static com.spandr.meme.core.common.data.memory.channel.ICON.STACK;
 import static com.spandr.meme.core.common.data.memory.channel.ICON.TL;
 import static com.spandr.meme.core.common.data.memory.channel.ICON.TUM;
@@ -39,11 +41,13 @@ public class ChannelDataFactory {
                 makeOdnoklassnikiChannelSetting(activity),
                 makeTumblrChannelSetting(activity),
                 makeLinkedInChannelSetting(activity),
+                makePinterestChannelSetting(activity),
                 makeTelegramChannelSetting(activity),
                 makeSkypeChannelSetting(activity),
                 makeIcqChannelSetting(activity),
                 makeGaduGaduChannelSetting(activity),
                 makeDiscordChannelSetting(activity),
+                makeSlackChannelSetting(activity),
                 makeYoutubeChannelSetting(activity),
                 makeTwitchChannelSetting(activity),
                 makeHabrChannelSetting(activity),
@@ -83,6 +87,10 @@ public class ChannelDataFactory {
         return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_ln), makeChannelOptions(), LN.getIconId());
     }
 
+    private static SingleCheckChannel makePinterestChannelSetting(AppCompatActivity activity) {
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_pn), makeChannelOptions(), PN.getIconId());
+    }
+
     private static SingleCheckChannel makeTelegramChannelSetting(AppCompatActivity activity) {
         return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_tl), makeChannelOptions(), TL.getIconId());
     }
@@ -101,6 +109,10 @@ public class ChannelDataFactory {
 
     private static SingleCheckChannel makeDiscordChannelSetting(AppCompatActivity activity) {
         return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_dc), makeChannelOptions(), DC.getIconId());
+    }
+
+    private static SingleCheckChannel makeSlackChannelSetting(AppCompatActivity activity) {
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_slack), makeChannelOptions(), SL.getIconId());
     }
 
     private static SingleCheckChannel makeYoutubeChannelSetting(AppCompatActivity activity) {

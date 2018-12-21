@@ -12,6 +12,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
+import static android.view.View.INVISIBLE;
 import static com.spandr.meme.core.activity.main.logic.notification.ViewChannelManager.createChannelViewManager;
 import static com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel.getJavascriptHtmlGrabber;
 import static com.spandr.meme.core.activity.webview.logic.manager.WebViewManager.getWebViewChannelManager;
@@ -61,7 +62,11 @@ public class WebViewRunnableInitializer {
         return new DisposableObserver<AdvancedWebView>() {
             @Override
             public void onNext(AdvancedWebView advancedWebView) {
-                advancedWebView.loadUrl(getJavascriptHtmlGrabber());
+                if(!advancedWebView.isShown()) {
+                    advancedWebView.getSettings().setLoadsImagesAutomatically(false);
+                    advancedWebView.loadUrl(advancedWebView.getOriginalUrl());
+                    advancedWebView.loadUrl(getJavascriptHtmlGrabber());
+                }
             }
 
             @Override
