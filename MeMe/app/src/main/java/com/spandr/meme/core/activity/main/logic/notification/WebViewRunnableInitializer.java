@@ -20,7 +20,7 @@ import static io.reactivex.schedulers.Schedulers.computation;
 public class WebViewRunnableInitializer {
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(5);
     private Runnable notificationRunnable;
     private static WebViewRunnableInitializer instance;
 

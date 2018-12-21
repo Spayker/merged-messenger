@@ -65,10 +65,12 @@ public class SkypeWebViewChannel extends WebViewChannel {
         @JavascriptInterface
         @SuppressWarnings("unused")
         public void processHTML(String html) {
-            mWebView.post(() -> {
-                int notificationCounter = parseHtml(html);
-                NotificationDisplayer.getInstance().display(channelName, notificationCounter);
-            });
+            if(isNotificationSettingEnabled(channelName)){
+                mWebView.post(() -> {
+                    int notificationCounter = parseHtml(html);
+                    NotificationDisplayer.getInstance().display(channelName, notificationCounter);
+                });
+            }
         }
 
         private int parseHtml(String html){

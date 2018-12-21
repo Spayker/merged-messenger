@@ -56,15 +56,17 @@ public class TwitterWebViewChannel extends WebViewChannel {
         @JavascriptInterface
         @SuppressWarnings("unused")
         public void processHTML(String html) {
-            mWebView.post(() -> {
-                Matcher m = pattern.matcher(html);
-                int notificationCounter = 0;
-                while(m.find()) {
-                    notificationCounter += Integer.valueOf(m.group(1));
-                }
+            if(isNotificationSettingEnabled(channelName)){
+                mWebView.post(() -> {
+                    Matcher m = pattern.matcher(html);
+                    int notificationCounter = 0;
+                    while(m.find()) {
+                        notificationCounter += Integer.valueOf(m.group(1));
+                    }
 
-                NotificationDisplayer.getInstance().display(channelName, notificationCounter);
-            });
+                    NotificationDisplayer.getInstance().display(channelName, notificationCounter);
+                });
+            }
         }
     }
 }

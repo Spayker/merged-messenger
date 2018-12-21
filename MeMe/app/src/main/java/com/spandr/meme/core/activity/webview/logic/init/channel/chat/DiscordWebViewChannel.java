@@ -1,6 +1,8 @@
 package com.spandr.meme.core.activity.webview.logic.init.channel.chat;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.webkit.JavascriptInterface;
 
 import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
@@ -9,6 +11,8 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 
 public class DiscordWebViewChannel extends WebViewChannel {
 
@@ -65,15 +69,17 @@ public class DiscordWebViewChannel extends WebViewChannel {
         @JavascriptInterface
         @SuppressWarnings("unused")
         public void processHTML(String html) {
-            mWebView.post(() -> {
-                mWebView.loadUrl(DISCORD_SCALE_JAVASCRIPT);
-                Matcher m = pattern.matcher(html);
-                int notificationCounter = 0;
-                while(m.find()) {
-                    notificationCounter ++;
-                }
-                NotificationDisplayer.getInstance().display(channelName, notificationCounter);
-            });
+            if(isNotificationSettingEnabled(channelName)){
+                mWebView.post(() -> {
+                    mWebView.loadUrl(DISCORD_SCALE_JAVASCRIPT);
+                    Matcher m = pattern.matcher(html);
+                    int notificationCounter = 0;
+                    while(m.find()) {
+                        notificationCounter ++;
+                    }
+                    NotificationDisplayer.getInstance().display(channelName, notificationCounter);
+                });
+            }
         }
     }
 

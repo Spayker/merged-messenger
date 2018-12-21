@@ -56,18 +56,20 @@ public class InstagramWebViewChannel extends WebViewChannel {
         @JavascriptInterface
         @SuppressWarnings("unused")
         public void processHTML(String html) {
-            mWebView.post(() -> {
-                Matcher m = pattern.matcher(html);
-                int notificationCounter = 0;
-                while(m.find()) {
-                    String foundNotification = m.group(1);
-                    if(!foundNotification.isEmpty()){
-                        notificationCounter += Integer.valueOf(foundNotification);
+            if(isNotificationSettingEnabled(channelName)){
+                mWebView.post(() -> {
+                    Matcher m = pattern.matcher(html);
+                    int notificationCounter = 0;
+                    while(m.find()) {
+                        String foundNotification = m.group(1);
+                        if(!foundNotification.isEmpty()){
+                            notificationCounter += Integer.valueOf(foundNotification);
+                        }
                     }
-                }
 
-                NotificationDisplayer.getInstance().display(channelName, notificationCounter);
-            });
+                    NotificationDisplayer.getInstance().display(channelName, notificationCounter);
+                });
+            }
         }
     }
 

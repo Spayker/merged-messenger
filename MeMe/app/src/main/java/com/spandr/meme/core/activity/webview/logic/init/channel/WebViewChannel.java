@@ -1,6 +1,8 @@
 package com.spandr.meme.core.activity.webview.logic.init.channel;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +22,7 @@ import com.spandr.meme.core.common.data.memory.channel.DataChannelManager;
 
 import im.delight.android.webview.AdvancedWebView;
 
+import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.MEME_HOME_URL;
 import static com.spandr.meme.core.common.util.ActivityUtils.isNetworkAvailable;
 
@@ -27,6 +30,8 @@ public abstract class WebViewChannel {
 
     //private final static String DEFAULT_USER_AGENT_STRING = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36";
     private final static String JAVASCRIPT_HTML_GRABBER = "javascript:window.HTMLOUT.processHTML('<head>'+document.getElementsByTagName('html')[0].innerHTML+'</head>');";
+
+    private String notificationPrefix;
 
     protected String url = MEME_HOME_URL;
     protected String channelName;
@@ -147,5 +152,12 @@ public abstract class WebViewChannel {
 
     public static String getJavascriptHtmlGrabber() {
         return JAVASCRIPT_HTML_GRABBER;
+    }
+
+    protected boolean isNotificationSettingEnabled(String channelName){
+        notificationPrefix = activity.getString(R.string.channel_setting_notifications_prefix);
+        String channelKeyNotification = channelName + notificationPrefix;
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(channelKeyNotification, false);
     }
 }
