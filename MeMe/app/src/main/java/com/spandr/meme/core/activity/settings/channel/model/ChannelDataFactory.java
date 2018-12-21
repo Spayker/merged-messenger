@@ -60,95 +60,95 @@ public class ChannelDataFactory {
     }
 
     private static SingleCheckChannel makeFacebookChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_fb), makeChannelOptions(), FB.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_fb), makeChannelOptions(activity), FB.getIconId());
     }
 
     private static SingleCheckChannel makeVkontakteChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_vk), makeChannelOptions(), VK.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_vk), makeChannelOptions(activity), VK.getIconId());
     }
 
     private static SingleCheckChannel makeTwitterChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_tw), makeChannelOptions(), TW.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_tw), makeChannelOptions(activity), TW.getIconId());
     }
 
     private static SingleCheckChannel makeInstagramChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_inst), makeChannelOptions(), IN.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_inst), makeChannelOptions(activity), IN.getIconId());
     }
 
     private static SingleCheckChannel makeOdnoklassnikiChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_ok), makeChannelOptions(), OK.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_ok), makeChannelOptions(activity), OK.getIconId());
     }
 
     private static SingleCheckChannel makeTumblrChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_tmb), makeChannelOptions(), TUM.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_tmb), makeChannelOptions(activity), TUM.getIconId());
     }
 
     private static SingleCheckChannel makeLinkedInChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_ln), makeChannelOptions(), LN.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_ln), makeChannelOptions(activity), LN.getIconId());
     }
 
     private static SingleCheckChannel makePinterestChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_pn), makeChannelOptions(), PN.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_pn), makeChannelOptions(activity), PN.getIconId());
     }
 
     private static SingleCheckChannel makeTelegramChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_tl), makeChannelOptions(), TL.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_tl), makeChannelOptions(activity), TL.getIconId());
     }
 
     private static SingleCheckChannel makeSkypeChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_skp), makeChannelOptions(), SK.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_skp), makeChannelOptions(activity), SK.getIconId());
     }
 
     private static SingleCheckChannel makeIcqChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_icq), makeChannelOptions(), ICQ.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_icq), makeChannelOptions(activity), ICQ.getIconId());
     }
 
     private static SingleCheckChannel makeGaduGaduChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_gadu), makeChannelOptions(), GADU.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_gadu), makeChannelOptions(activity), GADU.getIconId());
     }
 
     private static SingleCheckChannel makeDiscordChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_dc), makeChannelOptions(), DC.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_dc), makeChannelOptions(activity), DC.getIconId());
     }
 
     private static SingleCheckChannel makeSlackChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_slack), makeChannelOptions(), SL.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_slack), makeChannelOptions(activity), SL.getIconId());
     }
 
     private static SingleCheckChannel makeYoutubeChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_yt), makeChannelOptions(), YT.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_yt), makeChannelOptions(activity), YT.getIconId());
     }
 
     private static SingleCheckChannel makeTwitchChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_twitch), makeChannelOptions(), TWITCH.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_twitch), makeChannelOptions(activity), TWITCH.getIconId());
     }
 
     private static SingleCheckChannel makeHabrChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_habr), makeChannelOptions(), HABR.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_habr), makeChannelOptions(activity), HABR.getIconId());
     }
 
     private static SingleCheckChannel makeRedditChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_reddit), makeChannelOptions(), REDDIT.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_reddit), makeChannelOptions(activity), REDDIT.getIconId());
     }
 
     private static SingleCheckChannel makeQuoraChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_quora), makeChannelOptions(), QUORA.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_quora), makeChannelOptions(activity), QUORA.getIconId());
     }
 
     private static SingleCheckChannel makeStackOverflowChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_stack), makeChannelOptions(), STACK.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_stack), makeChannelOptions(activity), STACK.getIconId());
     }
 
     private static SingleCheckChannel makeGmailChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_gmail), makeChannelOptions(), GM.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_gmail), makeChannelOptions(activity), GM.getIconId());
     }
 
     private static SingleCheckChannel makeMailRuChannelSetting(AppCompatActivity activity) {
-        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_mailru), makeChannelOptions(), MAIL_RU.getIconId());
+        return new SingleCheckChannel(activity.getResources().getString(R.string.channel_setting_mailru), makeChannelOptions(activity), MAIL_RU.getIconId());
     }
 
-    private static List<Option> makeChannelOptions() {
-        Option notifications = new Option("Notifications", true);
+    private static List<Option> makeChannelOptions(AppCompatActivity activity) {
+        Option notifications = new Option(activity.getResources().getString(R.string.channel_setting_notifications), true);
         return Arrays.asList(notifications);
     }
 

@@ -124,6 +124,7 @@
     <string name="channel_setting_switcher_on">Вкл.</string>
     <string name="channel_setting_switcher_off">Выкл.</string>
     <string name="channel_settings_log_channel_is_null">channel is null</string>
+    <string name="channel_setting_notifications">Уведомления</string>
 
     <!--Menu of Password change Screen-->
     <string name="change_password_title">Изменение Пароля</string>

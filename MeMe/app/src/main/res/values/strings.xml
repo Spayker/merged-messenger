@@ -147,6 +147,7 @@
             <string name="channel_setting_soundcloud" translatable="false">SoundCloud</string>
             <string name="channel_setting_spotify" translatable="false">Spotify</string>
             <string name="channel_setting_notifications_prefix" translatable="false">_notifications</string>
+            <string name="channel_setting_notifications">Notifications</string>
             <string name="channel_settings_log_channel_is_null">channel is null</string>
 
         <!--Menu of Password change Screen-->
