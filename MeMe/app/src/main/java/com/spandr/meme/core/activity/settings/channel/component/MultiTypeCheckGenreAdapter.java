@@ -34,6 +34,7 @@ import java.util.Objects;
 
 import static android.view.LayoutInflater.from;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
+import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getActiveChannelsByType;
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 import static com.spandr.meme.core.common.util.SettingsUtils.getChannelNotificationValueIdByName;
 
@@ -108,12 +109,16 @@ public class MultiTypeCheckGenreAdapter
         FrameLayout frameLayout = (FrameLayout)view;
         CheckedTextView child = (CheckedTextView) frameLayout.getChildAt(frameLayout.getChildCount()-1);
         String channelName = child.getTag().toString();
-        String channelKeyNotification = channelName + notificationPrefix;
+
+        Channel channel = getChannelByName(channelName);
+        Objects.requireNonNull(channel).setActive(checked);
+
+        /*String channelKeyNotification = channelName + notificationPrefix;
         SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(channelKeyNotification, checked);
         editor.apply();
-        editor.commit();
+        editor.commit();*/
     }
 
     @Override

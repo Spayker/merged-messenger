@@ -79,10 +79,10 @@
             <string name="main_menu_yes">Yes</string>
             <string name="main_menu_later">Later</string>
             <string name="main_menu_no">No</string>
-            <string name="main_west_ordered_channel_set">Facebook|Telegram|VKontakte|Tumblr|Discord|Skype|Pinterest|LinkedIn|Slack|Gmail|Mail.ru|Twitter|Youtube|Twitch|Instagram|ICQ|Reddit|Quora|Habr</string>
-            <string name="main_east_ordered_channel_set">VKontakte|Facebook|Telegram|OK.RU|Tumblr|Discord|Skype|Pinterest|Gmail|Mail.ru|Twitter|Youtube|Twitch|Instagram|ICQ|Reddit|Quora|Habr</string>
+            <string name="main_west_ordered_channel_set" translatable="false">Facebook|Telegram|VKontakte|Tumblr|Discord|Skype|Pinterest|LinkedIn|Slack|Gmail|Mail.ru|Twitter|Youtube|Twitch|Instagram|ICQ|Reddit|Quora|Habr|OK.RU|GG|StackOverflow</string>
+            <string name="main_east_ordered_channel_set" translatable="false">VKontakte|Facebook|Telegram|OK.RU|Tumblr|Discord|Skype|Pinterest|Gmail|Mail.ru|Twitter|Youtube|Twitch|Instagram|ICQ|Reddit|Quora|Habr|LinkedIn|GG|Slack|StackOverflow|</string>
 
-        <!--Menu of WebView Screen-->
+            <!--Menu of WebView Screen-->
             <string name="webview_loading_video">Loading…</string>
 
         <!--Menu of Global Settings Screen-->
@@ -195,7 +195,6 @@
         <!--East Social Group To Be Excluded By Default-->
         <string-array name="default_excluded_east_social_group">
             <item>LinkedIn</item>
-            <item>Slack</item>
             <item>Pinterest</item>
         </string-array>
 
@@ -205,6 +204,7 @@
         </string-array>
         <!--East Chat Group To Be Excluded By Default-->
         <string-array name="default_excluded_east_chat_group">
+            <item>Slack</item>
             <item>Telegram</item>
             <item>GG</item>
         </string-array>

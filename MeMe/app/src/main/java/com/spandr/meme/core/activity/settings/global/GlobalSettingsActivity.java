@@ -146,7 +146,7 @@ public class GlobalSettingsActivity extends AppCompatActivity {
 
 
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(KEY_CHANNEL_ORDER, null);
+                editor.putString(KEY_CHANNEL_ORDER, EMPTY_STRING);
                 editor.apply();
                 editor.commit();
 

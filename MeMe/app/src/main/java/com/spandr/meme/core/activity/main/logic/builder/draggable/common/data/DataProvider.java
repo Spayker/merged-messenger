@@ -7,24 +7,23 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.google.android.gms.common.util.ArrayUtils;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
 import com.spandr.meme.core.common.data.memory.channel.DataChannelManager;
 import com.spandr.meme.core.common.data.memory.channel.ICON;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.spandr.meme.core.common.data.memory.channel.TYPE.CHAT;
-import static com.spandr.meme.core.common.data.memory.channel.TYPE.EMAIL;
-import static com.spandr.meme.core.common.data.memory.channel.TYPE.INFO_SERVICE;
-import static com.spandr.meme.core.common.data.memory.channel.TYPE.SOCIAL;
-import static com.spandr.meme.core.common.data.memory.channel.TYPE.VIDEO_SERVICE;
 import static com.spandr.meme.core.activity.main.logic.LogicContants.CHANNEL_SPLITTER;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.CHANNEL_NAME;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.EMPTY_STRING;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.HOME_URL;
 
 public class DataProvider extends AbstractDataProvider {
@@ -34,19 +33,15 @@ public class DataProvider extends AbstractDataProvider {
     private int mLastRemovedPosition = -1;
 
     public DataProvider(AppCompatActivity mainActivity) {
-        List<Channel> channels = DataChannelManager.getActiveChannelsByType(SOCIAL);
-        channels.addAll(DataChannelManager.getActiveChannelsByType(CHAT));
-        channels.addAll(DataChannelManager.getActiveChannelsByType(VIDEO_SERVICE));
-        channels.addAll(DataChannelManager.getActiveChannelsByType(INFO_SERVICE));
-        channels.addAll(DataChannelManager.getActiveChannelsByType(EMAIL));
+        List<Channel> channels = DataChannelManager.getAllActiveChannels();
         mData = new LinkedList<>();
 
         SharedPreferences sharedPreferences = mainActivity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        String savedChannelOrder = sharedPreferences.getString(KEY_CHANNEL_ORDER, null);
+        String savedChannelOrder = sharedPreferences.getString(KEY_CHANNEL_ORDER, EMPTY_STRING);
 
         final int viewType = 0;
         int id;
-        if(savedChannelOrder == null || savedChannelOrder.isEmpty()){
+        if(savedChannelOrder.isEmpty()){
             for (int i = 0; i < channels.size(); i++) {
                 id = mData.size();
                 Channel channel = channels.get(i);
@@ -64,24 +59,38 @@ public class DataProvider extends AbstractDataProvider {
                 mData.add(new ConcreteData(id, viewType, drawableIcon, text, clickOnListener));
             }
         } else {
-            String[] spitedChannels = savedChannelOrder.split(CHANNEL_SPLITTER);
-            for(String channelName: spitedChannels){
+            String[] splitedChannels = savedChannelOrder.split(CHANNEL_SPLITTER);
+            String[] activeOrderedChannelNames = new String[channels.size()];
+            int resultOrderedChannelCounter = 0;
+            for(Channel channel : channels){
+                String channelName = channel.getName();
+                if(!ArrayUtils.contains(splitedChannels,channelName)){
+                    activeOrderedChannelNames[resultOrderedChannelCounter] = channelName;
+                    resultOrderedChannelCounter++;
+                }
+            }
+            String [] resultOrderedChannelArray = ArrayUtils.concat(activeOrderedChannelNames, splitedChannels);
+            for(String channelName: resultOrderedChannelArray){
                 for (int i = 0; i < channels.size(); i++) {
-                    if (channelName.equalsIgnoreCase(channels.get(i).getName())) {
-                        id = mData.size();
-                        Channel channel = channels.get(i);
-                        String text = channel.getName();
-                        String homeUrl = channel.getHomeUrl();
-                        ICON icon = channel.getIcon();
-                        Drawable drawableIcon = mainActivity.getResources().getDrawable(icon.getIconId());
-                        View.OnClickListener clickOnListener = v -> {
-                            Intent intent = new Intent(mainActivity, WebViewActivity.class);
-                            intent.putExtra(CHANNEL_NAME, text);
-                            intent.putExtra(HOME_URL, homeUrl);
-                            mainActivity.startActivity(intent);
-                        };
-                        mData.add(new ConcreteData(id, viewType, drawableIcon, text, clickOnListener));
-                        break;
+                    Channel channel = channels.get(i);
+                    if(channelName!= null){
+                        if (channelName.equalsIgnoreCase(channel.getName())) {
+                            if(channel.getActive()){
+                                id = mData.size();
+                                String text = channel.getName();
+                                String homeUrl = channel.getHomeUrl();
+                                ICON icon = channel.getIcon();
+                                Drawable drawableIcon = mainActivity.getResources().getDrawable(icon.getIconId());
+                                View.OnClickListener clickOnListener = v -> {
+                                    Intent intent = new Intent(mainActivity, WebViewActivity.class);
+                                    intent.putExtra(CHANNEL_NAME, text);
+                                    intent.putExtra(HOME_URL, homeUrl);
+                                    mainActivity.startActivity(intent);
+                                };
+                                mData.add(new ConcreteData(id, viewType, drawableIcon, text, clickOnListener));
+                                break;
+                            }
+                        }
                     }
                 }
             }

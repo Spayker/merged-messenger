@@ -75,6 +75,16 @@ public class DataChannelManager {
         return channels;
     }
 
+    public static List<Channel> getAllActiveChannels() {
+        List<Channel> channels = new ArrayList<>();
+        channels.addAll(getActiveChannelsByType(TYPE.SOCIAL));
+        channels.addAll(getActiveChannelsByType(TYPE.CHAT));
+        channels.addAll(getActiveChannelsByType(TYPE.VIDEO_SERVICE));
+        channels.addAll(getActiveChannelsByType(TYPE.INFO_SERVICE));
+        channels.addAll(getActiveChannelsByType(TYPE.EMAIL));
+        return channels;
+    }
+
     public static Channel getChannelByName(String name) {
         for (Channel chn : dataChannelManager.getChannels()) {
             if (chn.getName().equals(name)) {

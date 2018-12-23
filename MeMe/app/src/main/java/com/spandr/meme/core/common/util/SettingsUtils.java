@@ -33,6 +33,11 @@ public final class SettingsUtils {
             return instKey;
         }
 
+        String pnKey = appResources.getString(R.string.channel_setting_pn);
+        if(channelName.equalsIgnoreCase(pnKey)){
+            return pnKey;
+        }
+
         String okKey = appResources.getString(R.string.channel_setting_ok);
         if(channelName.equalsIgnoreCase(okKey)){
             return okKey;
@@ -56,6 +61,11 @@ public final class SettingsUtils {
         String skpKey = appResources.getString(R.string.channel_setting_skp);
         if(channelName.equalsIgnoreCase(skpKey)){
             return skpKey;
+        }
+
+        String slackKey = appResources.getString(R.string.channel_setting_slack);
+        if(channelName.equalsIgnoreCase(slackKey)){
+            return slackKey;
         }
 
         String icqKey = appResources.getString(R.string.channel_setting_icq);

@@ -7,6 +7,8 @@ import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.logic.notification.ViewChannelManager;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
 import com.spandr.meme.core.common.data.memory.channel.DataChannelManager;
+import com.spandr.meme.core.common.data.memory.channel.ICON;
+import com.spandr.meme.core.common.data.memory.channel.TYPE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -124,223 +126,112 @@ public class Setupper implements Starter {
     private Setupper initSocialGroupChannels(SharedPreferences sharedPreferences,
                                              AppCompatActivity mainActivity) {
         List<Channel> channels = DataChannelManager.getInstance().getChannels();
-        SharedPreferences.Editor editor = sharedPreferences.edit();
 
+        initChannel(mainActivity.getString(R.string.channel_setting_fb),
+                sharedPreferences, channels, SOCIAL, FB, FB_HOME_URL);
 
-        String fbKey = mainActivity.getString(R.string.channel_setting_fb);
-        String fbKeyNotification = fbKey + notificationPrefix;
-        Channel facebookChannel = createNewChannel(fbKey, SOCIAL, FB, FB_HOME_URL,
-                !isChannelExcludedByDefault(fbKey, mainActivity), true);
-        channels.add(facebookChannel);
-        editor.putBoolean(fbKey, facebookChannel.getActive());
-        editor.putBoolean(fbKeyNotification, facebookChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_vk),
+                sharedPreferences, channels, SOCIAL, VK, VK_HOME_URL);
 
-        String vkKey = mainActivity.getString(R.string.channel_setting_vk);
-        String vkKeyNotification = vkKey + notificationPrefix;
-        Channel vkontakteChannel = createNewChannel(vkKey, SOCIAL, VK, VK_HOME_URL,
-                !isChannelExcludedByDefault(vkKey, mainActivity), true);
-        channels.add(vkontakteChannel);
-        editor.putBoolean(vkKey, vkontakteChannel.getActive());
-        editor.putBoolean(vkKeyNotification, vkontakteChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_tw),
+                sharedPreferences, channels, SOCIAL, TW, TWITTER_HOME_URL);
 
-        String twKey = mainActivity.getString(R.string.channel_setting_tw);
-        String twKeyNotification = twKey + notificationPrefix;
-        Channel twitterChannel = createNewChannel(twKey, SOCIAL, TW, TWITTER_HOME_URL,
-                !isChannelExcludedByDefault(twKey, mainActivity), true);
-        channels.add(twitterChannel);
-        editor.putBoolean(twKey, twitterChannel.getActive());
-        editor.putBoolean(twKeyNotification, twitterChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_inst),
+                sharedPreferences, channels, SOCIAL, IN, INSTAGRAM_HOME_URL);
 
-        String instKey = mainActivity.getString(R.string.channel_setting_inst);
-        String instKeyNotification = instKey + notificationPrefix;
-        Channel instagramChannel = createNewChannel(instKey, SOCIAL, IN, INSTAGRAM_HOME_URL,
-                !isChannelExcludedByDefault(instKey, mainActivity), true);
-        channels.add(instagramChannel);
-        editor.putBoolean(instKey, instagramChannel.getActive());
-        editor.putBoolean(instKeyNotification, instagramChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_ok),
+                sharedPreferences, channels, SOCIAL, OK, ODNOKLASNIKI_HOME_URL);
 
-        String okKey = mainActivity.getString(R.string.channel_setting_ok);
-        String okKeyNotification = okKey + notificationPrefix;
-        Channel okChannel = createNewChannel(okKey, SOCIAL, OK, ODNOKLASNIKI_HOME_URL,
-                !isChannelExcludedByDefault(okKey, mainActivity), true);
-        channels.add(okChannel);
-        editor.putBoolean(okKey, okChannel.getActive());
-        editor.putBoolean(okKeyNotification, okChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_tmb),
+                sharedPreferences, channels, SOCIAL, TUM, TUMBLR_HOME_URL);
 
-        String tmbKey = mainActivity.getString(R.string.channel_setting_tmb);
-        String tmbKeyNotification = tmbKey + notificationPrefix;
-        Channel tumblChannel = createNewChannel(tmbKey, SOCIAL, TUM, TUMBLR_HOME_URL,
-                !isChannelExcludedByDefault(tmbKey, mainActivity), true);
-        channels.add(tumblChannel);
-        editor.putBoolean(tmbKey, tumblChannel.getActive());
-        editor.putBoolean(tmbKeyNotification, tumblChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_pn),
+                sharedPreferences, channels, SOCIAL, PN, PINTEREST_HOME_URL);
 
-        String pnKey = mainActivity.getString(R.string.channel_setting_pn);
-        String pnKeyNotification = pnKey + notificationPrefix;
-        Channel pinterestChannel = createNewChannel(pnKey, SOCIAL, PN, PINTEREST_HOME_URL,
-                !isChannelExcludedByDefault(pnKey, mainActivity), true);
-        channels.add(pinterestChannel);
-        editor.putBoolean(pnKey, pinterestChannel.getActive());
-        editor.putBoolean(pnKeyNotification, tumblChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_ln),
+                sharedPreferences, channels, SOCIAL, LN, LINKEDIN_HOME_URL);
 
-        String lnKey = mainActivity.getString(R.string.channel_setting_ln);
-        String lnKeyNotification = lnKey + notificationPrefix;
-        Channel linkedinChannel = createNewChannel(lnKey, SOCIAL, LN, LINKEDIN_HOME_URL,
-                !isChannelExcludedByDefault(lnKey, mainActivity), true);
-        channels.add(linkedinChannel);
-        editor.putBoolean(lnKey, linkedinChannel.getActive());
-        editor.putBoolean(lnKeyNotification, linkedinChannel.getNotificationsEnabled());
-        editor.apply();
-        editor.commit();
         return instance;
     }
 
     private Setupper initChatGroupChannels(SharedPreferences sharedPreferences,
                                            AppCompatActivity mainActivity) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = DataChannelManager.getInstance().getChannels();
 
-        String tlKey = mainActivity.getString(R.string.channel_setting_tl);
-        String tlKeyNotification = tlKey + notificationPrefix;
-        Channel telegramChannel = createNewChannel(tlKey, CHAT, TL, TELEGRAM_HOME_URL,
-                !isChannelExcludedByDefault(tlKey, mainActivity), true);
-        channels.add(telegramChannel);
-        editor.putBoolean(tlKey, telegramChannel.getActive());
-        editor.putBoolean(tlKeyNotification, telegramChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_tl),
+                sharedPreferences, channels, CHAT, TL, TELEGRAM_HOME_URL);
 
-        String skpKey = mainActivity.getString(R.string.channel_setting_skp);
-        String skpKeyNotification = skpKey + notificationPrefix;
-        Channel skypeChannel = createNewChannel(skpKey, CHAT, SK, SKYPE_HOME_URL,
-                !isChannelExcludedByDefault(skpKey, mainActivity), true);
-        channels.add(skypeChannel);
-        editor.putBoolean(skpKey, skypeChannel.getActive());
-        editor.putBoolean(skpKeyNotification, skypeChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_skp),
+                sharedPreferences, channels, CHAT, SK, SKYPE_HOME_URL);
 
-        String icqKey = mainActivity.getString(R.string.channel_setting_icq);
-        String icqKeyNotification = icqKey + notificationPrefix;
-        Channel icqChannel = createNewChannel(icqKey, CHAT, ICQ, ICQ_HOME_URL,
-                !isChannelExcludedByDefault(icqKey, mainActivity), true);
-        channels.add(icqChannel);
-        editor.putBoolean(icqKey, icqChannel.getActive());
-        editor.putBoolean(icqKeyNotification, icqChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_icq),
+                sharedPreferences, channels, CHAT, ICQ, ICQ_HOME_URL);
 
-        String gaduKey = mainActivity.getString(R.string.channel_setting_gadu);
-        String gaduKeyNotification = gaduKey + notificationPrefix;
-        Channel gaduChannel = createNewChannel(gaduKey, CHAT, GADU, GADU_HOME_URL,
-                !isChannelExcludedByDefault(gaduKey, mainActivity), true);
-        channels.add(gaduChannel);
-        editor.putBoolean(gaduKey, gaduChannel.getActive());
-        editor.putBoolean(gaduKeyNotification, gaduChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_gadu),
+                sharedPreferences, channels, CHAT, GADU, GADU_HOME_URL);
 
-        String dcKey = mainActivity.getString(R.string.channel_setting_dc);
-        String dcKeyNotification = dcKey + notificationPrefix;
-        Channel discordChannel = createNewChannel(dcKey, CHAT, DC, DISCORD_HOME_URL,
-                !isChannelExcludedByDefault(dcKey, mainActivity), true);
-        channels.add(discordChannel);
-        editor.putBoolean(dcKey, discordChannel.getActive());
-        editor.putBoolean(dcKeyNotification, discordChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_dc),
+                sharedPreferences, channels, CHAT, DC, DISCORD_HOME_URL);
 
-        String slKey = mainActivity.getString(R.string.channel_setting_slack);
-        String slKeyNotification = slKey + notificationPrefix;
-        Channel slackChannel = createNewChannel(slKey, CHAT, SL, SLACK_HOME_URL,
-                !isChannelExcludedByDefault(slKey, mainActivity), true);
-        channels.add(slackChannel);
-        editor.putBoolean(slKey, slackChannel.getActive());
-        editor.putBoolean(slKeyNotification, slackChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_slack),
+                sharedPreferences, channels, CHAT, SL, SLACK_HOME_URL);
 
-        editor.apply();
-        editor.commit();
         return instance;
     }
 
     private Setupper initVideoGroupChannels(SharedPreferences sharedPreferences,
                                             AppCompatActivity mainActivity) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = DataChannelManager.getInstance().getChannels();
 
-        String ytKey = mainActivity.getString(R.string.channel_setting_yt);
-        String yrKeyNotification = ytKey + notificationPrefix;
-        Channel youtubeChannel = createNewChannel(ytKey, VIDEO_SERVICE, YT, YOUTUBE_HOME_URL,
-                !isChannelExcludedByDefault(ytKey, mainActivity), true);
-        channels.add(youtubeChannel);
-        editor.putBoolean(ytKey, youtubeChannel.getActive());
-        editor.putBoolean(yrKeyNotification, youtubeChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_yt),
+                sharedPreferences, channels, VIDEO_SERVICE, YT, YOUTUBE_HOME_URL);
 
-        String twitchKey = mainActivity.getString(R.string.channel_setting_twitch);
-        String twitchKeyNotification = twitchKey + notificationPrefix;
-        Channel twitchChannel = createNewChannel(twitchKey, VIDEO_SERVICE, TWITCH, TWITCH_HOME_URL,
-                !isChannelExcludedByDefault(twitchKey, mainActivity), true);
-        channels.add(twitchChannel);
-        editor.putBoolean(twitchKey, twitchChannel.getActive());
-        editor.putBoolean(twitchKeyNotification, twitchChannel.getNotificationsEnabled());
-
-        editor.apply();
-        editor.commit();
+        initChannel(mainActivity.getString(R.string.channel_setting_twitch),
+                sharedPreferences, channels, VIDEO_SERVICE, TWITCH, TWITCH_HOME_URL);
         return instance;
     }
 
     private Setupper initInfoGroupChannels(SharedPreferences sharedPreferences,
                                            AppCompatActivity mainActivity) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = DataChannelManager.getInstance().getChannels();
 
-        String habrKey = mainActivity.getString(R.string.channel_setting_habr);
-        String habrKeyNotification = habrKey + notificationPrefix;
-        Channel habrChannel = createNewChannel(habrKey, INFO_SERVICE, HABR, HABR_HOME_URL,
-                !isChannelExcludedByDefault(habrKey, mainActivity), true);
-        channels.add(habrChannel);
-        editor.putBoolean(habrKey, habrChannel.getActive());
-        editor.putBoolean(habrKeyNotification, habrChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_habr),
+                sharedPreferences, channels, INFO_SERVICE, HABR, HABR_HOME_URL);
 
-        String redditKey = mainActivity.getString(R.string.channel_setting_reddit);
-        String redditKeyNotification = redditKey + notificationPrefix;
-        Channel redditChannel = createNewChannel(redditKey, INFO_SERVICE, REDDIT, REDDIT_HOME_URL,
-                !isChannelExcludedByDefault(redditKey, mainActivity), true);
-        channels.add(redditChannel);
-        editor.putBoolean(redditKey, redditChannel.getActive());
-        editor.putBoolean(redditKeyNotification, redditChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_reddit),
+                sharedPreferences, channels, INFO_SERVICE, REDDIT, REDDIT_HOME_URL);
 
-        String quoraKey = mainActivity.getString(R.string.channel_setting_quora);
-        String quoraKeyNotification = quoraKey + notificationPrefix;
-        Channel quoraChannel = createNewChannel(quoraKey, INFO_SERVICE, QUORA, QUORA_HOME_URL,
-                !isChannelExcludedByDefault(quoraKey, mainActivity), true);
-        channels.add(quoraChannel);
-        editor.putBoolean(quoraKey, quoraChannel.getActive());
-        editor.putBoolean(quoraKeyNotification, quoraChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_quora),
+                sharedPreferences, channels, INFO_SERVICE, QUORA, QUORA_HOME_URL);
 
-        String stackKey = mainActivity.getString(R.string.channel_setting_stack);
-        String stackKeyNotification = stackKey + notificationPrefix;
-        Channel stackChannel = createNewChannel(quoraKey, INFO_SERVICE, STACK, STACKOVERFLOW_HOME_URL,
-                !isChannelExcludedByDefault(stackKey, mainActivity), true);
-        channels.add(stackChannel);
-        editor.putBoolean(stackKey, stackChannel.getActive());
-        editor.putBoolean(stackKeyNotification, stackChannel.getNotificationsEnabled());
-
-        editor.apply();
-        editor.commit();
+        initChannel(mainActivity.getString(R.string.channel_setting_stack),
+                sharedPreferences, channels, INFO_SERVICE, STACK, STACKOVERFLOW_HOME_URL);
         return instance;
     }
 
     private void initEmailGroupChannels(SharedPreferences sharedPreferences,
                                         AppCompatActivity mainActivity) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
         List<Channel> channels = DataChannelManager.getInstance().getChannels();
 
-        String gmailKey = mainActivity.getString(R.string.channel_setting_gmail);
-        String gmailKeyNotification = gmailKey + notificationPrefix;
-        Channel gmailChannel = createNewChannel(gmailKey, EMAIL, GM, GMAIL_HOME_URL,
-                !isChannelExcludedByDefault(gmailKey, mainActivity), true);
-        channels.add(gmailChannel);
-        editor.putBoolean(gmailKey, gmailChannel.getActive());
-        editor.putBoolean(gmailKeyNotification, gmailChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_gmail),
+                sharedPreferences, channels, EMAIL, GM, GMAIL_HOME_URL);
 
-        String mailRuKey = mainActivity.getString(R.string.channel_setting_mailru);
-        String mailruKeyNotification = mailRuKey + notificationPrefix;
-        Channel mailruChannel = createNewChannel(mailRuKey, EMAIL, MAIL_RU, MAIL_RU_HOME_URL,
-                !isChannelExcludedByDefault(mailRuKey, mainActivity), true);
-        channels.add(mailruChannel);
-        editor.putBoolean(mailRuKey, mailruChannel.getActive());
-        editor.putBoolean(mailruKeyNotification, mailruChannel.getNotificationsEnabled());
+        initChannel(mainActivity.getString(R.string.channel_setting_mailru),
+                sharedPreferences, channels, EMAIL, MAIL_RU, MAIL_RU_HOME_URL);
+    }
+
+    private void initChannel(String channelKey, SharedPreferences sharedPreferences, List<Channel> channels,
+                             TYPE type, ICON icon, String homeUrl) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String channelKeyNotification = channelKey + notificationPrefix;
+
+        boolean isChannleActive = sharedPreferences.getBoolean(channelKey, !isChannelExcludedByDefault(channelKey, mainActivity));
+        boolean isChannelNotificationActive = sharedPreferences.getBoolean(channelKeyNotification, true);
+
+        Channel channel = createNewChannel(channelKey, type, icon, homeUrl, isChannleActive, isChannelNotificationActive);
+        editor.putBoolean(channelKey, isChannleActive);
+        editor.putBoolean(channelKeyNotification, isChannelNotificationActive);
+        channels.add(channel);
         editor.apply();
         editor.commit();
     }

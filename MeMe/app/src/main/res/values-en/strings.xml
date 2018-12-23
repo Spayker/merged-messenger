@@ -79,8 +79,6 @@
     <string name="main_menu_yes">Yes</string>
     <string name="main_menu_later">Later</string>
     <string name="main_menu_no">No</string>
-    <string name="main_west_ordered_channel_set">Facebook|Telegram|VKontakte|Tumblr|Discord|Skype|Pinterest|LinkedIn|Slack|Gmail|Mail.ru|Twitter|Youtube|Twitch|Instagram|ICQ|Reddit|Quora|Habr</string>
-    <string name="main_east_ordered_channel_set">VKontakte|Facebook|Telegram|OK.RU|Tumblr|Discord|Skype|Pinterest|Gmail|Mail.ru|Twitter|Youtube|Twitch|Instagram|ICQ|Reddit|Quora|Habr</string>
 
 
     <!--Menu of WebView Screen-->

@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings: {
+                saveChannelOrder();
                 Intent intent = new Intent(this, GlobalSettingsActivity.class);
                 startActivity(intent);
                 return true;
@@ -131,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickOnExit(View view) {
+        saveChannelOrder();
         Intent intent = new Intent(this, WelcomeActivity.class);
         startActivity(intent);
         moveTaskToBack(true);
@@ -138,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickOnEditChannels(View view) {
+        saveChannelOrder();
         Intent intent = new Intent(this, EditChannelsActivity.class);
         startActivity(intent);
     }
@@ -150,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onDestroy() {
+        saveChannelOrder();
         webViewRunnableInitializer.getCompositeDisposable().clear();
         super.onDestroy();
     }

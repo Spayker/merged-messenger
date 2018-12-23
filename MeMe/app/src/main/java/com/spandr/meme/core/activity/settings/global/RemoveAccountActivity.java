@@ -117,7 +117,7 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
             return false;
         }
 
-        if (actualSavedPassword.equals(password)) {
+        if (actualSavedPassword.isEmpty() || actualSavedPassword.equals(password)) {
             return true;
         } else {
             String message = getString(R.string.remove_account_old_password_is_different);

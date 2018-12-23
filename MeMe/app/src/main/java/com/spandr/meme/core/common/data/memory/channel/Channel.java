@@ -7,7 +7,6 @@ public final class Channel {
     private String homeUrl;
     private ICON icon;
     private boolean active;
-
     private boolean isNotificationsEnabled;
 
     private Channel() { }
