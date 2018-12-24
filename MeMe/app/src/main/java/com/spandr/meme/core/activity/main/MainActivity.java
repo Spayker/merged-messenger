@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         saveChannelOrder();
         saveLastUsedChannels();
         Intent intent = new Intent(this, WelcomeActivity.class);
+        intent.putExtra("isCameBackAuthScreens", true);
         startActivity(intent);
         moveTaskToBack(true);
         android.os.Process.killProcess(android.os.Process.myPid());
@@ -183,8 +184,10 @@ public class MainActivity extends AppCompatActivity {
     private void saveLastUsedChannels(){
         SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
         WebViewManager webViewChannelManager = WebViewManager.getWebViewChannelManager();
         Map<String, AdvancedWebView> activeWebViewChannels = webViewChannelManager.getWebViewChannels();
+
         StringBuilder activatedChannelNames = new StringBuilder();
         for (String channelName : activeWebViewChannels.keySet()) {
             activatedChannelNames.append(channelName).append("|");

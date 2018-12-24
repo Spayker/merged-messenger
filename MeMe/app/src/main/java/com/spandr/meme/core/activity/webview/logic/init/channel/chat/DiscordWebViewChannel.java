@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.webkit.JavascriptInterface;
 
+import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
@@ -71,6 +72,15 @@ public class DiscordWebViewChannel extends WebViewChannel {
     }
 
     @Override
+    protected boolean isNotificationSettingEnabled(String channelName) {
+        Context context = activity != null ? activity : appCompatActivity;
+        notificationPrefix = context.getString(R.string.channel_setting_notifications_prefix);
+        String channelKeyNotification = channelName + notificationPrefix;
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(channelKeyNotification, false);
+    }
+
+    @Override
     protected void initUserAgent(){
         mWebView.getSettings().setUserAgentString(DISCORD_USER_AGENT_STRING);
     }
@@ -94,20 +104,20 @@ public class DiscordWebViewChannel extends WebViewChannel {
         @SuppressWarnings("unused")
         public void processHTML(String html) {
             if(isNotificationSettingEnabled(channelName)){
-                mWebView.post(() -> {
-                    mWebView.loadUrl(DISCORD_SCALE_JAVASCRIPT);
-                    Matcher m = pattern.matcher(html);
-                    int notificationCounter = 0;
-                    while(m.find()) {
-                        notificationCounter ++;
-                    }
-                    final int result = notificationCounter;
+                mWebView.loadUrl(DISCORD_SCALE_JAVASCRIPT);
+                Matcher m = pattern.matcher(html);
+                int notificationCounter = 0;
+                while(m.find()) {
+                    notificationCounter ++;
+                }
+                final int result = notificationCounter;
+                if(notificationCounter > 0){
                     if (activity == null) {
                         appCompatActivity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, result));
                     } else {
                         activity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, result));
                     }
-                });
+                }
             }
         }
     }

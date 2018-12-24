@@ -1,7 +1,6 @@
 package com.spandr.meme.core.activity.webview.logic.manager;
 
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import com.spandr.meme.core.activity.webview.WebViewActivity;
@@ -36,8 +35,8 @@ import java.util.Map;
 
 import im.delight.android.webview.AdvancedWebView;
 
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.CHANNEL_NAME;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.DISCORD_HOME_URL;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.EMPTY_STRING;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.FB_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.GADU_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.GMAIL_HOME_URL;
@@ -190,7 +189,7 @@ public class WebViewManager {
                                                                   AdvancedWebView mWebView,
                                                                   String channelName) {
         if (channelName != null) {
-            Channel channel = DataChannelManager.getChannelByName(channelName);
+            Channel channel = DataChannelManager.getChannelByName(channelName.replace("_background", EMPTY_STRING));
             if (channel != null) {
                 String homeURL = channel.getHomeUrl();
                 switch (homeURL) {

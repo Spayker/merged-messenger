@@ -79,7 +79,7 @@ public class WebViewRunnableInitializer {
             public void onNext(AdvancedWebView advancedWebView) {
                 if(!advancedWebView.isShown()) {
                     advancedWebView.getSettings().setLoadsImagesAutomatically(false);
-                    advancedWebView.loadUrl(advancedWebView.getOriginalUrl());
+                    advancedWebView.reload();
                     advancedWebView.loadUrl(getJavascriptHtmlGrabber());
                 }
             }
@@ -107,9 +107,13 @@ public class WebViewRunnableInitializer {
     private void lastUsedChannelsCheckingNotifications() {
         SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         String lastUsedchannels = sharedPreferences.getString(KEY_LAST_USED_CHANNELS, EMPTY_STRING);
+        if(lastUsedchannels.isEmpty()){
+            return;
+        }
         String[] splitedChannels = lastUsedchannels.split(CHANNEL_SPLITTER);
         for(String channelName: splitedChannels){
             AdvancedWebView mWebView = new AdvancedWebView(activity);
+            channelName = channelName.replace("_background", EMPTY_STRING);
             applyBackgroundChannelRelatedConfiguration(activity, mWebView, channelName);
             WebViewManager webViewManager = getWebViewChannelManager();
             Map<String, AdvancedWebView> availableWebViewActivities = webViewManager.getWebViewChannels();

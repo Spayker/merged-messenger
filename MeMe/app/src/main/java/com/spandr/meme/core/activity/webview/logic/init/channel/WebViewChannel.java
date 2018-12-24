@@ -65,7 +65,7 @@ public abstract class WebViewChannel {
         webSettings.setAllowContentAccess(true);
         webSettings.setAllowFileAccessFromFileURLs(true);
         webSettings.setAllowUniversalAccessFromFileURLs(true);
-        webSettings.setLoadsImagesAutomatically(false);
+        webSettings.setLoadsImagesAutomatically(true);
     }
 
     protected void initBackgroundWebSettings(){

@@ -101,12 +101,13 @@ public class VkontakteWebViewChannel extends WebViewChannel {
                     notificationCounter += Integer.valueOf(m.group(1));
                 }
                 final int result = notificationCounter;
-                if (activity == null) {
-                    appCompatActivity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, result));
-                } else {
-                    activity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, result));
+                if(notificationCounter > 0){
+                    if (activity == null) {
+                        appCompatActivity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, result));
+                    } else {
+                        activity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, result));
+                    }
                 }
-
             }
         }
     }

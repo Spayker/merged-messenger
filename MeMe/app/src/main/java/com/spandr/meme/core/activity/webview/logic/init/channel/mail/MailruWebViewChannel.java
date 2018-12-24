@@ -1,9 +1,12 @@
 package com.spandr.meme.core.activity.webview.logic.init.channel.mail;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.webkit.JavascriptInterface;
 
+import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
@@ -12,6 +15,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import im.delight.android.webview.AdvancedWebView;
+
+import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 
 public class MailruWebViewChannel extends WebViewChannel {
 
@@ -73,6 +78,15 @@ public class MailruWebViewChannel extends WebViewChannel {
         });
     }
 
+    @Override
+    protected boolean isNotificationSettingEnabled(String channelName) {
+        Context context = activity != null ? activity : appCompatActivity;
+        notificationPrefix = context.getString(R.string.channel_setting_notifications_prefix);
+        String channelKeyNotification = channelName + notificationPrefix;
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(channelKeyNotification, false);
+    }
+
     public String getUrl() {
         return url;
     }
@@ -94,14 +108,14 @@ public class MailruWebViewChannel extends WebViewChannel {
         @SuppressWarnings("unused")
         public void processHTML(String html) {
             if(isNotificationSettingEnabled(channelName)){
-                mWebView.post(() -> {
-                    final int notificationCounter = parseHtml(html);
+                final int notificationCounter = parseHtml(html);
+                if(notificationCounter > 0){
                     if (activity == null) {
                         appCompatActivity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, notificationCounter));
                     } else {
                         activity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, notificationCounter));
                     }
-                });
+                }
             }
         }
         private int parseHtml(String html){

@@ -135,6 +135,7 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
         dropPrefs();
         ActivityUtils.invokeOkAlertMessage(this, getString(R.string.remove_account_finished));
         Intent intent = new Intent(this, WelcomeActivity.class);
+        intent.putExtra("isCameBackAuthScreens", true);
         startActivity(intent);
     }
 
