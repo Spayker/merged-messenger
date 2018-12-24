@@ -21,6 +21,7 @@ import com.spandr.meme.core.activity.intro.WelcomeActivity;
 
 import java.util.Objects;
 
+import static com.spandr.meme.core.activity.main.logic.LogicContants.APP_BACK_RETURN_FLAG;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_AUTO_LOGIN;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_LAST_USED_CHANNELS;
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
@@ -135,7 +136,7 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
         dropPrefs();
         ActivityUtils.invokeOkAlertMessage(this, getString(R.string.remove_account_finished));
         Intent intent = new Intent(this, WelcomeActivity.class);
-        intent.putExtra("isCameBackAuthScreens", true);
+        intent.putExtra(APP_BACK_RETURN_FLAG, true);
         startActivity(intent);
     }
 

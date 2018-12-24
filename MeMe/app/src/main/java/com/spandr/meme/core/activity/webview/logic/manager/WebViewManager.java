@@ -35,6 +35,7 @@ import java.util.Map;
 
 import im.delight.android.webview.AdvancedWebView;
 
+import static com.spandr.meme.core.activity.main.logic.LogicContants.TASK_BACKGROUND_PREFIX;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.DISCORD_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.EMPTY_STRING;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.FB_HOME_URL;
@@ -189,7 +190,7 @@ public class WebViewManager {
                                                                   AdvancedWebView mWebView,
                                                                   String channelName) {
         if (channelName != null) {
-            Channel channel = DataChannelManager.getChannelByName(channelName.replace("_background", EMPTY_STRING));
+            Channel channel = DataChannelManager.getChannelByName(channelName.replace(TASK_BACKGROUND_PREFIX, EMPTY_STRING));
             if (channel != null) {
                 String homeURL = channel.getHomeUrl();
                 switch (homeURL) {

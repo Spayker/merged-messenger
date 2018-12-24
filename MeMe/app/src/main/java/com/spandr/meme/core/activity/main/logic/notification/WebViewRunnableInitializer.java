@@ -21,6 +21,7 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.spandr.meme.core.activity.main.logic.LogicContants.CHANNEL_SPLITTER;
+import static com.spandr.meme.core.activity.main.logic.LogicContants.TASK_BACKGROUND_PREFIX;
 import static com.spandr.meme.core.activity.main.logic.notification.ViewChannelManager.createChannelViewManager;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_LAST_USED_CHANNELS;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
@@ -90,9 +91,7 @@ public class WebViewRunnableInitializer {
             }
 
             @Override
-            public void onComplete() {
-                System.out.println("Processing completed!");
-            }
+            public void onComplete() {}
         };
     }
 
@@ -106,18 +105,18 @@ public class WebViewRunnableInitializer {
 
     private void lastUsedChannelsCheckingNotifications() {
         SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        String lastUsedchannels = sharedPreferences.getString(KEY_LAST_USED_CHANNELS, EMPTY_STRING);
-        if(lastUsedchannels.isEmpty()){
+        String lastUsedChannels = sharedPreferences.getString(KEY_LAST_USED_CHANNELS, EMPTY_STRING);
+        if(lastUsedChannels.isEmpty()){
             return;
         }
-        String[] splitedChannels = lastUsedchannels.split(CHANNEL_SPLITTER);
+        String[] splitedChannels = lastUsedChannels.split(CHANNEL_SPLITTER);
         for(String channelName: splitedChannels){
             AdvancedWebView mWebView = new AdvancedWebView(activity);
-            channelName = channelName.replace("_background", EMPTY_STRING);
+            channelName = channelName.replace(TASK_BACKGROUND_PREFIX, EMPTY_STRING);
             applyBackgroundChannelRelatedConfiguration(activity, mWebView, channelName);
             WebViewManager webViewManager = getWebViewChannelManager();
             Map<String, AdvancedWebView> availableWebViewActivities = webViewManager.getWebViewChannels();
-            availableWebViewActivities.put(channelName + "_background", mWebView);
+            availableWebViewActivities.put(channelName + TASK_BACKGROUND_PREFIX, mWebView);
         }
     }
 

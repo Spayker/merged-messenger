@@ -32,6 +32,8 @@ import java.util.Objects;
 import im.delight.android.webview.AdvancedWebView;
 
 import static com.spandr.meme.core.activity.authorization.logic.ActionAuthorizer.IS_REGISTER_SCENARIO_RUNNING;
+import static com.spandr.meme.core.activity.main.logic.LogicContants.APP_BACK_RETURN_FLAG;
+import static com.spandr.meme.core.activity.main.logic.LogicContants.CHANNEL_SPLITTER;
 import static com.spandr.meme.core.activity.main.logic.starter.Loginner.createLoginner;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_LAST_USED_CHANNELS;
@@ -140,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         saveChannelOrder();
         saveLastUsedChannels();
         Intent intent = new Intent(this, WelcomeActivity.class);
-        intent.putExtra("isCameBackAuthScreens", true);
+        intent.putExtra(APP_BACK_RETURN_FLAG, true);
         startActivity(intent);
         moveTaskToBack(true);
         android.os.Process.killProcess(android.os.Process.myPid());
@@ -174,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         int channelCount = channelProvider.getCount();
         for (int i = 0; i != channelCount; i++) {
             AbstractDataProvider.Data item = channelProvider.getItem(i);
-            currentChannelOrder.append(item.getText()).append("|");
+            currentChannelOrder.append(item.getText()).append(CHANNEL_SPLITTER);
         }
         editor.putString(KEY_CHANNEL_ORDER, currentChannelOrder.toString());
         editor.apply();
@@ -190,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
 
         StringBuilder activatedChannelNames = new StringBuilder();
         for (String channelName : activeWebViewChannels.keySet()) {
-            activatedChannelNames.append(channelName).append("|");
+            activatedChannelNames.append(channelName).append(CHANNEL_SPLITTER);
         }
         editor.putString(KEY_LAST_USED_CHANNELS, activatedChannelNames.toString());
         editor.apply();

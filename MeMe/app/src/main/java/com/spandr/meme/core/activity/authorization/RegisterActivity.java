@@ -25,6 +25,8 @@ import com.spandr.meme.core.activity.authorization.logic.validator.FormValidator
 import com.spandr.meme.core.activity.authorization.logic.validator.RegisterFormValidator;
 import com.spandr.meme.core.activity.intro.WelcomeActivity;
 
+import static com.spandr.meme.core.activity.main.logic.LogicContants.APP_BACK_RETURN_FLAG;
+
 /**
  * A Register screen that offers a registration procedure via email/password.
  */
@@ -196,7 +198,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, WelcomeActivity.class);
-        intent.putExtra("isCameBackAuthScreens", true);
+        intent.putExtra(APP_BACK_RETURN_FLAG, true);
         startActivity(intent);
     }
 

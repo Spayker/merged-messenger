@@ -51,6 +51,7 @@ import java.util.Map;
 
 import im.delight.android.webview.AdvancedWebView;
 
+import static com.spandr.meme.core.activity.main.logic.LogicContants.TASK_BACKGROUND_PREFIX;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.CHANNEL_NAME;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.DISCORD_HOME_URL;
@@ -117,9 +118,10 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
         Map<String, AdvancedWebView> availableWebViews = webViewManager.getWebViewChannels();
         Intent webViewIntent = getIntent();
         String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
+        String prefixedChannelName = channelName+TASK_BACKGROUND_PREFIX;
 
-        if(availableWebViews.containsKey(channelName+"_background")){
-            availableWebViews.remove(channelName+"_background");
+        if(availableWebViews.containsKey(prefixedChannelName)){
+            availableWebViews.remove(prefixedChannelName);
             createWebView(availableWebViews, channelName);
             return;
         }

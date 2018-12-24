@@ -34,6 +34,7 @@ import com.spandr.meme.core.activity.intro.WelcomeActivity;
 
 import java.util.Objects;
 
+import static com.spandr.meme.core.activity.main.logic.LogicContants.APP_BACK_RETURN_FLAG;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_AUTO_LOGIN;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_OLD_CHANGE_PASS;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_PASS;
@@ -331,7 +332,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             countDownTimer.cancel();
         }
         Intent intent = new Intent(this, WelcomeActivity.class);
-        intent.putExtra("isCameBackAuthScreens", true);
+        intent.putExtra(APP_BACK_RETURN_FLAG, true);
         startActivity(intent);
     }
 
