@@ -87,9 +87,7 @@ public class WebViewManager {
         return webViewManager;
     }
 
-    public static void applyChannelRelatedConfiguration(WebViewActivity activity) {
-        Intent webViewIntent = activity.getIntent();
-        String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
+    public static void applyChannelRelatedConfiguration(WebViewActivity activity, String channelName) {
         if (channelName != null) {
             Channel channel = DataChannelManager.getChannelByName(channelName);
             if (channel != null) {

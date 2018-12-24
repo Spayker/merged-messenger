@@ -64,16 +64,22 @@ public class WelcomeActivity extends AppCompatActivity {
         Log.d(TAG, "Slogan init is complete");
         ActivityUtils.initVersionNumber(this);
         Log.d(TAG, "Version number init is complete");
-        boolean isAutoLoginEnabled = sharedPreferences.getBoolean(KEY_AUTO_LOGIN, false);
-        checkAutoLogin(isAutoLoginEnabled);
+        checkAutoLogin();
         Log.d(TAG, "Auto login is checked");
     }
 
-    private void checkAutoLogin(boolean isAutoLoginEnabled) {
-        if (isAutoLoginEnabled) {
-            autoLoginner.performAutoLogin(this);
+    private void checkAutoLogin() {
+        Intent intent = getIntent();
+        boolean isCameBackAuthScreens = intent.getBooleanExtra("isCameBackAuthScreens", false);
+        if(isCameBackAuthScreens) {
+            buttonLayer.setVisibility(View.VISIBLE);
+        } else {
+            boolean isAutoLoginEnabled = sharedPreferences.getBoolean(KEY_AUTO_LOGIN, false);
+            if (isAutoLoginEnabled) {
+                buttonLayer.setVisibility(View.INVISIBLE);
+                autoLoginner.performAutoLogin(this);
+            }
         }
-        buttonLayer.setVisibility(View.VISIBLE);
     }
 
     /**

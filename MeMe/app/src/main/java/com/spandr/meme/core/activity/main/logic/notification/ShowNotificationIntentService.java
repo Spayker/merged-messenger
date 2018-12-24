@@ -1,71 +1,48 @@
 package com.spandr.meme.core.activity.main.logic.notification;
 
-import android.app.IntentService;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AppCompatActivity;
 
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.MainActivity;
 
-public class ShowNotificationIntentService extends IntentService {
+public class ShowNotificationIntentService {
 
-    private static final String ACTION_SHOW_NOTIFICATION = "com.spandr.meme.service.action.show";
-    private static final String ACTION_HIDE_NOTIFICATION = "com.spandr.meme.service.action.hide";
+    private static String mId = "395631925";
 
+    public void buildSystemNotification(AppCompatActivity targetActivity){
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(targetActivity, mId)
+                        .setSmallIcon(R.mipmap.logo)
+                        .setContentTitle("MeMe app")
+                        .setContentText("Received new messages");
+        // Creates an explicit intent for an Activity in your app
+        Intent resultIntent = new Intent(targetActivity, MainActivity.class);
 
-    public ShowNotificationIntentService() {
-        super("ShowNotificationIntentService");
-    }
-
-    public static void startActionShow(Context context) {
-        Intent intent = new Intent(context, ShowNotificationIntentService.class);
-        intent.setAction(ACTION_SHOW_NOTIFICATION);
-        context.startService(intent);
-    }
-
-    public static void startActionHide(Context context) {
-        Intent intent = new Intent(context, ShowNotificationIntentService.class);
-        intent.setAction(ACTION_HIDE_NOTIFICATION);
-        context.startService(intent);
-    }
-
-    @Override
-    protected void onHandleIntent(Intent intent) {
-        if (intent != null) {
-            final String action = intent.getAction();
-            if (ACTION_SHOW_NOTIFICATION.equals(action)) {
-                handleActionShow();
-            } else if (ACTION_HIDE_NOTIFICATION.equals(action)) {
-                handleActionHide();
-            }
-        }
-    }
-
-    private void handleActionShow() {
-        showStatusBarIcon(ShowNotificationIntentService.this);
-    }
-
-    private void handleActionHide() {
-//        hideStatusBarIcon(ShowNotificationIntentService.this);
-    }
-
-    public static void showStatusBarIcon(Context ctx) {
-//        Context context = ctx;
-//        NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx)
-//                .setContentTitle("MeMe")
-//                .setSmallIcon(R.mipmap.logo)
-//                .setOngoing(true);
-//        Intent intent = new Intent(context, MainActivity.class);
-//        PendingIntent pIntent = PendingIntent.getActivity(context, STATUS_ICON_REQUEST_CODE, intent, 0);
-//        builder.setContentIntent(pIntent);
-//        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-//        Notification notif = builder.build();
-//        notif.flags |= Notification.FLAG_ONGOING_EVENT;
-//        mNotificationManager.notify(STATUS_ICON_REQUEST_CODE, notif);
+        // The stack builder object will contain an artificial back stack for the
+        // started Activity.
+        // This ensures that navigating backward from the Activity leads out of
+        // your application to the Home screen.
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(targetActivity);
+        // Adds the back stack for the Intent (but not the Intent itself)
+        stackBuilder.addParentStack(MainActivity.class);
+        // Adds the Intent that starts the Activity to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
+                (NotificationManager) targetActivity.getSystemService(Context.NOTIFICATION_SERVICE);
+        // mId allows you to update the notification later on.
+        mNotificationManager.notify(Integer.valueOf(mId), mBuilder.build());
     }
 
 }

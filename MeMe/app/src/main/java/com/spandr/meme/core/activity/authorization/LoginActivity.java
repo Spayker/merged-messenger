@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
@@ -315,11 +316,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            default: {
+                onBackPressed();
+                return true;
+            }
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
         Intent intent = new Intent(this, WelcomeActivity.class);
+        intent.putExtra("isCameBackAuthScreens", true);
         startActivity(intent);
     }
 

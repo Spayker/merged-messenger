@@ -146,7 +146,7 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
         mWebView = findViewById(R.id.webView);
         initListeners();
         initBackButtonStartPosition();
-        applyChannelRelatedConfiguration(this);
+        applyChannelRelatedConfiguration(this, channelName);
 
         mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         mWebView.setScrollbarFadingEnabled(false);

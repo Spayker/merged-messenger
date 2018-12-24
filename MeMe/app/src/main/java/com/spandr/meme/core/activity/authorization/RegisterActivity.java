@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
@@ -183,8 +184,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            default: {
+                onBackPressed();
+                return true;
+            }
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, WelcomeActivity.class);
+        intent.putExtra("isCameBackAuthScreens", true);
         startActivity(intent);
     }
 

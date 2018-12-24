@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spandr.meme.R;
+import com.spandr.meme.core.activity.authorization.LoginActivity;
 import com.spandr.meme.core.activity.intro.WelcomeActivity;
 import com.spandr.meme.core.activity.intro.logic.exception.AppIntroActivityException;
 import com.spandr.meme.core.activity.main.MainActivity;
@@ -33,16 +34,13 @@ public class AutoLoginner {
         validateActivity(activity);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
+        LinearLayout buttonLayer = activity.getButtonLayer();
+        ProgressBar progressBar = activity.getProgressBar();
+        progressBar.setVisibility(View.VISIBLE);
 
-        if (user != null && user.isEmailVerified()) {
             SharedPreferences sharedPreferences = activity.getSharedPreferences();
-            ProgressBar progressBar = activity.getProgressBar();
-            LinearLayout buttonLayer = activity.getButtonLayer();
-
             String email = sharedPreferences.getString(KEY_USER_EMAIL_OR_PHONE, EMPTY_STRING);
             String password = sharedPreferences.getString(KEY_PASS, EMPTY_STRING);
-            progressBar.setVisibility(View.VISIBLE);
             if(!email.isEmpty() && !password.isEmpty()){
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(activity, task -> {
@@ -51,16 +49,21 @@ public class AutoLoginner {
                                 Log.d(TAG, activity.getString(R.string.login_log_sign_in_with_email_success));
                                 Intent intent = new Intent(activity, MainActivity.class);
                                 activity.startActivity(intent);
+                                progressBar.setVisibility(View.INVISIBLE);
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, activity.getString(R.string.login_log_sign_in_with_email_failure), task.getException());
                                 Toast.makeText(activity, activity.getString(R.string.welcome_error_auth_failed),
                                         Toast.LENGTH_SHORT).show();
                                 buttonLayer.setVisibility(View.VISIBLE);
+                                progressBar.setVisibility(View.INVISIBLE);
                             }
+                        }).addOnFailureListener(activity, task -> {
+                            buttonLayer.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.INVISIBLE);
                         });
             }
-        }
+
     }
 
     void validateActivity(WelcomeActivity activity) {
