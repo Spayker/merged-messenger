@@ -1,6 +1,7 @@
 package com.spandr.meme.core.activity.webview.logic.init.channel.chat;
 
 import android.annotation.SuppressLint;
+import android.support.v7.app.AppCompatActivity;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -12,11 +13,14 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import im.delight.android.webview.AdvancedWebView;
+
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL_2;
 
 public class TelegramWebViewChannel extends WebViewChannel {
 
+    private AppCompatActivity appCompatActivity;
     private String TELEGRAM_USER_AGENT_STRING = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36";
 
     @SuppressWarnings("unused")
@@ -34,15 +38,35 @@ public class TelegramWebViewChannel extends WebViewChannel {
         init();
     }
 
+    public TelegramWebViewChannel(AppCompatActivity activity, AdvancedWebView mWebView,
+                                  String url, String channelName) {
+        if (url.isEmpty()) {
+            return;
+        }
+        this.appCompatActivity = activity;
+        this.mWebView = mWebView;
+        this.url = url;
+        this.channelName = channelName;
+        initBackgroundMode();
+    }
+
     @SuppressLint("AddJavascriptInterface")
     protected TelegramWebViewChannel init() {
         initUserAgent();
-        initStartURL();
-        initWebChromeClient();
         initListeners();
         initWebClients();
+        initOrientationSensor();
+        initCacheSettings();
         mWebView.addJavascriptInterface(new TlJavaScriptInterface(channelName), "HTMLOUT");
+        initStartURL();
         return this;
+    }
+
+    @SuppressLint("AddJavascriptInterface")
+    private void initBackgroundMode() {
+        initBackgroundWebSettings();
+        mWebView.addJavascriptInterface(new TlJavaScriptInterface(channelName), "HTMLOUT");
+        initStartURL();
     }
 
     @Override
@@ -118,7 +142,12 @@ public class TelegramWebViewChannel extends WebViewChannel {
                         notificationCounter += Integer.valueOf(m.group(1));
                     }
 
-                    NotificationDisplayer.getInstance().display(channelName, notificationCounter);
+                    final int result = notificationCounter;
+                    if (activity == null) {
+                        appCompatActivity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, result));
+                    } else {
+                        activity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, result));
+                    }
                 });
             }
         }

@@ -38,7 +38,7 @@ import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 import static com.spandr.meme.core.common.util.SettingsUtils.getChannelNotificationValueIdByName;
 
-public class MultiTypeCheckGenreAdapter
+public class CheckAdapter
         extends MultiTypeExpandableRecyclerViewAdapter<ChannelViewHolder, ChildViewHolder>
         implements OnChildCheckChangedListener, OnChildrenCheckStateChangedListener {
 
@@ -47,15 +47,12 @@ public class MultiTypeCheckGenreAdapter
     private static final int SWITCHER_VIEW_TYPE = 3;
     private static final int CHECKBOX_VIEW_TYPE = 4;
 
-    private static String notificationPrefix;
-
     private AppCompatActivity activity;
 
 
-    public MultiTypeCheckGenreAdapter(List<? extends ExpandableGroup> groups, AppCompatActivity activity) {
+    public CheckAdapter(List<? extends ExpandableGroup> groups, AppCompatActivity activity) {
         super(groups);
         this.activity = activity;
-        notificationPrefix = activity.getString(R.string.channel_setting_notifications_prefix);
     }
 
     @Override
@@ -112,13 +109,6 @@ public class MultiTypeCheckGenreAdapter
 
         Channel channel = getChannelByName(channelName);
         Objects.requireNonNull(channel).setActive(checked);
-
-        /*String channelKeyNotification = channelName + notificationPrefix;
-        SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(channelKeyNotification, checked);
-        editor.apply();
-        editor.commit();*/
     }
 
     @Override

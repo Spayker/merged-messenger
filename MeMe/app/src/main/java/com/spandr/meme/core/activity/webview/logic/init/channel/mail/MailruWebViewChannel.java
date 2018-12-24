@@ -1,6 +1,7 @@
 package com.spandr.meme.core.activity.webview.logic.init.channel.mail;
 
 import android.annotation.SuppressLint;
+import android.support.v7.app.AppCompatActivity;
 import android.webkit.JavascriptInterface;
 
 import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
@@ -10,8 +11,11 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import im.delight.android.webview.AdvancedWebView;
+
 public class MailruWebViewChannel extends WebViewChannel {
 
+    private AppCompatActivity appCompatActivity;
     @SuppressWarnings("unused")
     private MailruWebViewChannel(){}
 
@@ -27,15 +31,35 @@ public class MailruWebViewChannel extends WebViewChannel {
         init();
     }
 
+    public MailruWebViewChannel(AppCompatActivity activity, AdvancedWebView mWebView,
+                                  String url, String channelName) {
+        if (url.isEmpty()) {
+            return;
+        }
+        this.appCompatActivity = activity;
+        this.mWebView = mWebView;
+        this.url = url;
+        this.channelName = channelName;
+        initBackgroundMode();
+    }
+
     @SuppressLint("AddJavascriptInterface")
     protected MailruWebViewChannel init() {
         initUserAgent();
-        initStartURL();
-        initWebChromeClient();
         initListeners();
         initWebClients();
+        initOrientationSensor();
+        initCacheSettings();
         mWebView.addJavascriptInterface(new MailruJavaScriptInterface(channelName), "HTMLOUT");
+        initStartURL();
         return this;
+    }
+
+    @SuppressLint("AddJavascriptInterface")
+    private void initBackgroundMode() {
+        initBackgroundWebSettings();
+        mWebView.addJavascriptInterface(new MailruJavaScriptInterface(channelName), "HTMLOUT");
+        initStartURL();
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -71,8 +95,12 @@ public class MailruWebViewChannel extends WebViewChannel {
         public void processHTML(String html) {
             if(isNotificationSettingEnabled(channelName)){
                 mWebView.post(() -> {
-                    int notificationCounter = parseHtml(html);
-                    NotificationDisplayer.getInstance().display(channelName, notificationCounter);
+                    final int notificationCounter = parseHtml(html);
+                    if (activity == null) {
+                        appCompatActivity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, notificationCounter));
+                    } else {
+                        activity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, notificationCounter));
+                    }
                 });
             }
         }

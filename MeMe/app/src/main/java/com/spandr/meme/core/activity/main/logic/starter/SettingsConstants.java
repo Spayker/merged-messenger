@@ -14,6 +14,7 @@ public interface SettingsConstants {
     String KEY_PASS = "password";
     String KEY_OLD_CHANGE_PASS = "oldChangePassword";
     String KEY_CHANNEL_ORDER = "channelOrder";
+    String KEY_LAST_USED_CHANNELS = "lastUsedChannels";
     String KEY_CURRENT_APP_LANGUAGE = "currentAppLanguage";
 
     // Language Codes

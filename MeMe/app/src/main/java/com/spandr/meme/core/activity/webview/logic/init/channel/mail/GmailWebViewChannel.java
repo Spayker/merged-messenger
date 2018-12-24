@@ -1,6 +1,7 @@
 package com.spandr.meme.core.activity.webview.logic.init.channel.mail;
 
 import android.annotation.SuppressLint;
+import android.support.v7.app.AppCompatActivity;
 import android.webkit.JavascriptInterface;
 
 import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
@@ -10,8 +11,11 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import im.delight.android.webview.AdvancedWebView;
+
 public class GmailWebViewChannel extends WebViewChannel {
 
+    private AppCompatActivity appCompatActivity;
     @SuppressWarnings("unused")
     private GmailWebViewChannel(){}
 
@@ -27,15 +31,35 @@ public class GmailWebViewChannel extends WebViewChannel {
         init();
     }
 
+    public GmailWebViewChannel(AppCompatActivity activity, AdvancedWebView mWebView,
+                                  String url, String channelName) {
+        if (url.isEmpty()) {
+            return;
+        }
+        this.appCompatActivity = activity;
+        this.mWebView = mWebView;
+        this.url = url;
+        this.channelName = channelName;
+        initBackgroundMode();
+    }
+
     @SuppressLint("AddJavascriptInterface")
     protected GmailWebViewChannel init() {
         initUserAgent();
-        initStartURL();
-        initWebChromeClient();
         initListeners();
         initWebClients();
+        initOrientationSensor();
+        initCacheSettings();
         mWebView.addJavascriptInterface(new GmailJavaScriptInterface(channelName), "HTMLOUT");
+        initStartURL();
         return this;
+    }
+
+    @SuppressLint("AddJavascriptInterface")
+    private void initBackgroundMode() {
+        initBackgroundWebSettings();
+        mWebView.addJavascriptInterface(new GmailJavaScriptInterface(channelName), "HTMLOUT");
+        initStartURL();
     }
 
     public String getUrl() {
@@ -64,7 +88,12 @@ public class GmailWebViewChannel extends WebViewChannel {
                         notificationCounter += Integer.valueOf(m.group(1));
                     }
 
-                    NotificationDisplayer.getInstance().display(channelName, notificationCounter);
+                    final int result = notificationCounter;
+                    if (activity == null) {
+                        appCompatActivity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, result));
+                    } else {
+                        activity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, result));
+                    }
                 });
             }
         }

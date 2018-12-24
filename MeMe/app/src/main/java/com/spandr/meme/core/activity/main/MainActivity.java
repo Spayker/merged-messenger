@@ -23,13 +23,18 @@ import com.spandr.meme.core.activity.main.logic.notification.WebViewRunnableInit
 import com.spandr.meme.core.activity.main.logic.updater.AppUpdater;
 import com.spandr.meme.core.activity.settings.channel.EditChannelsActivity;
 import com.spandr.meme.core.activity.settings.global.GlobalSettingsActivity;
+import com.spandr.meme.core.activity.webview.logic.manager.WebViewManager;
 import com.spandr.meme.core.common.util.ActivityUtils;
 
+import java.util.Map;
 import java.util.Objects;
+
+import im.delight.android.webview.AdvancedWebView;
 
 import static com.spandr.meme.core.activity.authorization.logic.ActionAuthorizer.IS_REGISTER_SCENARIO_RUNNING;
 import static com.spandr.meme.core.activity.main.logic.starter.Loginner.createLoginner;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
+import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_LAST_USED_CHANNELS;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_NAME;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.activity.main.logic.starter.Setupper.createSetupper;
@@ -78,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     private void initNotifications() {
         webViewRunnableInitializer = WebViewRunnableInitializer.getInstance();
         if(webViewRunnableInitializer == null){
-            webViewRunnableInitializer = new WebViewRunnableInitializer();
+            webViewRunnableInitializer = new WebViewRunnableInitializer(this);
         }
     }
 
@@ -133,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickOnExit(View view) {
         saveChannelOrder();
+        saveLastUsedChannels();
         Intent intent = new Intent(this, WelcomeActivity.class);
         startActivity(intent);
         moveTaskToBack(true);
@@ -154,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         saveChannelOrder();
+        saveLastUsedChannels();
         webViewRunnableInitializer.getCompositeDisposable().clear();
         super.onDestroy();
     }
@@ -169,6 +176,20 @@ public class MainActivity extends AppCompatActivity {
             currentChannelOrder.append(item.getText()).append("|");
         }
         editor.putString(KEY_CHANNEL_ORDER, currentChannelOrder.toString());
+        editor.apply();
+        editor.commit();
+    }
+
+    private void saveLastUsedChannels(){
+        SharedPreferences sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        WebViewManager webViewChannelManager = WebViewManager.getWebViewChannelManager();
+        Map<String, AdvancedWebView> activeWebViewChannels = webViewChannelManager.getWebViewChannels();
+        StringBuilder activatedChannelNames = new StringBuilder();
+        for (String channelName : activeWebViewChannels.keySet()) {
+            activatedChannelNames.append(channelName).append("|");
+        }
+        editor.putString(KEY_LAST_USED_CHANNELS, activatedChannelNames.toString());
         editor.apply();
         editor.commit();
     }

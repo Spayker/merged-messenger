@@ -28,19 +28,16 @@ import static com.spandr.meme.core.common.util.ActivityUtils.isNetworkAvailable;
 
 public abstract class WebViewChannel {
 
-    //private final static String DEFAULT_USER_AGENT_STRING = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36";
     private final static String JAVASCRIPT_HTML_GRABBER = "javascript:window.HTMLOUT.processHTML('<head>'+document.getElementsByTagName('html')[0].innerHTML+'</head>');";
 
-    private String notificationPrefix;
+    protected String notificationPrefix;
 
     protected String url = MEME_HOME_URL;
     protected String channelName;
     protected AdvancedWebView mWebView;
     protected WebViewActivity activity;
 
-    protected void initUserAgent() {
-        //mWebView.getSettings().setUserAgentString(DEFAULT_USER_AGENT_STRING);
-    }
+    protected void initUserAgent() {}
 
     protected void initStartURL() {
         String urlToBeLoaded = MEME_HOME_URL;
@@ -69,8 +66,27 @@ public abstract class WebViewChannel {
         webSettings.setAllowFileAccessFromFileURLs(true);
         webSettings.setAllowUniversalAccessFromFileURLs(true);
         webSettings.setLoadsImagesAutomatically(false);
-        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+    }
 
+    protected void initBackgroundWebSettings(){
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setAllowContentAccess(true);
+        webSettings.setAllowFileAccessFromFileURLs(true);
+        webSettings.setAllowUniversalAccessFromFileURLs(true);
+        webSettings.setLoadsImagesAutomatically(false);
+    }
+
+    protected void initOrientationSensor(){
+        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+    }
+
+    protected void initCacheSettings(){
+        WebSettings webSettings = mWebView.getSettings();
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
         webSettings.setAppCacheMaxSize(50 * 1024 * 1024);
         webSettings.setAppCachePath(activity.getApplicationContext().getCacheDir().getAbsolutePath());
@@ -80,39 +96,6 @@ public abstract class WebViewChannel {
         if (!isNetworkAvailable(activity)) {
             webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         }
-    }
-
-    protected void initWebChromeClient() {
-        View nonVideoLayout = activity.findViewById(R.id.nonVideoLayout);
-        ViewGroup videoLayout = activity.findViewById(R.id.videoLayout);
-
-        View loadingView = activity.getLayoutInflater().inflate(R.layout.view_loading_video, null);
-        CustomChromeWebClient webChromeClient = new CustomChromeWebClient(nonVideoLayout,
-                videoLayout, loadingView, mWebView) {
-            @Override
-            public void onProgressChanged(WebView view, int progress) { }
-        };
-
-        webChromeClient.setOnToggledFullscreen(fullscreen -> {
-            Window window = activity.getWindow();
-            FloatingActionButton backButton = activity.getBackButton();
-            if (fullscreen) {
-                WindowManager.LayoutParams attrs = window.getAttributes();
-                attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-                attrs.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
-                window.setAttributes(attrs);
-                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-                backButton.show();
-            } else {
-                WindowManager.LayoutParams attrs = window.getAttributes();
-                attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
-                attrs.flags &= ~WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
-                window.setAttributes(attrs);
-                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-                backButton.hide();
-            }
-        });
-        mWebView.setWebChromeClient(webChromeClient);
     }
 
     @SuppressLint("ClickableViewAccessibility")

@@ -78,6 +78,7 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TWITT
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.VK_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.YOUTUBE_HOME_URL;
+import static com.spandr.meme.core.activity.webview.logic.manager.WebViewManager.applyChannelRelatedConfiguration;
 import static com.spandr.meme.core.activity.webview.logic.manager.WebViewManager.getWebViewChannelManager;
 
 public class WebViewActivity extends AppCompatActivity implements AdvancedWebView.Listener, View.OnTouchListener {
@@ -103,20 +104,28 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
-
         sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         webViewRelativeLayout = findViewById(R.id.webview_relative_layout);
         swipeRefreshLayout = findViewById(R.id.swipeContainer);
-        RelativeLayout nonVideoLayout = findViewById(R.id.nonVideoLayout);
         mBackButton = findViewById(R.id.backToMainMenu);
+        initNotificationManager();
+    }
 
+    private void initNotificationManager() {
+        RelativeLayout nonVideoLayout = findViewById(R.id.nonVideoLayout);
         WebViewManager webViewManager = getWebViewChannelManager();
-        Map<String, AdvancedWebView> availableWebViewActivities = webViewManager.getWebViewChannels();
+        Map<String, AdvancedWebView> availableWebViews = webViewManager.getWebViewChannels();
         Intent webViewIntent = getIntent();
         String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
 
-        if (availableWebViewActivities.containsKey(channelName)) {
-            mWebView = availableWebViewActivities.get(channelName);
+        if(availableWebViews.containsKey(channelName+"_background")){
+            availableWebViews.remove(channelName+"_background");
+            createWebView(availableWebViews, channelName);
+            return;
+        }
+
+        if (availableWebViews.containsKey(channelName)) {
+            mWebView = availableWebViews.get(channelName);
             nonVideoLayout.removeAllViews();
 
             ViewGroup parent = (ViewGroup) mWebView.getParent();
@@ -129,116 +138,19 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
             mWebView.setLayoutParams(newRelativeLayoutParams);
             nonVideoLayout.addView(mWebView);
         } else {
-            mWebView = findViewById(R.id.webView);
-            initListeners();
-            initBackButtonStartPosition();
-            applyChannelRelatedConfiguration();
-
-            mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-            mWebView.setScrollbarFadingEnabled(false);
-            availableWebViewActivities.put(channelName, mWebView);
+            createWebView(availableWebViews, channelName);
         }
     }
 
-    private void applyChannelRelatedConfiguration() {
-        Intent webViewIntent = getIntent();
-        String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
-        if (channelName != null) {
-            Channel channel = DataChannelManager.getChannelByName(channelName);
-            if (channel != null) {
-                String homeURL = channel.getHomeUrl();
-                switch (homeURL) {
-                    case FB_HOME_URL: {
-                        new FacebookWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case VK_HOME_URL: {
-                        new VkontakteWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case TELEGRAM_HOME_URL: {
-                        new TelegramWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case ICQ_HOME_URL: {
-                        new IcqWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case GADU_HOME_URL: {
-                        new GGWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case SKYPE_HOME_URL: {
-                        new SkypeWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case LINKEDIN_HOME_URL: {
-                        new LinkedInWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case INSTAGRAM_HOME_URL:{
-                        new InstagramWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case DISCORD_HOME_URL:{
-                        new DiscordWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case REDDIT_HOME_URL:{
-                        new RedditWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case QUORA_HOME_URL:{
-                        new QuoraWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case STACKOVERFLOW_HOME_URL:{
-                        new StackOverflowWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case HABR_HOME_URL:{
-                        new HabrWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case ODNOKLASNIKI_HOME_URL:{
-                        new OkWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case PINTEREST_HOME_URL:{
-                        new PinterestWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case TUMBLR_HOME_URL:{
-                        new TumblrWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case TWITTER_HOME_URL:{
-                        new TwitterWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case SLACK_HOME_URL:{
-                        new SlackWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case GMAIL_HOME_URL:{
-                        new GmailWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case MAIL_RU_HOME_URL:{
-                        new MailruWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case TWITCH_HOME_URL:{
-                        new TwitchWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                    case YOUTUBE_HOME_URL:{
-                        new YoutubeWebViewChannel(this, homeURL, channelName);
-                        break;
-                    }
-                }
-            }
-        }
+    private void createWebView(Map<String, AdvancedWebView> availableWebViews, String channelName) {
+        mWebView = findViewById(R.id.webView);
+        initListeners();
+        initBackButtonStartPosition();
+        applyChannelRelatedConfiguration(this);
+
+        mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+        mWebView.setScrollbarFadingEnabled(false);
+        availableWebViews.put(channelName, mWebView);
     }
 
     private void initBackButtonStartPosition() {

@@ -3,6 +3,7 @@ package com.spandr.meme.core.activity.webview.logic.init.channel.chat;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v7.app.AppCompatActivity;
 import android.webkit.JavascriptInterface;
 
 import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
@@ -12,10 +13,13 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import im.delight.android.webview.AdvancedWebView;
+
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 
 public class DiscordWebViewChannel extends WebViewChannel {
 
+    private AppCompatActivity appCompatActivity;
     private final static String DISCORD_USER_AGENT_STRING = "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0";
     private final static String DISCORD_SCALE_JAVASCRIPT = "javascript: var metaList = document.getElementsByTagName(\"META\");metaList[1].setAttribute(\"content\",\"width=900, user-scalable=yes\");";
 
@@ -34,16 +38,36 @@ public class DiscordWebViewChannel extends WebViewChannel {
         init();
     }
 
+    public DiscordWebViewChannel(AppCompatActivity activity, AdvancedWebView mWebView,
+                                  String url, String channelName) {
+        if (url.isEmpty()) {
+            return;
+        }
+        this.appCompatActivity = activity;
+        this.mWebView = mWebView;
+        this.url = url;
+        this.channelName = channelName;
+        initBackgroundMode();
+    }
+
     @SuppressLint("AddJavascriptInterface")
     protected DiscordWebViewChannel init() {
         initUserAgent();
-        initWebChromeClient();
         initWebClients();
         initListeners();
         initWebSettings();
-        initStartURL();
+        initOrientationSensor();
+        initCacheSettings();
         mWebView.addJavascriptInterface(new DsJavaScriptInterface(channelName), "HTMLOUT");
+        initStartURL();
         return this;
+    }
+
+    @SuppressLint("AddJavascriptInterface")
+    private void initBackgroundMode() {
+        initBackgroundWebSettings();
+        mWebView.addJavascriptInterface(new DsJavaScriptInterface(channelName), "HTMLOUT");
+        initStartURL();
     }
 
     @Override
@@ -77,7 +101,12 @@ public class DiscordWebViewChannel extends WebViewChannel {
                     while(m.find()) {
                         notificationCounter ++;
                     }
-                    NotificationDisplayer.getInstance().display(channelName, notificationCounter);
+                    final int result = notificationCounter;
+                    if (activity == null) {
+                        appCompatActivity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, result));
+                    } else {
+                        activity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, result));
+                    }
                 });
             }
         }
