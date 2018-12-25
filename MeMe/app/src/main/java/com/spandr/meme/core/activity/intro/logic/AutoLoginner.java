@@ -2,6 +2,7 @@ package com.spandr.meme.core.activity.intro.logic;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -25,6 +26,8 @@ public class AutoLoginner {
     // tag field is used for logging sub system to identify from coming logs were created
     private static final String TAG = AutoLoginner.class.getSimpleName();
 
+    private FirebaseAuth.AuthStateListener authStateListener;
+
     public void performAutoLogin(WelcomeActivity activity) {
 
         if (activity == null){
@@ -43,13 +46,19 @@ public class AutoLoginner {
             String password = sharedPreferences.getString(KEY_PASS, EMPTY_STRING);
             if(!Objects.requireNonNull(email).isEmpty() &&
                     !Objects.requireNonNull(password).isEmpty()){
-                mAuth.addAuthStateListener(firebaseAuth -> performSingIn(firebaseAuth, activity,
-                        progressBar, buttonLayer, email, password));
+                initAuthStateListener(activity, progressBar, buttonLayer, email, password);
+                mAuth.addAuthStateListener(authStateListener);
                 performSingIn(mAuth, activity, progressBar, buttonLayer, email, password);
             } else {
                 buttonLayer.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
             }
+    }
+
+    private void initAuthStateListener(WelcomeActivity activity, ProgressBar progressBar,
+                                       LinearLayout buttonLayer, String email, String password) {
+        authStateListener = firebaseAuth -> performSingIn(firebaseAuth, activity,
+                progressBar, buttonLayer, email, password);
     }
 
     private void performSingIn(FirebaseAuth mAuth, WelcomeActivity activity, ProgressBar progressBar,
@@ -59,6 +68,7 @@ public class AutoLoginner {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, activity.getString(R.string.login_log_sign_in_with_email_success));
+                        mAuth.removeAuthStateListener(authStateListener);
                         Intent intent = new Intent(activity, MainActivity.class);
                         activity.startActivity(intent);
                         progressBar.setVisibility(View.INVISIBLE);
