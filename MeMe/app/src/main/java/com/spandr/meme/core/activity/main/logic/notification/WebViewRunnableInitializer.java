@@ -21,6 +21,7 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.spandr.meme.core.activity.main.logic.LogicContants.CHANNEL_SPLITTER;
+import static com.spandr.meme.core.activity.main.logic.LogicContants.CHANNEL_SPLITTER_2;
 import static com.spandr.meme.core.activity.main.logic.LogicContants.TASK_BACKGROUND_PREFIX;
 import static com.spandr.meme.core.activity.main.logic.notification.ViewChannelManager.createChannelViewManager;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_LAST_USED_CHANNELS;
@@ -116,7 +117,7 @@ public class WebViewRunnableInitializer {
             applyBackgroundChannelRelatedConfiguration(activity, mWebView, channelName);
             WebViewManager webViewManager = getWebViewChannelManager();
             Map<String, AdvancedWebView> availableWebViewActivities = webViewManager.getWebViewChannels();
-            availableWebViewActivities.put(channelName + TASK_BACKGROUND_PREFIX, mWebView);
+            availableWebViewActivities.put(channelName + CHANNEL_SPLITTER_2, mWebView);
         }
     }
 

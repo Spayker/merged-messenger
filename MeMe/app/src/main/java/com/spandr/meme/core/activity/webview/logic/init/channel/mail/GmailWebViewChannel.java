@@ -104,9 +104,9 @@ public class GmailWebViewChannel extends WebViewChannel {
                 final int result = notificationCounter;
                 if(notificationCounter > 0){
                     if (activity == null) {
-                        appCompatActivity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, result));
+                        appCompatActivity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(appCompatActivity, channelName, result));
                     } else {
-                        activity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, result));
+                        activity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(activity, channelName, result));
                     }
                 }
             }

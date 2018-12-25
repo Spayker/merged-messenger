@@ -111,9 +111,11 @@ public class MailruWebViewChannel extends WebViewChannel {
                 final int notificationCounter = parseHtml(html);
                 if(notificationCounter > 0){
                     if (activity == null) {
-                        appCompatActivity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, notificationCounter));
+                        appCompatActivity.runOnUiThread(() ->
+                                NotificationDisplayer.getInstance().display(appCompatActivity, channelName, notificationCounter));
                     } else {
-                        activity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(channelName, notificationCounter));
+                        activity.runOnUiThread(() ->
+                                NotificationDisplayer.getInstance().display(activity, channelName, notificationCounter));
                     }
                 }
             }

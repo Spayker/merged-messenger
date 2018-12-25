@@ -108,10 +108,10 @@ public class SkypeWebViewChannel extends WebViewChannel {
                 if(notificationCounter > 0){
                     if (activity == null) {
                         appCompatActivity.runOnUiThread(() ->
-                                NotificationDisplayer.getInstance().display(channelName, notificationCounter));
+                                NotificationDisplayer.getInstance().display(appCompatActivity, channelName, notificationCounter));
                     } else {
                         activity.runOnUiThread(() ->
-                                NotificationDisplayer.getInstance().display(channelName, notificationCounter));
+                                NotificationDisplayer.getInstance().display(activity, channelName, notificationCounter));
                     }
                 }
             }
