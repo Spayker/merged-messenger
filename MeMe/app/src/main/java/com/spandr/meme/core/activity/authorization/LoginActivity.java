@@ -191,11 +191,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        String email = mEmailView.getText().toString().trim();
-        String password = mPasswordView.getText().toString().trim();
-        managePrefs(email, password);
-    }
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
     /**
      * Shows progress dialog while backend action is in progress.
@@ -232,6 +228,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }
 
+        managePrefs(login, password);
         AppAuthorizer appAuthorizer = new AppAuthorizer(this);
         appAuthorizer.signIn(login, password);
         showProgressDialog();

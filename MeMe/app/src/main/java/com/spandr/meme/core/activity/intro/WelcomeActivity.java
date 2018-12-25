@@ -24,6 +24,7 @@ import static com.spandr.meme.core.activity.main.logic.LogicContants.APP_BACK_RE
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_AUTO_LOGIN;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.common.util.ActivityUtils.initLanguage;
+import static java.lang.Thread.sleep;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -79,6 +80,8 @@ public class WelcomeActivity extends AppCompatActivity {
             if (isAutoLoginEnabled) {
                 buttonLayer.setVisibility(View.INVISIBLE);
                 autoLoginner.performAutoLogin(this);
+            } else {
+                buttonLayer.setVisibility(View.VISIBLE);
             }
         }
     }

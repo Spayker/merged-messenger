@@ -151,16 +151,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void clickOnExit(View view) {
-        saveChannelOrder();
-        saveLastUsedChannels();
-        Intent intent = new Intent(this, WelcomeActivity.class);
-        intent.putExtra(APP_BACK_RETURN_FLAG, true);
-        startActivity(intent);
-        moveTaskToBack(true);
-        android.os.Process.killProcess(android.os.Process.myPid());
-    }
-
     public void clickOnEditChannels(View view) {
         saveChannelOrder();
         Intent intent = new Intent(this, EditChannelsActivity.class);
