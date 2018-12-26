@@ -3,6 +3,7 @@ package com.spandr.meme.core.activity.main.logic.notification;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
+import android.webkit.WebSettings;
 
 import com.spandr.meme.core.activity.webview.logic.init.channel.social.VkontakteWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.manager.WebViewManager;
@@ -62,7 +63,7 @@ public class WebViewRunnableInitializer {
                                 .subscribeWith(webViewObserver));
             };
 
-            scheduler.scheduleAtFixedRate(notificationRunnable, 1, 2, TimeUnit.SECONDS);
+            scheduler.scheduleAtFixedRate(notificationRunnable, 1, 7, TimeUnit.SECONDS);
         }
         initViewChannelManager();
     }
@@ -79,8 +80,12 @@ public class WebViewRunnableInitializer {
         return new DisposableObserver<AdvancedWebView>() {
             @Override
             public void onNext(AdvancedWebView advancedWebView) {
-                if(!advancedWebView.isShown()) {
-                    advancedWebView.getSettings().setLoadsImagesAutomatically(false);
+                WebSettings webViewSettings = advancedWebView.getSettings();
+                if(advancedWebView.isShown()) {
+                    webViewSettings.setLoadsImagesAutomatically(true);
+
+                } else {
+                    webViewSettings.setLoadsImagesAutomatically(false);
                     advancedWebView.reload();
                     advancedWebView.loadUrl(getJavascriptHtmlGrabber());
                 }

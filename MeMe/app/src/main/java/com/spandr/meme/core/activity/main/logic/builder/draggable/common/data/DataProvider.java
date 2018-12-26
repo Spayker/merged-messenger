@@ -62,6 +62,7 @@ public class DataProvider extends AbstractDataProvider {
             String[] splitedChannels = savedChannelOrder.split(CHANNEL_SPLITTER);
             String[] activeOrderedChannelNames = new String[channels.size()];
             int resultOrderedChannelCounter = 0;
+
             for(Channel channel : channels){
                 String channelName = channel.getName();
                 if(!ArrayUtils.contains(splitedChannels,channelName)){
@@ -69,6 +70,7 @@ public class DataProvider extends AbstractDataProvider {
                     resultOrderedChannelCounter++;
                 }
             }
+
             String [] resultOrderedChannelArray = ArrayUtils.concat(activeOrderedChannelNames, splitedChannels);
             for(String channelName: resultOrderedChannelArray){
                 for (int i = 0; i < channels.size(); i++) {

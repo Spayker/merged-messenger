@@ -27,6 +27,7 @@ public class AutoLoginner {
     private static final String TAG = AutoLoginner.class.getSimpleName();
 
     private FirebaseAuth.AuthStateListener authStateListener;
+    private static boolean mainActivityIsNotStarted = true;
 
     public void performAutoLogin(WelcomeActivity activity) {
 
@@ -68,10 +69,12 @@ public class AutoLoginner {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, activity.getString(R.string.login_log_sign_in_with_email_success));
-                        mAuth.removeAuthStateListener(authStateListener);
-                        Intent intent = new Intent(activity, MainActivity.class);
-                        activity.startActivity(intent);
-                        progressBar.setVisibility(View.INVISIBLE);
+                        if(mainActivityIsNotStarted){
+                            mAuth.removeAuthStateListener(authStateListener);
+                            Intent intent = new Intent(activity, MainActivity.class);
+                            activity.startActivity(intent);
+                            mainActivityIsNotStarted = false;
+                        }
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, activity.getString(R.string.login_log_sign_in_with_email_failure), task.getException());
@@ -81,9 +84,9 @@ public class AutoLoginner {
                         progressBar.setVisibility(View.INVISIBLE);
                     }
                 }).addOnFailureListener(activity, task -> {
-            buttonLayer.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.INVISIBLE);
-        });
+                    buttonLayer.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
+                });
     }
 
     void validateActivity(WelcomeActivity activity) {
