@@ -119,7 +119,7 @@ public abstract class WebViewChannel {
         mWebView.setWebViewClient(new InsideWebViewClient());
     }
 
-    protected class InsideWebViewClient extends WebViewClient {
+    public class InsideWebViewClient extends WebViewClient {
         @Override
         public void onPageFinished(WebView view, String url) {
             activity.getSwipeRefreshLayout().setRefreshing(false);
@@ -132,6 +132,7 @@ public abstract class WebViewChannel {
             view.loadUrl(url);
             return true;
         }
+
     }
 
     public static String getJavascriptHtmlGrabber() {

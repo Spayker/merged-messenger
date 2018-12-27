@@ -15,11 +15,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.MainActivity;
+import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.DiscordWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.GGWebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.IcqWebViewChannel;
@@ -82,7 +85,7 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.YOUTU
 import static com.spandr.meme.core.activity.webview.logic.manager.WebViewManager.applyChannelRelatedConfiguration;
 import static com.spandr.meme.core.activity.webview.logic.manager.WebViewManager.getWebViewChannelManager;
 
-public class WebViewActivity extends AppCompatActivity implements AdvancedWebView.Listener, View.OnTouchListener {
+public class WebViewActivity extends AppCompatActivity implements AdvancedWebView.Listener, View.OnTouchListener, ViewTreeObserver.OnScrollChangedListener {
 
     private static final int BACK_BUTTON_MIN_CLICK_DURATION = 500;
 
@@ -110,6 +113,8 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
         swipeRefreshLayout = findViewById(R.id.swipeContainer);
         mBackButton = findViewById(R.id.backToMainMenu);
         initNotificationManager();
+
+        swipeRefreshLayout.setOnRefreshListener(() -> swipeRefreshLayout.setRefreshing(false));
     }
 
     private void initNotificationManager() {
@@ -130,14 +135,17 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
             mWebView = availableWebViews.get(channelName);
             nonVideoLayout.removeAllViews();
 
-            ViewGroup parent = (ViewGroup) mWebView.getParent();
-            if (parent != null) {
-                parent.removeView(mWebView);
-            }
+            ViewGroup relativeLayout = (ViewGroup) mWebView.getParent();
+            relativeLayout.removeView(mWebView);
+            SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) relativeLayout.getParent();
+            swipeRefreshLayout.removeView(relativeLayout);
+            swipeRefreshLayout.addView(relativeLayout);
+
             RelativeLayout.LayoutParams newRelativeLayoutParams =
                     new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                             RelativeLayout.LayoutParams.MATCH_PARENT);
             mWebView.setLayoutParams(newRelativeLayoutParams);
+            mWebView.getViewTreeObserver().addOnScrollChangedListener(this);
             nonVideoLayout.addView(mWebView);
         } else {
             createWebView(availableWebViews, channelName);
@@ -326,5 +334,14 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
 
     public SwipeRefreshLayout getSwipeRefreshLayout() {
         return swipeRefreshLayout;
+    }
+
+    @Override
+    public void onScrollChanged() {
+        if (mWebView.getScrollY() == 0) {
+            swipeRefreshLayout.setEnabled(true);
+        } else {
+            swipeRefreshLayout.setEnabled(false);
+        }
     }
 }
