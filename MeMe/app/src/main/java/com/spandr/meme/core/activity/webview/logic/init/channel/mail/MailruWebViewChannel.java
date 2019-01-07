@@ -3,31 +3,21 @@ package com.spandr.meme.core.activity.webview.logic.init.channel.mail;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
-import android.webkit.JavascriptInterface;
 
 import com.spandr.meme.R;
-import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import im.delight.android.webview.AdvancedWebView;
-
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
-import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 
 public class MailruWebViewChannel extends WebViewChannel {
 
-    private Context appCompatActivity;
+    private Context context;
     private final String MESSAGE_NOTIFICATION_REGEX = "([0-9]+)</div></div></div><div class=\"toolbar__title__t toolbar__title__t1\">";
     private final String MESSAGE_NOTIFICATION_REGEX_2 = "<span class=\"social__bubble\">([0-9]+)</span>";
     private final Pattern patternOfFirstRegex = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
@@ -52,7 +42,7 @@ public class MailruWebViewChannel extends WebViewChannel {
         if (url.isEmpty()) {
             return;
         }
-        this.appCompatActivity = activity;
+        this.context = activity;
         this.url = url;
         this.channelName = channelName;
     }
@@ -81,7 +71,7 @@ public class MailruWebViewChannel extends WebViewChannel {
 
     @Override
     protected boolean isNotificationSettingEnabled(String channelName) {
-        Context context = activity != null ? activity : appCompatActivity;
+        Context context = activity != null ? activity : this.context;
         notificationPrefix = context.getString(R.string.channel_setting_notifications_prefix);
         String channelKeyNotification = channelName + notificationPrefix;
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -100,19 +90,6 @@ public class MailruWebViewChannel extends WebViewChannel {
             if(channel != null){
                 channel.setNotifications(notificationCounter);
             }
-            /*if(notificationCounter > 0){
-                if (activity == null) {
-                        appCompatActivity.runOnUiThread(() -> {
-                            NotificationDisplayer.getInstance().display(appCompatActivity, channelName, notificationCounter);
-                            mWebView.stopLoading();
-                        });
-                } else {
-                    activity.runOnUiThread(() -> {
-                        NotificationDisplayer.getInstance().display(activity, channelName, notificationCounter);
-                        mWebView.stopLoading();
-                    });
-                }
-            }*/
         }
     }
     private int parseHtml(String html){

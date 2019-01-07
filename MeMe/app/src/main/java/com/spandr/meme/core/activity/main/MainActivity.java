@@ -20,7 +20,6 @@ import com.spandr.meme.core.activity.main.logic.builder.draggable.common.data.Ab
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.fragment.DataProviderFragment;
 import com.spandr.meme.core.activity.main.logic.notification.BackgroundNotificationTask;
 import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
-import com.spandr.meme.core.activity.main.logic.notification.WebViewRunnableInitializer;
 import com.spandr.meme.core.activity.main.logic.updater.AppUpdater;
 import com.spandr.meme.core.activity.settings.channel.EditChannelsActivity;
 import com.spandr.meme.core.activity.settings.global.GlobalSettingsActivity;
@@ -28,8 +27,6 @@ import com.spandr.meme.core.common.util.ActivityUtils;
 
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
-
-import im.delight.android.webview.AdvancedWebView;
 
 import static com.spandr.meme.core.activity.authorization.logic.ActionAuthorizer.IS_REGISTER_SCENARIO_RUNNING;
 import static com.spandr.meme.core.activity.main.logic.LogicContants.ANDROID_NOTIFICATION_SENT;
@@ -83,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         boolean isNotificationSent = intent.getBooleanExtra(ANDROID_NOTIFICATION_SENT, false);
         if (isNotificationSent) {
             NotificationDisplayer notificationDisplayer = NotificationDisplayer.getInstance();
-            notificationDisplayer.updateNotificationflag();
+            notificationDisplayer.updateNotificationFlag();
         }
     }
 

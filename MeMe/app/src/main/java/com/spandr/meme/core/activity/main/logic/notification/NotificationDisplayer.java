@@ -1,8 +1,9 @@
 package com.spandr.meme.core.activity.main.logic.notification;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+
+import com.spandr.meme.core.activity.main.logic.builder.draggable.DraggableGridAdapter;
 
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -28,10 +29,10 @@ public class NotificationDisplayer {
 
     public void display(Context context, String channelName, int notificationCounter){
         ViewChannelManager viewChannelManager = ViewChannelManager.getInstance();
-        Map<String, TextView> channelViews = viewChannelManager.getChannelViews();
+        Map<String, DraggableGridAdapter.CustomViewHolder> channelViews = viewChannelManager.getChannelViews();
 
-        TextView channelTextView = channelViews.get(channelName);
-        if(channelTextView == null){
+        DraggableGridAdapter.CustomViewHolder customViewHolder = channelViews.get(channelName);
+        if(customViewHolder == null){
             channelViews.remove(channelName);
             return;
         }
@@ -39,20 +40,20 @@ public class NotificationDisplayer {
         if(notificationCounter > 0) {
             String formattedNotificationCounter = String.valueOf(notificationCounter);
             if(notificationCounter < 9){
-                channelTextView.setText(String.format(" %s ", formattedNotificationCounter));
+                customViewHolder.getmBadgeTextView().setText(String.format(" %s ", formattedNotificationCounter));
             } else {
-                channelTextView.setText(formattedNotificationCounter);
+                customViewHolder.getmBadgeTextView().setText(String.format(" %s ", formattedNotificationCounter));
             }
-            channelTextView.setVisibility(VISIBLE);
+            customViewHolder.getmBadgeTextView().setVisibility(VISIBLE);
         } else {
-            channelTextView.setText(EMPTY_STRING);
-            channelTextView.setVisibility(INVISIBLE);
+            customViewHolder.getmBadgeTextView().setText(EMPTY_STRING);
+            customViewHolder.getmBadgeTextView().setVisibility(INVISIBLE);
         }
 
-        informInAndroidEnv(context);
+        sendNotificationInAndroidEnv(context);
     }
 
-    private void informInAndroidEnv(Context context) {
+    private void sendNotificationInAndroidEnv(Context context) {
         try {
             boolean foreground = new ForegroundCheckTask().execute(context).get();
             if(!foreground && !isNotificationSentFlag){
@@ -67,7 +68,7 @@ public class NotificationDisplayer {
 
     }
 
-    public void updateNotificationflag(){
+    public void updateNotificationFlag(){
         isNotificationSentFlag = false;
     }
 

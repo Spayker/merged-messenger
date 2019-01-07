@@ -36,7 +36,7 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
 
     private AbstractDataProvider mProvider;
 
-    static class CustomViewHolder extends AbstractDraggableItemViewHolder {
+    public static class CustomViewHolder extends AbstractDraggableItemViewHolder {
         private FrameLayout mContainer;
         private Button mChannelButton;
         private TextView mBadgeTextView;
@@ -46,6 +46,14 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
             mContainer = v.findViewById(R.id.container);
             mChannelButton = v.findViewById(R.id.channel_icon);
             mBadgeTextView = v.findViewById(R.id.badge_textView);
+        }
+
+        public TextView getmBadgeTextView() {
+            return mBadgeTextView;
+        }
+
+        public void setmBadgeTextView(TextView mBadgeTextView) {
+            this.mBadgeTextView = mBadgeTextView;
         }
     }
 

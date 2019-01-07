@@ -1,19 +1,19 @@
 package com.spandr.meme.core.activity.main.logic.notification;
 
-import android.widget.TextView;
+import com.spandr.meme.core.activity.main.logic.builder.draggable.DraggableGridAdapter;
 
 import java.util.Map;
 
 public class ViewChannelManager {
 
     private static ViewChannelManager viewChannelManager;
-    private static Map<String, TextView> channelViews;
+    private static Map<String, DraggableGridAdapter.CustomViewHolder> channelViews;
 
     @SuppressWarnings("unused")
     private ViewChannelManager() {
     }
 
-    private ViewChannelManager(Map<String, TextView> chnlsViews) {
+    private ViewChannelManager(Map<String, DraggableGridAdapter.CustomViewHolder> chnlsViews) {
         channelViews = chnlsViews;
     }
 
@@ -29,12 +29,12 @@ public class ViewChannelManager {
         return false;
     }
 
-    public Map<String, TextView> getChannelViews() {
+    public Map<String, DraggableGridAdapter.CustomViewHolder> getChannelViews() {
         return channelViews;
     }
 
 
-    static ViewChannelManager createChannelViewManager(Map<String, TextView> channelViews) {
+    static ViewChannelManager createChannelViewManager(Map<String, DraggableGridAdapter.CustomViewHolder> channelViews) {
         if (viewChannelManager == null) {
             viewChannelManager = new ViewChannelManager(channelViews);
         }
