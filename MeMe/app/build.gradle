@@ -16,8 +16,8 @@ android {
         applicationId 'com.spandr.meme'
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 18
-        versionName "1.0.7"
+        versionCode 26
+        versionName "1.0.7.2612282018"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -83,11 +83,13 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
 
     // FireBase module
-    implementation 'com.google.firebase:firebase-core:16.0.4'
-    implementation 'com.google.firebase:firebase-auth:16.0.4'
-    implementation 'com.google.firebase:firebase-database:16.0.3'
+    implementation 'com.google.firebase:firebase-core:16.0.6'
+    implementation 'com.google.firebase:firebase-auth:16.1.0'
+    implementation 'com.google.firebase:firebase-database:16.0.5'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
 
+    // Persistance
+    implementation "android.arch.persistence.room:runtime:1.1.1"
 
     // Google Service Dependencies
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
