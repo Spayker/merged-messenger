@@ -10,18 +10,27 @@ import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
+import com.spandr.meme.core.common.data.memory.channel.Channel;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import im.delight.android.webview.AdvancedWebView;
 
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
+import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
+import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 
 public class RedditWebViewChannel extends WebViewChannel {
 
+    private Context appCompatActivity;
+    private final String MESSAGE_NOTIFICATION_REGEX = "\"inboxCount\":([0-9]+)";
+    private final Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
 
-    private AppCompatActivity appCompatActivity;
     @SuppressWarnings("unused")
     private RedditWebViewChannel(){}
 
@@ -37,16 +46,13 @@ public class RedditWebViewChannel extends WebViewChannel {
         init();
     }
 
-    public RedditWebViewChannel(AppCompatActivity activity, AdvancedWebView mWebView,
-                                  String url, String channelName) {
+    public RedditWebViewChannel(Context activity, String url, String channelName) {
         if (url.isEmpty()) {
             return;
         }
         this.appCompatActivity = activity;
-        this.mWebView = mWebView;
         this.url = url;
         this.channelName = channelName;
-        initBackgroundMode();
     }
 
     @SuppressLint("AddJavascriptInterface")
@@ -56,16 +62,8 @@ public class RedditWebViewChannel extends WebViewChannel {
         initListeners();
         initOrientationSensor();
         initCacheSettings();
-        mWebView.addJavascriptInterface(new RedditJavaScriptInterface(channelName), "HTMLOUT");
         initStartURL();
         return this;
-    }
-
-    @SuppressLint("AddJavascriptInterface")
-    private void initBackgroundMode() {
-        initBackgroundWebSettings();
-        mWebView.addJavascriptInterface(new RedditJavaScriptInterface(channelName), "HTMLOUT");
-        initStartURL();
     }
 
     @Override
@@ -81,38 +79,34 @@ public class RedditWebViewChannel extends WebViewChannel {
         return url;
     }
 
-    private class RedditJavaScriptInterface {
-
-        private String channelName;
-
-        private RedditJavaScriptInterface(String channelName){
-            this.channelName = channelName;
-        }
-
-        private final String MESSAGE_NOTIFICATION_REGEX = "\"inboxCount\":([0-9]+)";
-        private final Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
-
-        @JavascriptInterface
-        @SuppressWarnings("unused")
-        public void processHTML(String html) {
-            if(isNotificationSettingEnabled(channelName)){
-                Matcher m = pattern.matcher(html);
-                int notificationCounter = 0;
-                while(m.find()) {
-                    notificationCounter += Integer.valueOf(m.group(1));
-                }
-
-                final int result = notificationCounter;
-                if(notificationCounter > 0){
-                    if (activity == null) {
-                        appCompatActivity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(appCompatActivity, channelName, result));
-                    } else {
-                        activity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(activity, channelName, result));
-                    }
-                }
+    @Override
+    public void processHTML(String html) {
+        if(isNotificationSettingEnabled(channelName)){
+            Matcher m = pattern.matcher(html);
+            int notificationCounter = 0;
+            while(m.find()) {
+                notificationCounter += Integer.valueOf(m.group(1));
             }
+
+            Channel channel = getChannelByName(channelName);
+            if(channel != null){
+                channel.setNotifications(notificationCounter);
+            }
+
+            /*if(notificationCounter > 0){
+                if (activity == null) {
+                        appCompatActivity.runOnUiThread(() -> {
+                            NotificationDisplayer.getInstance().display(appCompatActivity, channelName, result);
+                            mWebView.stopLoading();
+                        });
+                } else {
+                    activity.runOnUiThread(() -> {
+                        NotificationDisplayer.getInstance().display(activity, channelName, result);
+                        mWebView.stopLoading();
+                    });
+                }
+            }*/
         }
     }
-
 
 }

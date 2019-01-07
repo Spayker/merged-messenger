@@ -7,7 +7,6 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AppCompatActivity;
 
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.MainActivity;
@@ -18,7 +17,7 @@ public class ShowNotificationIntentService {
 
     private static String mId = "395631925";
 
-    public static void buildSystemNotification(AppCompatActivity targetActivity){
+    public static void buildSystemNotification(Context targetActivity){
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(targetActivity, mId)
                         .setSmallIcon(R.mipmap.logo)

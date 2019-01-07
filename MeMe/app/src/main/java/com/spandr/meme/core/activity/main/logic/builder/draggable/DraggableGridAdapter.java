@@ -19,8 +19,11 @@ import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.data.AbstractDataProvider;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.utils.DrawableUtils;
 import com.spandr.meme.core.activity.main.logic.notification.ViewChannelManager;
+import com.spandr.meme.core.common.data.memory.channel.Channel;
 
 import java.util.Map;
+
+import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 
 public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdapter.CustomViewHolder>
         implements DraggableItemAdapter<DraggableGridAdapter.CustomViewHolder> {
@@ -28,7 +31,8 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
     private static final String TAG = "DraggableGridAdapter";
 
     // NOTE: Make accessible with short name
-    private interface Draggable extends DraggableItemConstants { }
+    private interface Draggable extends DraggableItemConstants {
+    }
 
     private AbstractDataProvider mProvider;
 
@@ -79,8 +83,19 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
         Drawable icon = item.getIcon();
         holder.mChannelButton.setCompoundDrawablesWithIntrinsicBounds(null, icon, null, null);
 
+        Channel channel = getChannelByName(item.getText());
+        if (channel != null) {
+            int notifications = channel.getNotifications();
+            if(notifications > 0){
+                holder.mBadgeTextView.setVisibility(View.VISIBLE);
+                holder.mBadgeTextView.setText(String.valueOf(notifications));
+            } else {
+                holder.mBadgeTextView.setVisibility(View.INVISIBLE);
+            }
+        }
+
         View.OnClickListener listener = item.getOnClickListener();
-        if(listener != null){
+        if (listener != null) {
             holder.mChannelButton.setOnClickListener(listener);
         } else {
             holder.mChannelButton.setEnabled(false);
@@ -107,9 +122,6 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
 
             holder.mContainer.setBackgroundResource(bgResId);
         }
-
-        Map<String, TextView> channelViews = ViewChannelManager.getInstance().getChannelViews();
-        channelViews.put(item.getText(), holder.mBadgeTextView);
     }
 
     @Override
@@ -139,10 +151,12 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
     }
 
     @Override
-    public void onItemDragStarted(int position) { }
+    public void onItemDragStarted(int position) {
+    }
 
     @Override
-    public void onItemDragFinished(int fromPosition, int toPosition, boolean result) { }
+    public void onItemDragFinished(int fromPosition, int toPosition, boolean result) {
+    }
 
 
 }

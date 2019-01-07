@@ -9,8 +9,8 @@ import java.util.List;
 public class ForegroundCheckTask extends AsyncTask<Context, Void, Boolean> {
 
     @Override
-    protected Boolean doInBackground(Context... params) {
-        final Context context = params[0].getApplicationContext();
+    protected Boolean doInBackground(Context... contexts) {
+        final Context context = contexts[0].getApplicationContext();
         return isAppOnForeground(context);
     }
 

@@ -16,76 +16,30 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.webkit.CookieManager;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.MainActivity;
-import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.chat.DiscordWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.chat.GGWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.chat.IcqWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.chat.SkypeWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.chat.SlackWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.chat.TelegramWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.info.HabrWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.info.QuoraWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.info.RedditWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.info.StackOverflowWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.mail.GmailWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.mail.MailruWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.social.FacebookWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.social.InstagramWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.social.LinkedInWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.social.OkWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.social.PinterestWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.social.TumblrWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.social.TwitterWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.social.VkontakteWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.video.TwitchWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.init.channel.video.YoutubeWebViewChannel;
-import com.spandr.meme.core.activity.webview.logic.manager.WebViewManager;
+import com.spandr.meme.core.activity.webview.logic.manager.WebViewChannelManager;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
 import com.spandr.meme.core.common.data.memory.channel.DataChannelManager;
 
 import java.util.Calendar;
-import java.util.Map;
+import java.util.List;
 
 import im.delight.android.webview.AdvancedWebView;
 
-import static com.spandr.meme.core.activity.main.logic.LogicContants.TASK_BACKGROUND_PREFIX;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.CHANNEL_NAME;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.DISCORD_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.FB_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.GADU_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.GMAIL_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.HABR_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.ICQ_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.INSTAGRAM_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_LEFT_MARGIN;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_TOP_MARGIN;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.LINKEDIN_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.MAIL_RU_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.ODNOKLASNIKI_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.PINTEREST_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.QUORA_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.REDDIT_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.SKYPE_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.SLACK_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.STACKOVERFLOW_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TUMBLR_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TWITCH_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TWITTER_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.VK_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.YOUTUBE_HOME_URL;
-import static com.spandr.meme.core.activity.webview.logic.manager.WebViewManager.applyChannelRelatedConfiguration;
-import static com.spandr.meme.core.activity.webview.logic.manager.WebViewManager.getWebViewChannelManager;
+import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 
-public class WebViewActivity extends AppCompatActivity implements AdvancedWebView.Listener, View.OnTouchListener, ViewTreeObserver.OnScrollChangedListener {
+public class WebViewActivity extends AppCompatActivity implements AdvancedWebView.Listener,
+        View.OnTouchListener, ViewTreeObserver.OnScrollChangedListener {
 
     private static final int BACK_BUTTON_MIN_CLICK_DURATION = 500;
 
@@ -103,6 +57,7 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
     private boolean isActionUpHappened;
     private boolean shallVibroNotify;
     private long startClickTime;
+    private String channelName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,55 +67,23 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
         webViewRelativeLayout = findViewById(R.id.webview_relative_layout);
         swipeRefreshLayout = findViewById(R.id.swipeContainer);
         mBackButton = findViewById(R.id.backToMainMenu);
-        initNotificationManager();
 
         swipeRefreshLayout.setOnRefreshListener(() -> swipeRefreshLayout.setRefreshing(false));
-    }
 
-    private void initNotificationManager() {
-        RelativeLayout nonVideoLayout = findViewById(R.id.nonVideoLayout);
-        WebViewManager webViewManager = getWebViewChannelManager();
-        Map<String, AdvancedWebView> availableWebViews = webViewManager.getWebViewChannels();
         Intent webViewIntent = getIntent();
-        String channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
-        String prefixedChannelName = channelName+TASK_BACKGROUND_PREFIX;
-
-        if(availableWebViews.containsKey(prefixedChannelName)){
-            availableWebViews.remove(prefixedChannelName);
-            createWebView(availableWebViews, channelName);
-            return;
-        }
-
-        if (availableWebViews.containsKey(channelName)) {
-            mWebView = availableWebViews.get(channelName);
-            nonVideoLayout.removeAllViews();
-
-            ViewGroup relativeLayout = (ViewGroup) mWebView.getParent();
-            relativeLayout.removeView(mWebView);
-            SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) relativeLayout.getParent();
-            swipeRefreshLayout.removeView(relativeLayout);
-            swipeRefreshLayout.addView(relativeLayout);
-
-            RelativeLayout.LayoutParams newRelativeLayoutParams =
-                    new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-                            RelativeLayout.LayoutParams.MATCH_PARENT);
-            mWebView.setLayoutParams(newRelativeLayoutParams);
-            mWebView.getViewTreeObserver().addOnScrollChangedListener(this);
-            nonVideoLayout.addView(mWebView);
-        } else {
-            createWebView(availableWebViews, channelName);
-        }
+        channelName = webViewIntent.getStringExtra(CHANNEL_NAME);
+        createWebView(channelName);
     }
 
-    private void createWebView(Map<String, AdvancedWebView> availableWebViews, String channelName) {
+    private void createWebView(String channelName) {
         mWebView = findViewById(R.id.webView);
         initListeners();
         initBackButtonStartPosition();
-        applyChannelRelatedConfiguration(this, channelName);
+        WebViewChannelManager webViewChannelManager = WebViewChannelManager.getWebViewChannelManager();
+        webViewChannelManager.applyChannelRelatedConfiguration(this, channelName);
 
         mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         mWebView.setScrollbarFadingEnabled(false);
-        availableWebViews.put(channelName, mWebView);
     }
 
     private void initBackButtonStartPosition() {
@@ -189,6 +112,17 @@ public class WebViewActivity extends AppCompatActivity implements AdvancedWebVie
     }
 
     public void clickOnBackToMainMenu(View view){
+        Channel channel = getChannelByName(channelName);
+        if(channel != null){
+            channel.setLastUrl(mWebView.getUrl());
+            String cookies = CookieManager.getInstance().getCookie(mWebView.getUrl());
+
+            channel.setCookies(cookies);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(channelName+"cookies", cookies);
+            editor.apply();
+            editor.commit();
+        }
         startActivity(new Intent(this, MainActivity.class));
     }
 

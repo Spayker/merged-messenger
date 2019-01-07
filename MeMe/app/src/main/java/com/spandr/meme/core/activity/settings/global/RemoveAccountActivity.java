@@ -23,7 +23,6 @@ import java.util.Objects;
 
 import static com.spandr.meme.core.activity.main.logic.LogicContants.APP_BACK_RETURN_FLAG;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_AUTO_LOGIN;
-import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_LAST_USED_CHANNELS;
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_OLD_CHANGE_PASS;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_PASS;
@@ -147,7 +146,6 @@ public class RemoveAccountActivity extends AppCompatActivity implements View.OnC
         editor.putString(KEY_PASS, null);
         editor.putBoolean(KEY_REMEMBER, false);
         editor.putBoolean(KEY_AUTO_LOGIN, false);
-        editor.putString(KEY_LAST_USED_CHANNELS, EMPTY_STRING);
         editor.apply();
         editor.commit();
     }

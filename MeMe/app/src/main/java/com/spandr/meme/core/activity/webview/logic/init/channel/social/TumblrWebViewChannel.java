@@ -10,17 +10,27 @@ import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
+import com.spandr.meme.core.common.data.memory.channel.Channel;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import im.delight.android.webview.AdvancedWebView;
 
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
+import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
+import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 
 public class TumblrWebViewChannel extends WebViewChannel {
 
-    private AppCompatActivity appCompatActivity;
+    private Context appCompatActivity;
+    private final String MESSAGE_NOTIFICATION_REGEX = "_5\">([0-9]+)</div></div>";
+    private final Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
+
     @SuppressWarnings("unused")
     private TumblrWebViewChannel(){}
 
@@ -36,16 +46,13 @@ public class TumblrWebViewChannel extends WebViewChannel {
         init();
     }
 
-    public TumblrWebViewChannel(AppCompatActivity activity, AdvancedWebView mWebView,
-                                  String url, String channelName) {
+    public TumblrWebViewChannel(Context activity, String url, String channelName) {
         if (url.isEmpty()) {
             return;
         }
         this.appCompatActivity = activity;
-        this.mWebView = mWebView;
         this.url = url;
         this.channelName = channelName;
-        initBackgroundMode();
     }
 
     @SuppressLint("AddJavascriptInterface")
@@ -55,16 +62,8 @@ public class TumblrWebViewChannel extends WebViewChannel {
         initListeners();
         initOrientationSensor();
         initCacheSettings();
-        mWebView.addJavascriptInterface(new TumblrJavaScriptInterface(channelName), "HTMLOUT");
         initStartURL();
         return this;
-    }
-
-    @SuppressLint("AddJavascriptInterface")
-    private void initBackgroundMode() {
-        initBackgroundWebSettings();
-        mWebView.addJavascriptInterface(new TumblrJavaScriptInterface(channelName), "HTMLOUT");
-        initStartURL();
     }
 
     @Override
@@ -80,37 +79,33 @@ public class TumblrWebViewChannel extends WebViewChannel {
         return url;
     }
 
-    private class TumblrJavaScriptInterface {
-
-        private String channelName;
-
-        private TumblrJavaScriptInterface(String channelName){
-            this.channelName = channelName;
-        }
-
-        private final String MESSAGE_NOTIFICATION_REGEX = "_5\">([0-9]+)</div></div>";
-        private final Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
-
-        @JavascriptInterface
-        @SuppressWarnings("unused")
-        public void processHTML(String html) {
-            if(isNotificationSettingEnabled(channelName)){
-                Matcher m = pattern.matcher(html);
-                int notificationCounter = 0;
-                while(m.find()) {
-                    notificationCounter += Integer.valueOf(m.group(1));
-                }
-
-                final int result = notificationCounter;
-                if(notificationCounter > 0){
-                    if (activity == null) {
-                        appCompatActivity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(appCompatActivity, channelName, result));
-                    } else {
-                        activity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(activity, channelName, result));
-                    }
-                }
+    @Override
+    public void processHTML(String html) {
+        if(isNotificationSettingEnabled(channelName)){
+            Matcher m = pattern.matcher(html);
+            int notificationCounter = 0;
+            while(m.find()) {
+                notificationCounter += Integer.valueOf(m.group(1));
             }
+
+            Channel channel = getChannelByName(channelName);
+            if(channel != null){
+                channel.setNotifications(notificationCounter);
+            }
+
+            /*if(notificationCounter > 0){
+                if (activity == null) {
+                        appCompatActivity.runOnUiThread(() -> {
+                            NotificationDisplayer.getInstance().display(appCompatActivity, channelName, result);
+                            mWebView.stopLoading();
+                        });
+                } else {
+                    activity.runOnUiThread(() -> {
+                        NotificationDisplayer.getInstance().display(activity, channelName, result);
+                        mWebView.stopLoading();
+                    });
+                }
+            }*/
         }
     }
-
 }

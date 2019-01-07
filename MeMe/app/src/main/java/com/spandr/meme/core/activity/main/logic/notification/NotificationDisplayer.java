@@ -56,7 +56,7 @@ public class NotificationDisplayer {
         try {
             boolean foreground = new ForegroundCheckTask().execute(context).get();
             if(!foreground && !isNotificationSentFlag){
-                buildSystemNotification((AppCompatActivity) context);
+                buildSystemNotification(context);
                 isNotificationSentFlag = true;
             }
         } catch (ExecutionException e) {

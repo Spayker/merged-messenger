@@ -90,7 +90,7 @@ public class Loginner implements Starter {
     @Override
     public void initApplication(SharedPreferences sharedPreferences) {
         DataChannelManager.clearChannels();
-        ViewChannelManager.clearChannelViews();
+        //ViewChannelManager.clearChannelViews();
         initChannelManager(mainActivity);
         String deviceCountryCode = mainActivity.getResources().getConfiguration().locale.getCountry();
         String[] eastCountryCodes = mainActivity.getResources().getStringArray(R.array.east_country_codes);

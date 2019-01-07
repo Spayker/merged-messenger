@@ -8,13 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.google.android.gms.common.util.ArrayUtils;
+import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
 import com.spandr.meme.core.common.data.memory.channel.DataChannelManager;
 import com.spandr.meme.core.common.data.memory.channel.ICON;
-import com.spandr.meme.core.activity.webview.WebViewActivity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;

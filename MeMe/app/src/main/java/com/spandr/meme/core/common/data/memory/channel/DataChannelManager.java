@@ -40,6 +40,14 @@ public class DataChannelManager {
         return channels;
     }
 
+    public Iterable<String> getChannelsIterator() {
+        ArrayList<String> channelNames = new ArrayList<>();
+        for (Channel channel : channels){
+            channelNames.add(channel.getName());
+        }
+        return channelNames;
+    }
+
     public static DataChannelManager createChannelManager(AppCompatActivity mainActivity, List<Channel> channels) {
         if (dataChannelManager == null) {
             dataChannelManager = new DataChannelManager(channels);

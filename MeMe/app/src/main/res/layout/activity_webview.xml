@@ -22,7 +22,6 @@
 
 
 
-        <!-- View that will be hidden when video goes fullscreen -->
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
@@ -35,15 +34,16 @@
             android:layout_height="match_parent"
             android:windowSoftInputMode="adjustResize">
 
-                <im.delight.android.webview.AdvancedWebView
-                    android:id="@+id/webView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:windowSoftInputMode="adjustResize"/>
+            <im.delight.android.webview.AdvancedWebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:windowSoftInputMode="adjustResize"/>
 
         </RelativeLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
+    <!-- View that will be hidden when video goes fullscreen -->
 
     <!-- View where the video will be shown when video goes fullscreen -->
     <RelativeLayout

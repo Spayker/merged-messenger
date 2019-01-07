@@ -9,18 +9,27 @@ import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
+import com.spandr.meme.core.common.data.memory.channel.Channel;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import im.delight.android.webview.AdvancedWebView;
 
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
+import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
+import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 
 public class VkontakteWebViewChannel extends WebViewChannel {
 
-    protected AppCompatActivity appCompatActivity;
+    protected Context appCompatActivity;
     private String VKONTAKTE_USER_AGENT_STRING = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36";
+    private final String MESSAGE_NOTIFICATION_REGEX = "<em class=\"mm_counter\">([0-9]+)</em>";
+    private final Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
 
     @SuppressWarnings("unused")
     private VkontakteWebViewChannel() {
@@ -38,16 +47,13 @@ public class VkontakteWebViewChannel extends WebViewChannel {
         init();
     }
 
-    public VkontakteWebViewChannel(AppCompatActivity activity, AdvancedWebView mWebView,
-                                   String url, String channelName) {
+    public VkontakteWebViewChannel(Context activity, String url, String channelName) {
         if (url.isEmpty()) {
             return;
         }
         this.appCompatActivity = activity;
-        this.mWebView = mWebView;
         this.url = url;
         this.channelName = channelName;
-        initBackgroundMode();
     }
 
     protected VkontakteWebViewChannel init() {
@@ -56,14 +62,6 @@ public class VkontakteWebViewChannel extends WebViewChannel {
         initWebSettings();
         initOrientationSensor();
         initCacheSettings();
-        mWebView.addJavascriptInterface(new VkJavaScriptInterface(), "HTMLOUT");
-        initStartURL();
-        return this;
-    }
-
-    private VkontakteWebViewChannel initBackgroundMode() {
-        initBackgroundWebSettings();
-        mWebView.addJavascriptInterface(new VkJavaScriptInterface(), "HTMLOUT");
         initStartURL();
         return this;
     }
@@ -86,29 +84,33 @@ public class VkontakteWebViewChannel extends WebViewChannel {
         return url;
     }
 
-    private class VkJavaScriptInterface {
-
-        private final String MESSAGE_NOTIFICATION_REGEX = "<em class=\"mm_counter\">([0-9]+)</em>";
-        private final Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
-
-        @JavascriptInterface
-        @SuppressWarnings("unused")
-        public void processHTML(String html) {
-            if (isNotificationSettingEnabled(channelName)) {
-                Matcher m = pattern.matcher(html);
-                int notificationCounter = 0;
-                while (m.find()) {
-                    notificationCounter += Integer.valueOf(m.group(1));
-                }
-                final int result = notificationCounter;
-                if(notificationCounter > 0){
-                    if (activity == null) {
-                        appCompatActivity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(appCompatActivity, channelName, result));
-                    } else {
-                        activity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(activity, channelName, result));
-                    }
-                }
+    @Override
+    public void processHTML(String html) {
+        if (isNotificationSettingEnabled(channelName)) {
+            Matcher m = pattern.matcher(html);
+            int notificationCounter = 0;
+            while (m.find()) {
+                notificationCounter += Integer.valueOf(m.group(1));
             }
+
+            Channel channel = getChannelByName(channelName);
+            if(channel != null){
+                channel.setNotifications(notificationCounter);
+            }
+
+            /*if(notificationCounter > 0){
+                if (activity == null) {
+                        appCompatActivity.runOnUiThread(() -> {
+                            NotificationDisplayer.getInstance().display(appCompatActivity, channelName, result);
+                            mWebView.stopLoading();
+                        });
+                } else {
+                        activity.runOnUiThread(() -> {
+                            NotificationDisplayer.getInstance().display(activity, channelName, result);
+                            mWebView.stopLoading();
+                        });
+                }
+            }*/
         }
     }
 

@@ -12,7 +12,12 @@ import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
+import com.spandr.meme.core.common.data.memory.channel.Channel;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,11 +26,16 @@ import im.delight.android.webview.AdvancedWebView;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TELEGRAM_HOME_URL_2;
+import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
+import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 
 public class TelegramWebViewChannel extends WebViewChannel {
 
-    private AppCompatActivity appCompatActivity;
+    private Context appCompatActivity;
     private String TELEGRAM_USER_AGENT_STRING = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36";
+
+    private final String MESSAGE_NOTIFICATION_REGEX = "muted-class=\"im_dialog_badge_muted\" style=\"\">([0-9]+)</span>";
+    private final Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
 
     @SuppressWarnings("unused")
     private TelegramWebViewChannel(){}
@@ -42,16 +52,13 @@ public class TelegramWebViewChannel extends WebViewChannel {
         init();
     }
 
-    public TelegramWebViewChannel(AppCompatActivity activity, AdvancedWebView mWebView,
-                                  String url, String channelName) {
+    public TelegramWebViewChannel(Context activity, String url, String channelName) {
         if (url.isEmpty()) {
             return;
         }
         this.appCompatActivity = activity;
-        this.mWebView = mWebView;
         this.url = url;
         this.channelName = channelName;
-        initBackgroundMode();
     }
 
     @SuppressLint("AddJavascriptInterface")
@@ -61,16 +68,8 @@ public class TelegramWebViewChannel extends WebViewChannel {
         initWebClients();
         initOrientationSensor();
         initCacheSettings();
-        mWebView.addJavascriptInterface(new TlJavaScriptInterface(channelName), "HTMLOUT");
         initStartURL();
         return this;
-    }
-
-    @SuppressLint("AddJavascriptInterface")
-    private void initBackgroundMode() {
-        initBackgroundWebSettings();
-        mWebView.addJavascriptInterface(new TlJavaScriptInterface(channelName), "HTMLOUT");
-        initStartURL();
     }
 
     @Override
@@ -133,36 +132,34 @@ public class TelegramWebViewChannel extends WebViewChannel {
         }
     }
 
-    private class TlJavaScriptInterface {
-
-        private String channelName;
-
-        private final String MESSAGE_NOTIFICATION_REGEX = "muted-class=\"im_dialog_badge_muted\" style=\"\">([0-9]+)</span>";
-        private final Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
-
-        private TlJavaScriptInterface(String channelName){
-            this.channelName = channelName;
-        }
-
-        @JavascriptInterface
-        @SuppressWarnings("unused")
-        public void processHTML(String html) {
-            if(isNotificationSettingEnabled(channelName)){
-                Matcher m = pattern.matcher(html);
-                int notificationCounter = 0;
-                while(m.find()) {
-                    notificationCounter += Integer.valueOf(m.group(1));
-                }
-
-                final int result = notificationCounter;
-                if(notificationCounter > 0){
-                    if (activity == null) {
-                        appCompatActivity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(appCompatActivity, channelName, result));
-                    } else {
-                        activity.runOnUiThread(() -> NotificationDisplayer.getInstance().display(activity, channelName, result));
-                    }
-                }
+    @Override
+    public void processHTML(String html) {
+        if(isNotificationSettingEnabled(channelName)){
+            Matcher m = pattern.matcher(html);
+            int notificationCounter = 0;
+            while(m.find()) {
+                notificationCounter += Integer.valueOf(m.group(1));
             }
+
+            Channel channel = getChannelByName(channelName);
+            if(channel != null){
+                channel.setNotifications(notificationCounter);
+            }
+
+            /*if(notificationCounter > 0){
+                if (activity == null) {
+                        appCompatActivity.runOnUiThread(() -> {
+                            NotificationDisplayer.getInstance().display(appCompatActivity, channelName, result);
+                            mWebView.stopLoading();
+                        });
+                } else {
+                    activity.runOnUiThread(() -> {
+                        NotificationDisplayer.getInstance().display(activity, channelName, result);
+                        mWebView.stopLoading();
+                    });
+                }
+            }*/
         }
     }
+
 }
