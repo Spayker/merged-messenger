@@ -7,12 +7,6 @@ import com.spandr.meme.core.activity.webview.logic.manager.WebViewChannelManager
 import com.spandr.meme.core.common.data.memory.channel.Channel;
 import com.spandr.meme.core.common.data.memory.channel.DataChannelManager;
 
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -25,9 +19,7 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.spandr.meme.core.activity.main.logic.notification.ViewChannelManager.createChannelViewManager;
-import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.activity.webview.logic.manager.WebViewChannelManager.getWebViewChannelManager;
-import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getAllActiveChannels;
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 

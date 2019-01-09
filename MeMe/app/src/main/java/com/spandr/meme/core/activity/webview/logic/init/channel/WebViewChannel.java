@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -15,12 +14,18 @@ import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
 import com.spandr.meme.core.common.data.memory.channel.DataChannelManager;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
+
 import im.delight.android.webview.AdvancedWebView;
 
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.EMPTY_STRING;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.MEME_HOME_URL;
 import static com.spandr.meme.core.common.util.ActivityUtils.isNetworkAvailable;
+import static java.lang.Thread.sleep;
 
 public abstract class WebViewChannel {
 
@@ -33,7 +38,24 @@ public abstract class WebViewChannel {
 
     protected void initUserAgent() {}
 
-    public String establishConnection(Channel channel, Context activity){
+    public String establishConnection(Channel channel, Context context) {
+        try {
+            String url = channel.getHomeUrl();
+            if (!url.isEmpty()) {
+                String cookies = channel.getCookies();
+                if (cookies.isEmpty()) {
+                    cookies = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).
+                            getString(channelName + "cookies", EMPTY_STRING);
+                }
+
+                if (cookies != null && !cookies.isEmpty()) {
+                    Document doc = Jsoup.connect(url).header("Cookie", cookies).get();
+                    return doc.toString();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return EMPTY_STRING;
     }
 
