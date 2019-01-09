@@ -43,13 +43,13 @@ public abstract class WebViewChannel {
             String url = channel.getHomeUrl();
             if (!url.isEmpty()) {
                 String cookies = channel.getCookies();
-                if (cookies.isEmpty()) {
+                if (cookies != null && cookies.isEmpty()) {
                     cookies = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).
                             getString(channelName + "cookies", EMPTY_STRING);
                 }
 
                 if (cookies != null && !cookies.isEmpty()) {
-                    Document doc = Jsoup.connect(url).header("Cookie", cookies).get();
+                    Document doc = Jsoup.connect(url).header("Cookie", cookies).timeout(0).get();
                     return doc.toString();
                 }
             }

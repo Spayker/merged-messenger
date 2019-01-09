@@ -8,10 +8,15 @@ import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
+import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.EMPTY_STRING;
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 
 public class VkontakteWebViewChannel extends WebViewChannel {
@@ -47,6 +52,7 @@ public class VkontakteWebViewChannel extends WebViewChannel {
     }
 
     protected VkontakteWebViewChannel init() {
+        initUserAgent();
         initListeners();
         initWebClients();
         initWebSettings();
@@ -54,6 +60,32 @@ public class VkontakteWebViewChannel extends WebViewChannel {
         initCacheSettings();
         initStartURL();
         return this;
+    }
+
+    @Override
+    public String establishConnection(Channel channel, Context context) {
+        try {
+            String url = channel.getHomeUrl();
+            if (!url.isEmpty()) {
+                String cookies = channel.getCookies();
+                if (cookies != null && cookies.isEmpty()) {
+                    cookies = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).
+                            getString(channelName + "cookies", EMPTY_STRING);
+                }
+
+                if (cookies != null && !cookies.isEmpty()) {
+                    Document doc = Jsoup.connect(url).
+                            userAgent(VKONTAKTE_USER_AGENT_STRING).
+                            header("Cookie", cookies).
+                            timeout(0).
+                            get();
+                    return doc.toString();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return EMPTY_STRING;
     }
 
     @Override

@@ -52,7 +52,7 @@ public class FacebookWebViewChannel extends WebViewChannel {
             String url = channel.getHomeUrl();
             if (!url.isEmpty()) {
                 String cookies = channel.getCookies();
-                if (cookies.isEmpty()) {
+                if (cookies != null && cookies.isEmpty()) {
                     cookies = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).
                             getString(channelName + "cookies", EMPTY_STRING);
                 }
@@ -61,6 +61,7 @@ public class FacebookWebViewChannel extends WebViewChannel {
                     Document doc = Jsoup.connect(url).
                             userAgent(FACEBOOK_USER_AGENT_STRING).
                             header("Cookie", cookies).
+                            timeout(0).
                             get();
                     return doc.toString();
                 }

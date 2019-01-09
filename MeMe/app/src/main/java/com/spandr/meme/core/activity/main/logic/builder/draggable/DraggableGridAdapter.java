@@ -51,10 +51,6 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
         public TextView getmBadgeTextView() {
             return mBadgeTextView;
         }
-
-        public void setmBadgeTextView(TextView mBadgeTextView) {
-            this.mBadgeTextView = mBadgeTextView;
-        }
     }
 
     DraggableGridAdapter(AbstractDataProvider dataProvider) {
@@ -100,6 +96,14 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
             } else {
                 holder.mBadgeTextView.setVisibility(View.INVISIBLE);
             }
+        }
+
+        ViewChannelManager viewChannelManager = ViewChannelManager.getInstance();
+        Map<String, CustomViewHolder> channelViews = viewChannelManager.getChannelViews();
+        if (channel != null) {
+            String channelName = channel.getName();
+            channelViews.remove(channelName);
+            channelViews.put(channelName, holder);
         }
 
         View.OnClickListener listener = item.getOnClickListener();

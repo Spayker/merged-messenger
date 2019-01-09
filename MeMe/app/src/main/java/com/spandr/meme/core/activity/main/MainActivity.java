@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkNotifications() {
         try {
-            new BackgroundNotificationTask().execute(this).get();
+            new BackgroundNotificationTask(this).execute(this).get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

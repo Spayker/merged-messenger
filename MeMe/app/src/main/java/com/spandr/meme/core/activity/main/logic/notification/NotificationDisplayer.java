@@ -1,6 +1,8 @@
 package com.spandr.meme.core.activity.main.logic.notification;
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.multidex.MultiDexApplication;
 import android.widget.TextView;
 
 import com.spandr.meme.core.activity.main.logic.builder.draggable.DraggableGridAdapter;
@@ -27,7 +29,8 @@ public class NotificationDisplayer {
         return instance;
     }
 
-    public void display(Context context, String channelName, int notificationCounter){
+    public void display(Context context, Activity mainActivity,
+                        String channelName, int notificationCounter){
         ViewChannelManager viewChannelManager = ViewChannelManager.getInstance();
         Map<String, DraggableGridAdapter.CustomViewHolder> channelViews = viewChannelManager.getChannelViews();
 
@@ -37,19 +40,20 @@ public class NotificationDisplayer {
             return;
         }
 
-        if(notificationCounter > 0) {
-            String formattedNotificationCounter = String.valueOf(notificationCounter);
-            if(notificationCounter < 9){
-                customViewHolder.getmBadgeTextView().setText(String.format(" %s ", formattedNotificationCounter));
+        mainActivity.runOnUiThread(() -> {
+            if(notificationCounter > 0) {
+                String formattedNotificationCounter = String.valueOf(notificationCounter);
+                if(notificationCounter < 9){
+                    customViewHolder.getmBadgeTextView().setText(String.format(" %s ", formattedNotificationCounter));
+                } else {
+                    customViewHolder.getmBadgeTextView().setText(String.format(" %s ", formattedNotificationCounter));
+                }
+                customViewHolder.getmBadgeTextView().setVisibility(VISIBLE);
             } else {
-                customViewHolder.getmBadgeTextView().setText(String.format(" %s ", formattedNotificationCounter));
+                customViewHolder.getmBadgeTextView().setText(EMPTY_STRING);
+                customViewHolder.getmBadgeTextView().setVisibility(INVISIBLE);
             }
-            customViewHolder.getmBadgeTextView().setVisibility(VISIBLE);
-        } else {
-            customViewHolder.getmBadgeTextView().setText(EMPTY_STRING);
-            customViewHolder.getmBadgeTextView().setVisibility(INVISIBLE);
-        }
-
+        });
         sendNotificationInAndroidEnv(context);
     }
 

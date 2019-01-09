@@ -1,5 +1,6 @@
 package com.spandr.meme.core.activity.main.logic.notification;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
@@ -28,10 +29,12 @@ public class WebViewRunnableInitializer {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(5);
     private Runnable notificationRunnable;
-    private Context activity;
+    private Context context;
+    private Activity mainActivity;
 
-    WebViewRunnableInitializer(Context activity) {
-        this.activity = activity;
+    WebViewRunnableInitializer(Context context, Activity mainActivity) {
+        this.context = context;
+        this.mainActivity = mainActivity;
         initBackgroundWebViewComponent();
         initRX();
         initViewChannelManager();
@@ -50,7 +53,7 @@ public class WebViewRunnableInitializer {
                         .subscribeWith(webViewObserver));
             };
 
-            scheduler.scheduleAtFixedRate(notificationRunnable, 1, 30, TimeUnit.SECONDS);
+            scheduler.scheduleAtFixedRate(notificationRunnable, 1, 2, TimeUnit.SECONDS);
         }
         initViewChannelManager();
     }
@@ -72,7 +75,7 @@ public class WebViewRunnableInitializer {
                 if (channel != null) {
                     WebViewChannel webViewChannel = channel.getWebViewChannel();
                     if(webViewChannel != null){
-                        String html = webViewChannel.establishConnection(channel, activity);
+                        String html = webViewChannel.establishConnection(channel, context);
                         webViewChannel.processHTML(html);
                     }
                 }
@@ -84,7 +87,13 @@ public class WebViewRunnableInitializer {
             }
 
             @Override
-            public void onComplete() { }
+            public void onComplete() {
+                NotificationDisplayer notificationDisplayer = NotificationDisplayer.getInstance();
+                List<Channel> activeChannels = getAllActiveChannels();
+                for (Channel channel : activeChannels){
+                    notificationDisplayer.display(context, mainActivity, channel.getName(), channel.getNotifications());
+                }
+            }
         };
     }
 
@@ -94,12 +103,8 @@ public class WebViewRunnableInitializer {
             String channelName = channel.getName();
             WebViewChannelManager webViewChannelManager = getWebViewChannelManager();
             //channel.setLastUrl(channel.getHomeUrl());
-            webViewChannelManager.applyBackgroundChannelRelatedConfiguration(activity, channelName);
+            webViewChannelManager.applyBackgroundChannelRelatedConfiguration(context, channelName);
         }
-    }
-
-    public CompositeDisposable getCompositeDisposable() {
-        return compositeDisposable;
     }
 
 }
