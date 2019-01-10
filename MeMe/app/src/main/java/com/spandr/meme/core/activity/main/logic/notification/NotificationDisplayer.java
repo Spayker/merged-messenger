@@ -50,7 +50,6 @@ public class NotificationDisplayer {
                 }
                 customViewHolder.getmBadgeTextView().setVisibility(VISIBLE);
             } else {
-                customViewHolder.getmBadgeTextView().setText(EMPTY_STRING);
                 customViewHolder.getmBadgeTextView().setVisibility(INVISIBLE);
             }
         });
@@ -69,7 +68,6 @@ public class NotificationDisplayer {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 
     public void updateNotificationFlag(){

@@ -157,4 +157,8 @@ public abstract class WebViewChannel {
         SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(channelKeyNotification, false);
     }
+
+    public WebViewActivity getActivity() {
+        return activity;
+    }
 }

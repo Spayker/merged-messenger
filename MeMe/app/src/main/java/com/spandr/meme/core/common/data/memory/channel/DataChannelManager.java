@@ -94,7 +94,7 @@ public class DataChannelManager {
     }
 
     public static Channel getChannelByName(String name) {
-        for (Channel chn : dataChannelManager.getChannels()) {
+        for (Channel chn : new ArrayList<>(dataChannelManager.getChannels())) {
             if (chn.getName().equals(name)) {
                 return chn;
             }

@@ -8,7 +8,7 @@ public interface WebViewConstants {
     String CHANNEL_NAME = "channelName";
     String MEME_HOME_URL = "https://www.patreon.com/merged_messenger";
     String VK_HOME_URL = "http://m.vk.com";
-    String FB_HOME_URL = "https://m.facebook.com/";
+    String FB_HOME_URL = "http://m.facebook.com/";
     String INSTAGRAM_HOME_URL = "https://www.instagram.com/";
     String TELEGRAM_HOME_URL =  "http://www.web-telegram.ru/#/login";
     String TELEGRAM_HOME_URL_2 = "https://web.telegram.org";

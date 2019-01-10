@@ -93,6 +93,13 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
             if(notifications > 0){
                 holder.mBadgeTextView.setVisibility(View.VISIBLE);
                 holder.mBadgeTextView.setText(String.valueOf(notifications));
+
+                String formattedNotificationCounter = String.valueOf(notifications);
+                if(notifications < 9){
+                    holder.mBadgeTextView.setText(String.format(" %s ", formattedNotificationCounter));
+                } else {
+                    holder.mBadgeTextView.setText(String.format(" %s ", formattedNotificationCounter));
+                }
             } else {
                 holder.mBadgeTextView.setVisibility(View.INVISIBLE);
             }
