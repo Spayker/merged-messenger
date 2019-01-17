@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewParent;
 import android.view.animation.RotateAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -59,6 +61,13 @@ public class ChannelViewHolder extends GroupViewHolder {
         switcher.setChecked(sharedPreferences.getBoolean(key, false));
         boolean switched = switcher.isChecked();
         switcher.setText(switched ? switcherOn : switcherOff);
+        if(!channel.getTitle().equals("Facebook")){
+            arrow.setActivated(false);
+            arrow.setEnabled(false);
+            arrow.setVisibility(View.INVISIBLE);
+            arrow.setOnClickListener(null);
+            setOnGroupClickListener(null);
+        }
     }
 
     public void setSwitcherChangeListener(ExpandableGroup expandableGroupChannel){

@@ -68,11 +68,6 @@ public class VkontakteWebViewChannel extends WebViewChannel {
             String url = channel.getHomeUrl();
             if (!url.isEmpty()) {
                 String cookies = channel.getCookies();
-                if (cookies != null && cookies.isEmpty()) {
-                    cookies = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).
-                            getString(channelName + "cookies", EMPTY_STRING);
-                }
-
                 if (cookies != null && !cookies.isEmpty()) {
                     Document doc = Jsoup.connect(url).
                             userAgent(VKONTAKTE_USER_AGENT_STRING).
@@ -116,8 +111,13 @@ public class VkontakteWebViewChannel extends WebViewChannel {
             }
 
             Channel channel = getChannelByName(channelName);
-            if(channel != null){
+            if (channel != null) {
                 channel.setNotifications(notificationCounter);
+                Context context = activity != null ? activity : this.context;
+                SharedPreferences.Editor editor = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).edit();
+                editor.putInt(channelName + "notifications", notificationCounter);
+                editor.apply();
+                editor.commit();
             }
         }
     }

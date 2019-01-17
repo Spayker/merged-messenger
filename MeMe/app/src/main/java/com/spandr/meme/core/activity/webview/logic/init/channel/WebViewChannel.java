@@ -36,20 +36,24 @@ public abstract class WebViewChannel {
     protected AdvancedWebView mWebView;
     protected WebViewActivity activity;
 
-    protected void initUserAgent() {}
+    protected void initUserAgent() {
+    }
 
     public String establishConnection(Channel channel, Context context) {
         try {
-            String url = channel.getHomeUrl();
-            if (!url.isEmpty()) {
-                String cookies = channel.getCookies();
-                if (cookies != null && cookies.isEmpty()) {
-                    cookies = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).
-                            getString(channelName + "cookies", EMPTY_STRING);
-                }
-
-                if (cookies != null && !cookies.isEmpty()) {
-                    Document doc = Jsoup.connect(url).header("Cookie", cookies).timeout(0).get();
+            String url = channel.getLastUrl();
+            if (url.isEmpty()) {
+                url = channel.getHomeUrl();
+            }
+            String cookies = channel.getCookies();
+            if (!cookies.isEmpty()) {
+                String userAgent = channel.getUserAgent();
+                if (!userAgent.isEmpty()) {
+                    Document doc = Jsoup.connect(url).
+                            header("Cookie", cookies).
+                            userAgent(userAgent).
+                            timeout(0).
+                            get();
                     return doc.toString();
                 }
             }
@@ -65,15 +69,17 @@ public abstract class WebViewChannel {
         String urlToBeLoaded = MEME_HOME_URL;
         if (channelName != null) {
             Channel channel = DataChannelManager.getChannelByName(channelName);
-            String channelLastUsedUrl = channel.getLastUrl();
-            if(channelLastUsedUrl != null){
-                if(channelLastUsedUrl.isEmpty()){
-                    urlToBeLoaded = channel.getHomeUrl();
+            if (channel != null) {
+                String channelLastUsedUrl = channel.getLastUrl();
+                if (channelLastUsedUrl != null) {
+                    if (channelLastUsedUrl.isEmpty()) {
+                        urlToBeLoaded = channel.getHomeUrl();
+                    } else {
+                        urlToBeLoaded = channelLastUsedUrl;
+                    }
                 } else {
-                    urlToBeLoaded = channelLastUsedUrl;
+                    urlToBeLoaded = channel.getHomeUrl();
                 }
-            } else {
-                urlToBeLoaded = channel.getHomeUrl();
             }
         }
         mWebView.loadUrl(urlToBeLoaded);
@@ -97,11 +103,11 @@ public abstract class WebViewChannel {
         webSettings.setLoadsImagesAutomatically(true);
     }
 
-    protected void initOrientationSensor(){
+    protected void initOrientationSensor() {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
     }
 
-    protected void initCacheSettings(){
+    protected void initCacheSettings() {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
         webSettings.setAppCacheMaxSize(100 * 1024 * 1024);
@@ -139,7 +145,9 @@ public abstract class WebViewChannel {
     public class InsideWebViewClient extends WebViewClient {
         @Override
         public void onPageFinished(WebView view, String url) {
-            activity.getSwipeRefreshLayout().setRefreshing(false);
+            if (activity != null) {
+                activity.getSwipeRefreshLayout().setRefreshing(false);
+            }
             super.onPageFinished(view, url);
         }
 
@@ -151,7 +159,7 @@ public abstract class WebViewChannel {
 
     }
 
-    protected boolean isNotificationSettingEnabled(String channelName){
+    protected boolean isNotificationSettingEnabled(String channelName) {
         notificationPrefix = activity.getString(R.string.channel_setting_notifications_prefix);
         String channelKeyNotification = channelName + notificationPrefix;
         SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);

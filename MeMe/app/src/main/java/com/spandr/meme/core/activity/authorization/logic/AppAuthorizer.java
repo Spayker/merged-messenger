@@ -37,6 +37,8 @@ public class AppAuthorizer implements ActionAuthorizer {
 
     private AppAuthorizerListenerStorage appAuthorizerListenerStorage;
     private User user;
+    private String login;
+    private String password;
     private static boolean isRegisterScenarioRunning = false;
 
     @SuppressWarnings("unused")
@@ -79,6 +81,8 @@ public class AppAuthorizer implements ActionAuthorizer {
 
     @Override
     public void signIn(String login, String password) throws AppFireBaseAuthException {
+        this.login = login;
+        this.password = password;
         Log.d(TAG, "signIn: performing user authorization");
         firebaseEmailAuthorizer.signInWithEmailAndPasswordAuthorize(
                 login,
@@ -116,8 +120,9 @@ public class AppAuthorizer implements ActionAuthorizer {
         if (!isSharedPreferencesNotInitialized) {
             Log.d(TAG, "finishSingInActivity: user preferences are not initialized yet");
             Log.d(TAG, "finishSingInActivity: performing user initializing...");
-            managePrefs(currentActivity, user.getUserName(), user.getEmailAddress(), user.getPassword());
+            managePrefs(currentActivity, user.getUserName(), login, password);
         }
+
         Intent intent = new Intent(currentActivity, MainActivity.class);
         if(isRegisterScenarioRunning){
             intent.putExtra(IS_REGISTER_SCENARIO_RUNNING, true);

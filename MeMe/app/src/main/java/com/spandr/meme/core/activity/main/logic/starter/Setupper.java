@@ -228,7 +228,7 @@ public class Setupper implements Starter {
         boolean isChannleActive = sharedPreferences.getBoolean(channelKey, !isChannelExcludedByDefault(channelKey, mainActivity));
         boolean isChannelNotificationActive = sharedPreferences.getBoolean(channelKeyNotification, true);
 
-        Channel channel = createNewChannel(channelKey, type, icon, homeUrl, isChannleActive, isChannelNotificationActive);
+        Channel channel = createNewChannel(mainActivity, channelKey, type, icon, homeUrl, isChannleActive, isChannelNotificationActive);
         editor.putBoolean(channelKey, isChannleActive);
         editor.putBoolean(channelKeyNotification, isChannelNotificationActive);
         channels.add(channel);

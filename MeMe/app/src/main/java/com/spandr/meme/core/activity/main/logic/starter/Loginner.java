@@ -90,7 +90,6 @@ public class Loginner implements Starter {
     @Override
     public void initApplication(SharedPreferences sharedPreferences) {
         DataChannelManager.clearChannels();
-        //ViewChannelManager.clearChannelViews();
         initChannelManager(mainActivity);
         String deviceCountryCode = mainActivity.getResources().getConfiguration().locale.getCountry();
         String[] eastCountryCodes = mainActivity.getResources().getStringArray(R.array.east_country_codes);
@@ -219,7 +218,7 @@ public class Loginner implements Starter {
         boolean isChannelActive = sharedPreferences.getBoolean(channelKey, !isChannelExcludedByDefault(channelKey, mainActivity));
         boolean isChannelNotificationActive = sharedPreferences.getBoolean(channelKeyNotification, true);
 
-        Channel channel = createNewChannel(channelKey, type, icon, homeUrl, isChannelActive, isChannelNotificationActive);
+        Channel channel = createNewChannel(mainActivity, channelKey, type, icon, homeUrl, isChannelActive, isChannelNotificationActive);
         editor.putBoolean(channelKey, isChannelActive);
         editor.putBoolean(channelKeyNotification, isChannelNotificationActive);
         channels.add(channel);

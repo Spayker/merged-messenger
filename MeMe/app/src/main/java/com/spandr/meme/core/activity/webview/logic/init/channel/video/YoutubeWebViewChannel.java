@@ -121,6 +121,11 @@ public class YoutubeWebViewChannel extends WebViewChannel {
             Channel channel = getChannelByName(channelName);
             if(channel != null){
                 channel.setNotifications(notificationCounter);
+                Context context = activity != null ? activity : this.context;
+                SharedPreferences.Editor editor = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).edit();
+                editor.putInt(channelName + "notifications", notificationCounter);
+                editor.apply();
+                editor.commit();
             }
         }
     }

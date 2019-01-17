@@ -1,5 +1,6 @@
 package com.spandr.meme.core.common.data.memory.channel;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 
 import com.spandr.meme.R;
@@ -69,8 +70,10 @@ public class DataChannelManager {
         return dataChannelManager;
     }
 
-    public static Channel createNewChannel(String name, TYPE type, ICON icon, String homeUrl, boolean active, boolean notifications) {
-        return new Channel(name, type, icon, homeUrl, active, notifications);
+    public static Channel createNewChannel(Context context, String name, TYPE type, ICON icon, String homeUrl,
+                                           boolean active,
+                                           boolean notifications) {
+        return new Channel(context, name, type, icon, homeUrl, active, notifications);
     }
 
     public static List<Channel> getActiveChannelsByType(TYPE type) {

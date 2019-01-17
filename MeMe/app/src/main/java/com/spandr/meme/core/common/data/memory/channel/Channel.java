@@ -1,7 +1,10 @@
 package com.spandr.meme.core.common.data.memory.channel;
 
+import android.content.Context;
+
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 
+import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 
 public final class Channel {
@@ -15,21 +18,33 @@ public final class Channel {
     private boolean isNotificationsEnabled;
     private int notifications;
     private String cookies;
+    private String userAgent;
 
     private WebViewChannel webViewChannel;
 
     private Channel() { }
 
-    Channel(String name, TYPE type, ICON icon, String homeUrl, boolean active, boolean isNotificationsEnabled) {
+    Channel(Context context, String name, TYPE type, ICON icon, String homeUrl,
+            boolean active,
+            boolean isNotificationsEnabled) {
         this.name = name;
         this.type = type;
         this.homeUrl = homeUrl;
-        this.lastUrl = EMPTY_STRING;
         this.active = active;
         this.icon = icon;
         this.isNotificationsEnabled = isNotificationsEnabled;
-        this.notifications = 0;
-        this.cookies = EMPTY_STRING;
+        this.lastUrl = context.
+                getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).
+                getString(name + "lastUrl", EMPTY_STRING);
+        this.notifications = context.
+                getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).
+                getInt(name + "notifications", 0);
+        this.cookies = context.
+                getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).
+                getString(name + "cookies", EMPTY_STRING);
+        this.userAgent = context.
+                getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).
+                getString(name + "userAgent", EMPTY_STRING);
     }
 
     public String getName() {
@@ -92,7 +107,8 @@ public final class Channel {
         return cookies;
     }
 
-    public void setCookies(String cookies) {
-        this.cookies = cookies;
+    public String getUserAgent() {
+        return userAgent;
     }
+
 }

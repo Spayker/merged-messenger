@@ -2,7 +2,6 @@ package com.spandr.meme.core.activity.main.logic.notification;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.manager.WebViewChannelManager;
@@ -24,7 +23,6 @@ import io.reactivex.schedulers.Schedulers;
 import static com.spandr.meme.core.activity.main.logic.notification.ViewChannelManager.createChannelViewManager;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.activity.webview.logic.manager.WebViewChannelManager.getWebViewChannelManager;
-import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getAllActiveChannels;
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 
@@ -52,12 +50,12 @@ public class WebViewRunnableInitializer {
                 DisposableObserver<String> webViewObserver = getWebViewsObserver();
 
                 compositeDisposable.add(webViewObservable
-                        .subscribeOn(Schedulers.computation())
+                        .subscribeOn(Schedulers.newThread())
                         .observeOn(Schedulers.computation())
                         .subscribeWith(webViewObserver));
             };
 
-            scheduler.scheduleAtFixedRate(notificationRunnable, 1, 3, TimeUnit.SECONDS);
+            scheduler.scheduleAtFixedRate(notificationRunnable, 1, 10, TimeUnit.SECONDS);
         }
         initViewChannelManager();
     }
@@ -76,23 +74,22 @@ public class WebViewRunnableInitializer {
             @Override
             public void onNext(String channelName) {
                 Channel channel = getChannelByName(channelName);
-                WebViewChannel webViewChannel = Objects.requireNonNull(channel).getWebViewChannel();
-
-                if(webViewChannel != null){
-
-                    String cookies = channel.getCookies();
-                    if(cookies.isEmpty()){
-                        SharedPreferences sharedPreferences =
-                                context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-                        cookies = sharedPreferences.getString(channelName+"cookies", EMPTY_STRING);
+                if (channel != null) {
+                    WebViewChannel webViewChannel = channel.getWebViewChannel();
+                    if (webViewChannel != null) {
+                        String cookies = channel.getCookies();
+                        if (!Objects.requireNonNull(cookies).isEmpty()) {
+                            String html = webViewChannel.establishConnection(channel, context);
+                            if(html != null) {
+                                webViewChannel.processHTML(html);
+                            }
+                        }
                     }
-
-                    if(!Objects.requireNonNull(cookies).isEmpty()){
-                        String html = webViewChannel.establishConnection(channel, context);
-                        webViewChannel.processHTML(html);
-                        NotificationDisplayer notificationDisplayer = NotificationDisplayer.getInstance();
-                        notificationDisplayer.display(context, mainActivity, channelName, channel.getNotifications());
-                    }
+                    NotificationDisplayer notificationDisplayer = NotificationDisplayer.getInstance();
+                    int notifications = mainActivity.
+                            getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).
+                            getInt(channelName + "notifications", 0);
+                    notificationDisplayer.display(context, mainActivity, channelName, notifications);
                 }
             }
 
@@ -102,7 +99,9 @@ public class WebViewRunnableInitializer {
             }
 
             @Override
-            public void onComplete() { }
+            public void onComplete() {
+                super.dispose();
+            }
         };
     }
 
@@ -111,8 +110,7 @@ public class WebViewRunnableInitializer {
         for (Channel channel : activeChannels) {
             String channelName = channel.getName();
             WebViewChannelManager webViewChannelManager = getWebViewChannelManager();
-            //channel.setLastUrl(channel.getHomeUrl());
-            webViewChannelManager.applyBackgroundChannelRelatedConfiguration(context, channelName);
+            webViewChannelManager.applyBackgroundChannelRelatedConfiguration(mainActivity, channelName);
         }
     }
 
