@@ -68,8 +68,7 @@ public final class ActivityUtils {
         TextView mAppVersionView = activity.findViewById(R.id.app_build_version);
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0);
-            String version = "1.0.7";
-            //String version = pInfo.versionName;
+            String version = pInfo.versionName;
             mAppVersionView.setText(String.format("%s %s%s", activity.getString(R.string.app_name),
                     activity.getString(R.string.app_version), version));
         } catch (PackageManager.NameNotFoundException e) {
