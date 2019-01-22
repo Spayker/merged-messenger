@@ -20,8 +20,7 @@
         android:theme="@style/AppTheme"
         android:logo="@mipmap/back"
         android:hardwareAccelerated="true"
-        android:largeHeap="true"
-        tools:ignore="GoogleAppIndexingWarning">
+        android:largeHeap="true">
 
         <!--Meta data section of project start-->
         <meta-data android:name="main_folder_name"
@@ -42,7 +41,7 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -26,7 +26,7 @@ import static com.spandr.meme.core.activity.webview.logic.manager.WebViewChannel
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getAllActiveChannels;
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 
-public class WebViewRunnableInitializer {
+class WebViewRunnableInitializer {
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(5);
