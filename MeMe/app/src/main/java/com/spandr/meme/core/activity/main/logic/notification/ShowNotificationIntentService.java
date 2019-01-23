@@ -13,11 +13,11 @@ import com.spandr.meme.core.activity.main.MainActivity;
 
 import static com.spandr.meme.core.activity.main.logic.LogicContants.ANDROID_NOTIFICATION_SENT;
 
-public class ShowNotificationIntentService {
+class ShowNotificationIntentService {
 
     private static String mId = "395631925";
 
-    public static void buildSystemNotification(Context targetActivity){
+    static void buildSystemNotification(Context targetActivity){
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(targetActivity, mId)
                         .setSmallIcon(R.mipmap.logo)

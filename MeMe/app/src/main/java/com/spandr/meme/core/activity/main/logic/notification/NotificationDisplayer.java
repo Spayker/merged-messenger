@@ -20,30 +20,31 @@ public class NotificationDisplayer {
     private static NotificationDisplayer instance;
     private boolean isNotificationSentFlag;
 
-    private NotificationDisplayer(){ }
+    private NotificationDisplayer() {
+    }
 
-    public static NotificationDisplayer getInstance(){
-        if(instance == null){
+    public static NotificationDisplayer getInstance() {
+        if (instance == null) {
             instance = new NotificationDisplayer();
         }
         return instance;
     }
 
     public void display(Context context, Activity mainActivity,
-                        String channelName, int notificationCounter){
+                        String channelName, int notificationCounter) {
         ViewChannelManager viewChannelManager = ViewChannelManager.getInstance();
         Map<String, DraggableGridAdapter.CustomViewHolder> channelViews = viewChannelManager.getChannelViews();
 
         DraggableGridAdapter.CustomViewHolder customViewHolder = channelViews.get(channelName);
-        if(customViewHolder == null){
+        if (customViewHolder == null) {
             channelViews.remove(channelName);
             return;
         }
 
         mainActivity.runOnUiThread(() -> {
-            if(notificationCounter > 0) {
+            if (notificationCounter > 0) {
                 String formattedNotificationCounter = String.valueOf(notificationCounter);
-                if(notificationCounter < 9){
+                if (notificationCounter < 9) {
                     customViewHolder.getmBadgeTextView().setText(String.format(" %s ", formattedNotificationCounter));
                 } else {
                     customViewHolder.getmBadgeTextView().setText(String.format(" %s ", formattedNotificationCounter));
@@ -53,13 +54,15 @@ public class NotificationDisplayer {
                 customViewHolder.getmBadgeTextView().setVisibility(INVISIBLE);
             }
         });
-        sendNotificationInAndroidEnv(context);
+        if (notificationCounter > 0) {
+            sendNotificationInAndroidEnv(context);
+        }
     }
 
     private void sendNotificationInAndroidEnv(Context context) {
         try {
             boolean foreground = new ForegroundCheckTask().execute(context).get();
-            if(!foreground && !isNotificationSentFlag){
+            if (!foreground && !isNotificationSentFlag) {
                 buildSystemNotification(context);
                 isNotificationSentFlag = true;
             }
@@ -70,7 +73,7 @@ public class NotificationDisplayer {
         }
     }
 
-    public void updateNotificationFlag(){
+    public void updateNotificationFlag() {
         isNotificationSentFlag = false;
     }
 
