@@ -54,9 +54,10 @@ public class NotificationDisplayer {
                 customViewHolder.getmBadgeTextView().setVisibility(INVISIBLE);
             }
         });
-        if (notificationCounter > 0) {
+        //toDo: improve work notifying logic...
+        /*if (notificationCounter > 0) {
             sendNotificationInAndroidEnv(context);
-        }
+        }*/
     }
 
     private void sendNotificationInAndroidEnv(Context context) {

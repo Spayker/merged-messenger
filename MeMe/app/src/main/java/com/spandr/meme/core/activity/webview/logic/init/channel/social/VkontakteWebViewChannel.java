@@ -22,7 +22,7 @@ import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager
 public class VkontakteWebViewChannel extends WebViewChannel {
 
     protected Context context;
-    private String VKONTAKTE_USER_AGENT_STRING = "Mozilla/5.0 (Linux; U; Android 4.1.1; en-gb; Build/KLP) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30";
+    private String VKONTAKTE_USER_AGENT_STRING = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Safari/537.36";
     private final String MESSAGE_NOTIFICATION_REGEX = "<em class=\"mm_counter\">([0-9]+)</em>";
     private final Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
 
@@ -92,10 +92,10 @@ public class VkontakteWebViewChannel extends WebViewChannel {
         return sharedPreferences.getBoolean(channelKeyNotification, false);
     }
 
-    @Override
+    /*@Override
     protected void initUserAgent() {
         mWebView.getSettings().setUserAgentString(VKONTAKTE_USER_AGENT_STRING);
-    }
+    }*/
 
     public String getUrl() {
         return url;
