@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.spandr.meme.R;
-import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
@@ -80,7 +79,7 @@ public class FacebookWebViewChannel extends WebViewChannel {
     protected FacebookWebViewChannel init() {
         initUserAgent();
         initWebClients();
-        initListeners();
+        initSwipeListeners();
         initOrientationSensor();
         initCacheSettings();
         initStartURL();

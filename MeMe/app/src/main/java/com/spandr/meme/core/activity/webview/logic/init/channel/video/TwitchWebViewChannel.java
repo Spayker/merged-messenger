@@ -57,7 +57,7 @@ public class TwitchWebViewChannel extends WebViewChannel {
         initUserAgent();
         initWebChromeClient();
         initWebClients();
-        initListeners();
+        initSwipeListeners();
         initOrientationSensor();
         initCacheSettings();
         initStartURL();

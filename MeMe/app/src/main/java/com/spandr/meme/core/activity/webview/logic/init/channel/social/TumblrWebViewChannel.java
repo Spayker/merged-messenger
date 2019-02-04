@@ -49,7 +49,7 @@ public class TumblrWebViewChannel extends WebViewChannel {
     protected TumblrWebViewChannel init() {
         initUserAgent();
         initWebClients();
-        initListeners();
+        initSwipeListeners();
         initOrientationSensor();
         initCacheSettings();
         initStartURL();

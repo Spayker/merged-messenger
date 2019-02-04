@@ -54,7 +54,7 @@ public class DiscordWebViewChannel extends WebViewChannel {
     protected DiscordWebViewChannel init() {
         initUserAgent();
         initWebClients();
-        initListeners();
+        initSwipeListeners();
         initWebSettings();
         initOrientationSensor();
         initCacheSettings();

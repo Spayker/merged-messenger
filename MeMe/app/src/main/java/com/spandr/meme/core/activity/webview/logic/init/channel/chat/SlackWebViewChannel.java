@@ -51,7 +51,7 @@ public class SlackWebViewChannel extends WebViewChannel {
     protected SlackWebViewChannel init() {
         initUserAgent();
         initWebClients();
-        initListeners();
+        initSwipeListeners();
         initOrientationSensor();
         initCacheSettings();
         mWebView.setDesktopMode(true);

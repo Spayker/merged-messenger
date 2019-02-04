@@ -49,7 +49,7 @@ public class PinterestWebViewChannel extends WebViewChannel {
     protected PinterestWebViewChannel init() {
         initUserAgent();
         initWebClients();
-        initListeners();
+        initSwipeListeners();
         initOrientationSensor();
         initCacheSettings();
         initStartURL();

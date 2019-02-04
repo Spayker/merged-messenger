@@ -121,11 +121,7 @@ public abstract class WebViewChannel {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    protected void initListeners() {
-        initWebViewListeners();
-    }
-
-    private void initWebViewListeners() {
+    protected void initSwipeListeners() {
         SwipeRefreshLayout swipeRefreshLayout = activity.getSwipeRefreshLayout();
         swipeRefreshLayout.setOnRefreshListener(() -> mWebView.reload());
 

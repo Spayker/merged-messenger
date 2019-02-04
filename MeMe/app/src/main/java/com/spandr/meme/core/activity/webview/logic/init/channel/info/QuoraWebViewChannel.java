@@ -49,7 +49,7 @@ public class QuoraWebViewChannel extends WebViewChannel {
     protected QuoraWebViewChannel init() {
         initUserAgent();
         initWebClients();
-        initListeners();
+        initSwipeListeners();
         initOrientationSensor();
         initCacheSettings();
         initStartURL();

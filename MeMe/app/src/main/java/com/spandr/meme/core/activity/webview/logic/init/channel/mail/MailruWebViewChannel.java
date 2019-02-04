@@ -1,27 +1,19 @@
 package com.spandr.meme.core.activity.webview.logic.init.channel.mail;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.webkit.CookieManager;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebSettings;
 
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
-import com.spandr.meme.core.common.data.memory.channel.DataChannelManager;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import im.delight.android.webview.AdvancedWebView;
-
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
-import static com.spandr.meme.core.common.util.ActivityUtils.isNetworkAvailable;
 
 public class MailruWebViewChannel extends WebViewChannel {
 
@@ -59,7 +51,7 @@ public class MailruWebViewChannel extends WebViewChannel {
     @SuppressLint("AddJavascriptInterface")
     protected MailruWebViewChannel init() {
         initUserAgent();
-        initListeners();
+        initSwipeListeners();
         initWebClients();
         initOrientationSensor();
         initCacheSettings();
@@ -99,7 +91,7 @@ public class MailruWebViewChannel extends WebViewChannel {
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    protected void initListeners(){
+    protected void initSwipeListeners(){
         mWebView.setOnTouchListener((v, event) -> {
             activity.getSwipeRefreshLayout().setEnabled(false);
             activity.getBackButton().setAlpha(.45f);

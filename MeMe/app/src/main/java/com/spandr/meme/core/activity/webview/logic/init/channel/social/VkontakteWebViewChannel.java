@@ -1,7 +1,9 @@
 package com.spandr.meme.core.activity.webview.logic.init.channel.social;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
@@ -53,13 +55,23 @@ public class VkontakteWebViewChannel extends WebViewChannel {
 
     protected VkontakteWebViewChannel init() {
         initUserAgent();
-        initListeners();
         initWebClients();
         initWebSettings();
         initOrientationSensor();
         initCacheSettings();
         initStartURL();
         return this;
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    protected void initSwipeListeners(){
+        mWebView.setOnTouchListener((v, event) -> {
+            activity.getSwipeRefreshLayout().setEnabled(false);
+            activity.getBackButton().setAlpha(.45f);
+            mWebView.performClick();
+            return false;
+        });
     }
 
     @Override
@@ -91,11 +103,6 @@ public class VkontakteWebViewChannel extends WebViewChannel {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(channelKeyNotification, false);
     }
-
-    /*@Override
-    protected void initUserAgent() {
-        mWebView.getSettings().setUserAgentString(VKONTAKTE_USER_AGENT_STRING);
-    }*/
 
     public String getUrl() {
         return url;

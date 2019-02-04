@@ -52,7 +52,7 @@ public class SkypeWebViewChannel extends WebViewChannel {
     @SuppressLint("AddJavascriptInterface")
     protected SkypeWebViewChannel init() {
         initUserAgent();
-        initListeners();
+        initSwipeListeners();
         initWebClients();
         initOrientationSensor();
         initCacheSettings();

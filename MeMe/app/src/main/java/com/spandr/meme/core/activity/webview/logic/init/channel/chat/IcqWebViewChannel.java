@@ -50,7 +50,7 @@ public class IcqWebViewChannel extends WebViewChannel {
     @SuppressLint("AddJavascriptInterface")
     protected IcqWebViewChannel init() {
         initUserAgent();
-        initListeners();
+        initSwipeListeners();
         initWebClients();
         initOrientationSensor();
         initCacheSettings();
@@ -74,7 +74,7 @@ public class IcqWebViewChannel extends WebViewChannel {
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    protected void initListeners(){
+    protected void initSwipeListeners(){
         mWebView.setOnTouchListener((v, event) -> {
             activity.getSwipeRefreshLayout().setEnabled(false);
             activity.getBackButton().setAlpha(.45f);

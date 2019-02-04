@@ -49,7 +49,7 @@ public class RedditWebViewChannel extends WebViewChannel {
     protected RedditWebViewChannel init() {
         initUserAgent();
         initWebClients();
-        initListeners();
+        initSwipeListeners();
         initOrientationSensor();
         initCacheSettings();
         initStartURL();

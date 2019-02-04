@@ -48,7 +48,7 @@ public class StackOverflowWebViewChannel extends WebViewChannel {
     protected StackOverflowWebViewChannel init() {
         initUserAgent();
         initWebClients();
-        initListeners();
+        initSwipeListeners();
         initOrientationSensor();
         initCacheSettings();
         initStartURL();

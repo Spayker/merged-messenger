@@ -48,7 +48,7 @@ public class OkWebViewChannel extends WebViewChannel {
     protected OkWebViewChannel init() {
         initUserAgent();
         initWebClients();
-        initListeners();
+        initSwipeListeners();
         initOrientationSensor();
         initCacheSettings();
         initStartURL();

@@ -4,22 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.EMPTY_STRING;
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 
 public class GmailWebViewChannel extends WebViewChannel {
@@ -56,7 +49,7 @@ public class GmailWebViewChannel extends WebViewChannel {
     @SuppressLint("AddJavascriptInterface")
     protected GmailWebViewChannel init() {
         initUserAgent();
-        initListeners();
+        initSwipeListeners();
         initWebClients();
         initOrientationSensor();
         initCacheSettings();

@@ -50,7 +50,7 @@ public class TwitterWebViewChannel extends WebViewChannel {
     protected TwitterWebViewChannel init() {
         initUserAgent();
         initWebClients();
-        initListeners();
+        initSwipeListeners();
         initOrientationSensor();
         initCacheSettings();
         initStartURL();

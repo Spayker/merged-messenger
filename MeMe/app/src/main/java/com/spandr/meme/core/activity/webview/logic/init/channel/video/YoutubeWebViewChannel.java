@@ -56,7 +56,7 @@ public class YoutubeWebViewChannel extends WebViewChannel {
         initUserAgent();
         initWebChromeClient();
         initWebClients();
-        initListeners();
+        initSwipeListeners();
         initOrientationSensor();
         initCacheSettings();
         initStartURL();

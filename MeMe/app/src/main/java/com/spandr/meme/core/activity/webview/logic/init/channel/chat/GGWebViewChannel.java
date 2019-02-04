@@ -50,7 +50,7 @@ public class GGWebViewChannel  extends WebViewChannel {
     protected GGWebViewChannel init() {
         initUserAgent();
         initWebClients();
-        initListeners();
+        initSwipeListeners();
         initOrientationSensor();
         initCacheSettings();
         initStartURL();

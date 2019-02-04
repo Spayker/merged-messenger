@@ -49,7 +49,7 @@ public class HabrWebViewChannel extends WebViewChannel {
     protected HabrWebViewChannel init() {
         initUserAgent();
         initWebClients();
-        initListeners();
+        initSwipeListeners();
         initOrientationSensor();
         initCacheSettings();
         mWebView.setDesktopMode(true);

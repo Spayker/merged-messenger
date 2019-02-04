@@ -49,7 +49,7 @@ public class InstagramWebViewChannel extends WebViewChannel {
     protected InstagramWebViewChannel init() {
         initUserAgent();
         initWebClients();
-        initListeners();
+        initSwipeListeners();
         initOrientationSensor();
         initCacheSettings();
         initStartURL();
