@@ -61,13 +61,14 @@ public class ChannelViewHolder extends GroupViewHolder {
         switcher.setChecked(sharedPreferences.getBoolean(key, false));
         boolean switched = switcher.isChecked();
         switcher.setText(switched ? switcherOn : switcherOff);
-        if(!channel.getTitle().equals("Facebook")){
-            arrow.setActivated(false);
-            arrow.setEnabled(false);
-            arrow.setVisibility(View.INVISIBLE);
-            arrow.setOnClickListener(null);
-            setOnGroupClickListener(null);
-        }
+
+        // disables notification popup menu
+        arrow.setActivated(false);
+        arrow.setEnabled(false);
+        arrow.setVisibility(View.INVISIBLE);
+        arrow.setOnClickListener(null);
+        setOnGroupClickListener(null);
+
     }
 
     public void setSwitcherChangeListener(ExpandableGroup expandableGroupChannel){

@@ -4,13 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.spandr.meme.R;
@@ -18,14 +16,10 @@ import com.spandr.meme.core.activity.settings.channel.logic.ChannelViewHolder;
 import com.spandr.meme.core.activity.settings.channel.logic.CheckOptionViewHolder;
 import com.spandr.meme.core.activity.settings.channel.model.Option;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
-import com.thoughtbot.expandablecheckrecyclerview.ChildCheckController;
-import com.thoughtbot.expandablecheckrecyclerview.listeners.OnCheckChildClickListener;
 import com.thoughtbot.expandablecheckrecyclerview.listeners.OnChildCheckChangedListener;
 import com.thoughtbot.expandablecheckrecyclerview.listeners.OnChildrenCheckStateChangedListener;
-import com.thoughtbot.expandablecheckrecyclerview.models.CheckedExpandableGroup;
 import com.thoughtbot.expandablerecyclerview.MultiTypeExpandableRecyclerViewAdapter;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
-import com.thoughtbot.expandablerecyclerview.models.ExpandableListPosition;
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 
 import java.util.ArrayList;
@@ -34,7 +28,6 @@ import java.util.Objects;
 
 import static android.view.LayoutInflater.from;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
-import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getActiveChannelsByType;
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 import static com.spandr.meme.core.common.util.SettingsUtils.getChannelNotificationValueIdByName;
 

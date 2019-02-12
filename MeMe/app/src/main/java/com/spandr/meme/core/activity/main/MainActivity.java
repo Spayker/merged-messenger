@@ -18,18 +18,14 @@ import com.spandr.meme.core.activity.authorization.LoginActivity;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.DraggableGridFragment;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.data.AbstractDataProvider;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.fragment.DataProviderFragment;
-import com.spandr.meme.core.activity.main.logic.notification.BackgroundNotificationTask;
-import com.spandr.meme.core.activity.main.logic.notification.NotificationDisplayer;
 import com.spandr.meme.core.activity.main.logic.updater.AppUpdater;
 import com.spandr.meme.core.activity.settings.channel.EditChannelsActivity;
 import com.spandr.meme.core.activity.settings.global.GlobalSettingsActivity;
 import com.spandr.meme.core.common.util.ActivityUtils;
 
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 import static com.spandr.meme.core.activity.authorization.logic.ActionAuthorizer.IS_REGISTER_SCENARIO_RUNNING;
-import static com.spandr.meme.core.activity.main.logic.LogicContants.ANDROID_NOTIFICATION_SENT;
 import static com.spandr.meme.core.activity.main.logic.starter.Loginner.createLoginner;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_NAME;
@@ -73,25 +69,6 @@ public class MainActivity extends AppCompatActivity {
         initLanguage(sharedPreferences, this);
         ActivityUtils.initSloganPart(this, R.id.main_app_name_styled);
         initFragment(savedInstanceState);
-        updateNotificationStatus(getIntent());
-    }
-
-    private void updateNotificationStatus(Intent intent) {
-        boolean isNotificationSent = intent.getBooleanExtra(ANDROID_NOTIFICATION_SENT, false);
-        if (isNotificationSent) {
-            NotificationDisplayer notificationDisplayer = NotificationDisplayer.getInstance();
-            notificationDisplayer.updateNotificationFlag();
-        }
-    }
-
-    private void checkNotifications() {
-        try {
-            new BackgroundNotificationTask(this).execute(this).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -99,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
         getDelegate().onPostCreate(savedInstanceState);
         checkNewAppVersion();
-        checkNotifications();
     }
 
     private void checkNewAppVersion() {

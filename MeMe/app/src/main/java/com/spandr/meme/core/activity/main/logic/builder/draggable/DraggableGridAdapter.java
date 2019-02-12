@@ -18,7 +18,6 @@ import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractDraggableItemView
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.data.AbstractDataProvider;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.utils.DrawableUtils;
-import com.spandr.meme.core.activity.main.logic.notification.ViewChannelManager;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
 
 import java.util.Map;
@@ -103,14 +102,6 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
             } else {
                 holder.mBadgeTextView.setVisibility(View.INVISIBLE);
             }
-        }
-
-        ViewChannelManager viewChannelManager = ViewChannelManager.getInstance();
-        Map<String, CustomViewHolder> channelViews = viewChannelManager.getChannelViews();
-        if (channel != null) {
-            String channelName = channel.getName();
-            channelViews.remove(channelName);
-            channelViews.put(channelName, holder);
         }
 
         View.OnClickListener listener = item.getOnClickListener();

@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
 import com.spandr.meme.R;
-import com.spandr.meme.core.activity.main.logic.notification.ViewChannelManager;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
 import com.spandr.meme.core.common.data.memory.channel.DataChannelManager;
 import com.spandr.meme.core.common.data.memory.channel.ICON;
@@ -87,7 +86,6 @@ public class Setupper implements Starter {
     @Override
     public void initApplication(SharedPreferences sharedPreferences) {
         DataChannelManager.clearChannels();
-        ViewChannelManager.clearChannelViews();
         initChannelManager(mainActivity);
 
         String deviceCountryCode = mainActivity.getResources().getConfiguration().locale.getCountry();

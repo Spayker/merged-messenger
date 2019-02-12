@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
+import com.spandr.meme.core.activity.webview.logic.init.channel.chat.TelegramWebViewChannel;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
 
 import org.jsoup.Jsoup;
@@ -29,8 +32,7 @@ public class VkontakteWebViewChannel extends WebViewChannel {
     private final Pattern pattern = Pattern.compile(MESSAGE_NOTIFICATION_REGEX);
 
     @SuppressWarnings("unused")
-    private VkontakteWebViewChannel() {
-    }
+    private VkontakteWebViewChannel() { }
 
     public VkontakteWebViewChannel(WebViewActivity activity,
                                    String url, String channelName) {
@@ -60,6 +62,7 @@ public class VkontakteWebViewChannel extends WebViewChannel {
         initOrientationSensor();
         initCacheSettings();
         initStartURL();
+        initSwipeListeners();
         return this;
     }
 
