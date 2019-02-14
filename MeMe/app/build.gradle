@@ -16,8 +16,8 @@ android {
         applicationId 'com.spandr.meme'
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 31
-        versionName "1.0.7"
+        versionCode 38
+        versionName "1.0.7.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -50,6 +50,7 @@ android {
     }
     testOptions {
         unitTests.includeAndroidResources true
+        unitTests.returnDefaultValues true
     }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
@@ -57,7 +58,6 @@ android {
 }
 
 repositories {
-    maven { url "http://dl.bintray.com/chat-sdk/chat-sdk-android" }
     maven { url 'https://maven.fabric.io/public' }
 }
 dependencies {
@@ -98,8 +98,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
 
     // Rx api
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
 
     // custom webview component
     implementation "com.github.delight-im:Android-AdvancedWebView:v3.0.0"
@@ -114,8 +114,6 @@ dependencies {
 
     // app channel notification related libraries
     implementation 'org.jsoup:jsoup:1.11.3'
-    implementation 'net.sourceforge.htmlunit:htmlunit:2.33'
-
 
     implementation 'org.jetbrains:annotations:15.0'
 }

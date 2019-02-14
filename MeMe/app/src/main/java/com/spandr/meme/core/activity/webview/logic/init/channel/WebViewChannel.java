@@ -1,31 +1,20 @@
 package com.spandr.meme.core.activity.webview.logic.init.channel;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.spandr.meme.R;
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.common.data.memory.channel.Channel;
 import com.spandr.meme.core.common.data.memory.channel.DataChannelManager;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
-import java.io.IOException;
-
 import im.delight.android.webview.AdvancedWebView;
 
-import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
-import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.EMPTY_STRING;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.MEME_HOME_URL;
 import static com.spandr.meme.core.common.util.ActivityUtils.isNetworkAvailable;
-import static java.lang.Thread.sleep;
 
 public abstract class WebViewChannel {
 
@@ -38,32 +27,6 @@ public abstract class WebViewChannel {
 
     protected void initUserAgent() {
     }
-
-    public String establishConnection(Channel channel, Context context) {
-        try {
-            String url = channel.getLastUrl();
-            if (url.isEmpty()) {
-                url = channel.getHomeUrl();
-            }
-            String cookies = channel.getCookies();
-            if (!cookies.isEmpty()) {
-                String userAgent = channel.getUserAgent();
-                if (!userAgent.isEmpty()) {
-                    Document doc = Jsoup.connect(url).
-                            header("Cookie", cookies).
-                            userAgent(userAgent).
-                            timeout(0).
-                            get();
-                    return doc.toString();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return EMPTY_STRING;
-    }
-
-    public abstract void processHTML(String html);
 
     protected void initStartURL() {
         String urlToBeLoaded = MEME_HOME_URL;
@@ -152,14 +115,6 @@ public abstract class WebViewChannel {
             view.loadUrl(url);
             return true;
         }
-
-    }
-
-    protected boolean isNotificationSettingEnabled(String channelName) {
-        notificationPrefix = activity.getString(R.string.channel_setting_notifications_prefix);
-        String channelKeyNotification = channelName + notificationPrefix;
-        SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean(channelKeyNotification, false);
     }
 
     public WebViewActivity getActivity() {
