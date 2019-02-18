@@ -16,8 +16,6 @@ public final class Channel {
     private ICON icon;
     private boolean active;
     private boolean isNotificationsEnabled;
-    private int notifications;
-    private String cookies;
     private String userAgent;
 
     private WebViewChannel webViewChannel;
@@ -36,12 +34,6 @@ public final class Channel {
         this.lastUrl = context.
                 getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).
                 getString(name + "lastUrl", EMPTY_STRING);
-        this.notifications = context.
-                getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).
-                getInt(name + "notifications", 0);
-        this.cookies = context.
-                getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).
-                getString(name + "cookies", EMPTY_STRING);
         this.userAgent = context.
                 getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).
                 getString(name + "userAgent", EMPTY_STRING);
@@ -87,24 +79,12 @@ public final class Channel {
         this.active = active;
     }
 
-    public int getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(int notifications) {
-        this.notifications = notifications;
-    }
-
     public WebViewChannel getWebViewChannel() {
         return webViewChannel;
     }
 
     public void setWebViewChannel(WebViewChannel webViewChannel) {
         this.webViewChannel = webViewChannel;
-    }
-
-    public String getCookies() {
-        return cookies;
     }
 
     public String getUserAgent() {

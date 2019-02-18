@@ -34,17 +34,6 @@
                 android:textStyle="normal"
                 tools:ignore="RtlHardcoded"/>
         </FrameLayout>
-
-
-        <TextView
-            android:id="@+id/badge_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="25dp"
-            android:background="@drawable/badge_circle"
-            android:visibility="invisible"
-            android:layout_gravity="top|right"
-            android:textSize="12sp" />
     </FrameLayout>
 
 </FrameLayout>

@@ -35,10 +35,4 @@ public class Channel {
     @ColumnInfo(name = "is_notifications_enabled")
     private boolean isNotificationsEnabled;
 
-    @ColumnInfo(name = "notifications")
-    private int notifications;
-
-    @ColumnInfo(name = "cookies")
-    private String cookies;
-
 }

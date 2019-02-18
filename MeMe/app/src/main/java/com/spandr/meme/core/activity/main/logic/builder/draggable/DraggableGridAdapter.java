@@ -38,17 +38,11 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
     public static class CustomViewHolder extends AbstractDraggableItemViewHolder {
         private FrameLayout mContainer;
         private Button mChannelButton;
-        private TextView mBadgeTextView;
 
         private CustomViewHolder(View v) {
             super(v);
             mContainer = v.findViewById(R.id.container);
             mChannelButton = v.findViewById(R.id.channel_icon);
-            mBadgeTextView = v.findViewById(R.id.badge_textView);
-        }
-
-        public TextView getmBadgeTextView() {
-            return mBadgeTextView;
         }
     }
 
@@ -76,7 +70,7 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
     }
 
     @Override
-    public void onBindViewHolder(CustomViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
         final AbstractDataProvider.Data item = mProvider.getItem(position);
 
         // set text
@@ -85,24 +79,6 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
         // set icon
         Drawable icon = item.getIcon();
         holder.mChannelButton.setCompoundDrawablesWithIntrinsicBounds(null, icon, null, null);
-
-        Channel channel = getChannelByName(item.getText());
-        if (channel != null) {
-            int notifications = channel.getNotifications();
-            if(notifications > 0){
-                holder.mBadgeTextView.setVisibility(View.VISIBLE);
-                holder.mBadgeTextView.setText(String.valueOf(notifications));
-
-                String formattedNotificationCounter = String.valueOf(notifications);
-                if(notifications < 9){
-                    holder.mBadgeTextView.setText(String.format(" %s ", formattedNotificationCounter));
-                } else {
-                    holder.mBadgeTextView.setText(String.format(" %s ", formattedNotificationCounter));
-                }
-            } else {
-                holder.mBadgeTextView.setVisibility(View.INVISIBLE);
-            }
-        }
 
         View.OnClickListener listener = item.getOnClickListener();
         if (listener != null) {
