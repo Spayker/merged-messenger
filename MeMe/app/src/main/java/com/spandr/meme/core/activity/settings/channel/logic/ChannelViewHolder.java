@@ -2,12 +2,9 @@ package com.spandr.meme.core.activity.settings.channel.logic;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewParent;
 import android.view.animation.RotateAnimation;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -19,7 +16,6 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 
 import static android.view.animation.Animation.RELATIVE_TO_SELF;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
-import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 import static com.spandr.meme.core.common.util.SettingsUtils.getChannelActivateValueIdByName;
 

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemConstants;
@@ -18,11 +17,6 @@ import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractDraggableItemView
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.data.AbstractDataProvider;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.utils.DrawableUtils;
-import com.spandr.meme.core.common.data.memory.channel.Channel;
-
-import java.util.Map;
-
-import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 
 public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdapter.CustomViewHolder>
         implements DraggableItemAdapter<DraggableGridAdapter.CustomViewHolder> {
@@ -35,7 +29,7 @@ public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdap
 
     private AbstractDataProvider mProvider;
 
-    public static class CustomViewHolder extends AbstractDraggableItemViewHolder {
+    static class CustomViewHolder extends AbstractDraggableItemViewHolder {
         private FrameLayout mContainer;
         private Button mChannelButton;
 

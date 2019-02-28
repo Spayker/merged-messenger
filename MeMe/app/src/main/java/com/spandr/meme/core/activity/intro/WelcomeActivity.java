@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -24,7 +23,6 @@ import static com.spandr.meme.core.activity.main.logic.LogicContants.APP_BACK_RE
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_AUTO_LOGIN;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.common.util.ActivityUtils.initLanguage;
-import static java.lang.Thread.sleep;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.

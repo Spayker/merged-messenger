@@ -1,8 +1,6 @@
 package com.spandr.meme.core.activity.webview.logic.manager;
 
 
-import android.content.Context;
-
 import com.spandr.meme.core.activity.webview.WebViewActivity;
 import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 import com.spandr.meme.core.activity.webview.logic.init.channel.chat.DiscordWebViewChannel;

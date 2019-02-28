@@ -2,7 +2,6 @@ package com.spandr.meme.core.activity.intro.logic;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;

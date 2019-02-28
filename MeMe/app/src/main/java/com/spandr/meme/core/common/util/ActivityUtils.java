@@ -1,11 +1,7 @@
 package com.spandr.meme.core.common.util;
 
 import android.annotation.TargetApi;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -23,12 +19,10 @@ import android.widget.TextView;
 
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.authorization.logic.listener.AppAuthorizerListenerStorage;
-import com.spandr.meme.core.activity.intro.WelcomeActivity;
 
 import java.util.Locale;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
-import static android.content.Context.NOTIFICATION_SERVICE;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.APP_SUPPORTED_LANGUAGES;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.EN;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CURRENT_APP_LANGUAGE;

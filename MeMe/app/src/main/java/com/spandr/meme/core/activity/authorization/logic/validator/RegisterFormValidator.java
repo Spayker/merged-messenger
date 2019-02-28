@@ -4,11 +4,9 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.spandr.meme.R;
-import com.spandr.meme.core.activity.authorization.RegisterActivity;
 import com.spandr.meme.core.activity.authorization.logic.validator.exception.AppValidationFormException;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.EMAIL_INCORRECT_FORMAT;
