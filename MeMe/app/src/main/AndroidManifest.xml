@@ -114,19 +114,25 @@
                 android:value=".core.activity.settings.global.GlobalSettingsActivity" />
         </activity>
 
+        <!--Menu of Notepad Categories-->
+        <activity android:name=".core.activity.notepad.category.NotepadCategoryActivity"
+            android:theme="@style/MainTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".core.activity.main.MainActivity" />
+        </activity>
+
+        <!--Menu of Notepad's Dashboard-->
+        <activity android:name=".core.activity.notepad.NotepadDashboardActivity"
+            android:theme="@style/MainTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".core.activity.notepad.category.NotepadCategoryActivity" />
+        </activity>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="d4a2832e07fd95f91d11ac1f04bb9e6762526e6c" />
-
-        <service
-            android:name=".core.activity.main.logic.notification.NotificationService"
-            android:label="@string/app_name"
-            android:permission="android.permission.INTERNET">
-            <intent-filter>
-                <action android:name="com.spandr.meme.NotificationService" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </service>
 
     </application>
 
