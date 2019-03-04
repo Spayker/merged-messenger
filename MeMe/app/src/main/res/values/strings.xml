@@ -185,8 +185,8 @@
             <string name="remove_account_log_remove_account_successful">removing account successful</string>
             <string name="remove_account_user_is_null">user is null</string>
 
-        <!--Notification Module-->
-            <string name="notification_received_messages">Received New Messages</string>
+        <!--Notepad Category Screen-->
+            <string name="notepad_category_search_field_hint">Search By Category</string>
     <!--UI String Section End-->
 
     <!--Backend Section Start-->

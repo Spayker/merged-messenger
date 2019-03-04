@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     .add(new DataProviderFragment().initActivity(this), FRAGMENT_TAG_DATA_PROVIDER)
                     .commit();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.main_linear_layout, new DraggableGridFragment(), FRAGMENT_LIST_VIEW)
+                    .add(R.id.main_frame_layout, new DraggableGridFragment(), FRAGMENT_LIST_VIEW)
                     .commit();
         }
     }

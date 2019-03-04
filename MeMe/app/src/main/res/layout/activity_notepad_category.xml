@@ -6,5 +6,37 @@
     tools:context=".core.activity.notepad.NotepadCategoryActivity">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/activity_notepad_category_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:foreground="@mipmap/back" />
+
+        <EditText
+            android:id="@+id/activity_notepad_category_search_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:hint="@string/notepad_category_search_field_hint"
+            android:imeOptions="actionUnspecified"
+            android:importantForAutofill="no"
+            android:inputType="textFilter"
+            android:maxLines="1"
+            android:singleLine="true"
+            tools:targetApi="o" />
+
+        <Button
+            android:id="@+id/activity_notepad_category_search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:foreground="@drawable/progress" />
+
+    </LinearLayout>
 </LinearLayout>

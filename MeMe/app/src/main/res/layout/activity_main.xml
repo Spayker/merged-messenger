@@ -6,19 +6,41 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/main_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="72sp"
-        android:orientation="vertical"
-        tools:ignore="UselessParent"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/main_frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15sp"
+            android:layout_marginBottom="72sp"
+            android:layout_weight="0.1"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UselessParent" />
+
+        <Button
+            android:id="@+id/main_activity_switch_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="180sp"
+            android:background="#17c19a"
+            android:minWidth="15sp"
+            android:minHeight="90sp"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:src="@mipmap/edit_channels" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linear"

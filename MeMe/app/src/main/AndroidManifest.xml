@@ -116,7 +116,7 @@
 
         <!--Menu of Notepad Categories-->
         <activity android:name=".core.activity.notepad.NotepadCategoryActivity"
-            android:theme="@style/MainTheme">
+            android:theme="@style/NotepadScreen">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.activity.main.MainActivity" />
@@ -124,7 +124,7 @@
 
         <!--Menu of Notepad's Dashboard-->
         <activity android:name=".core.activity.notepad.NotepadDashboardActivity"
-            android:theme="@style/MainTheme">
+            android:theme="@style/NotepadScreen">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.activity.notepad.NotepadCategoryActivity" />
@@ -132,7 +132,7 @@
 
         <!--Menu of Notepad's Editor-->
         <activity android:name=".core.activity.notepad.NotepadEditorActivity"
-            android:theme="@style/MainTheme">
+            android:theme="@style/NotepadScreen">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".core.activity.notepad.NotepadDashboardActivity" />
