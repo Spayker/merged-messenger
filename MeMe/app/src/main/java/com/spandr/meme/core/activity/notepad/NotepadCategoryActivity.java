@@ -1,4 +1,4 @@
-package com.spandr.meme.core.activity.notepad.category;
+package com.spandr.meme.core.activity.notepad;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
