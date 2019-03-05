@@ -19,6 +19,7 @@ import com.spandr.meme.core.activity.main.logic.builder.draggable.DraggableGridF
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.data.AbstractDataProvider;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.fragment.DataProviderFragment;
 import com.spandr.meme.core.activity.main.logic.updater.AppUpdater;
+import com.spandr.meme.core.activity.notepad.NotepadCategoryActivity;
 import com.spandr.meme.core.activity.settings.channel.EditChannelsActivity;
 import com.spandr.meme.core.activity.settings.global.GlobalSettingsActivity;
 import com.spandr.meme.core.common.util.ActivityUtils;
@@ -123,6 +124,12 @@ public class MainActivity extends AppCompatActivity {
     public void clickOnEditChannels(View view) {
         saveChannelOrder();
         Intent intent = new Intent(this, EditChannelsActivity.class);
+        startActivity(intent);
+    }
+
+    public void clickOnNotepadCategories(View view){
+        saveChannelOrder();
+        Intent intent = new Intent(this, NotepadCategoryActivity.class);
         startActivity(intent);
     }
 

@@ -14,7 +14,7 @@
 
         <FrameLayout
             android:id="@+id/main_frame_layout"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="15sp"
             android:layout_marginBottom="72sp"
@@ -38,6 +38,7 @@
             android:minHeight="90sp"
             android:scaleX="0.7"
             android:scaleY="0.7"
+            android:onClick="clickOnNotepadCategories"
             android:src="@mipmap/edit_channels" />
 
     </LinearLayout>
