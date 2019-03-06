@@ -29,24 +29,8 @@ public class DataChannelManager {
         return dataChannelManager;
     }
 
-    public static Boolean clearChannels() {
-        if (channels != null) {
-            channels.clear();
-            return true;
-        }
-        return false;
-    }
-
     public List<Channel> getChannels() {
         return channels;
-    }
-
-    public Iterable<String> getChannelsIterator() {
-        ArrayList<String> channelNames = new ArrayList<>();
-        for (Channel channel : channels){
-            channelNames.add(channel.getName());
-        }
-        return channelNames;
     }
 
     public static DataChannelManager createChannelManager(AppCompatActivity mainActivity, List<Channel> channels) {
