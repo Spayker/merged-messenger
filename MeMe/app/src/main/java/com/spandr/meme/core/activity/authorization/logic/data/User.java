@@ -38,7 +38,7 @@ public class User {
         return instance;
     }
 
-    public User(String emailAddress, String password) {
+    User(String emailAddress, String password) {
         this.password = password;
         this.emailAddress = emailAddress;
     }

@@ -75,21 +75,12 @@ public class CustomChromeWebClient extends WebChromeClient
      *                             Note: The web page must only contain one video tag in order for the HTML5 video ended event to work. This could be improved if needed (see Javascript code).
      */
     @SuppressWarnings("unused")
-    public CustomChromeWebClient(View activityNonVideoView, ViewGroup activityVideoView, View loadingView, AdvancedWebView webView) {
+    protected CustomChromeWebClient(View activityNonVideoView, ViewGroup activityVideoView, View loadingView, AdvancedWebView webView) {
         this.activityNonVideoView = activityNonVideoView;
         this.activityVideoView = activityVideoView;
         this.loadingView = loadingView;
         this.webView = webView;
         this.isVideoFullscreen = false;
-    }
-
-    /**
-     * Indicates if the video is being displayed using a custom view (typically full-screen)
-     *
-     * @return true it the video is being displayed using a custom view (typically full-screen)
-     */
-    public boolean isVideoFullscreen() {
-        return isVideoFullscreen;
     }
 
     /**

@@ -50,7 +50,7 @@ public class RegisterFormValidator implements FormValidator {
                 if (!android.util.Patterns.EMAIL_ADDRESS.matcher(login).matches()) {
                     return EMAIL_INCORRECT_FORMAT;
                 }
-                String emailDomainPart = login.substring(login.indexOf("@") + 1);;
+                String emailDomainPart = login.substring(login.indexOf("@") + 1);
                 List<String> supportedEmailDomains =
                         Arrays.asList(currentActivity.getResources().getStringArray(R.array.supported_email_domains));
 

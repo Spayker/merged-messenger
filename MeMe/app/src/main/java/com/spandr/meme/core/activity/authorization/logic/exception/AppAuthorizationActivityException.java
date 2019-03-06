@@ -6,7 +6,7 @@ public class AppAuthorizationActivityException extends RuntimeException {
         super();
     }
 
-    public AppAuthorizationActivityException(String message) {
+    AppAuthorizationActivityException(String message) {
         super(message);
     }
 
@@ -14,7 +14,7 @@ public class AppAuthorizationActivityException extends RuntimeException {
         super(message, cause);
     }
 
-    public AppAuthorizationActivityException(Throwable cause) {
+    AppAuthorizationActivityException(Throwable cause) {
         super(cause);
     }
 

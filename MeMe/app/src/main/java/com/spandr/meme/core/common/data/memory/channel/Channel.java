@@ -15,7 +15,6 @@ public final class Channel {
     private String lastUrl;
     private ICON icon;
     private boolean active;
-    private boolean isNotificationsEnabled;
     private String userAgent;
 
     private WebViewChannel webViewChannel;
@@ -23,14 +22,12 @@ public final class Channel {
     private Channel() { }
 
     Channel(Context context, String name, TYPE type, ICON icon, String homeUrl,
-            boolean active,
-            boolean isNotificationsEnabled) {
+            boolean active) {
         this.name = name;
         this.type = type;
         this.homeUrl = homeUrl;
         this.active = active;
         this.icon = icon;
-        this.isNotificationsEnabled = isNotificationsEnabled;
         this.lastUrl = context.
                 getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).
                 getString(name + "lastUrl", EMPTY_STRING);
@@ -61,14 +58,6 @@ public final class Channel {
 
     public void setLastUrl(String lastUrl) {
         this.lastUrl = lastUrl;
-    }
-
-    public boolean getNotificationsEnabled() {
-        return isNotificationsEnabled;
-    }
-
-    public void setNotificationsEnabled(boolean notificationsEnabled) {
-        isNotificationsEnabled = notificationsEnabled;
     }
 
     public Boolean getActive() {

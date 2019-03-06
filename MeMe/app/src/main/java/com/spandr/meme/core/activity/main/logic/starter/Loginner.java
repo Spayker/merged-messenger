@@ -72,8 +72,6 @@ public class Loginner implements Starter {
     @SuppressLint("StaticFieldLeak")
     private static AppCompatActivity mainActivity;
 
-    private static String notificationPrefix;
-
     private Loginner() {
     }
 
@@ -81,7 +79,6 @@ public class Loginner implements Starter {
         if (instance == null) {
             instance = new Loginner();
             mainActivity = mA;
-            notificationPrefix = mainActivity.getString(R.string.channel_setting_notifications_prefix);
         }
         return instance;
     }
@@ -212,14 +209,11 @@ public class Loginner implements Starter {
     private void initChannel(String channelKey, SharedPreferences sharedPreferences, List<Channel> channels,
                              TYPE type, ICON icon, String homeUrl) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        String channelKeyNotification = channelKey + notificationPrefix;
 
         boolean isChannelActive = sharedPreferences.getBoolean(channelKey, !isChannelExcludedByDefault(channelKey, mainActivity));
-        boolean isChannelNotificationActive = sharedPreferences.getBoolean(channelKeyNotification, true);
 
-        Channel channel = createNewChannel(mainActivity, channelKey, type, icon, homeUrl, isChannelActive, isChannelNotificationActive);
+        Channel channel = createNewChannel(mainActivity, channelKey, type, icon, homeUrl, isChannelActive);
         editor.putBoolean(channelKey, isChannelActive);
-        editor.putBoolean(channelKeyNotification, isChannelNotificationActive);
         channels.add(channel);
         editor.apply();
         editor.commit();

@@ -126,7 +126,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
             return false;
         }
 
-        if (!actualSavedPassword.equals(oldPassword)) {
+        if (actualSavedPassword != null && !actualSavedPassword.equals(oldPassword)) {
             String message = getString(R.string.change_password_old_password_is_different);
             ActivityUtils.invokeOkAlertMessage(this, message);
             return false;

@@ -10,8 +10,4 @@ public interface ActionAuthorizer {
 
     void signIn(String login, String password) throws AppFireBaseAuthException;
 
-    void logout();
-
-    void sendVerification();
-
 }

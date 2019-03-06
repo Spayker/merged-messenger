@@ -1,5 +1,6 @@
 package com.spandr.meme.core.activity.main.logic.starter;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
@@ -67,7 +68,9 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.YOUTU
 
 public class Setupper implements Starter {
 
+    @SuppressLint("StaticFieldLeak")
     private static Setupper instance;
+    @SuppressLint("StaticFieldLeak")
     private static AppCompatActivity mainActivity;
     private static String notificationPrefix;
 
@@ -226,7 +229,7 @@ public class Setupper implements Starter {
         boolean isChannleActive = sharedPreferences.getBoolean(channelKey, !isChannelExcludedByDefault(channelKey, mainActivity));
         boolean isChannelNotificationActive = sharedPreferences.getBoolean(channelKeyNotification, true);
 
-        Channel channel = createNewChannel(mainActivity, channelKey, type, icon, homeUrl, isChannleActive, isChannelNotificationActive);
+        Channel channel = createNewChannel(mainActivity, channelKey, type, icon, homeUrl, isChannleActive);
         editor.putBoolean(channelKey, isChannleActive);
         editor.putBoolean(channelKeyNotification, isChannelNotificationActive);
         channels.add(channel);

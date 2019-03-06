@@ -34,18 +34,18 @@ public class FirebaseEmailAuthorizer {
         return mAuth.createUserWithEmailAndPassword(emailAddress, password);
     }
 
-    public Task<Void> sendEmailVerification() {
+    public void sendEmailVerification() {
         FirebaseUser user = mAuth.getCurrentUser();
-        return sendEmailVerification(user);
+        sendEmailVerification(user);
     }
 
-    public Task<Void> sendEmailVerification(FirebaseUser user) {
+    public void sendEmailVerification(FirebaseUser user) {
         if(user == null){
             Log.e(TAG, "sendEmailVerification: Fire base user is null. Sending is cancelled. returning null as result");
             throw new AppFireBaseAuthException();
         }
 
-        return user.sendEmailVerification();
+        user.sendEmailVerification();
     }
 
     public Task<AuthResult> signInWithEmailAndPasswordAuthorize(String emailAddress, String password) throws AppFireBaseAuthException {

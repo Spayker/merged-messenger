@@ -2,7 +2,7 @@ package com.spandr.meme.core.activity.authorization.logic.validator.exception;
 
 public class AppValidationFormException extends RuntimeException{
 
-    public AppValidationFormException() {
+    AppValidationFormException() {
         super();
     }
 
@@ -10,11 +10,11 @@ public class AppValidationFormException extends RuntimeException{
         super(message);
     }
 
-    public AppValidationFormException(String message, Throwable cause) {
+    AppValidationFormException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public AppValidationFormException(Throwable cause) {
+    AppValidationFormException(Throwable cause) {
         super(cause);
     }
 

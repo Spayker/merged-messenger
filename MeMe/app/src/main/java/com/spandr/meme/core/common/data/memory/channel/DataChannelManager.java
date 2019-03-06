@@ -71,12 +71,11 @@ public class DataChannelManager {
     }
 
     public static Channel createNewChannel(Context context, String name, TYPE type, ICON icon, String homeUrl,
-                                           boolean active,
-                                           boolean notifications) {
-        return new Channel(context, name, type, icon, homeUrl, active, notifications);
+                                           boolean active) {
+        return new Channel(context, name, type, icon, homeUrl, active);
     }
 
-    public static List<Channel> getActiveChannelsByType(TYPE type) {
+    private static List<Channel> getActiveChannelsByType(TYPE type) {
         List<Channel> channels = new ArrayList<>();
         for (Channel chn : dataChannelManager.getChannels()) {
             if (chn.getType().equals(type) && chn.getActive()) {

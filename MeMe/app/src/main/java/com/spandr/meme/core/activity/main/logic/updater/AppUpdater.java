@@ -44,8 +44,10 @@ public class AppUpdater {
             }
 
             //If the versions are not the same
-            if(formattedLatestVersion.length() <= 4 && formattedCurrentVersion.length() <= 4){
-                if (!formattedCurrentVersion.equals(fullLatestVersion.replace(".",""))) {
+            if (formattedLatestVersion != null &&
+                    formattedLatestVersion.length() <= 4 &&
+                        formattedCurrentVersion.length() <= 4) {
+                if (!formattedCurrentVersion.equals(fullLatestVersion.replace(".", ""))) {
                     AlertDialog.Builder alertDialog = createDialogBox();
                     activity.runOnUiThread(alertDialog::show);
                 }

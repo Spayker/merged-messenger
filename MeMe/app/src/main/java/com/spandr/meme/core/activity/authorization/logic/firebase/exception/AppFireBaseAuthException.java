@@ -6,15 +6,11 @@ public class AppFireBaseAuthException extends RuntimeException {
         super();
     }
 
-    public AppFireBaseAuthException(String message) {
+    AppFireBaseAuthException(String message) {
         super(message);
     }
 
-    public AppFireBaseAuthException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public AppFireBaseAuthException(Throwable cause) {
+    AppFireBaseAuthException(Throwable cause) {
         super(cause);
     }
 

@@ -90,28 +90,6 @@ public class AppAuthorizer implements ActionAuthorizer {
                 .addOnCompleteListener(fireBaseAuthorizerListenerStorage.getSingInCompleteListener());
     }
 
-    @Override
-    public void logout() {
-        Log.d(TAG, "logout: performing user logout");
-        firebaseEmailAuthorizer.signOut();
-    }
-
-    @Override
-    public void sendVerification() {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        Objects.requireNonNull(mAuth.getCurrentUser()).reload();
-        FirebaseUser user = mAuth.getCurrentUser();
-        firebaseEmailAuthorizer.sendEmailVerification(user);
-        if (user.isEmailVerified()) {
-            Log.d(TAG, "sendVerification: user is verified. Finishing process...");
-            finishSingInActivity();
-        } else {
-            Log.d(TAG, "sendVerification: user is not verified. Invoking dialog to proceed...");
-            AlertDialog.Builder builder = ActivityUtils.createVerificationDialogBox(currentActivity, appAuthorizerListenerStorage);
-            builder.show();
-        }
-    }
-
     /**
      * Starts main activity of the application.
      **/

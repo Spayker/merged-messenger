@@ -18,8 +18,6 @@ import static com.spandr.meme.core.common.util.ActivityUtils.isNetworkAvailable;
 
 public abstract class WebViewChannel {
 
-    protected String notificationPrefix;
-
     protected String url = MEME_HOME_URL;
     protected String channelName;
     protected AdvancedWebView mWebView;

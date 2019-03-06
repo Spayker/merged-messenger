@@ -13,7 +13,7 @@ public class Channel extends ExpandableGroup<Option> {
     this.iconResId = iconResId;
   }
 
-  public int getIconResId() {
+  private int getIconResId() {
     return iconResId;
   }
 
