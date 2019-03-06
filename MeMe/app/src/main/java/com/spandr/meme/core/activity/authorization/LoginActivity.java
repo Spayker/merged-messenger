@@ -43,6 +43,10 @@ import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 
 /**
  * A login screen that offers login via email/password.
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/6/2019
  */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher,
         CompoundButton.OnCheckedChangeListener {

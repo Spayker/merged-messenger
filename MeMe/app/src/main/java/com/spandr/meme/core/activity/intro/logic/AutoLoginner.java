@@ -20,6 +20,13 @@ import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_USER_EMAIL_OR_PHONE;
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/6/2019
+ */
 public class AutoLoginner {
 
     // tag field is used for logging sub system to identify from coming logs were created

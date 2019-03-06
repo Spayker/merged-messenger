@@ -24,6 +24,13 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.CHANN
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.EMPTY_STRING;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.HOME_URL;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/6/2019
+ */
 public class DataProvider extends AbstractDataProvider {
 
     private List<ConcreteData> mData;

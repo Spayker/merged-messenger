@@ -18,6 +18,13 @@ import static com.spandr.meme.core.activity.authorization.logic.validator.Valida
 import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.SHORT_PASSWORD;
 import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.UNSUPPORTED_EMAIL_DOMAIN;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/6/2019
+ */
 public class RegisterFormValidator implements FormValidator {
 
     private Context currentActivity;

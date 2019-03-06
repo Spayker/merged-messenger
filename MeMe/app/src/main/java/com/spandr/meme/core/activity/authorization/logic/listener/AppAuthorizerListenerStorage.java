@@ -7,6 +7,13 @@ import android.widget.Toast;
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.authorization.logic.firebase.email.FirebaseEmailAuthorizer;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/6/2019
+ */
 public class AppAuthorizerListenerStorage {
 
     private AppCompatActivity currentActivity;

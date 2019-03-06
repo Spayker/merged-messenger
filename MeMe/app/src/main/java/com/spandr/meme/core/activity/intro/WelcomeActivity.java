@@ -27,6 +27,9 @@ import static com.spandr.meme.core.common.util.ActivityUtils.initLanguage;
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/6/2019
  */
 public class WelcomeActivity extends AppCompatActivity {
 

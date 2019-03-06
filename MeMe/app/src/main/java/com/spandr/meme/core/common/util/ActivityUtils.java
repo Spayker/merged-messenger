@@ -27,6 +27,13 @@ import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.EN;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CURRENT_APP_LANGUAGE;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/6/2019
+ */
 public final class ActivityUtils {
 
     private static Boolean isLocaleSet;

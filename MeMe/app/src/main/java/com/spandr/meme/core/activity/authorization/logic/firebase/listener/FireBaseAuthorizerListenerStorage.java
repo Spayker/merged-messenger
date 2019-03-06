@@ -19,6 +19,13 @@ import com.spandr.meme.core.common.util.ActivityUtils;
 
 import java.util.Objects;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/6/2019
+ */
 public class FireBaseAuthorizerListenerStorage {
 
     private AppCompatActivity currentActivity;

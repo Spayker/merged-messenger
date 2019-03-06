@@ -20,6 +20,13 @@ import java.util.Objects;
 
 import static com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager.ITEM_MOVE_MODE_SWAP;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/6/2019
+ */
 public class DraggableGridFragment extends Fragment {
 
     private RecyclerView mRecyclerView;

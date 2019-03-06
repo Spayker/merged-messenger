@@ -12,6 +12,13 @@ import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/6/2019
+ */
 public class User {
 
     private static User instance;

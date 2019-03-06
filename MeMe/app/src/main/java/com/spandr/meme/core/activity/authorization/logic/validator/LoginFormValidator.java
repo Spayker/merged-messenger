@@ -8,6 +8,13 @@ import static com.spandr.meme.core.activity.authorization.logic.validator.Valida
 import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.EMPTY_PASSWORD;
 import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.OK;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/6/2019
+ */
 public class LoginFormValidator implements FormValidator{
 
     @Override

@@ -18,6 +18,13 @@ import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.data.AbstractDataProvider;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.utils.DrawableUtils;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/6/2019
+ */
 public class DraggableGridAdapter extends RecyclerView.Adapter<DraggableGridAdapter.CustomViewHolder>
         implements DraggableItemAdapter<DraggableGridAdapter.CustomViewHolder> {
 

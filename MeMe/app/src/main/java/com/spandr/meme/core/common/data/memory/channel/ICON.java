@@ -2,6 +2,13 @@ package com.spandr.meme.core.common.data.memory.channel;
 
 import com.spandr.meme.R;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/6/2019
+ */
 public enum ICON {
 
     FB(R.mipmap.fb),

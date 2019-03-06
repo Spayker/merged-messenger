@@ -7,6 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.data.AbstractDataProvider;
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.data.DataProvider;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/6/2019
+ */
 public class DataProviderFragment extends Fragment {
 
     private AbstractDataProvider mDataProvider;

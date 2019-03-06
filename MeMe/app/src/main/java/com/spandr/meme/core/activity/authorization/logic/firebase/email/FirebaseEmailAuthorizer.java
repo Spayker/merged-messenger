@@ -8,6 +8,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/6/2019
+ */
 public class FirebaseEmailAuthorizer {
 
     // tag field is used for logging sub system to identify from coming logs were created

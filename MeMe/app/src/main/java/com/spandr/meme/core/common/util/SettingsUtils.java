@@ -7,6 +7,13 @@ import com.spandr.meme.R;
 
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/6/2019
+ */
 public final class SettingsUtils {
 
     public static String getChannelActivateValueIdByName(Context context, String channelName) {

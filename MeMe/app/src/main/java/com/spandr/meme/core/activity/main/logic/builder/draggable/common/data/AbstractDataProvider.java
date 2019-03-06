@@ -3,6 +3,13 @@ package com.spandr.meme.core.activity.main.logic.builder.draggable.common.data;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+/**
+*
+*
+* @author  Spayker
+* @version 1.0
+* @since   3/6/2019
+*/
 public abstract class AbstractDataProvider {
 
     public static abstract class Data {

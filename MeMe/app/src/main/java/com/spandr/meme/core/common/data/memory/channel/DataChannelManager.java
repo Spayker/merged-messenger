@@ -10,6 +10,13 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+*
+*
+* @author  Spayker
+* @version 1.0
+* @since   3/6/2019
+*/
 public class DataChannelManager {
 
     private static DataChannelManager dataChannelManager;
@@ -19,6 +26,12 @@ public class DataChannelManager {
 
     @SuppressWarnings("unused")
     private DataChannelManager() {
+    }
+
+    public static void clearChannels() {
+        if (channels != null) {
+            channels.clear();
+        }
     }
 
     private DataChannelManager(List<Channel> chnls) {

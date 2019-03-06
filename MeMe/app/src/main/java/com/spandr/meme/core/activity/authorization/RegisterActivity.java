@@ -28,8 +28,12 @@ import com.spandr.meme.core.activity.intro.WelcomeActivity;
 import static com.spandr.meme.core.activity.main.logic.LogicContants.APP_BACK_RETURN_FLAG;
 
 /**
- * A Register screen that offers a registration procedure via email/password.
- */
+* A Register screen that offers a registration procedure via email/password.
+*
+* @author  Spayker
+* @version 1.0
+* @since   3/6/2019
+*/
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     @SuppressLint("StaticFieldLeak")
