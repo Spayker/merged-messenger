@@ -13,7 +13,7 @@ import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 
 /**
- *
+ *  Defines user model entity that keeps user's progress of authorization
  *
  * @author  Spayker
  * @version 1.0

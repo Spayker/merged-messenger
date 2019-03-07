@@ -28,7 +28,7 @@ import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 
 /**
- *
+ *`Implements prime logic of authorization ways in system for an user
  *
  * @author  Spayker
  * @version 1.0

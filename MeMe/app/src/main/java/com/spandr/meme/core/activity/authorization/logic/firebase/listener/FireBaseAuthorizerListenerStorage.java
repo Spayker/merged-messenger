@@ -20,8 +20,8 @@ import com.spandr.meme.core.common.util.ActivityUtils;
 import java.util.Objects;
 
 /**
- *
- *
+ *  Declares listeners that responsible for event's catching. Events are related to auth processes
+ *  which appear during communication with Firebase infrastructure
  * @author  Spayker
  * @version 1.0
  * @since   3/6/2019

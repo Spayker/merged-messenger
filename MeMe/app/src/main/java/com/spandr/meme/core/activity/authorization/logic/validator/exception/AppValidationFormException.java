@@ -1,7 +1,7 @@
 package com.spandr.meme.core.activity.authorization.logic.validator.exception;
 
 /**
- *
+ *  Represents app exception that appears during validation of sign in/up form
  *
  * @author  Spayker
  * @version 1.0

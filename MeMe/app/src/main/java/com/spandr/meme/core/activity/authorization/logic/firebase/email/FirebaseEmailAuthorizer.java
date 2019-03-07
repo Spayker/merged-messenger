@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
 
 /**
- *
+ *  Represents email authorization API to Firebase infrastructure
  *
  * @author  Spayker
  * @version 1.0

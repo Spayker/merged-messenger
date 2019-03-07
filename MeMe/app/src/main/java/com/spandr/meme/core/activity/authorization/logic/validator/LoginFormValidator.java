@@ -9,8 +9,8 @@ import static com.spandr.meme.core.activity.authorization.logic.validator.Valida
 import static com.spandr.meme.core.activity.authorization.logic.validator.ValidationReturnCode.OK;
 
 /**
- *
- *
+ *  Represents sign in validation method that check all input data from sign in form.
+ *  It happens when user wants to sign in
  * @author  Spayker
  * @version 1.0
  * @since   3/6/2019

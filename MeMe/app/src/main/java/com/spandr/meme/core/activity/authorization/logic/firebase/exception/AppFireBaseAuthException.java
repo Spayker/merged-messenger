@@ -1,7 +1,7 @@
 package com.spandr.meme.core.activity.authorization.logic.firebase.exception;
 
 /**
- *
+ *  Defines app exception that happens only during auth process with Firebase infrastructure
  *
  * @author  Spayker
  * @version 1.0

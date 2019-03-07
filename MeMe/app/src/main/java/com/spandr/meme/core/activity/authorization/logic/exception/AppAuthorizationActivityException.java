@@ -1,7 +1,7 @@
 package com.spandr.meme.core.activity.authorization.logic.exception;
 
 /**
- *
+ *  Represents custom exception that can happen only during authorization process
  *
  * @author  Spayker
  * @version 1.0

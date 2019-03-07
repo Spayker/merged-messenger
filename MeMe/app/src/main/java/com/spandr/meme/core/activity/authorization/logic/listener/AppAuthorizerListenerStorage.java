@@ -8,7 +8,7 @@ import com.spandr.meme.R;
 import com.spandr.meme.core.activity.authorization.logic.firebase.email.FirebaseEmailAuthorizer;
 
 /**
- *
+ *  Represents storage of listeners that are used for catching auth events in app
  *
  * @author  Spayker
  * @version 1.0

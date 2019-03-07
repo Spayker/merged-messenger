@@ -3,7 +3,7 @@ package com.spandr.meme.core.activity.authorization.logic;
 import com.spandr.meme.core.activity.authorization.logic.firebase.exception.AppFireBaseAuthException;
 
 /**
- *
+ *  Represents two main approaches to get authorized in system for an user
  *
  * @author  Spayker
  * @version 1.0

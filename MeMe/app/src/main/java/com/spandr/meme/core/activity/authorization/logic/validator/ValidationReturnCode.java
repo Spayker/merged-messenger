@@ -1,7 +1,7 @@
 package com.spandr.meme.core.activity.authorization.logic.validator;
 
 /**
- *
+ *  Declares possible return codes from form validation logic
  *
  * @author  Spayker
  * @version 1.0
