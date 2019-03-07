@@ -1,5 +1,12 @@
 package com.spandr.meme.core.activity.webview.logic;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/7/2019
+ */
 public interface WebViewConstants {
 
     //// CHANNEL RELATED

@@ -8,6 +8,13 @@ import android.arch.persistence.room.PrimaryKey;
 import com.spandr.meme.core.common.data.memory.channel.ICON;
 import com.spandr.meme.core.common.data.memory.channel.TYPE;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/7/2019
+ */
 @Entity
 public class Channel {
 

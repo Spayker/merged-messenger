@@ -7,6 +7,13 @@ import com.spandr.meme.core.activity.webview.logic.init.channel.WebViewChannel;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/7/2019
+ */
 public final class Channel {
 
     private String name;

@@ -38,6 +38,13 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.KEY_T
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.WEBVIEW_BACK_BUTTON_VIBRATE_DURATION_IN_MS;
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/7/2019
+ */
 public class WebViewActivity extends AppCompatActivity implements AdvancedWebView.Listener,
         View.OnTouchListener, ViewTreeObserver.OnScrollChangedListener {
 

@@ -16,6 +16,13 @@ import im.delight.android.webview.AdvancedWebView;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.MEME_HOME_URL;
 import static com.spandr.meme.core.common.util.ActivityUtils.isNetworkAvailable;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/7/2019
+ */
 public abstract class WebViewChannel {
 
     protected String url = MEME_HOME_URL;

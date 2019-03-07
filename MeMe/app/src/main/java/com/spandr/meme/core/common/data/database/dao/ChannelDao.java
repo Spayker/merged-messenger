@@ -10,6 +10,13 @@ import com.spandr.meme.core.common.data.memory.channel.TYPE;
 
 import java.util.List;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/7/2019
+ */
 @Dao
 public interface ChannelDao {
 
