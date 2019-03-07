@@ -4,8 +4,8 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 /**
-*
-*
+*  Defines general structure of data provider that will be included in each element on main screen.
+*  By elements we mean only activated channels
 * @author  Spayker
 * @version 1.0
 * @since   3/6/2019

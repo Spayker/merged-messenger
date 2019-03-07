@@ -21,7 +21,7 @@ import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 
 /**
- *
+ * Represents auto login feature that can be invoked during entrance to welcome activity
  *
  * @author  Spayker
  * @version 1.0

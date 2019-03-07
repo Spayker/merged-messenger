@@ -3,7 +3,7 @@ package com.spandr.meme.core.activity.main.logic.builder.draggable.common.utils;
 import android.graphics.drawable.Drawable;
 
 /**
- *
+ * Defines 
  *
  * @author  Spayker
  * @version 1.0

@@ -8,8 +8,8 @@ import com.spandr.meme.core.activity.main.logic.builder.draggable.common.data.Ab
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.data.DataProvider;
 
 /**
- *
- *
+ *  Defines a concrete data provider fragment. It inits a concrete data provider and keeps a link
+ *  to it
  * @author  Spayker
  * @version 1.0
  * @since   3/6/2019
@@ -21,9 +21,7 @@ public class DataProviderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setRetainInstance(true);  // keep the mDataProvider instance
-
+        setRetainInstance(true);
     }
 
     public AbstractDataProvider getDataProvider() {

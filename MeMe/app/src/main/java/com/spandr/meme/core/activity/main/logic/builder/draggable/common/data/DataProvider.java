@@ -25,8 +25,8 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.EMPTY
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.HOME_URL;
 
 /**
- *
- *
+ *  Declares a concrete structure of data provider for elements on main activity that are activated
+ *  channels
  * @author  Spayker
  * @version 1.0
  * @since   3/6/2019

@@ -1,7 +1,7 @@
 package com.spandr.meme.core.activity.intro.logic.exception;
 
 /**
-*
+*  Represents ui related exception that can happen on welcome screen
 *
 * @author  Spayker
 * @version 1.0
