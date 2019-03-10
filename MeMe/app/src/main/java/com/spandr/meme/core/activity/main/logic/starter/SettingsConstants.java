@@ -3,6 +3,13 @@ package com.spandr.meme.core.activity.main.logic.starter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/10/2019
+ */
 public interface SettingsConstants {
 
     //// SETTINGS RELATED CONSTANTS

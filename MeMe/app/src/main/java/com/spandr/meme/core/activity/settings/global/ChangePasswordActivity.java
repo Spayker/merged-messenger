@@ -19,8 +19,12 @@ import com.spandr.meme.core.common.util.ActivityUtils;
 import static com.spandr.meme.core.common.ActivityConstants.EMPTY_STRING;
 
 /**
- * A class handler is linked to appropriate activity xml file and contains backend logic.
- **/
+ *  A class handler is linked to appropriate activity xml file and contains backend logic.
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/10/2019
+ */
 public class ChangePasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
     // tag field is used for logging sub system to identify from coming logs were created

@@ -6,6 +6,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/10/2019
+ */
 public class GetLatestVersion  extends AsyncTask<String, String, String> {
 
     private final String APP_LINK = "https://play.google.com/store/apps/details?id=com.spandr.meme";

@@ -66,6 +66,13 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.TWITT
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.VK_HOME_URL;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.YOUTUBE_HOME_URL;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/10/2019
+ */
 public class Setupper implements Starter {
 
     @SuppressLint("StaticFieldLeak")

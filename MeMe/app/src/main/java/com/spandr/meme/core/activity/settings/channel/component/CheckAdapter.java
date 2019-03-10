@@ -31,6 +31,13 @@ import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 import static com.spandr.meme.core.common.util.SettingsUtils.getChannelNotificationValueIdByName;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/10/2019
+ */
 public class CheckAdapter
         extends MultiTypeExpandableRecyclerViewAdapter<ChannelViewHolder, ChildViewHolder>
         implements OnChildCheckChangedListener, OnChildrenCheckStateChangedListener {

@@ -1,6 +1,7 @@
 package com.spandr.meme.core.activity.main.logic.builder.draggable;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +22,8 @@ import java.util.Objects;
 import static com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager.ITEM_MOVE_MODE_SWAP;
 
 /**
- *
+ * Implements adapter's logic that is responsible for structure's init of movable element
+ * (View). Also includes instructions that will be executed on View destroy, pause events.
  *
  * @author  Spayker
  * @version 1.0
@@ -45,12 +47,14 @@ public class DraggableGridFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_recycler_list_view, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         //noinspection ConstantConditions

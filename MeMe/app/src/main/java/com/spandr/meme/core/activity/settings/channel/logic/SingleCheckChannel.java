@@ -6,6 +6,13 @@ import com.thoughtbot.expandablecheckrecyclerview.models.SingleCheckExpandableGr
 
 import java.util.List;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/10/2019
+ */
 public class SingleCheckChannel extends SingleCheckExpandableGroup {
 
   private int iconResId;

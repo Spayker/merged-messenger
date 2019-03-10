@@ -31,6 +31,13 @@ import static com.spandr.meme.core.common.data.memory.channel.ICON.TWITCH;
 import static com.spandr.meme.core.common.data.memory.channel.ICON.VK;
 import static com.spandr.meme.core.common.data.memory.channel.ICON.YT;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/10/2019
+ */
 public class ChannelDataFactory {
 
     public static List<SingleCheckChannel> makeSocialChannels(AppCompatActivity activity) {

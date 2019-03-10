@@ -19,8 +19,8 @@ import com.spandr.meme.core.activity.main.logic.builder.draggable.common.data.Ab
 import com.spandr.meme.core.activity.main.logic.builder.draggable.common.utils.DrawableUtils;
 
 /**
- *
- *
+ * Implements adapter's logic that is responsible for structure's init of movable element
+ * (ViewHolder) on main screen.
  * @author  Spayker
  * @version 1.0
  * @since   3/6/2019

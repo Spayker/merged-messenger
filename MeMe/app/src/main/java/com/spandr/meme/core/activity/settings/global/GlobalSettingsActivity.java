@@ -30,8 +30,12 @@ import static com.spandr.meme.core.common.util.ActivityUtils.updateResourcesLoca
 import static com.spandr.meme.core.common.util.ActivityUtils.updateResourcesLocaleLegacy;
 
 /**
- * A class handler is linked to appropriate activity xml file and contains backend logic.
- **/
+* A class handler is linked to appropriate activity xml file and contains backend logic.
+*
+* @author  Spayker
+* @version 1.0
+* @since   3/10/2019
+*/
 public class GlobalSettingsActivity extends AppCompatActivity {
 
     // tested with android profiler on possible memory leaks. Results shows no leaks at all

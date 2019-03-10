@@ -31,8 +31,12 @@ import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 
 /**
- * A class handler is linked to appropriate activity xml file and contains backend logic.
- **/
+* A class handler is linked to appropriate activity xml file and contains backend logic.
+*
+* @author  Spayker
+* @version 1.0
+* @since   3/10/2019
+*/
 public class RemoveAccountActivity extends AppCompatActivity implements View.OnClickListener,
         CompoundButton.OnCheckedChangeListener {
 

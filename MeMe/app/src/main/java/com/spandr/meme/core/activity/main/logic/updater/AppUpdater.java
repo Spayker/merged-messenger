@@ -14,6 +14,13 @@ import com.spandr.meme.core.activity.main.logic.updater.async.GetLatestVersion;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/10/2019
+ */
 public class AppUpdater {
 
     private static final String TAG = AppUpdater.class.getSimpleName();

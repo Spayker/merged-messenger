@@ -7,6 +7,13 @@ import java.util.ArrayList;
 
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.createChannelManager;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/10/2019
+ */
 public interface Starter {
 
     void initApplication(SharedPreferences sharedPreferences);

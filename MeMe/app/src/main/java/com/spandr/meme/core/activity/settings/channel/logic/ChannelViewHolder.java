@@ -19,6 +19,13 @@ import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.getChannelByName;
 import static com.spandr.meme.core.common.util.SettingsUtils.getChannelActivateValueIdByName;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/10/2019
+ */
 public class ChannelViewHolder extends GroupViewHolder {
 
     private TextView channelName;

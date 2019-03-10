@@ -37,7 +37,11 @@ import static com.spandr.meme.core.common.util.ActivityUtils.initLanguage;
 
 /**
  * A class handler is linked to appropriate activity xml file and contains backend logic.
- **/
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/10/2019
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final String FRAGMENT_TAG_DATA_PROVIDER = "data provider";

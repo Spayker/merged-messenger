@@ -7,6 +7,13 @@ import android.widget.CheckedTextView;
 import com.spandr.meme.R;
 import com.thoughtbot.expandablecheckrecyclerview.viewholders.CheckableChildViewHolder;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/10/2019
+ */
 public class CheckOptionViewHolder extends CheckableChildViewHolder {
 
     private CheckedTextView childCheckedTextView;

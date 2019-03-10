@@ -12,6 +12,13 @@ import com.spandr.meme.core.activity.settings.channel.component.CheckAdapter;
 
 import static com.spandr.meme.core.activity.settings.channel.model.ChannelDataFactory.makeSocialChannels;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/10/2019
+ */
 public class EditChannelsActivity extends AppCompatActivity {
 
     // tag field is used for logging sub system to identify from coming logs were created

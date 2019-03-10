@@ -3,6 +3,13 @@ package com.spandr.meme.core.activity.settings.channel.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/10/2019
+ */
 public class Option implements Parcelable {
 
     private String name;

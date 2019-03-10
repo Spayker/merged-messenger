@@ -8,6 +8,13 @@ import android.view.View;
 import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.MainActivity;
 
+/**
+*
+*
+* @author  Spayker
+* @version 1.0
+* @since   3/10/2019
+*/
 public class NotepadCategoryActivity extends AppCompatActivity {
 
     @Override

@@ -5,6 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.spandr.meme.R;
 
+/**
+ *
+ *
+ * @author  Spayker
+ * @version 1.0
+ * @since   3/10/2019
+ */
 public class NotepadDashboardActivity extends AppCompatActivity {
 
     @Override
