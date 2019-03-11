@@ -32,7 +32,7 @@ import static com.spandr.meme.core.common.data.memory.channel.ICON.VK;
 import static com.spandr.meme.core.common.data.memory.channel.ICON.YT;
 
 /**
- *
+ *  Contains main init method of channels settings
  *
  * @author  Spayker
  * @version 1.0

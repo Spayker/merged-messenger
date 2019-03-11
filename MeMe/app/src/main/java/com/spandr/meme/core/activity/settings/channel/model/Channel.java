@@ -5,8 +5,8 @@ import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 import java.util.List;
 
 /**
- *
- *
+ *  Represents dto for keeping most valuable info of channels. That data will displayed later on
+ *  channels settings screen
  * @author  Spayker
  * @version 1.0
  * @since   3/10/2019

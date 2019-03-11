@@ -20,7 +20,7 @@ import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager
 import static com.spandr.meme.core.common.util.SettingsUtils.getChannelActivateValueIdByName;
 
 /**
- *
+ *  Defines ViewHolder structure and basic behaviour methods
  *
  * @author  Spayker
  * @version 1.0

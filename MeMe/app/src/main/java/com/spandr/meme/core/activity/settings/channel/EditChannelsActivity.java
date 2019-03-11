@@ -13,7 +13,7 @@ import com.spandr.meme.core.activity.settings.channel.component.CheckAdapter;
 import static com.spandr.meme.core.activity.settings.channel.model.ChannelDataFactory.makeSocialChannels;
 
 /**
- *
+ *  Defines main logic for handling of channel settings activity needs
  *
  * @author  Spayker
  * @version 1.0

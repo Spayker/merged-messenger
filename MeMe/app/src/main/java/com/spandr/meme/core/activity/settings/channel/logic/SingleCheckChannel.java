@@ -7,7 +7,7 @@ import com.thoughtbot.expandablecheckrecyclerview.models.SingleCheckExpandableGr
 import java.util.List;
 
 /**
- *
+ *  Defines Single check setting structure that represents channel setting category
  *
  * @author  Spayker
  * @version 1.0

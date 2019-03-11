@@ -9,7 +9,7 @@ import com.spandr.meme.R;
 import com.spandr.meme.core.activity.main.MainActivity;
 
 /**
-*
+*  Defines main logic for handling of notepad category activity needs
 *
 * @author  Spayker
 * @version 1.0

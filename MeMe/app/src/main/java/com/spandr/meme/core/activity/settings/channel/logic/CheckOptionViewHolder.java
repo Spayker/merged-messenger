@@ -8,7 +8,7 @@ import com.spandr.meme.R;
 import com.thoughtbot.expandablecheckrecyclerview.viewholders.CheckableChildViewHolder;
 
 /**
- *
+ *  Defines ViewHolder with checkbox UI component and basic set of handling methods
  *
  * @author  Spayker
  * @version 1.0

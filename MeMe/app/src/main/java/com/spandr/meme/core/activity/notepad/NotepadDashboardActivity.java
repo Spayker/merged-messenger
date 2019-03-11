@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.spandr.meme.R;
 
 /**
- *
+ *  Defines main logic for handling of notepad dashboard activity needs
  *
  * @author  Spayker
  * @version 1.0

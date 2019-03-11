@@ -32,8 +32,8 @@ import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager
 import static com.spandr.meme.core.common.util.SettingsUtils.getChannelNotificationValueIdByName;
 
 /**
- *
- *
+ *  Declares check adapter logic that keeps main handling methods for proper initialization
+ *  channel setting items in channel settings activity
  * @author  Spayker
  * @version 1.0
  * @since   3/10/2019

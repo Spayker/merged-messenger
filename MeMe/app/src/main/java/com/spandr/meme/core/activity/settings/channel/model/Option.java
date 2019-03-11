@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- *
+ * Represents basic logic of switcher that displayed toward each channel in channels settings
  *
  * @author  Spayker
  * @version 1.0
