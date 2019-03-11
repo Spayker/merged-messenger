@@ -7,7 +7,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 /**
- *
+ *  Defines task wrapper that will be run separately in background when application will load main screen
  *
  * @author  Spayker
  * @version 1.0

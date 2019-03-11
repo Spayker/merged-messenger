@@ -19,7 +19,7 @@ import com.spandr.meme.core.common.util.ActivityUtils;
 
 import io.fabric.sdk.android.Fabric;
 
-import static com.spandr.meme.core.activity.main.logic.LogicContants.APP_BACK_RETURN_FLAG;
+import static com.spandr.meme.core.activity.main.logic.LogicConstants.APP_BACK_RETURN_FLAG;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_AUTO_LOGIN;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.common.util.ActivityUtils.initLanguage;

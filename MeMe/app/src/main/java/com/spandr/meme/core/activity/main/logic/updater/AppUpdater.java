@@ -15,8 +15,8 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 /**
- *
- *
+ * Contains main logic that identifies whether a new update of application is loaded on google
+ *  play market
  * @author  Spayker
  * @version 1.0
  * @since   3/10/2019

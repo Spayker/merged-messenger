@@ -25,7 +25,7 @@ import com.spandr.meme.core.activity.authorization.logic.validator.FormValidator
 import com.spandr.meme.core.activity.authorization.logic.validator.RegisterFormValidator;
 import com.spandr.meme.core.activity.intro.WelcomeActivity;
 
-import static com.spandr.meme.core.activity.main.logic.LogicContants.APP_BACK_RETURN_FLAG;
+import static com.spandr.meme.core.activity.main.logic.LogicConstants.APP_BACK_RETURN_FLAG;
 
 /**
 * A Register screen that offers a registration procedure via email/password.

@@ -3,8 +3,8 @@ package com.spandr.meme.core.activity.main.logic.builder.draggable.common.utils;
 import android.graphics.drawable.Drawable;
 
 /**
- * Defines 
- *
+ * Defines method to clear state of ViewHolder. State clears each time during the creation
+ * of new ViewHolder
  * @author  Spayker
  * @version 1.0
  * @since   3/6/2019

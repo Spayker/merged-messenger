@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * Represents constants that are used in global settings, in sign in, sign up scenarios
  *
  * @author  Spayker
  * @version 1.0

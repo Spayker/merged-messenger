@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import static com.spandr.meme.core.common.data.memory.channel.DataChannelManager.createChannelManager;
 
 /**
- *
- *
+ * Represents start behaviour of application in context of channels. According to auth scenario
+ * different approaches of channel setup will be used.
  * @author  Spayker
  * @version 1.0
  * @since   3/10/2019

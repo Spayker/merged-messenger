@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.spandr.meme.core.activity.main.logic.LogicContants.CHANNEL_SPLITTER;
+import static com.spandr.meme.core.activity.main.logic.LogicConstants.CHANNEL_SPLITTER;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.KEY_CHANNEL_ORDER;
 import static com.spandr.meme.core.activity.main.logic.starter.SettingsConstants.PREF_NAME;
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.CHANNEL_NAME;

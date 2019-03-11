@@ -67,7 +67,7 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.VK_HO
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.YOUTUBE_HOME_URL;
 
 /**
- *
+ *  Keeps logic that is responsible for channel setup during sign up scenario
  *
  * @author  Spayker
  * @version 1.0

@@ -66,7 +66,7 @@ import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.VK_HO
 import static com.spandr.meme.core.activity.webview.logic.WebViewConstants.YOUTUBE_HOME_URL;
 
 /**
-*
+* Support class that contains logic for channels setup during login process in application
 *
 * @author  Spayker
 * @version 1.0
