@@ -41,6 +41,12 @@ Nevertheless all initiative was failed a PoC was created anyway. Currently it su
 Currently it reminds some sort of social portal rather than merged messenger.
 User auth process is based on Google FireBase API.
 
+![alt text](resources/meme_1.jpg)
+![alt text](resources/meme_2.png)
+![alt text](resources/meme_3.jpg)
+![alt text](resources/meme_4.png)
+![alt text](resources/meme_5.png)
+
 ## Dev environment specification
 Next tools were used to develop PoC:<br />
 #Android SDK: API 21: Android 5.0 (Lollipop) - 71.3% coverage of devices for 2018-2019<br />
