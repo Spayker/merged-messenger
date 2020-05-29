@@ -1,4 +1,4 @@
-# MeMe or Social Portal
+# MeMe (Merged Messenger) or Social Portal
 
 Project itself has long story started in 2018. Once an idea was born to combine message transferring
 between popular chats, social networks. Users could chat between each other by sending text, media for
