@@ -1,28 +1,59 @@
-# MeMe
+# MeMe (Merged Messenger) or Social Portal
 
-## Project status
+Project itself has long story started in 2018. Once an idea was born to combine message transferring
+between popular chats, social networks. Users could chat between each other by sending text, media for
+example from Facebook to LinkedIn and vice versa.
 
-## Description
-The solution is summoned to bring unite access to all most famous channels, including social networks, chats, video, info services.
+My interest was born immediately since I was curios about one detail: how social networks can
+exchange data between each other in terms of 2 users at least. What if 1 user only FB account and
+second one has LinkedIn !?
 
-SPEC: https://docs.google.com/document/d/1TIfASjRgCNQKB2M2u7SWHRlC19clraXQ3Q8c1Ve4U_Y/edit?ts=5a104380# <br />
-Business scenarios: https://docs.google.com/document/d/1CUAZx6p2-LLXaYxsBlA5QsGbYIlLISNBt6RecBN8Q5I/edit <br />
-ChatSDK: https://github.com/chat-sdk/chat-sdk-android <br />
-FireBase: https://firebase.google.com/ <br />
-Patreon: https://www.patreon.com/merged_messenger
-Google PlayMarket: https://play.google.com/store/apps/details?id=com.spandr.meme
+Occurred initiative was born to find answers on all questions above.
 
-## Technology stack
-#Android версия: API 21: Android 5.0 (Lollipop) - 71.3% device coverage<br />
-#IDE: Android Studio v3.0.1 or above<br />
-#JDK: OracleJDK v8.0 or above<br />
-#SDK: Android SDK 16 or above (included into Android Studio by default)<br />
-#Builder: Gradle 3<br />
-#Versioning: git<br />
+# Results
+Fast answer - no. Social networks block their user base as much as possible due to security reasons.
 
-## How to get started
+# Consequences
+Nevertheless all initiative was failed a PoC was created anyway. Currently it supports next channels:
+- Facebook
+- Telegram
+- Vkontakte
+- Instagram
+- YouTube
+- Twitch
+- Skype
+- Twitter
+- Tumblr
+- Pinterest
+- Slack
+- Linked in
+- Odnoklassniki
+- Discord
+- GaduGadu
+- ICQ
+- Gmail
+- MailRu
+- Reddit
+- Quora
+- Stackoverflow
+- Habr
 
-## How to use
+Currently it reminds some sort of social portal rather than merged messenger.
+User auth process is based on Google FireBase API.
+
+## Dev environment specification
+Next tools were used to develop PoC:<br />
+#Android SDK: API 21: Android 5.0 (Lollipop) - 71.3% coverage of devices for 2018-2019<br />
+#IDE: Android Studio v3.0.1<br />
+#JDK: openJDK v8.0<br />
+#Auth: FireBase<br />
+#Build tool: Gradle v3.0<br />
+
+## Founders
+Oleksandr Kuzmin, Andrey Stoyanov
 
 ## License
-ShareWare
+MIT
+
+## Links
+Download and check application: https://play.google.com/store/apps/details?id=com.spandr.meme&hl=en_US
